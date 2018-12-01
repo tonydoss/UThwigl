@@ -1,16 +1,20 @@
-# enter sample name as in the data file
-sample_name <- "PB_T1"
+rm(list=ls()) # delete everything
 
-# enter coordinates of the sample outer and inner surfaces (in um).
-# (1) refers to the surface closest to the first analysis,
-# (2) to the surface closest to the last analysis.
-x_s1 <- 17.762*1000
-y_s1 <- 78.807*1000
-x_s2 <- 18.897*1000
-y_s2 <- 78.360*1000
+# ptm_start <- proc.time()
+
+# path where data are
+path <- "C:/Users/tonyd/OneDrive - University of Wollongong/LAB/MC-ICPMS laser ablation/20180321 Amy Tasmania"
+# enter sample name as in the data file
+sample_name <- "A"
+
+# enter position of first (1) and last (2) surfaces (in um) 
+x_s1 <- 38.06*1000
+y_s1 <- 14.1*1000
+x_s2 <- 38*1000
+y_s2 <- 15.2*1000
 
 # nb of iterations for the simulation (start with 1; see below)
-nbit <- 100
+nbit <- 1000
 
 # enter value for squared difference; start with low value and 1 iteration (nbit <- 1)
 # if script runs rapidly, try a lower value for fsum_target
@@ -29,15 +33,16 @@ U48_0_min <- 1.1
 U48_0_max <- 2.0
 # min and max value for the age (yr)
 T_min <- 3e3
-T_max <- 8e3
+T_max <- 800e3
 
+setwd(path)
 # compute table with relative distances and activity ratios
-source("R/iolite_to_iDAD.R")
+source("C:/Users/tonyd/OneDrive - University of Wollongong/R/MC-ICPMS laser ablation/iolite_to_iDAD.R")
 
 # enter file name with data - create dataframe df with data from file
 df <- read.csv(paste(sample_name,"_for_iDAD.csv",sep = "")) # create dataframe df with data from file
 
-setwd("../")
-source('R/iDAD Monte Carlo.R')
-source("R/iDAD_direct.R")
-source("R/graphs&save.R")
+setwd("C:/Users/tonyd/OneDrive - University of Wollongong/R/iDAD model") # set working directory
+source('iDAD Monte Carlo.R')
+source("iDAD_direct.R")
+source("graphs&save.R")

@@ -1,6 +1,5 @@
 l <- l/10/2
 
-# decay constants (in s-1)
 l238 <- 0.1551e-9/(365.25*24*3600)
 l234 <- 2.826e-6/(365.25*24*3600)
 l232 <- 4.948e-11/(365.25*24*3600)
@@ -10,7 +9,6 @@ length_series <- 10
 
 x_vec <- df$iDAD.position
 
-# initialise vectors and matrices
 T_sol <- vector(mode="numeric", length=nbit)
 U48_0_sol <- vector(mode="numeric", length=nbit)
 K_sol <- vector(mode="numeric", length=nbit)
@@ -46,12 +44,10 @@ R48_min <- df$U234_U238_CORR - df$U234_U238_CORR_Int2SE
 R48_max <- df$U234_U238_CORR + df$U234_U238_CORR_Int2SE
 R08_min <- df$Th230_U238_CORR - df$Th230_U238_CORR_Int2SE
 R08_max <- df$Th230_U238_CORR + df$Th230_U238_CORR_Int2SE
-# U48obs <- df$U234_U238_CORR
-# Th0U8obs <- df$Th230_U238_CORR
 
 counter <- 0
 
-# repeat simulation until 'nbit' is reached
+# repeat simulation 'nbit' number of times for a given sample
 while (counter < nbit){
   K <- runif(1, K_min, K_max)
   U48_0 <- runif(1, U48_0_min, U48_0_max)
@@ -60,18 +56,18 @@ while (counter < nbit){
     U48obs[ii] <- runif(1, R48_min[ii], R48_max[ii])
     Th0U8obs[ii] <- runif(1, R08_min[ii], R08_max[ii])
   }
-
+  
   t <- T*(365.25*24*3600)
   A1_0 <- U_0*1e-6/238*6.02e23*l238 # (238U) at the surface of the bone (disintegrations per second)
   A2_0 <- U48_0*A1_0
   DA2_0 <- A2_0 - A1_0 # (234U) excess at the surface of the bone (disintegrations per second)
-
+  
   i <- 0
-
+  
   for (x in x_vec){
     # for (x in -0.5){
     i <- i+1
-
+    
     for (n in 0:length_series){
       series238[n+1] <- (-1)^n/(2*n + 1)*exp(-K*((2*n + 1)^2)*pi^2*t/(4*l^2))*cos((2*n + 1)/2*pi*x/l)
       beta234[n+1] <- 1 + 4*l234*(l^2)/((2*n + 1)^2)*pi^2*K
@@ -80,16 +76,16 @@ while (counter < nbit){
       series234[n+1] <- (-1)^n/((2*n + 1)*beta234[n+1])*exp(-l234*t-K*(2*n + 1)^2*pi^2*t/(4*l^2))*cos((2*n + 1)/2*pi*x/l)
       series230[n+1] <- (-1)^n/(2*n + 1)*gamma_model[n+1]*exp(-K*(2*n + 1)^2*pi^2*t/(4*l^2))*cos((2*n + 1)/2*pi*x/l)
     }
-
+    
     sum_series238 <- sum(series238)
     sum_series234 <- sum(series234)
     sum_series230 <- sum(series230)
-
+    
     A1[i] <- A1_0*(1 - 4/pi*sum_series238)
     DA2[i] <- DA2_0*(cosh(x*(l234/K)^0.5)/(cosh(l*l234/K)^0.5) - 4/pi*sum_series234)
-
+    
     t0 <- 0
-
+    
     for (n in 0:length_series){
       beta234_0[n+1] <- 1 + 4*l234*(l^2)/((2*n + 1)^2)*pi^2*K
       beta230_0[n+1] <- l230 - l234 - K*(2*n + 1)^2*pi^2/(4*l^2)
@@ -104,17 +100,17 @@ while (counter < nbit){
     Th0U8calc[i] <- A3[i]/A1[i]
     Th0U4calc[i] <- A3[i]/A2[i]
   }
-
+  
   for (z in 1:length(x_vec)){
     # for (z in 1){
     sum_sq[z] <- (U48calc[z] - U48obs[z])^2 + (Th0U8calc[z] - Th0U8obs[z])^2
   }
-
-  fsum <- sum(sum_sq)
-
+  
+  fsum <- sum(sum_sq) 
+  
   if(fsum < fsum_target){
     counter <- counter+1
-
+    
     U48calc_sol[counter,] <- U48calc
     Th0U8calc_sol[counter,] <- Th0U8calc
     T_sol[counter] <- T
@@ -127,3 +123,8 @@ diff <- T_sol - median(T_sol)
 T_final <- T_sol[diff == min(abs(diff))]
 K_final <- K_sol[diff == min(abs(diff))]
 U48_0_final <- U48_0_sol[diff == min(abs(diff))]
+
+
+
+
+
