@@ -23,7 +23,8 @@ ggplot(df) +
                               round((quantile(T_sol,.67)-T_final)/1000, digits = 1),"/-",
                               round((T_final - quantile(T_sol,.33))/1000, digits = 1)," ka", sep = ""))
 
-setwd(path)
+setwd(paste(path_wd,"output/", sep = ""))
+
 ggsave(paste("R08_",sample_name,"_DAD.png", sep = ""), width = 12, height = 10, units = "cm", dpi = 300,)
 
 ggplot(df) + 
@@ -47,6 +48,22 @@ ggsave(paste("R48_",sample_name,"_DAD.png", sep = ""), width = 12, height = 10, 
 
 save.image(paste(sample_name,".RData", sep = ""))
 
+results <- as.data.frame(cbind(T_final/1000, (quantile(T_sol,.67)-T_final)/1000, (T_final - quantile(T_sol,.33))/1000, 
+                         U48_0_final, U48_0_max - U48_0_final, U48_0_final - U48_0_min))
+
+colnames(results) <- c("Age (ka)", "Age 67% quantile (ka)" ,"Age 33% quantile (ka)", 
+                       "U234_U238_0", "U234_U238_0 67% quantile" ,"U234_U238_0 33% quantile")
+rownames(results) <- c("Results")
+
+write.table(results, file = paste(sample_name,"_model_results.csv", sep = ""), sep = ",", row.names = F)
+
+calc_ratios <- as.data.frame(cbind(U48calc_final, Th0U8calc_final))
+colnames(calc_ratios) <- c("U234_U238_CALC", "Th230_U238_CALC")
+
+write.table(calc_ratios, file = paste(sample_name,"_calc_ratios.csv", sep = ""), sep = ",", row.names = F)
+
 print(paste("Age: ",round(T_final/1000, digits=1)," +",
-            round((quantile(T_sol,.67)-T_final)/1000, digits = 1),"/-",
+            round((quantile(T_sol,.67) - T_final)/1000, digits = 1),"/-",
             round((T_final - quantile(T_sol,.33))/1000, digits = 1)," ka", sep = ""))
+
+setwd(path_wd)
