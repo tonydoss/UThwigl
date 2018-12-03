@@ -1,0 +1,73 @@
+---
+title: "iDADwigl - a R package for open-system uranium-thorium dating"
+author: "Anthony Dosseto$^1$$^,$$^*$ and Ben Marwick$^2$"
+date: 
+output:
+  pdf_document:
+    df_print: kable
+    includes:
+      in_header: input/mystyles.sty
+    keep_tex: yes
+    latex_engine: lualatex
+    number_sections: no
+linestretch: 1.5
+csl: input/geochimica-et-cosmochimica-acta.csl
+bibliography: input/Library.bib
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)
+# knitr::write_bib(x = "rmarkdown", file = "Library.bib") # so you can cite references in figure captions
+```
+
+$^1$Wollongong Isotope Geochronology Laboratory, School of Earth & Envrionmental Sciences. University of Wollongong. Wollongong NSW Australia
+
+$^2$Ben's affiliation
+
+$^*$Corresponding author: tonyd@uow.edu.au
+   
+\newpage
+\linenumbers
+
+# Introduction
+Open-system uranium-thorium (U-Th) dating of teeth and bones, while challenging, has revolutionised our ability to provide reliable chronology for humans and fauna [@Eggins2005; @Gruen2014; @Sambridge2012]. Thus, this approach has significantly improved our understanding of human evolution [e.g. @Dirks2017; @Sutikna2016]. 
+Uranium-thorium dating is based on the premise that a material takes up U but no Th, so all the ^230^Th in the sample comes from decay of ^238^U. If detrital Th is included to the sample, a correction must be included to account for the fraction of ^230^Th which is detrital and not derived from ^238^U decay. Another requirement is that there is no gain or loss of ^230^Th, ^234^U or ^238^U after formation of the material. While it is often the case for many geological samples such as corals or speleothems, this requirement is rarely met for teeth and bone (although enamel can sometimes be quite impervious to isotope gain or loss). Thus, for teeth and bone, U-Th dating requires to take into account open system behaviour. The diffusion-adsorption-decay model developed by Sambridge et al. [-@Sambridge2012] was instrumental to implement successfully open-system U-Th dating. It allows for advective and diffusive transport of uranium and thorium isotopes, while include synchronous radioactive decay. The software implementation was written in Fortran and is available as a Java GUI (<http://www.iearth.org.au/codes/iDaD/>).
+In this article, we propose a R package which implements the model of Sambridge et al. [-@Sambridge2012]. 
+
+# Methods
+Data required for the DAD model are (^230^Th/^238^U) and (^234^U/^238^U) activity ratios collected along a transect perpendicular to the surface of the tooth or bone (brackets denote activity ratios throughout this article). Sampling for analysis can be done by micro-drilling or laser ablation. If the former, aliquots are then dissolved, followed by separation of U and Th using ion exchange chromatography. This is more time consuming (at least one week of work) than laser ablation, where the material sampled by the laser is directly sent to the mass spectrometer. While laser ablation also offers a better spatial resolution than micro-drilling, the precision of the data is inferior because of the much smaller amount of material sampled. Uranium and thorium isotope ratios are then analysed by multi-collector inductively-coupled plasma mass spectrometry. A plasma ionise all U and Th atoms, their isotopes are separated through a magnetic field and each collected in a different collector. If using laser ablation, it is best to have two ion counters so ^230^Th and ^234^U can be collected simultaneously.    
+The distance of each analysis location from the inner and outer surfaces of the bones, for instance, needs to be recorded. One surface is given a coordinate of 1 and the other one -1, thus coordinates of analyses take values in between (Fig. 1).
+The script requires a csv file with the following columns: *iDAD position*, *U234_U238_CORR*, *U234_U238_CORR_Int2SE*, *iDAD position*, *Th230_U238_CORR*, *Th230_U238_CORR_Int2SE*, *U_ppm* and *U_ppm_Int2SE*. The R package comes with two examples of input files. The first *iDAD position* column corresponds to the coordinates of the (^234^U/^238^U) analyses, which as indicated above take values between -1 and 1. The second *iDAD position* column is used if the coordinates of the (^230^Th/^238^U) analyses are different from those of the (^234^U/^238^U) analyses. Columns *U234_U238_CORR* and *U234_U238_CORR_Int2SE* are the (^234^U/^238^U) activity ratios and their 2$\sigma$ errors. Columns *Th230_U238_CORR* and *Th230_U238_CORR_Int2SE* are the (^230^Th/^238^U) activity ratios and their 2$\sigma$ errors. Columns *U_ppm* and *U_ppm_Int2SE* and calculated uranium concentrations (in ppm) and their 2$\sigma$ errors. Uranium concentrations are not necessary for the model and only used for display of the U concentration profile in a figure.
+
+
+![Modern human femur (132A/LB/27D/03) from Liang Bua, Flores, Indonesia. Two analysis transects can be seen. For a given transect, the outer and inner surface of the bone are given 1 and -1 reference coordinates, and the position of each analysis is calculated accordingly. Modified from Sutikna et al. [-@Sutikna2016]](input/bone.png)
+
+# Running the script
+In the folder where you store the R script *run_this*, create two folders on your computer named "input" and "output". In the "input" folder, place the csv file(s) in the "input" folder.
+Open the *run_this* script. For *path_wd*, enter the full path where your R scripts are. For *input_file_name*, enter the name of the data file. For *sample_name*, enter the chosen sample name you want to display on figures. *nbit* is the number of iterations. For the first run, set to 1. *fsum_target* is the sum of the squared differences between the calculated and observed activity ratios. Give it a low value to start with (e.g. 0.05). 
+For *l*, enter the thickness of the sample (in cm). For instance, for the modern human bone, thickness is 5.35 cm. 
+For *U_0*, enter the U concentration at the surface (in ppm). This value does not significantly affect the model results and values from analyses near either surface of the sample can be used as a guide. 
+*K_min* and *K_max* are the minimum and maximum values allowed for the uranium diffusion coefficient (in cm^2^/s). Values between 10^-13^ and 10^-11^ cm^2^/s are generally appropriate. 
+*U48_0_min* and *U48_0_max* are the minimum and maximum values allowed for the (^234^U/^238^U) activity ratio at the surface of the sample. Since (^234^U/^238^U) does not vary greatly over the time period generally studied, the values measured near the surface of the sample can be used as a guide. These values can be adjusted if the model fit to the data is not optimal.
+*T_min* and *T_max* are minimum and maximum values allowed for the age (in yr). If there is no estimated knowledge of the sample age, the range of values can be 1,000 to 500,000 yr and adjusted later.
+
+Run the script *run_this* by pressing "Source" in R studio. This will generate figures with the U concentration profile, the observed and calculated (^234^U/^238^U) activity ratios and the observed and calculated (^230^Th/^238^U) activity ratios. The model calculated age and (^234^U/^238^U) ratio at the surface are also saved in a csv file named with the sample name and the mention "model_results". Error reported in this file are the 67% and 33% quantiles. The sample age is in years before the date of analysis. The calculated activity ratios are also saved in a separate csv file named with the sample name and the mention "calc_ratios". The environment is also saved in a Rdata file with the sample name. The model age is also displayed in the console with its error reported as the 67% and 33% quantiles. 
+
+Optimise the fit by change the range of allowed values for the (^234^U/^238^U) ratio at the surface and the age of the sample, and by decreasing the *fsum_target*. Once you obtain a satisfying fit (by visual inspection of the produced figures), increase *nbit* to a higher value (e.g. 1000) and run the model again.
+
+# Test results
+The package is provided with two sample data sets derived from Sutikna et al. [-@Sutikna2016]: "Hobbit_MH2T_for_iDAD.csv" is data from transect 2 for modern human femur 132A/LB/27D/03. "Hobbit_1-1T_for_iDAD.csv" is data from transect 1 for *Homo floresiensis* ulna LB1/52. For the latter, six analyses were removed from the set as in [@Sutikna2016].
+For transect 2 of 132A/LB/27D/03, Sutikna et al. [-@Sutikna2016] reported an age of 7.4 $\pm$ 0.5 ka (thousand years before 2014). With iDADwigl, we obtain an age of 7.1 +0.6/-0.7 ka (Figs. 2-4).
+For transect 1 of LB1/52, Sutikna et al. [-@Sutikna2016] reported an age of 79.0 $\pm$ 3.7 ka. With iDADwigl, we obtain an age of 75.4 $\pm$ 0.9 ka.
+
+![Uranium concentration profile for transect 2 of modern human femur 132A/LB/27D/03](input/U_Hobbit_MH2T_DAD.png)
+
+![Calculated (red) and observed (blue) (^234^U/^238^U) activity ratios for transect 2 of modern human femur 132A/LB/27D/03.](input/R48_Hobbit_MH2T_DAD.png)
+
+![Calculated (red) and observed (blue) (^230^Th/^238^U) activity ratios for transect 2 of modern human femur 132A/LB/27D/03](input/R08_Hobbit_MH2T_DAD.png)
+
+
+\newpage
+\nolinenumbers
+# References
+
