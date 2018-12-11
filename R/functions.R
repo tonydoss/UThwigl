@@ -21,7 +21,7 @@
 #' @export
 #'
 #' @examples
-sambridge_et_al <- function(input_data,
+iDADwigl <- function(input_data,
                             nbit = 1,
                             fsum_target = 0.01,
                             U48_0_min = 1.265, # Hobbit_1-1T: 1.3; Hobbit_MH2T: 1.265
@@ -287,4 +287,4 @@ if(print_summary) {
 
 
 # testing...
-# sambridge_et_al(Hobbit_MH2T_for_iDAD, nbit = 10)
+# iDADwigl(Hobbit_MH2T_for_iDAD, nbit = 10)
