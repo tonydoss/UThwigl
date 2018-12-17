@@ -2,7 +2,7 @@
 
 
 
-#' Title
+#' iDADwigl
 #'
 #' @param input_data 
 #' @param nbit 
@@ -35,13 +35,18 @@ iDADwigl <- function(input_data,
                             print_summary = TRUE
 ){
   
-
   
   # check that the input data frame has the columns with the right names
-  # ...
-  # names(input_data)
   
+  col_names_we_need <-  c("iDAD.position", "U234_U238_CORR", "U234_U238_CORR_Int2SE", "Th230_U238_CORR", "Th230_U238_CORR_Int2SE")
   
+  if(all(col_names_we_need %in% colnames(input_data)))
+  {
+    cat("All required columns are present in the input data 👍\n");
+  } else {
+    ?OpenSystemUThDating::iDADwigl
+    stop("\nThe input data frame does not contain the necessary columns, or the columns are not named correctly 😢 Please check the documentation for details of the required column names, update the column names using the `names()` function, and try again.\n")
+  }
   
 
 # from iDAD Monte Carlo.R -------------------------------------------------
@@ -176,6 +181,9 @@ iDADwigl <- function(input_data,
   
   # end of that script
   
+  T_sol_df = as.data.frame(T_sol)  
+  
+  
 # from iDAD_direct.R ------------------------------------------------------
   
   i <- 0
@@ -228,8 +236,12 @@ iDADwigl <- function(input_data,
   
   
   output_data <- cbind(input_data, U48calc_final, Th0U8calc_final)
+  colnames(output_data)[  c( (ncol(output_data)-1), ncol(output_data) ) ] <- 
+    c("U234_U238_CALC", "Th230_U238_CALC")
   
 # from graphs&save.R -------------------------------------------  
+  
+  
   results <-
     as.data.frame(
       cbind(
@@ -252,9 +264,6 @@ iDADwigl <- function(input_data,
       "U234_U238_0 33% quantile"
     )
   rownames(results) <- c("Results")
-  
-  calc_ratios <- as.data.frame(cbind(U48calc_final, Th0U8calc_final))
-  colnames(calc_ratios) <- c("U234_U238_CALC", "Th230_U238_CALC")
   
   
 if(print_summary) { 
@@ -279,12 +288,13 @@ if(print_summary) {
               diff = diff,
               T_final = T_final,
               K_final = K_final,
+              T_sol = T_sol_df,
               U48_0_final = U48_0_final,
-              output_data = output_data,
-              calc_ratios = calc_ratios))
+              output_data = output_data))
 
 }
 
 
 # testing...
 # iDADwigl(Hobbit_MH2T_for_iDAD, nbit = 10)
+# input_data <- Hobbit_MH2T_for_iDAD
