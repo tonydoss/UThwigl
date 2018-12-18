@@ -11,5 +11,7 @@ Encoding: UTF-8
 LazyData: true
 Suggests: 
     knitr,
-    rmarkdown
+    rmarkdown,
+    dplyr
 VignetteBuilder: knitr
+RoxygenNote: 6.1.1
