@@ -14,10 +14,10 @@ output:
 linestretch: 1.5
 csl: geochimica-et-cosmochimica-acta.csl
 bibliography: Library.bib
-vignette: >
-  %\VignetteIndexEntry{iDADwigl - a R package for open-system uranium-thorium dating}
-  %\VignetteEngine{knitr::rmarkdown}
-  %\VignetteEncoding{UTF-8}
+#vignette: >
+#  %\VignetteIndexEntry{iDADwigl - a R package for open-system #uranium-thorium dating}
+#  %\VignetteEngine{knitr::rmarkdown}
+#  %\VignetteEncoding{UTF-8}
 ---
 
 
@@ -55,6 +55,22 @@ While laser ablation also offers a better spatial resolution than micro-drilling
 
 The distance of each analysis location from the inner and outer surfaces of the bones, for instance, needs to be recorded. One surface is given a coordinate of 1 and the other one -1, thus coordinates of analyses take values in between (Figure \@ref(fig:femurpic)).
 
+# Installing and attaching the package
+
+To run the model, start `R` and install the package from GitHub. There are many ways to do this, one simple method is shown in the line below. This only needs to be done once per computer.
+
+```{r eval = FALSE}
+source("https://install-github.me/tonydoss/iDADwigl")
+```
+
+For routine data analysis, R scripts need to contain this line to attach the package to the current working envirovnment. This line needs to be run at the start of each analysis:
+
+
+```{r}
+# attach the package
+library(iDADwigl)
+```
+
 # Input data format
 
 The key function of our package, `iDADwigl()` requires a data frame with the following column names: 
@@ -76,7 +92,7 @@ This data frame can be created by importing an Excel or CSV file into the R envi
 path_to_included_example_csv_file <- 
   system.file("extdata", 
             "input/Hobbit_MH2T_for_iDAD.csv", 
-            package = "OpenSystemUThDating",
+            package = "iDADwigl",
             mustWork = TRUE)
 
 # read in the example CSV file included in the package
@@ -147,16 +163,9 @@ After setting the `U480` maximum and minimum values, run the function and adjust
 
 # How to run the model
 
-To run the model, start `R` and install the package from GitHub. There are many ways to do this, one simple method is shown in the line below. This only needs to be done once per computer.
-
-```{r eval = FALSE}
-source("https://install-github.me/tonydoss/iDADwigl")
-```
-
 To run the function, attach the package and then run `iDADwigl()`, specifying the input data frame and the input parameters as described above. The code block below shows a quick example that will execute in less than five seconds on a typical 2.3 GHz Intel Core i5 laptop:  
 
 ```{r results='hide'}
-library(OpenSystemUThDating)
 output <- iDADwigl(Hobbit_MH2T_for_iDAD,
                    nbit = 500,
                    fsum_target = 0.01,
@@ -245,14 +254,10 @@ theme_plots <-
         panel.grid.minor = element_blank())
 ```
 
-This is a plot of ... which is useful for ... (Figure \@ref(fig:tsol))
+T```{r tsol, echo=FALSE,
+library(ggplot2)
 
-```{r tsol, echo=FALSE, fig.cap="A tsol plot"}
- 
-
- library(ggplot2)
-
-
+T_sol_plot <- 
 ggplot(output$T_sol, 
        aes(T_sol)) + 
   geom_histogram(binwidth = 500,
@@ -262,10 +267,9 @@ ggplot(output$T_sol,
 ```
 
 
-This is a plot of ... which is useful for ... (Figure \@ref(fig:th230-u238))
+T``{r th230u238, echo=FALSE,}
 
-
-```{r th230u238, echo=FALSE, fig.cap="A th230u238 plot" }
+th230u238_plot <- 
 ggplot(output$output_data) +
   geom_errorbar(
     aes(
@@ -295,7 +299,8 @@ ggplot(output$output_data) +
 ```
 
 
-```{r}
+```{r} echo=FALSE
+U_ppm_plot <- 
 ggplot(output$output_data) +
   geom_errorbar(
     aes(
@@ -310,7 +315,9 @@ ggplot(output$output_data) +
   theme_plots
 ```
 
-```{r}
+```{r} echo=FALSE
+
+u234_u238_plot <- 
 ggplot(output$output_data) +
   geom_errorbar(
     aes(
@@ -327,17 +334,15 @@ ggplot(output$output_data) +
              color = 'red',
              size = 5) +
   ylab(expression("(" ^ 234 * "U/" ^ 238 * "U)")) + xlab("Relative distance from center") +
-  theme_plots + ggtitle(paste(
-    "Age: ",
-    round(output$T_final / 1000, digits = 1),
-    " +",
-    round((quantile(output$T_sol$T_sol, .67) - output$T_final) / 1000, digits = 1),
-    "/-",
-    round((output$T_final - quantile(output$T_sol$T_sol, .33)) / 1000, digits = 1),
-    " ka",
-    sep = ""
-  ))
+  theme_plots 
 
+```
+
+
+```{r} echo=FALSE
+# combine plots
+library(patchwork)
+(T_sol_plot + Uth230u238_plot  / (tU_ppm_plot+ u234_u238_plot)
 ```
 
 
