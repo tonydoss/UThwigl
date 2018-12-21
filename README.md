@@ -34,9 +34,9 @@ The columns `iDAD.position`, `U234_U238_CORR`, `U234_U238_CORR_Int2SE`, `Th230_U
 
 The `iDAD.position` column corresponds to the coordinates of the (<sup>234</sup>U/<sup>238</sup>U) analyses, which as indicated above take values between -1 and 1. The second `iDAD.position.1` column is used if the coordinates of the (<sup>230</sup>Th/<sup>238</sup>U) analyses are different from those of the (<sup>234</sup>U/<sup>238</sup>U) analyses. 
 
-Columns `U234_U238_CORR` and `U234_U238_CORR_Int2SE` are the (<sup>234</sup>U/<sup>238</sup>U) activity ratios and their 2$\sigma$ errors. Columns `Th230_U238_CORR` and `Th230_U238_CORR_Int2SE` are the (<sup>230</sup>Th/<sup>238</sup>U) activity ratios and their 2$\sigma$ errors. 
+Columns `U234_U238_CORR` and `U234_U238_CORR_Int2SE` are the (<sup>234</sup>U/<sup>238</sup>U) activity ratios and their 2\sigma errors. Columns `Th230_U238_CORR` and `Th230_U238_CORR_Int2SE` are the (<sup>230</sup>Th/<sup>238</sup>U) activity ratios and their 2\sigma errors. 
 
-Columns `U_ppm` and `U_ppm_Int2SE` and calculated uranium concentrations (in ppm) and their 2$\sigma$ errors. Uranium concentrations are not necessary for the model and only used for display of the U concentration profile in a figure.
+Columns `U_ppm` and `U_ppm_Int2SE` and calculated uranium concentrations (in ppm) and their 2\sigma errors. Uranium concentrations are not necessary for the model and only used for display of the U concentration profile in a figure.
 
 # Details of the input parameters
 
