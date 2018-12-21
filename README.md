@@ -14,6 +14,6 @@ source("https://install-github.me/tonydoss/iDADwigl")
 
 ## Example
 
-Please see the vignette for an example of how to use this pkg
+Please see the [vignette](articles/idadwigl.pdf) for an example of how to use this pkg
 
 

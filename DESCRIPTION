@@ -7,12 +7,12 @@ Authors@R:
     family = "Dosseto", 
     role = c("aut", "cre"), 
     email = "tonyd@uow.edu.au",
-    comment = c(ORCID = "0000-0002-3575-0106"),
+    comment = c(ORCID = "0000-0002-3575-0106")),
     person(given = "Ben", 
     family = "Marwick", 
     role = c("aut"), 
     email = "benmarwick@gmail.com", 
-    comment = c(ORCID = "0000-0001-7879-4531"))))
+    comment = c(ORCID = "0000-0001-7879-4531")))
 Maintainer: Ben Marwick <benmarwick@gmail.com>
 Description: Implements the diffusion-adsorption-decay (DAD) model developed by Sambridge et al. for open-system U-Th dating
 License: MIT + file LICENSE

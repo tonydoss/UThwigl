@@ -11,6 +11,9 @@ output:
     latex_engine: xelatex
     number_sections: no
     toc: FALSE
+pkgdown:
+   as_is: true
+   extension: pdf
 linestretch: 1.5
 csl: geochimica-et-cosmochimica-acta.csl
 bibliography: Library.bib
@@ -243,9 +246,9 @@ print(output_data_table,
 
 `iDADwigl()` returns several figures useful for visualisation of the model results along with the data: 
    
-1.  a histogram of the solution ages (Figure \@ref(fig:plot-panel)A) 
-2.  the U concentrations in the sample as a function of the relative distance from the center (Figure \@ref(fig:plot-panel)B) 
-3.  the measured (in blue) and modelled (in red) (^234^U/^238^U) activity ratios as a function of the relative distance from the center (Figure \@ref(fig:plot-panel)C), and 
+1.  a histogram of the solution ages (Figure \@ref(fig:plot-panel) A) 
+2.  the U concentrations in the sample as a function of the relative distance from the center (Figure \@ref(fig:plot-panel) B) 
+3.  the measured (in blue) and modelled (in red) (^234^U/^238^U) activity ratios as a function of the relative distance from the center (Figure \@ref(fig:plot-panel) C), and 
 4. the measured (in blue) and modelled (in red) (^230^Th/^238^U) activity ratios as a function of the relative distance from the center (Figure \@ref(fig:plot-panel) D).   
 
 ```{r echo=FALSE}

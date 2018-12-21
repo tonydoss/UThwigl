@@ -140,7 +140,7 @@
 <a class="sourceLine" id="cb3-6" data-line-number="6">            <span class="dt">mustWork =</span> <span class="ot">TRUE</span>)</a>
 <a class="sourceLine" id="cb3-7" data-line-number="7"></a>
 <a class="sourceLine" id="cb3-8" data-line-number="8"><span class="co"># read in the example CSV file included in the package</span></a>
-<a class="sourceLine" id="cb3-9" data-line-number="9">Hobbit_MH2T_for_iDAD &lt;-<span class="st"> </span></a>
+<a class="sourceLine" id="cb3-9" data-line-number="9">Hobbit_MH2T_for_iDAD &lt;-</a>
 <a class="sourceLine" id="cb3-10" data-line-number="10"><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/read.table">read.csv</a></span>(path_to_included_example_csv_file)</a></code></pre></div>
 
 <p>Table @ref(tab:hobbitone) shows the data contained in the <code>Hobbit_MH2T_for_iDAD.csv</code> file included in the package</p>
@@ -163,19 +163,19 @@
 <p>Our key function, <code><a href="../reference/iDADwigl.html">iDADwigl()</a></code> has several arguments that need to be set before we can get meaningful results.</p>
 <p><code>nbit</code> is the number of iterations. For the first run, set to 1.</p>
 <p><code>fsum_target</code> is the sum of the squared differences between the calculated and observed activity ratios. Give it a low value to start with (e.g. 0.05). If script takes too long, try a higher value for fsum_target.</p>
-<p><code>U48_0_min</code> and <code>U48_0_max</code> are the minimum and maximum values allowed for the (<sup>234</sup>U/<sup>238</sup>U) activity ratio at the surface of the sample. Since (<sup>234</sup>U/<sup>238</sup>U) does not vary greatly over the time period generally studied, the values measured near the surface of the sample can be used as a guide. These values can be adjusted if the model fit to the data is not optimal. For Hobbit_1-1T it is 1.3 and 1.4, and for Hobbit_MH2T it is 1.265 and 1.275.</p>
+<p><code>U48_0_min</code> and <code>U48_0_max</code> are the minimum and maximum values allowed for the (<sup>234</sup>U/<sup>238</sup>U) activity ratio at the surface of the sample. Since (<sup>234</sup>U/<sup>238</sup>U) does not vary greatly over the time period generally studied, the values measured near the surface of the sample can be used as a guide. These values can be adjusted if the model fit to the data is not optimal. For Hobbit_1-1T they are taken to be 1.3 and 1.4, and for Hobbit_MH2T, 1.265 and 1.275, respectively.</p>
 <p><code>l</code> is the thickness of the sample in centimeters. For Hobbit_1-1T it is 3.5 cm, for Hobbit_MH2T it is 5.35 cm</p>
-<p><code>U_0</code> is the Uranium concentration at the surface in ppm. This value does not significantly affect the model results and values from analyses near either surface of the sample can be used as a guide. For Hobbit_1-1T it is 15 ppm; Hobbit_MH2T is 25 ppm.</p>
+<p><code>U_0</code> is the uranium concentration at the surface in ppm. This value does not significantly affect the model results and values from analyses near either surface of the sample can be used as a guide. For Hobbit_1-1T it is taken to be 15 ppm; for Hobbit_MH2T, 25 ppm.</p>
 <p><code>K_min</code> and <code>K_max</code> are the minimum and maximum values allowed for the uranium diffusion coefficient (in cm<sup>2</sup>/s). Values between 10<sup>-13</sup> and 10<sup>-11</sup> cm<sup>2</sup>/s are generally appropriate.</p>
-<p><code>T_min</code> and <code>T_max</code> are the minimum and maximum values for the age of the specimen (yr). If there is no estimated knowledge of the sample age, the range of values can be 1,000 to 500,000 yr and adjusted later. For Hobbit_1-1T it is 50e3 and 100e3, and for Hobbit_MH2T it is 1e3 and 20e3.</p>
-<p>After setting the <code>U480</code> maximum and minimum values, run the function and adjust these min and max values by looking at the calculated <code>U48_0_final</code>, <code>K_final</code>, and <code>T_final</code>. As you iterate, increase the <code>nbit</code> value to reduce the error.</p>
+<p><code>T_min</code> and <code>T_max</code> are the minimum and maximum values for the age of the specimen (yr). If there is no estimated knowledge of the sample age, the range of values can be 1,000 to 500,000 yr and adjusted later. For Hobbit_1-1T, in the final model run, they are taken to be 50,000 and 100,000 yr, and for Hobbit_MH2T, 1,000 and 20,000 yr, respectively.</p>
+<p>After setting the <code>U480</code> maximum and minimum values, run the function and adjust these min and max values by looking at the calculated <code>U48_0_final</code>, <code>K_final</code>, and <code>T_final</code>. Adjust <code>T_min</code> and <code>T_max</code> using first estimates of the age. As you iterate, increase the <code>nbit</code> value to reduce the error.</p>
 </div>
 <div id="how-to-run-the-model" class="section level1">
 <h1 class="hasAnchor">
 <a href="#how-to-run-the-model" class="anchor"></a>How to run the model</h1>
 <p>To run the function, attach the package and then run <code><a href="../reference/iDADwigl.html">iDADwigl()</a></code>, specifying the input data frame and the input parameters as described above. The code block below shows a quick example that will execute in less than five seconds on a typical 2.3 GHz Intel Core i5 laptop:</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1">output &lt;-<span class="st"> </span><span class="kw"><a href="../reference/iDADwigl.html">iDADwigl</a></span>(Hobbit_MH2T_for_iDAD,</a>
-<a class="sourceLine" id="cb4-2" data-line-number="2">                   <span class="dt">nbit =</span> <span class="dv">500</span>,</a>
+<a class="sourceLine" id="cb4-2" data-line-number="2">                   <span class="dt">nbit =</span> <span class="dv">1000</span>,</a>
 <a class="sourceLine" id="cb4-3" data-line-number="3">                   <span class="dt">fsum_target =</span> <span class="fl">0.01</span>,</a>
 <a class="sourceLine" id="cb4-4" data-line-number="4">                   <span class="dt">U48_0_min =</span> <span class="fl">1.265</span>, </a>
 <a class="sourceLine" id="cb4-5" data-line-number="5">                   <span class="dt">U48_0_max =</span> <span class="fl">1.275</span>, </a>
@@ -185,25 +185,40 @@
 <a class="sourceLine" id="cb4-9" data-line-number="9">                   <span class="dt">K_max =</span> <span class="fl">1e-11</span>,</a>
 <a class="sourceLine" id="cb4-10" data-line-number="10">                   <span class="dt">T_min =</span> <span class="fl">1e3</span>, </a>
 <a class="sourceLine" id="cb4-11" data-line-number="11">                   <span class="dt">T_max =</span> <span class="fl">20e3</span>)</a></code></pre></div>
-<p>When run the R console, this function will print a confirmation that the input data frame has the required columns, and print the resulting age value with an error reported as the 67% and 33% quantiles, as follows:</p>
+<p>When run on the R console, this function will print a confirmation that the input data frame has the required columns, and print the resulting age value with an error reported as the 67% and 33% quantiles, as follows:</p>
 <pre><code>All required columns are present in the input data 👍
 [1] "Age: 7 +0.6/-0.7 ka"</code></pre>
 <p>In a typical analysis we will explore the model fit by changing the range of allowed values for the (<sup>234</sup>U/<sup>238</sup>U) ratio at the surface and the age of the sample, and by decreasing the <code>fsum_target</code>. Once we obtain a satisfying fit (by visual inspection of the produced figures), we would increase <code>nbit</code> to a higher value (e.g. 1000) and run the model again.</p>
 <div id="inspecting-the-models-output" class="section level2">
 <h2 class="hasAnchor">
 <a href="#inspecting-the-models-output" class="anchor"></a>Inspecting the model’s output</h2>
-<p>The function also produces a list object containing more detailed results, including a one-row data frame summarising the age:</p>
+<p>The model computes a Monte Carlo simulation where age of the sample, U diffusion coefficient and (<sup>234</sup>U/<sup>238</sup>U) ratio at the surface of the sample are taken randomly within the range of values allowed. Results are only kept if the calculated sum of the squared differences between the calculated and observed activity ratios is less than the value set in <code>fsum_target</code>. If this is the case, the calculated ratios and the set of solutions for age of the sample, U diffusion coefficient and (<sup>234</sup>U/<sup>238</sup>U) ratio at the surface of the sample are saved. The model stops once the number of sets of solutions reaches <code>nbit</code>.</p>
+<p>The final calculated age <code>T_final</code> (in yr), U diffusion coefficient <code>K_final</code> (in cm<sup>2</sup>/s) and (<sup>234</sup>U/<sup>238</sup>U) ratio at the surface of the sample <code>U48_0_final</code> are the set of solutions where the solution age is the closest to the median age of the population of solutions. The uncertainty on each output paramter is calculated as the 67% and 33% quantiles of the population of solution sets.</p>
+<p><code>T_final</code>, <code>K_final</code> and <code>U48_0_final</code> are included in the model’s output, along with their uncertainties. The function also includes a one-row data frame summarising the age:</p>
 
-<p>The output also includes the calculated <code>T_final</code>, <code>K_final</code>, and `U48_0_final values</p>
-<!-- what are these, and what should the user be looking for with these? I think we need some more explanation, and I have no idea! -->
-<p>The last item in the output is a copy of the input data with two additional columns, the calculated activity ratios, <sup>234</sup>U/<sup>238</sup>U and <sup>230</sup>Th/<sup>238</sup>U, for each measurement location on the sample.</p>
+<p>The last item in the output is a copy of the input data with two additional columns, the calculated activity ratios, (<sup>234</sup>U/<sup>238</sup>U) and (<sup>230</sup>Th/<sup>238</sup>U), for each measurement location on the sample.</p>
+
 
 </div>
 <div id="visualising-the-models-output" class="section level2">
 <h2 class="hasAnchor">
 <a href="#visualising-the-models-output" class="anchor"></a>Visualising the model’s output</h2>
-<p>We can make some plots… <!-- I'll combine these into a multipanel plot--></p>
-<p><img src="idadwigl_files/figure-html/unnamed-chunk-8-1.png" width="700"></p>
+<!-- TONY: I'm not sure the function you wrote actually save figures -->
+<p><code><a href="../reference/iDADwigl.html">iDADwigl()</a></code> returns several figures useful for visualisation of the model results along with the data:</p>
+<ol style="list-style-type: decimal">
+<li>a histogram of the solution ages (Figure @ref(fig:plot-panel) A)</li>
+<li>the U concentrations in the sample as a function of the relative distance from the center (Figure @ref(fig:plot-panel) B)</li>
+<li>the measured (in blue) and modelled (in red) (<sup>234</sup>U/<sup>238</sup>U) activity ratios as a function of the relative distance from the center (Figure @ref(fig:plot-panel) C), and</li>
+<li>the measured (in blue) and modelled (in red) (<sup>230</sup>Th/<sup>238</sup>U) activity ratios as a function of the relative distance from the center (Figure @ref(fig:plot-panel) ).</li>
+</ol>
+<div class="figure">
+<img src="idadwigl_files/figure-html/plot-panel-1.png" alt="A: Histogram of the solution ages, B: Uranium concentration profile for transect 2 of modern human femur 132A/LB/27D/03. C: Calculated (red) and observed (blue) (^234^U/^238^U) activity ratios for transect 2 of modern human femur 132A/LB/27D/03. D: Calculated (red) and observed (blue) (^230^Th/^238^U) activity ratios for transect 2 of modern human femur 132A/LB/27D/03." width="700"><p class="caption">
+A: Histogram of the solution ages, B: Uranium concentration profile for transect 2 of modern human femur 132A/LB/27D/03. C: Calculated (red) and observed (blue) (<sup>234</sup>U/<sup>238</sup>U) activity ratios for transect 2 of modern human femur 132A/LB/27D/03. D: Calculated (red) and observed (blue) (<sup>230</sup>Th/<sup>238</sup>U) activity ratios for transect 2 of modern human femur 132A/LB/27D/03.
+</p>
+</div>
+
+
+
 </div>
 </div>
 <div id="case-study-of-the-age-of-the-hobbit-from-sutikna-et-al-2016" class="section level1">
@@ -620,17 +635,12 @@ iDAD.position.1
 </tr>
 </tbody>
 </table>
-<p>For transect 2 of 132A/LB/27D/03, Sutikna et al. <span class="citation">(2016)</span> reported an age of 7.4 <span class="math inline">\(\pm\)</span> 0.5 ka (thousand years before 2014). With iDADwigl, we obtain an age of 7.1 +0.6/-0.7 ka (Figs. 2-4). We obtained our age for</p>
+<p>For transect 2 of 132A/LB/27D/03, Sutikna et al. <span class="citation">(2016)</span> reported an age of 7.4 <span class="math inline">\(\pm\)</span> 0.5 ka (thousand years before 2014). With iDADwigl, we obtain an age of 7.1 +0.6/-0.7 ka (Figs. 2-4).</p>
 <p>For transect 1 of LB1/52, Sutikna et al. <span class="citation">(2016)</span> reported an age of 79.0 <span class="math inline">\(\pm\)</span> 3.7 ka. With iDADwigl, we obtain an age of 75.4 <span class="math inline">\(\pm\)</span> 0.9 ka.</p>
-<div class="figure">
-<img src="figures/U_Hobbit_MH2T_DAD.png" alt="Uranium concentration profile for transect 2 of modern human femur 132A/LB/27D/03"><p class="caption">Uranium concentration profile for transect 2 of modern human femur 132A/LB/27D/03</p>
-</div>
-<div class="figure">
-<img src="figures/R48_Hobbit_MH2T_DAD.png" alt="Calculated (red) and observed (blue) (234U/238U) activity ratios for transect 2 of modern human femur 132A/LB/27D/03."><p class="caption">Calculated (red) and observed (blue) (<sup>234</sup>U/<sup>238</sup>U) activity ratios for transect 2 of modern human femur 132A/LB/27D/03.</p>
-</div>
-<div class="figure">
-<img src="figures/R08_Hobbit_MH2T_DAD.png" alt="Calculated (red) and observed (blue) (230Th/238U) activity ratios for transect 2 of modern human femur 132A/LB/27D/03"><p class="caption">Calculated (red) and observed (blue) (<sup>230</sup>Th/<sup>238</sup>U) activity ratios for transect 2 of modern human femur 132A/LB/27D/03</p>
-</div>
+<!-- TONY: commented below because already included above -->
+<!-- ![Uranium concentration profile for transect 2 of modern human femur 132A/LB/27D/03](figures/U_Hobbit_MH2T_DAD.png) -->
+<!-- ![Calculated (red) and observed (blue) (^234^U/^238^U) activity ratios for transect 2 of modern human femur 132A/LB/27D/03.](figures/R48_Hobbit_MH2T_DAD.png) -->
+<!-- ![Calculated (red) and observed (blue) (^230^Th/^238^U) activity ratios for transect 2 of modern human femur 132A/LB/27D/03](figures/R08_Hobbit_MH2T_DAD.png) -->
 
 </div>
 <div id="references" class="section level1 unnumbered">
