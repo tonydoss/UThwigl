@@ -378,12 +378,12 @@ plot_grid(T_sol_plot,
 The package includes two sample data sets derived from @Sutikna2016 : "Hobbit_MH2T_for_iDAD.csv" is data from transect 2 for modern human femur 132A/LB/27D/03. "Hobbit_1-1T_for_iDAD.csv" is data from transect 1 for *Homo floresiensis* ulna LB1/52. For the latter, six analyses were removed from the set as in @Sutikna2016.
 
 ```{r}
-kableExtra::kable(Hobbit_MH2T_for_iDAD[ , 1:4],
+kable(Hobbit_MH2T_for_iDAD[ , 1:4],
                   caption = "Preview of the data from transect 2 for modern human femur 132A/LB/27D/03, included in our R package.")
 ```
 
 ```{r}
-kableExtra::kable(Hobbit_1_1T_for_iDAD[ , 1:4],
+kable(Hobbit_1_1T_for_iDAD[ , 1:4],
                   caption = "Preview of the data from transect 1 for Homo floresiensis ulna LB1/52, included in our R package.")
 ```
 
