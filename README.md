@@ -3,6 +3,9 @@
 
 # iDADwigl
 
+[![Travis build
+status](https://travis-ci.org/benmarwick/iDADwigl.svg?branch=master)](https://travis-ci.org/benmarwick/iDADwigl)
+
 The goal of iDADwigl is to compute open-system uranium-thorium ages of
 geological and archaeological samples. It is based on the
 diffusion-adsorption-decay (DAD) model of Sambridge et al. (2012), which
