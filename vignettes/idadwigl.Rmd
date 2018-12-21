@@ -86,7 +86,6 @@ The key function of our package, `iDADwigl()` requires a data frame with the fol
 
 This data frame can be created by importing an Excel or CSV file into the R environment using a generic function such as `read.csv` or `read_excel` from the `readxl` package [@Wickham_readxl]. To help with preparing data for input into our function, we have included two examples of input files. The code chunk below shows how to access one of the two example CSV files included in the package, and how to read it into the R environment.
 
-
 ```{r}
 # get the path the one of the CSV files included in the package
 path_to_included_example_csv_file <- 
@@ -240,21 +239,25 @@ We can make some plots... <!-- I'll combine these into a multipanel plot-->
 
 ```{r echo=FALSE}
 library(ggplot2)
-theme_plots <-
+t
+big_size <- 16
+less_big_size <- 12
+
+heme_plots <-
   theme(
-    plot.title = element_text(size = (18), hjust = 0.5),
+    plot.title = element_text(size = (1big_size, hjust = 0.5),
     legend.title = element_blank(),
-    axis.title.y = element_text(size = 18),
-    axis.title.x = element_text(size = 18),
-    axis.text.x = element_text(size = 14),
-    axis.text.y = element_text(size = 14)
+    axis.title.y = element_text(size = 1big_size),
+    axis.title.x = element_text(size = big_size,
+    axis.text.x = element_text(size = 1less_big_size,
+    axis.text.y = element_text(size = 1less_big_size
   ) +
   theme_bw() +
   theme(panel.grid.major = element_blank(),
         panel.grid.minor = element_blank())
 ```
 
-T```{r tsol, echo=FALSE,
+```{r tsol, echo=FALSE}
 library(ggplot2)
 
 T_sol_plot <- 
@@ -267,7 +270,7 @@ ggplot(output$T_sol,
 ```
 
 
-T``{r th230u238, echo=FALSE,}
+```{r th230u238, echo=FALSE}
 
 th230u238_plot <- 
 ggplot(output$output_data) +
@@ -299,7 +302,7 @@ ggplot(output$output_data) +
 ```
 
 
-```{r} echo=FALSE
+```{r echo=FALSE}
 U_ppm_plot <- 
 ggplot(output$output_data) +
   geom_errorbar(
@@ -315,7 +318,7 @@ ggplot(output$output_data) +
   theme_plots
 ```
 
-```{r} echo=FALSE
+```{r echo=FALSE}
 
 u234_u238_plot <- 
 ggplot(output$output_data) +
@@ -338,15 +341,11 @@ ggplot(output$output_data) +
 
 ```
 
-
-```{r} echo=FALSE
+```{r echo=FALSE}
 # combine plots
-library(patchwork)
-(T_sol_plot + Uth230u238_plot  / (tU_ppm_plot+ u234_u238_plot)
+library(patchwork) 
+(T_sol_plot + th230u238_plot)  / (U_ppm_plot + u234_u238_plot)
 ```
-
-
-
 
 # Case study of the age of the Hobbit from Sutikna et al. 2016
 

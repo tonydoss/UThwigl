@@ -60,7 +60,7 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/benmarwick/iDADwigl">
+  <a href="https://github.com/tonydoss/iDADwigl">
     <span class="fa fa-github fa-lg"></span>
      
   </a>
@@ -83,7 +83,7 @@
             
             <h4 class="date">2018-12-20</h4>
       
-      <small class="dont-index">Source: <a href="https://github.com/benmarwick/iDADwigl/blob/master/vignettes/idadwigl.Rmd"><code>vignettes/idadwigl.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/tonydoss/iDADwigl/blob/master/vignettes/idadwigl.Rmd"><code>vignettes/idadwigl.Rmd</code></a></small>
       <div class="hidden name"><code>idadwigl.Rmd</code></div>
 
     </div>
@@ -203,52 +203,15 @@
 <h2 class="hasAnchor">
 <a href="#visualising-the-models-output" class="anchor"></a>Visualising the model’s output</h2>
 <p>We can make some plots… <!-- I'll combine these into a multipanel plot--></p>
-<p>T```{r tsol, echo=FALSE, library(ggplot2)</p>
-<p>T_sol_plot &lt;- ggplot(output$T_sol, aes(T_sol)) + geom_histogram(binwidth = 500, fill = “white”, color = “black”) + theme_plots</p>
-<pre><code>
-
-T``{r th230u238, echo=FALSE,}
-
-th230u238_plot &lt;- 
-ggplot(output$output_data) +
-  geom_errorbar(
-    aes(
-      x = iDAD.position,
-      ymax = Th230_U238_CORR + Th230_U238_CORR_Int2SE,
-      ymin = Th230_U238_CORR - Th230_U238_CORR_Int2SE,
-      width = 0.02
-    )
-  ) + # plot error bars
-  geom_point(aes(iDAD.position, Th230_U238_CORR),
-             color = 'blue',
-             size = 5) +
-  geom_point(aes(iDAD.position, Th230_U238_CALC),
-             color = 'red',
-             size = 5) +
-  ylab(expression("(" ^ 230 * "Th/" ^ 238 * "U)")) + xlab("Relative distance from center") +
-  theme_plots + ggtitle(paste(
-    "Age: ",
-    round(output$T_final / 1000, digits = 1),
-    " +",
-    round((quantile(output$T_sol$T_sol, .67) - output$T_final) / 1000, digits = 1),
-    "/-",
-    round((output$T_final - quantile(output$T_sol$T_sol, .33)) / 1000, digits = 1),
-    " ka",
-    sep = ""
-  ))</code></pre>
-<p><code>{r} echo=FALSE U_ppm_plot &lt;-  ggplot(output$output_data) +   geom_errorbar(     aes(       x = iDAD.position,       ymax = U_ppm + U_ppm_Int2SE,       ymin = U_ppm - U_ppm_Int2SE,       width = 0.02     )   ) + # plot error bars   geom_point(aes(iDAD.position, U_ppm), color = 'blue', size = 5) +   ylab("U (ppm)") + xlab("Relative distance from center") +   theme_plots</code></p>
-<p>```{r} echo=FALSE</p>
-<p>u234_u238_plot &lt;- ggplot(output$output_data) + geom_errorbar( aes( x = iDAD.position, ymax = U234_U238_CORR + U234_U238_CORR_Int2SE, ymin = U234_U238_CORR - U234_U238_CORR_Int2SE, width = 0.02 ) ) + # plot error bars geom_point(aes(iDAD.position, U234_U238_CORR), color = ‘blue’, size = 5) + geom_point(aes(iDAD.position, U234_U238_CALC ), color = ‘red’, size = 5) + ylab(expression(“(” ^ 234 * “U/” ^ 238 * “U)”)) + xlab(“Relative distance from center”) + theme_plots</p>
-<p>```</p>
-<p><code>{r} echo=FALSE # combine plots library(patchwork) (T_sol_plot + Uth230u238_plot  / (tU_ppm_plot+ u234_u238_plot)</code></p>
+<p><img src="idadwigl_files/figure-html/unnamed-chunk-8-1.png" width="700"></p>
 </div>
 </div>
 <div id="case-study-of-the-age-of-the-hobbit-from-sutikna-et-al-2016" class="section level1">
 <h1 class="hasAnchor">
 <a href="#case-study-of-the-age-of-the-hobbit-from-sutikna-et-al-2016" class="anchor"></a>Case study of the age of the Hobbit from Sutikna et al. 2016</h1>
 <p>The package includes two sample data sets derived from <span class="citation">Sutikna et al. (2016)</span> : “Hobbit_MH2T_for_iDAD.csv” is data from transect 2 for modern human femur 132A/LB/27D/03. “Hobbit_1-1T_for_iDAD.csv” is data from transect 1 for <em>Homo floresiensis</em> ulna LB1/52. For the latter, six analyses were removed from the set as in <span class="citation">Sutikna et al. (2016)</span>.</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1">kableExtra<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/kableExtra/topics/reexports">kable</a></span>(Hobbit_MH2T_for_iDAD[ , <span class="dv">1</span><span class="op">:</span><span class="dv">4</span>],</a>
-<a class="sourceLine" id="cb7-2" data-line-number="2">                  <span class="dt">caption =</span> <span class="st">"Preview of the data from transect 2 for modern human femur 132A/LB/27D/03, included in our R package."</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1">kableExtra<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/kableExtra/topics/reexports">kable</a></span>(Hobbit_MH2T_for_iDAD[ , <span class="dv">1</span><span class="op">:</span><span class="dv">4</span>],</a>
+<a class="sourceLine" id="cb6-2" data-line-number="2">                  <span class="dt">caption =</span> <span class="st">"Preview of the data from transect 2 for modern human femur 132A/LB/27D/03, included in our R package."</span>)</a></code></pre></div>
 <table class="table">
 <caption>
 Preview of the data from transect 2 for modern human femur 132A/LB/27D/03, included in our R package.
@@ -550,8 +513,8 @@ iDAD.position.1
 </tr>
 </tbody>
 </table>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1">kableExtra<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/kableExtra/topics/reexports">kable</a></span>(Hobbit_<span class="dv">1</span>_1T_for_iDAD[ , <span class="dv">1</span><span class="op">:</span><span class="dv">4</span>],</a>
-<a class="sourceLine" id="cb8-2" data-line-number="2">                  <span class="dt">caption =</span> <span class="st">"Preview of the data from transect 1 for Homo floresiensis ulna LB1/52, included in our R package."</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1">kableExtra<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/kableExtra/topics/reexports">kable</a></span>(Hobbit_<span class="dv">1</span>_1T_for_iDAD[ , <span class="dv">1</span><span class="op">:</span><span class="dv">4</span>],</a>
+<a class="sourceLine" id="cb7-2" data-line-number="2">                  <span class="dt">caption =</span> <span class="st">"Preview of the data from transect 1 for Homo floresiensis ulna LB1/52, included in our R package."</span>)</a></code></pre></div>
 <table class="table">
 <caption>
 Preview of the data from transect 1 for Homo floresiensis ulna LB1/52, included in our R package.
@@ -764,7 +727,7 @@ iDAD.position.1
 
 
       <footer><div class="copyright">
-  <p>Developed by Anthony Dosseto, Ben Marwick.</p>
+  <p>Developed by .</p>
 </div>
 
 <div class="pkgdown">
