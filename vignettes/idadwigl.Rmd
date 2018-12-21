@@ -17,10 +17,10 @@ pkgdown:
 linestretch: 1.5
 csl: geochimica-et-cosmochimica-acta.csl
 bibliography: Library.bib
-#vignette: >
-#  %\VignetteIndexEntry{iDADwigl - a R package for open-system #uranium-thorium dating}
-#  %\VignetteEngine{knitr::rmarkdown}
-#  %\VignetteEncoding{UTF-8}
+vignette: >
+  %\VignetteIndexEntry{iDADwigl - a R package for open-system #uranium-thorium dating}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
 ---
 
 
