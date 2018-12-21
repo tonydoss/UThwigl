@@ -1,5 +1,5 @@
 ---
-title: "iDADwigl - a R package for open-system uranium-thorium dating"
+title: "iDADwigl - an R package for open-system uranium-thorium dating"
 author: "Anthony Dosseto$^1$$^,$$^*$ and Ben Marwick$^2$"
 date: "`r Sys.Date()`"
 output:
