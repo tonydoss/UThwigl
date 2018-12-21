@@ -403,3 +403,19 @@ For transect 1 of LB1/52, Sutikna et al. [-@Sutikna2016] reported an age of 79.0
 \newpage
 \nolinenumbers
 # References
+
+
+### Colophon
+
+This report was generated on `r Sys.time()` using the following computational environment and dependencies: 
+
+```{r colophon, cache = FALSE}
+# which R packages and versions?
+devtools::session_info()
+```
+
+The current Git commit details are:
+
+```{r}
+git2r::repository(here::here())
+```
