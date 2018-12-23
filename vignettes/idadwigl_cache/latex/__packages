@@ -3,3 +3,5 @@ knitr
 iDADwigl
 dplyr
 xtable
+ggplot2
+cowplot
