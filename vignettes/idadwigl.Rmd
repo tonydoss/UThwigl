@@ -29,8 +29,7 @@ library(knitr)
 opts_chunk$set(echo = TRUE, 
                warning = FALSE, 
                message = FALSE,
-               fig.pos= "h",
-               autodep = TRUE)
+               fig.pos= "h")
 # knitr::write_bib(x = "rmarkdown", file = "Library.bib") # so you can cite references in figure captions
 ```
 
@@ -167,7 +166,7 @@ After setting the `U480` maximum and minimum values, run the function and adjust
 
 To run the function, attach the package and then run `iDADwigl()`, specifying the input data frame and the input parameters as described above. The code block below shows a quick example that will execute in less than five seconds on a typical 2.3 GHz Intel Core i5 laptop:  
 
-```{r model-output, results='hide', cache = TRUE}
+```{r model-output, results='hide'}
 output <- iDADwigl(Hobbit_MH2T_for_iDAD,
                    nbit = 1000,
                    fsum_target = 0.01,
@@ -238,7 +237,6 @@ print(output_data_table,
       include.rownames = FALSE,
       rotate.colnames = TRUE)
 ```
-
 
 \newpage 
 
@@ -377,13 +375,13 @@ plot_grid(T_sol_plot,
 
 The package includes two sample data sets derived from @Sutikna2016 : "Hobbit_MH2T_for_iDAD.csv" is data from transect 2 for modern human femur 132A/LB/27D/03. "Hobbit_1-1T_for_iDAD.csv" is data from transect 1 for *Homo floresiensis* ulna LB1/52. For the latter, six analyses were removed from the set as in @Sutikna2016.
 
-```{r table modern human, echo=FALSE}
+```{r table-modern-human, echo=FALSE}
 kable(Hobbit_MH2T_for_iDAD[ , 1:4],
                   caption = "Preview of the data from transect 2 for modern human femur 132A/LB/27D/03, included in our R package.")
 ```
 
 
-```{r table hobbit, echo=FALSE}
+```{r table-hobbit, echo=FALSE}
 kable(Hobbit_1_1T_for_iDAD[ , 1:4],
                   caption = "Preview of the data from transect 1 for Homo floresiensis ulna LB1/52, included in our R package.")
 ```
@@ -391,7 +389,7 @@ kable(Hobbit_1_1T_for_iDAD[ , 1:4],
 For transect 2 of 132A/LB/27D/03, Sutikna et al. [-@Sutikna2016] reported an age of 7.4 $\pm$ 0.5 ka (thousand years before 2014). 
 With iDADwigl, we first run the model with `nbit` = 1, `fsum_target` = 0.05, `U48_0_min` and `U48_0_max` = 1.25 and 1.3, respectively, `l` = 5.35 cm, `U_0` = 25 ppm, `K_min` and `K_max` = 10^-13^ and 10^-11 cm^2^/s, respectively, `T_min` and `T_max` = 10^3^ and 500x10^3^ yr, respectively. `U48_0_min` and `U48_0_max` are determined by considering the measured (^234^U/^238^U) values near the surfaces of the sample. `T_min` and `T_max` values were chosen such that no a priori knowledge of the age biases the results.
 
-```{r first run modern human, results='hide', cache = TRUE, echo=FALSE}
+```{r first-run-modern-human, results='hide', cache = TRUE, echo=FALSE}
 output_first_run_modern <- iDADwigl(Hobbit_MH2T_for_iDAD,
                    nbit = 1,
                    fsum_target = 0.05,
@@ -409,7 +407,7 @@ With this first run, we obtain an age of `r round(output_first_run_modern$T_fina
 As we can see, the calculated (^234^U/^238^U) and (^230^Th/^238^U) ratios are higher than observed values (Figure \@ref(fig:plot-panel-first-run-modern)).
 For the (^234^U/^238^U), it makes sense to thus use a narrower range for `U48_0_min` and `U48_0_max`. Higher calculated (^230^Th/^238^U) ratios compared to observed values suggests that the calculated age is too old (since this ratio increases with age). Thus, we should consider a lower value for `T_max`.
 
-```{r U48_first_run_modern_human, echo=FALSE}
+```{r U48-first-run-modern-human, echo=FALSE}
 # "Calculated (red) and observed (blue) (^234^U/^238^U) activity ratios for transect 2 of modern human femur 132A/LB/27D/03"
 
 u234_u238_ratio_first_run_modern_human <- 
@@ -436,7 +434,7 @@ ggplot(output_first_run_modern$output_data) +
 ```
 
 
-```{r Th0U8_first_run_modern_human, echo=FALSE}
+```{r Th0U8-first-run-modern-human, echo=FALSE}
 # Calculated (red) and observed (blue) (^230^Th/^238^U) activity ratios for transect 2 of modern human femur 132A/LB/27D/03"
 
 th230_u238_ratio_first_run_modern_human <- 
@@ -475,7 +473,7 @@ plot_grid(u234_u238_ratio_first_run_modern_human,
           ncol = 2)
 ```
 
-```{r second run modern human, results='hide', cache = TRUE, echo=FALSE}
+```{r second-run-modern-human, results='hide', cache = TRUE, echo=FALSE}
 output_second_run_modern <- iDADwigl(Hobbit_MH2T_for_iDAD,
                    nbit = 1,
                    fsum_target = 0.05,
@@ -489,7 +487,7 @@ output_second_run_modern <- iDADwigl(Hobbit_MH2T_for_iDAD,
                    T_max = 10e3)
 ```
 
-```{r U48_second_run_modern_human, echo=FALSE}
+```{r U48-second-run-modern-human, echo=FALSE}
 # "Calculated (red) and observed (blue) (^234^U/^238^U) activity ratios for transect 2 of modern human femur 132A/LB/27D/03"
 
 u234_u238_ratio_second_run_modern_human <- 
@@ -514,7 +512,7 @@ ggplot(output_second_run_modern$output_data) +
   ))
 ```
 
-```{r Th0U8_second_run_modern_human, echo=FALSE}
+```{r Th0U8-second-run-modern-human, echo=FALSE}
 # Calculated (red) and observed (blue) (^230^Th/^238^U) activity ratios for transect 2 of modern human femur 132A/LB/27D/03"
 
 th230_u238_ratio_second_run_modern_human <- 
@@ -555,7 +553,7 @@ plot_grid(u234_u238_ratio_second_run_modern_human,
           ncol = 2)
 ```
 
-```{r create variables to quote in text - modern human, echo=FALSE}
+```{r create-variables-to-quote-in-text-modern-human, echo=FALSE}
 age <- round(output$results$`Age (ka)`,1)
 age_plus <- round(output$results$`Age 67% quantile (ka)`,1)
 age_minus <- round(output$results$`Age 33% quantile (ka)`,1)
@@ -591,7 +589,7 @@ output_hobbit <- iDADwigl(Hobbit_1_1T_for_iDAD,
                    T_max = 100e3)
 ```
 
-```{r create variables to quote in text - hobbit, echo=FALSE}
+```{r create-variables-to-quote-in-text-hobbit, echo=FALSE}
 age <- round(output_hobbit$results$`Age (ka)`,1)
 age_plus <- round(output_hobbit$results$`Age 67% quantile (ka)`,1)
 age_minus <- round(output_hobbit$results$`Age 33% quantile (ka)`,1)
@@ -601,7 +599,7 @@ For transect 1 of LB1/52, Sutikna et al. [-@Sutikna2016] reported an age of 79.0
 
 Note that results and errors will vary slightly for each run since populations are solution sets are randomly generated.
 
-```{r tsol_hobbit, echo=FALSE}
+```{r tsol-hobbit, echo=FALSE}
 library(ggplot2)
 T_sol_plot_hobbit <- 
 ggplot(output_hobbit$T_sol, 
@@ -621,7 +619,7 @@ ggplot(output_hobbit$T_sol,
   ))
 ```
 
-```{r Uconc_hobbit, echo = FALSE}
+```{r Uconc-hobbit, echo = FALSE}
 # Uranium concentration profile for transect 1 of *Homo floresiensis* ulna LB1/52"
 
 u_conc_hobbit <- 
@@ -637,7 +635,7 @@ ggplot(output_hobbit$output_data) +
   theme_plots
 ```
 
-```{r U48_hobbit, echo=FALSE}
+```{r U48-hobbit, echo=FALSE}
 # "Calculated (red) and observed (blue) (^234^U/^238^U) activity ratios for transect 1 of *Homo floresiensis* ulna LB1/52"
 
 u234_u238_ratio_hobbit <- 
@@ -659,7 +657,7 @@ ggplot(output_hobbit$output_data) +
   theme_plots 
 ```
 
-```{r Th0U8_hobbit, echo=FALSE}
+```{r Th0U8-hobbit, echo=FALSE}
 # Calculated (red) and observed (blue) (^230^Th/^238^U) activity ratios for transect 1 of *Homo floresiensis* ulna LB1/52"
 
 th230_u238_ratio_hobbit <- 
