@@ -1,20 +1,4 @@
-\usepackage[format=plain,labelsep=period,textformat=period,justification=justified,singlelinecheck=false]{caption} % package to align left captions
-\usepackage{colortbl} % to be able to use kableExtra package with latex
-\usepackage{lineno} % package for line numbers
-\usepackage{floatrow} % package needed to align left tables
-\usepackage{pdflscape} % package to show landscape orientation
+
 \usepackage{rotating} % rotate table column headers
-\floatplacement{figure}{H} % try to float figs
-\usepackage{placeins} % for \FloatBarrier
-\usepackage{float} % float figs https://stackoverflow.com/a/33801326/1036500
+\usepackage{placeins} % so we can use \FloatBarrier 
 
-% commands to enter and exit landscape orientation
-\newcommand{\blandscape}{\begin{landscape}}
-\newcommand{\elandscape}{\end{landscape}}
-
-% to align left tables
-\floatsetup[table]{style=ruled,
-  objectset=raggedright,
-  margins=raggedright,
-  midcode=captionskip,
-  captionskip=10pt}
