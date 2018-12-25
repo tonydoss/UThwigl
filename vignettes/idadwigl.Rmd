@@ -9,7 +9,7 @@ author:
     email: bmarwick@uw.edu
     affiliation: University of Washington
 address:
-  - code: Some Institute of Technology
+  - code: University of Wollongong
     address: Wollongong Isotope Geochronology Laboratory, School of Earth & Envrionmental Sciences, University of Wollongong, Wollongong NSW Australia
   - code: University of Washington
     address: Department of Anthropology, University of Washington, Seattle, WA, USA

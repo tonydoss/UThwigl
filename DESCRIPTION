@@ -25,7 +25,8 @@ Suggests:
     cowplot,
     bookdown,
     xtable,
-    here
+    here,
+    rticles
 VignetteBuilder: knitr
 RoxygenNote: 6.1.1
 URL: https://github.com/tonydoss/iDADwigl
