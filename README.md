@@ -4,7 +4,7 @@
 # iDADwigl
 
 [![Travis build
-status](https://travis-ci.org/benmarwick/iDADwigl.svg?branch=master)](https://travis-ci.org/benmarwick/iDADwigl)
+status](https://travis-ci.org/benmarwick/iDADwigl.svg?branch=master)](https://travis-ci.org/benmarwick/iDADwigl) [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/benmarwick/iDADwigl/master)
 
 The goal of iDADwigl is to compute open-system uranium-thorium ages of
 geological and archaeological samples. It is based on the
