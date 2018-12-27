@@ -4,7 +4,8 @@
 # iDADwigl
 
 [![Travis build
-status](https://travis-ci.org/benmarwick/iDADwigl.svg?branch=master)](https://travis-ci.org/benmarwick/iDADwigl) [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/benmarwick/iDADwigl/master?urlpath=rstudio)
+status](https://travis-ci.org/benmarwick/iDADwigl.svg?branch=master)](https://travis-ci.org/benmarwick/iDADwigl)
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/benmarwick/iDADwigl/master?urlpath=rstudio)
 
 The goal of iDADwigl is to compute open-system uranium-thorium ages of
 geological and archaeological samples. It is based on the
@@ -26,6 +27,11 @@ source("https://install-github.me/tonydoss/iDADwigl")
 ```
 
 ## Example
+
+You can run the package function in your browser by [starting a binder
+instance](https://mybinder.org/v2/gh/benmarwick/iDADwigl/master?urlpath=rstudio).
+This will open RStudio in your browser, together with the contents of
+this GitHub repository.
 
 Please see the [vignette](articles/idadwigl.pdf) for an example of how
 to use this pkg
