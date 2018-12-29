@@ -2,5 +2,7 @@
 
 export(T_sol_plot)
 export(iDADwigl)
+export(th230_u238_ratio_plot)
+export(u234_u238_ratio_plot)
 export(u_conc_profile_plot)
 import(ggplot2)

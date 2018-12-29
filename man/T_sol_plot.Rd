@@ -7,6 +7,9 @@
 T_sol_plot(output, big_size = 10, less_big_size = 8, point_size = 2,
   digits = 1)
 }
+\arguments{
+\item{output}{Output from the `iDADwigl()` function}
+}
 \description{
 Histogram of the solution ages
 }

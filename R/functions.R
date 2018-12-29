@@ -300,6 +300,7 @@ if(print_summary) {
 
 #' Histogram of the solution ages
 #' 
+#' @param output Output from the `iDADwigl()` function
 #' @import ggplot2
 #' @export
 
@@ -343,6 +344,8 @@ T_sol_plot <- function(output,
 
 #` Uranium concentration profile for transect
 #' 
+#' 
+#' @param output Output from the `iDADwigl()` function
 #' @import ggplot2
 #' @export
 
@@ -374,5 +377,94 @@ u_conc_profile_plot <- function(output,
              size = point_size) +
   ylab("U (ppm)") +
   xlab("Relative distance from center") +
+  theme_plots
+}
+
+#' Calculated (red) and observed (blue) (^234^U/^238^U) activity ratios for transect
+#' 
+#' 
+#' @param output Output from the `iDADwigl()` function
+#' @import ggplot2
+#' @export
+
+u234_u238_ratio_plot <- function(output,
+                                 big_size = 10,
+                                 less_big_size = 8,
+                                 point_size = 2,
+                                 digits = 1){
+  
+  theme_plots <-
+    theme(
+      plot.title = element_text(size = big_size, hjust = 0.5),
+      legend.title = element_blank(),
+      axis.title.y = element_text(size = big_size),
+      axis.title.x = element_text(size = big_size),
+      axis.text.x = element_text(size = less_big_size),
+      axis.text.y = element_text(size = less_big_size)
+    ) +
+    theme_bw() +
+    theme(panel.grid.major = element_blank(),
+          panel.grid.minor = element_blank())
+  
+  ggplot(output$output_data) +
+  geom_errorbar(aes(x = iDAD.position,
+                    ymax = U234_U238_CORR + U234_U238_CORR_Int2SE,
+                    ymin = U234_U238_CORR - U234_U238_CORR_Int2SE,
+                    width = 0.02)) + # plot error bars
+  geom_point(aes(iDAD.position,
+                 U234_U238_CORR),
+             color = "blue",
+             size = point_size) +
+  geom_point(aes(iDAD.position,
+                 U234_U238_CALC),
+             color = "red",
+             size = point_size) +
+  ylab(expression("("^234 * "U/"^238 * "U)")) +
+  xlab("Relative distance from center") +
+  theme_plots
+}
+
+#' Calculated (red) and observed (blue) (^230^Th/^238^U) activity ratios for transect 
+#' 
+#' @param output Output from the `iDADwigl()` function
+#' 
+#' @import ggplot2
+#' @export
+
+th230_u238_ratio_plot <-  function(output,
+         big_size = 10,
+         less_big_size = 8,
+         point_size = 2,
+         digits = 1){
+  
+  theme_plots <-
+    theme(
+      plot.title = element_text(size = big_size, hjust = 0.5),
+      legend.title = element_blank(),
+      axis.title.y = element_text(size = big_size),
+      axis.title.x = element_text(size = big_size),
+      axis.text.x = element_text(size = less_big_size),
+      axis.text.y = element_text(size = less_big_size)
+    ) +
+    theme_bw() +
+    theme(panel.grid.major = element_blank(),
+          panel.grid.minor = element_blank())
+
+  ggplot(output$output_data) +
+  geom_errorbar(
+    aes(
+      x = iDAD.position,
+      ymax = Th230_U238_CORR + Th230_U238_CORR_Int2SE,
+      ymin = Th230_U238_CORR - Th230_U238_CORR_Int2SE,
+      width = 0.02
+    )
+  ) + # plot error bars
+  geom_point(aes(iDAD.position, Th230_U238_CORR),
+             color = 'blue',
+             size = point_size) +
+  geom_point(aes(iDAD.position, Th230_U238_CALC),
+             color = 'red',
+             size = point_size) +
+  ylab(expression("(" ^ 230 * "Th/" ^ 238 * "U)")) + xlab("Relative distance from center") +
   theme_plots
 }
