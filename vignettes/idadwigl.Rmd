@@ -112,16 +112,9 @@ The key function of our package, `iDADwigl()` requires a data frame (a form of t
 This data frame can be created by importing an Excel or CSV file into the R environment using a generic function such as `read.csv` or `read_excel` from the `readxl` package [@Wickham_readxl]. To help with preparing data for input into our function, we have included two examples of input files. The code chunk below shows how to access one of the two example CSV files included in the package, and how to read it into the R environment.
 
 ```{r}
-# get the path the one of the CSV files included in the package
-path_to_included_example_csv_file <-
-  system.file("extdata",
-            "input/Hobbit_MH2T_for_iDAD.csv",
-            package = "iDADwigl",
-            mustWork = TRUE)
-
 # read in the example CSV file included in the package
 Hobbit_MH2T_for_iDAD <-
-  read.csv(path_to_included_example_csv_file)
+  read.csv('data/Hobbit_MH2T_for_iDAD.csv')
 ```
 
 \newpage
