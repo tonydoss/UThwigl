@@ -14,9 +14,9 @@ address:
   - code: University of Washington
     address: Department of Anthropology, University of Washington, Seattle, WA, USA
 abstract: |
-  This is the abstract.
-
-  It consists of two paragraphs.
+  For several decades, uranium-thorium (U-Th) dating has allowed geochronologists to precisely date geological materials, providing unvaluable geochronological constraints on Quaternary processes. Open-system dating of bones and teeth has also provided ages of human and faunal remains of archaeological significance.
+  
+  To facilitate access of open-system U-Th dating to the broad scientific community, here we provide a R package, named *iDADwigl* that implements the Diffusion-Adsorption-Decay model of Sambridge et al. [-@Sambridge2012]. Description of input and output parameters is given, as well as a guide for running the model. Examples of application of the model are also provided, showing that it yields ages within error of previously published values.   
 
 journal: "Quaternary Geochronology"
 date: "`r Sys.Date()`"
