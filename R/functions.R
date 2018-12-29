@@ -295,6 +295,84 @@ if(print_summary) {
 }
 
 
-# testing...
-# iDADwigl(Hobbit_MH2T_for_iDAD, nbit = 10)
-# input_data <- Hobbit_MH2T_for_iDAD
+#--------------------------------------------------------------------
+# functions to draw plots with the output
+
+#' Histogram of the solution ages
+#' 
+#' @import ggplot2
+#' @export
+
+T_sol_plot <- function(output,
+                       big_size = 10,
+                       less_big_size = 8,
+                       point_size = 2,
+                       digits = 1){
+  
+  theme_plots <-
+    theme(
+      plot.title = element_text(size = big_size, hjust = 0.5),
+      legend.title = element_blank(),
+      axis.title.y = element_text(size = big_size),
+      axis.title.x = element_text(size = big_size),
+      axis.text.x = element_text(size = less_big_size),
+      axis.text.y = element_text(size = less_big_size)
+    ) +
+    theme_bw() +
+    theme(panel.grid.major = element_blank(),
+          panel.grid.minor = element_blank())
+  
+  ggplot(output$T_sol,
+         aes(T_sol)) +
+  geom_histogram(binwidth = 500,
+                 fill = "white",
+                 color = "black") +
+  theme_plots +  ggtitle(paste(
+    "Age: ",
+    round(output$T_final / 1000, digits = digits),
+    " +",
+    round((quantile(output$T_sol$T_sol, .67) - output$T_final) / 1000, digits = digits),
+    "/-",
+    round((output$T_final - quantile(output$T_sol$T_sol, .33)) / 1000, digits = digits),
+    " ka",
+    sep = ""
+  ))
+
+}
+
+
+#` Uranium concentration profile for transect
+#' 
+#' @import ggplot2
+#' @export
+
+u_conc_profile_plot <- function(output,
+           big_size = 10,
+           less_big_size = 8,
+           point_size = 2,
+           digits = 1){
+    
+    theme_plots <-
+      theme(
+        plot.title = element_text(size = big_size, hjust = 0.5),
+        legend.title = element_blank(),
+        axis.title.y = element_text(size = big_size),
+        axis.title.x = element_text(size = big_size),
+        axis.text.x = element_text(size = less_big_size),
+        axis.text.y = element_text(size = less_big_size)
+      ) +
+      theme_bw() +
+      theme(panel.grid.major = element_blank(),
+            panel.grid.minor = element_blank())
+    
+  ggplot(output$output_data) +
+  geom_errorbar(aes(x = iDAD.position,
+                    ymax = U_ppm + U_ppm_Int2SE,
+                    ymin = U_ppm - U_ppm_Int2SE, width = 0.02)) + # plot error bars
+  geom_point(aes(iDAD.position, U_ppm),
+             color = "blue",
+             size = point_size) +
+  ylab("U (ppm)") +
+  xlab("Relative distance from center") +
+  theme_plots
+}

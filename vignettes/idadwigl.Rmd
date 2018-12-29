@@ -291,22 +291,7 @@ theme_plots <-
 
 
 ```{r tsol, echo=FALSE}
-T_sol_plot <-
-ggplot(output$T_sol,
-       aes(T_sol)) +
-  geom_histogram(binwidth = 500,
-                 fill = "white",
-                 color = "black") +
-  theme_plots +  ggtitle(paste(
-    "Age: ",
-    round(output$T_final / 1000, digits = 1),
-    " +",
-    round((quantile(output$T_sol$T_sol, .67) - output$T_final) / 1000, digits = 1),
-    "/-",
-    round((output$T_final - quantile(output$T_sol$T_sol, .33)) / 1000, digits = 1),
-    " ka",
-    sep = ""
-  ))
+T_sol_plot <- T_sol_plot(output)
 ```
 
 ```{r Uconc, echo = FALSE}
