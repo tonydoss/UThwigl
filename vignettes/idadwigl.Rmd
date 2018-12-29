@@ -109,7 +109,17 @@ The key function of our package, `iDADwigl()` requires a data frame (a form of t
 - `U_ppm`
 - `U_ppm_Int2SE`        
 
-This data frame can be created by importing an Excel or CSV file into the R environment using a generic function such as `read.csv` or `read_excel` from the `readxl` package [@Wickham_readxl]. To help with preparing data for input into our function, we have included two examples of input files. The code chunk below shows how to access one of the two example CSV files included in the package, and how to read it into the R environment.
+ To help with preparing data for input into our function, we have included two examples of input files. Inspecting the included data sets will be helpful for understanding how to prepare new data to prepare for use with this package. After attaching the package, we can access the built-in datasets with the `data()` function, like this:
+
+```{r}
+# access the data included in the iDADwigl package
+data("Hobbit_1_1T_for_iDAD")
+data("Hobbit_MH2T_for_iDAD")
+```
+
+This will make the built-in data available in the R environment to inspect and explore how to use the `iDADwigl()` function. 
+
+To use new data with this package, we can import an Excel or CSV file into the R environment using a generic function such as `read.csv` or `read_excel` from the `readxl` package [@Wickham_readxl]. The code chunk below shows how to read one of the CSV files included in the package into the R environment. This is a good method to use if you supply your own CSV file to use with `iDADwigl()`. In this case we assume that the working directory contains a directory called `data` and our CSV file is in this `data` directory: 
 
 ```{r}
 # read in the example CSV file included in the package
