@@ -409,7 +409,7 @@ print(Hobbit_1_1T_for_iDAD_tbl,
 
 For transect 2 of 132A/LB/27D/03, Sutikna et al. [-@Sutikna2016] reported an age of 7.4 $\pm$ 0.5 ka (thousand years before 2014). With iDADwigl, we first run the model with `nbit` = 1, `fsum_target` = 0.05, `U48_0_min` and `U48_0_max` = 1.25 and 1.3, respectively, `l` = 5.35 cm, `U_0` = 25 ppm, `K_min` and `K_max` = 10^-13^ and 10^-11^ cm^2^/s, respectively, `T_min` and `T_max` = 10^3^ and 500x10^3^ yr, respectively. `U48_0_min` and `U48_0_max` are determined by considering the measured (^234^U/^238^U) values near the surfaces of the sample. `T_min` and `T_max` values were chosen such that no a priori knowledge of the age biases the results.
 
-```{r first-run-modern-human, results='hide', cache = TRUE, echo=FALSE}
+```{r first-run-modern-human, results='hide', echo=FALSE}
 output_first_run_modern <- iDADwigl(Hobbit_MH2T_for_iDAD,
                    nbit = 1,
                    fsum_target = 0.05,
@@ -499,7 +499,7 @@ include_graphics("figures/plot-panel-first-run-modern.png")
 
 \FloatBarrier
 
-```{r second-run-modern-human, results='hide', cache = TRUE, echo=FALSE}
+```{r second-run-modern-human, results='hide', echo=FALSE}
 output_second_run_modern <- iDADwigl(Hobbit_MH2T_for_iDAD,
                    nbit = 1000,
                    fsum_target = 0.05,
@@ -598,7 +598,7 @@ age_minus <- round(output_second_run_modern$results$`Age 33% quantile (ka)`,1)
 
 ## Age of the *Homo floresiensis* remains from Sutikna et al. 2016
 
-```{r model-output-hobbit, results='hide', cache = TRUE, echo=FALSE}
+```{r model-output-hobbit, results='hide', echo=FALSE}
 output_hobbit <- iDADwigl(Hobbit_1_1T_for_iDAD,
                    nbit = 1000,
                    fsum_target = 0.01,
