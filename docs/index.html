@@ -87,17 +87,23 @@
 
 <p>The goal of iDADwigl is to compute open-system uranium-thorium ages of geological and archaeological samples. It is based on the diffusion-adsorption-decay (DAD) model of Sambridge et al. (2012), which allows for advective and diffusive transport of uranium and thorium isotopes, while including synchronous radioactive decay.</p>
 <p>The main function, <code><a href="reference/iDADwigl.html">iDADwigl()</a></code>, will take the (<sup>230</sup>Th/<sup>238</sup>U) and (<sup>234</sup>U/<sup>238</sup>U) activity ratios collected along a transect perpendicular to the surface of the tooth or bone and return an age in thousands of years ago.</p>
-<div id="installation" class="section level2">
+<div id="web-application" class="section level2">
 <h2 class="hasAnchor">
-<a href="#installation" class="anchor"></a>Installation</h2>
-<p>You can install the development version of iDADwigl from GitHub with:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/source">source</a></span>(<span class="st">"https://install-github.me/tonydoss/iDADwigl"</span>)</a></code></pre></div>
+<a href="#web-application" class="anchor"></a>Web application</h2>
+<p>The package includes a web application that runs in your browser where you can upload your CSV file, set the model parameters, run the model, and view the results. Choose this option is you are not familiar with R. Here’s a screenshot of the web app:</p>
+<p><img src="iDADwigl-shiny-app.gif"></p>
 </div>
-<div id="example" class="section level2">
+<div id="run-code-without-downloading-anything" class="section level2">
 <h2 class="hasAnchor">
-<a href="#example" class="anchor"></a>Example</h2>
+<a href="#run-code-without-downloading-anything" class="anchor"></a>Run code without downloading anything</h2>
 <p>You can run the package function in your browser by <a href="https://mybinder.org/v2/gh/benmarwick/iDADwigl/master?urlpath=rstudio">starting a binder instance</a>. This will open RStudio in your browser, together with the contents of this GitHub repository.</p>
-<p>Please see the <a href="articles/idadwigl.pdf">vignette</a> for an example of how to use this pkg</p>
+</div>
+<div id="installing-the-idadwigl-package-on-your-computer" class="section level2">
+<h2 class="hasAnchor">
+<a href="#installing-the-idadwigl-package-on-your-computer" class="anchor"></a>Installing the iDADwigl package on your computer</h2>
+<p>To install the development version of iDADwigl from GitHub on your computer, run:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/source">source</a></span>(<span class="st">"https://install-github.me/tonydoss/iDADwigl"</span>)</a></code></pre></div>
+<p>Please see the <a href="articles/idadwigl.pdf">vignette</a> for an example of how to use this package.</p>
 </div>
 </div>
   </div>

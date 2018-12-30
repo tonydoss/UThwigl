@@ -25,7 +25,7 @@ you can upload your CSV file, set the model parameters, run the model,
 and view the results. Choose this option is you are not familiar with R.
 Here’s a screenshot of the web app:
 
-![](inst/shinyapp/iDADwigl-shiny-app.gif)
+![](iDADwigl-shiny-app.gif)
 
 ## Run code without downloading anything
 

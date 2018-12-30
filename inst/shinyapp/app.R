@@ -1,3 +1,8 @@
+
+
+if (!require("shinycssloaders")) install.packages("shinycssloaders")
+if (!require("iDADwigl")) source("https://install-github.me/tonydoss/iDADwigl")
+
 library(shiny)
 library(shinycssloaders)
 library(iDADwigl)
@@ -58,12 +63,11 @@ ui <- bootstrapPage(
                 <p>"),
            tags$hr(),
            # defaults for Hobbit_MH2T
-           plotOutput("plots",
-                      width = "100%", height = "600px") %>% 
-             # show a spinner while we wait for the plots to draw
-             withSpinner(color="blue", size = 5)
-          
-           
+          # show a spinner while we wait for the plots to draw
+             withSpinner(plotOutput("plots", width = "100%", height = "600px"),
+                         color="blue", 
+                         size = 5)
+        
   ), # end of tab
   
   tabPanel("Inspect the model",
