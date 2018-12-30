@@ -44,7 +44,7 @@ iDADwigl <- function(input_data,
   {
     cat("All required columns are present in the input data 👍\n");
   } else {
-    ?OpenSystemUThDating::iDADwigl
+    ?iDADwigl::iDADwigl
     stop("\nThe input data frame does not contain the necessary columns, or the columns are not named correctly 😢 Please check the documentation for details of the required column names, update the column names using the `names()` function, and try again.\n")
   }
   
@@ -328,7 +328,7 @@ T_sol_plot <- function(output,
   geom_histogram(binwidth = 500,
                  fill = "white",
                  color = "black") +
-  theme_plots +  ggtitle(paste(
+    ggtitle(paste(
     "Age: ",
     round(output$T_final / 1000, digits = digits),
     " +",
@@ -337,7 +337,7 @@ T_sol_plot <- function(output,
     round((output$T_final - quantile(output$T_sol$T_sol, .33)) / 1000, digits = digits),
     " ka",
     sep = ""
-  ))
+  )) +  theme_plots 
 
 }
 

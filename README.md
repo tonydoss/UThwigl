@@ -18,20 +18,30 @@ The main function, `iDADwigl()`, will take the
 activity ratios collected along a transect perpendicular to the surface
 of the tooth or bone and return an age in thousands of years ago.
 
-## Installation
+## Web application
 
-You can install the development version of iDADwigl from GitHub with:
+The package includes a web application that runs in your browser where
+you can upload your CSV file, set the model parameters, run the model,
+and view the results. Choose this option is you are not familiar with R.
+Here’s a screenshot of the web app:
 
-``` r
-source("https://install-github.me/tonydoss/iDADwigl")
-```
+![](inst/shinyapp/iDADwigl-shiny-app.gif)
 
-## Example
+## Run code without downloading anything
 
 You can run the package function in your browser by [starting a binder
 instance](https://mybinder.org/v2/gh/benmarwick/iDADwigl/master?urlpath=rstudio).
 This will open RStudio in your browser, together with the contents of
 this GitHub repository.
 
+## Installing the iDADwigl package on your computer
+
+To install the development version of iDADwigl from GitHub on your
+computer, run:
+
+``` r
+source("https://install-github.me/tonydoss/iDADwigl")
+```
+
 Please see the [vignette](articles/idadwigl.pdf) for an example of how
-to use this pkg
+to use this package.
