@@ -112,13 +112,13 @@
     \author[University of Washington]{Ben Marwick}
    \ead{bmarwick@uw.edu} 
   
-      \address[University of Wollongong]{Wollongong Isotope Geochronology Laboratory, School of Earth \& Envrionmental Sciences, University of Wollongong, Wollongong NSW Australia}
+      \address[University of Wollongong]{Wollongong Isotope Geochronology Laboratory, School of Earth, Atmosphere \& Life Sciences, University of Wollongong, Wollongong NSW Australia}
     \address[University of Washington]{Department of Anthropology, University of Washington, Seattle, WA, USA}
   
   \begin{abstract}
-  This is the abstract.
+  For several decades, uranium-thorium (U-Th) dating has allowed geochronologists to precisely date geological materials, providing unvaluable geochronological constraints on Quaternary processes. Open-system dating of bones and teeth has also provided ages of human and faunal remains of archaeological significance.
   
-  It consists of two paragraphs.
+  To facilitate access of open-system U-Th dating to the broad scientific community, here we provide an R package, named \emph{iDADwigl}, that implements the Diffusion-Adsorption-Decay model of Sambridge et al. (2012). Description of input and output parameters is given, as well as a guide for running the model. Examples of application of the model are also provided, showing that it yields ages within error of previously published values.\\
   \end{abstract}
   
  \end{frontmatter}
@@ -149,7 +149,7 @@ The distance of each analysis location from the inner and outer surfaces of the 
 
 
 \begin{figure}
-\includegraphics[width=0.95\linewidth]{/Users/bmarwick/Desktop/iDADwigl/vignettes/figures/bone} \caption{Modern human femur (132A/LB/27D/03) from Liang Bua, Flores, Indonesia. Two analysis transects can be seen. For a given transect, the outer and inner surface of the bone are given 1 and -1 reference coordinates, and the position of each analysis is calculated accordingly. Modified from Sutikna et al. (2016)}\label{fig:femurpic}
+\includegraphics[width=0.95\linewidth]{figures/bone} \caption{Modern human femur (132A/LB/27D/03) from Liang Bua, Flores, Indonesia. Two analysis transects can be seen. For a given transect, the outer and inner surface of the bone are given 1 and -1 reference coordinates, and the position of each analysis is calculated accordingly. Modified from Sutikna et al. (2016)}\label{fig:femurpic}
 \end{figure}
 
 \FloatBarrier
@@ -201,20 +201,25 @@ The key function of our package, \texttt{iDADwigl()} requires a data frame (a fo
   \texttt{U\_ppm\_Int2SE}
 \end{itemize}
 
-This data frame can be created by importing an Excel or CSV file into the R environment using a generic function such as \texttt{read.csv} or \texttt{read\_excel} from the \texttt{readxl} package (Wickham and Bryan 2018). To help with preparing data for input into our function, we have included two examples of input files. The code chunk below shows how to access one of the two example CSV files included in the package, and how to read it into the R environment.
+To help with preparing data for input into our function, we have included two examples of input files. Inspecting the included data sets will be helpful for understanding how to prepare new data to prepare for use with this package. After attaching the package, we can access the built-in datasets with the \texttt{data()} function, like this:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{# get the path the one of the CSV files included in the package}
-\NormalTok{path_to_included_example_csv_file <-}
-\StringTok{  }\KeywordTok{system.file}\NormalTok{(}\StringTok{"extdata"}\NormalTok{,}
-            \StringTok{"input/Hobbit_MH2T_for_iDAD.csv"}\NormalTok{,}
-            \DataTypeTok{package =} \StringTok{"iDADwigl"}\NormalTok{,}
-            \DataTypeTok{mustWork =} \OtherTok{TRUE}\NormalTok{)}
+\CommentTok{# access the data included in the iDADwigl package}
+\KeywordTok{data}\NormalTok{(}\StringTok{"Hobbit_1_1T_for_iDAD"}\NormalTok{)}
+\KeywordTok{data}\NormalTok{(}\StringTok{"Hobbit_MH2T_for_iDAD"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
 
+This will make the built-in data available in the R environment to inspect and explore how to use the \texttt{iDADwigl()} function.
+
+To use new data with this package, we can import an Excel or CSV file into the R environment using a generic function such as \texttt{read.csv} or \texttt{read\_excel} from the \texttt{readxl} package (Wickham and Bryan 2018). The code chunk below shows how to read one of the CSV files included in the package into the R environment. This is a good method to use if you supply your own CSV file to use with \texttt{iDADwigl()}. In this case we assume that the working directory contains a directory called \texttt{data} and our CSV file is in this \texttt{data} directory:
+
+\begin{Shaded}
+\begin{Highlighting}[]
 \CommentTok{# read in the example CSV file included in the package}
 \NormalTok{Hobbit_MH2T_for_iDAD <-}
-\StringTok{  }\KeywordTok{read.csv}\NormalTok{(path_to_included_example_csv_file)}
+\StringTok{  }\KeywordTok{read.csv}\NormalTok{(}\StringTok{'data/Hobbit_MH2T_for_iDAD.csv'}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -228,26 +233,26 @@ Table \ref{tab:hobbitone} shows the data contained in the \texttt{Hobbit\_MH2T\_
   \hline
 \begin{sideways} iDAD.position \end{sideways} & \begin{sideways} U234\_U238\_CORR \end{sideways} & \begin{sideways} U234\_U238\_CORR\_Int2SE \end{sideways} & \begin{sideways} iDAD.position.1 \end{sideways} & \begin{sideways} Th230\_U238\_CORR \end{sideways} & \begin{sideways} Th230\_U238\_CORR\_Int2SE \end{sideways} & \begin{sideways} U\_ppm \end{sideways} & \begin{sideways} U\_ppm\_Int2SE \end{sideways} \\ 
   \hline
--0.956 & 1.270 & 0.004 & -0.956 & 0.073 & 0.00 & 12.3 & 0.615 \\ 
-  -0.857 & 1.273 & 0.004 & -0.857 & 0.073 & 0.00 & 12.7 & 0.635 \\ 
-  -0.758 & 1.265 & 0.004 & -0.758 & 0.076 & 0.00 & 12.5 & 0.625 \\ 
-  -0.659 & 1.267 & 0.005 & -0.659 & 0.077 & 0.00 & 14.2 & 0.710 \\ 
-  -0.560 & 1.269 & 0.003 & -0.560 & 0.072 & 0.00 & 19.8 & 0.990 \\ 
-  -0.461 & 1.266 & 0.003 & -0.461 & 0.077 & 0.00 & 18.0 & 0.900 \\ 
-  -0.361 & 1.267 & 0.003 & -0.361 & 0.082 & 0.00 & 20.0 & 1.000 \\ 
-  -0.262 & 1.276 & 0.002 & -0.262 & 0.079 & 0.00 & 27.2 & 1.360 \\ 
-  -0.163 & 1.266 & 0.002 & -0.163 & 0.075 & 0.00 & 26.7 & 1.335 \\ 
-  -0.064 & 1.277 & 0.002 & -0.064 & 0.073 & 0.00 & 0.3 & 0.015 \\ 
-  0.035 & 1.271 & 0.002 & 0.035 & 0.078 & 0.00 & 33.9 & 1.695 \\ 
-  0.134 & 1.264 & 0.002 & 0.134 & 0.067 & 0.00 & 37.7 & 1.885 \\ 
-  0.233 & 1.266 & 0.003 & 0.233 & 0.071 & 0.00 & 30.7 & 1.535 \\ 
-  0.332 & 1.265 & 0.002 & 0.332 & 0.077 & 0.00 & 25.2 & 1.260 \\ 
-  0.431 & 1.266 & 0.003 & 0.431 & 0.083 & 0.00 & 28.9 & 1.445 \\ 
-  0.530 & 1.268 & 0.003 & 0.530 & 0.086 & 0.00 & 29.0 & 1.450 \\ 
-  0.629 & 1.264 & 0.003 & 0.629 & 0.082 & 0.00 & 27.5 & 1.375 \\ 
-  0.728 & 1.263 & 0.002 & 0.728 & 0.070 & 0.00 & 30.1 & 1.505 \\ 
-  0.827 & 1.266 & 0.005 & 0.827 & 0.095 & 0.00 & 19.6 & 0.980 \\ 
-  0.926 & 1.263 & 0.003 & 0.926 & 0.096 & 0.00 & 14.8 & 0.740 \\ 
+-0.956 & 1.270 & 0.004 & -0.956 & 0.073 & 0.002 & 12.3 & 0.6 \\ 
+  -0.857 & 1.273 & 0.004 & -0.857 & 0.073 & 0.002 & 12.7 & 0.6 \\ 
+  -0.758 & 1.265 & 0.004 & -0.758 & 0.076 & 0.002 & 12.5 & 0.6 \\ 
+  -0.659 & 1.267 & 0.005 & -0.659 & 0.077 & 0.002 & 14.2 & 0.7 \\ 
+  -0.560 & 1.269 & 0.003 & -0.560 & 0.072 & 0.002 & 19.8 & 1.0 \\ 
+  -0.461 & 1.266 & 0.003 & -0.461 & 0.077 & 0.002 & 18.0 & 0.9 \\ 
+  -0.361 & 1.267 & 0.003 & -0.361 & 0.082 & 0.002 & 20.0 & 1.0 \\ 
+  -0.262 & 1.276 & 0.002 & -0.262 & 0.079 & 0.001 & 27.2 & 1.4 \\ 
+  -0.163 & 1.266 & 0.002 & -0.163 & 0.075 & 0.001 & 26.7 & 1.3 \\ 
+  -0.064 & 1.277 & 0.002 & -0.064 & 0.073 & 0.001 & 0.3 & 0.0 \\ 
+  0.035 & 1.271 & 0.002 & 0.035 & 0.078 & 0.002 & 33.9 & 1.7 \\ 
+  0.134 & 1.264 & 0.002 & 0.134 & 0.067 & 0.001 & 37.7 & 1.9 \\ 
+  0.233 & 1.266 & 0.003 & 0.233 & 0.071 & 0.001 & 30.7 & 1.5 \\ 
+  0.332 & 1.265 & 0.002 & 0.332 & 0.077 & 0.002 & 25.2 & 1.3 \\ 
+  0.431 & 1.266 & 0.003 & 0.431 & 0.083 & 0.001 & 28.9 & 1.4 \\ 
+  0.530 & 1.268 & 0.003 & 0.530 & 0.086 & 0.002 & 29.0 & 1.4 \\ 
+  0.629 & 1.264 & 0.003 & 0.629 & 0.082 & 0.002 & 27.5 & 1.4 \\ 
+  0.728 & 1.263 & 0.002 & 0.728 & 0.070 & 0.001 & 30.1 & 1.5 \\ 
+  0.827 & 1.266 & 0.005 & 0.827 & 0.095 & 0.002 & 19.6 & 1.0 \\ 
+  0.926 & 1.263 & 0.003 & 0.926 & 0.096 & 0.002 & 14.8 & 0.7 \\ 
    \hline
 \end{tabular}
 \caption{\label{tab:hobbitone}Data contained in the example CSV file Hobbit\_MH2T\_for\_iDAD.csv included in the package} 
@@ -260,7 +265,7 @@ The \texttt{iDAD.position} column corresponds to the coordinates of the (\textsu
 Columns \texttt{U234\_U238\_CORR} and \texttt{U234\_U238\_CORR\_Int2SE} are the (\textsuperscript{234}U/\textsuperscript{238}U) activity ratios and their 2\(\sigma\) errors. Columns \texttt{Th230\_U238\_CORR} and
 \texttt{Th230\_U238\_CORR\_Int2SE} are the (\textsuperscript{230}Th/\textsuperscript{238}U) activity ratios and their 2\(\sigma\) errors.
 
-Columns \texttt{U\_ppm} and \texttt{U\_ppm\_Int2SE} and calculated uranium concentrations (in ppm) and their 2\(\sigma\) errors. Uranium concentrations are not necessary for the model and only used for display of the U concentration profile in a figure.
+Columns \texttt{U\_ppm} and \texttt{U\_ppm\_Int2SE} are the calculated uranium concentrations (in ppm) and their 2\(\sigma\) errors. Uranium concentrations are not necessary for the model and only used for display of the U concentration profile in a figure.
 
 \hypertarget{details-of-the-input-parameters}{%
 \section{Details of the input parameters}\label{details-of-the-input-parameters}}
@@ -328,11 +333,11 @@ In a typical analysis we will explore the model fit by first running the model w
 
 \begin{table}[ht]
 \centering
-\begin{tabular}{llllll}
+\begin{tabular}{cccccc}
   \hline
 \begin{sideways} Age (ka) \end{sideways} & \begin{sideways} Age 67\% quantile (ka) \end{sideways} & \begin{sideways} Age 33\% quantile (ka) \end{sideways} & \begin{sideways} U234\_U238\_0 \end{sideways} & \begin{sideways} U234\_U238\_0 67\% quantile \end{sideways} & \begin{sideways} U234\_U238\_0 33\% quantile \end{sideways} \\ 
   \hline
-6.96 & 0.64 & 0.62 & 1.2699 & 0.0001 & 0.0049 \\ 
+7.03 & 0.59 & 0.66 & 1.2685 & 0.0015 & 0.0035 \\ 
    \hline
 \end{tabular}
 \caption{\label{tab:outputresults}Summary table of the computed age and error values} 
@@ -346,26 +351,26 @@ The last item in the output is a copy of the input data with two additional colu
   \hline
 \begin{sideways} iDAD.position \end{sideways} & \begin{sideways} U234\_U238\_CORR \end{sideways} & \begin{sideways} U234\_U238\_CORR\_Int2SE \end{sideways} & \begin{sideways} iDAD.position.1 \end{sideways} & \begin{sideways} Th230\_U238\_CORR \end{sideways} & \begin{sideways} Th230\_U238\_CORR\_Int2SE \end{sideways} & \begin{sideways} U\_ppm \end{sideways} & \begin{sideways} U\_ppm\_Int2SE \end{sideways} & \begin{sideways} U234\_U238\_CALC \end{sideways} & \begin{sideways} Th230\_U238\_CALC \end{sideways} \\ 
   \hline
--0.956 & 1.270 & 0.004 & -0.956 & 0.073 & 0.002 & 12.3 & 0.6 & 1.271 & 0.079 \\ 
-  -0.857 & 1.273 & 0.004 & -0.857 & 0.073 & 0.002 & 12.7 & 0.6 & 1.271 & 0.079 \\ 
-  -0.758 & 1.265 & 0.004 & -0.758 & 0.076 & 0.002 & 12.5 & 0.6 & 1.271 & 0.078 \\ 
-  -0.659 & 1.267 & 0.005 & -0.659 & 0.077 & 0.002 & 14.2 & 0.7 & 1.271 & 0.078 \\ 
-  -0.560 & 1.269 & 0.003 & -0.560 & 0.072 & 0.002 & 19.8 & 1.0 & 1.270 & 0.078 \\ 
-  -0.461 & 1.266 & 0.003 & -0.461 & 0.077 & 0.002 & 18.0 & 0.9 & 1.270 & 0.078 \\ 
-  -0.361 & 1.267 & 0.003 & -0.361 & 0.082 & 0.002 & 20.0 & 1.0 & 1.270 & 0.078 \\ 
-  -0.262 & 1.276 & 0.002 & -0.262 & 0.079 & 0.001 & 27.2 & 1.4 & 1.270 & 0.078 \\ 
-  -0.163 & 1.266 & 0.002 & -0.163 & 0.075 & 0.001 & 26.7 & 1.3 & 1.270 & 0.079 \\ 
-  -0.064 & 1.277 & 0.002 & -0.064 & 0.073 & 0.001 & 0.3 & 0.0 & 1.270 & 0.079 \\ 
-  0.035 & 1.271 & 0.002 & 0.035 & 0.078 & 0.002 & 33.9 & 1.7 & 1.270 & 0.079 \\ 
-  0.134 & 1.264 & 0.002 & 0.134 & 0.067 & 0.001 & 37.7 & 1.9 & 1.270 & 0.079 \\ 
-  0.233 & 1.266 & 0.003 & 0.233 & 0.071 & 0.001 & 30.7 & 1.5 & 1.270 & 0.078 \\ 
-  0.332 & 1.265 & 0.002 & 0.332 & 0.077 & 0.002 & 25.2 & 1.3 & 1.270 & 0.078 \\ 
-  0.431 & 1.266 & 0.003 & 0.431 & 0.083 & 0.001 & 28.9 & 1.4 & 1.270 & 0.078 \\ 
-  0.530 & 1.268 & 0.003 & 0.530 & 0.086 & 0.002 & 29.0 & 1.4 & 1.270 & 0.078 \\ 
-  0.629 & 1.264 & 0.003 & 0.629 & 0.082 & 0.002 & 27.5 & 1.4 & 1.271 & 0.078 \\ 
-  0.728 & 1.263 & 0.002 & 0.728 & 0.070 & 0.001 & 30.1 & 1.5 & 1.271 & 0.078 \\ 
-  0.827 & 1.266 & 0.005 & 0.827 & 0.095 & 0.002 & 19.6 & 1.0 & 1.271 & 0.078 \\ 
-  0.926 & 1.263 & 0.003 & 0.926 & 0.096 & 0.002 & 14.8 & 0.7 & 1.271 & 0.079 \\ 
+-0.956 & 1.270 & 0.004 & -0.956 & 0.073 & 0.002 & 12.3 & 0.6 & 1.270 & 0.080 \\ 
+  -0.857 & 1.273 & 0.004 & -0.857 & 0.073 & 0.002 & 12.7 & 0.6 & 1.269 & 0.079 \\ 
+  -0.758 & 1.265 & 0.004 & -0.758 & 0.076 & 0.002 & 12.5 & 0.6 & 1.269 & 0.079 \\ 
+  -0.659 & 1.267 & 0.005 & -0.659 & 0.077 & 0.002 & 14.2 & 0.7 & 1.269 & 0.079 \\ 
+  -0.560 & 1.269 & 0.003 & -0.560 & 0.072 & 0.002 & 19.8 & 1.0 & 1.269 & 0.079 \\ 
+  -0.461 & 1.266 & 0.003 & -0.461 & 0.077 & 0.002 & 18.0 & 0.9 & 1.269 & 0.079 \\ 
+  -0.361 & 1.267 & 0.003 & -0.361 & 0.082 & 0.002 & 20.0 & 1.0 & 1.269 & 0.079 \\ 
+  -0.262 & 1.276 & 0.002 & -0.262 & 0.079 & 0.001 & 27.2 & 1.4 & 1.269 & 0.079 \\ 
+  -0.163 & 1.266 & 0.002 & -0.163 & 0.075 & 0.001 & 26.7 & 1.3 & 1.269 & 0.079 \\ 
+  -0.064 & 1.277 & 0.002 & -0.064 & 0.073 & 0.001 & 0.3 & 0.0 & 1.268 & 0.080 \\ 
+  0.035 & 1.271 & 0.002 & 0.035 & 0.078 & 0.002 & 33.9 & 1.7 & 1.268 & 0.080 \\ 
+  0.134 & 1.264 & 0.002 & 0.134 & 0.067 & 0.001 & 37.7 & 1.9 & 1.269 & 0.079 \\ 
+  0.233 & 1.266 & 0.003 & 0.233 & 0.071 & 0.001 & 30.7 & 1.5 & 1.269 & 0.079 \\ 
+  0.332 & 1.265 & 0.002 & 0.332 & 0.077 & 0.002 & 25.2 & 1.3 & 1.269 & 0.079 \\ 
+  0.431 & 1.266 & 0.003 & 0.431 & 0.083 & 0.001 & 28.9 & 1.4 & 1.269 & 0.079 \\ 
+  0.530 & 1.268 & 0.003 & 0.530 & 0.086 & 0.002 & 29.0 & 1.4 & 1.269 & 0.079 \\ 
+  0.629 & 1.264 & 0.003 & 0.629 & 0.082 & 0.002 & 27.5 & 1.4 & 1.269 & 0.079 \\ 
+  0.728 & 1.263 & 0.002 & 0.728 & 0.070 & 0.001 & 30.1 & 1.5 & 1.269 & 0.079 \\ 
+  0.827 & 1.266 & 0.005 & 0.827 & 0.095 & 0.002 & 19.6 & 1.0 & 1.269 & 0.079 \\ 
+  0.926 & 1.263 & 0.003 & 0.926 & 0.096 & 0.002 & 14.8 & 0.7 & 1.270 & 0.080 \\ 
    \hline
 \end{tabular}
 \caption{\label{tab:outputdata}Example of output table including the input data described above, and two new columns} 
@@ -394,7 +399,7 @@ The last item in the output is a copy of the input data with two additional colu
 
 
 \begin{figure}
-\includegraphics[width=0.95\linewidth]{/Users/bmarwick/Desktop/iDADwigl/vignettes/figures/demo-panel-fig} \caption{Example of the visualisations produced by the \texttt{iDADwigl()} function, using the demonstration run described avove. A: Histogram of the solution ages, B: Uranium concentration profile for transect 2 of modern human femur 132A/LB/27D/03. C: Calculated (red) and observed (blue) (\textsuperscript{234}U/\textsuperscript{238}U) activity ratios for transect 2 of modern human femur 132A/LB/27D/03. D: Calculated (red) and observed (blue) (\textsuperscript{230}Th/\textsuperscript{238}U) activity ratios for transect 2 of modern human femur 132A/LB/27D/03.}\label{fig:demopanelfig}
+\includegraphics[width=0.95\linewidth]{figures/demo-panel-fig} \caption{Example of the visualisations produced by the \texttt{iDADwigl()} function, using the demonstration run described avove. A: Histogram of the solution ages, B: Uranium concentration profile for transect 2 of modern human femur 132A/LB/27D/03. C: Calculated (red) and observed (blue) (\textsuperscript{234}U/\textsuperscript{238}U) activity ratios for transect 2 of modern human femur 132A/LB/27D/03. D: Calculated (red) and observed (blue) (\textsuperscript{230}Th/\textsuperscript{238}U) activity ratios for transect 2 of modern human femur 132A/LB/27D/03.}\label{fig:demopanelfig}
 \end{figure}
 
 \FloatBarrier
@@ -412,12 +417,12 @@ The package includes two sample data sets derived from Sutikna et al. (2016) : `
   \hline
 \begin{sideways} iDAD.position \end{sideways} & \begin{sideways} U234\_U238\_CORR \end{sideways} & \begin{sideways} U234\_U238\_CORR\_Int2SE \end{sideways} & \begin{sideways} iDAD.position.1 \end{sideways} & \begin{sideways} Th230\_U238\_CORR \end{sideways} & \begin{sideways} Th230\_U238\_CORR\_Int2SE \end{sideways} & \begin{sideways} U\_ppm \end{sideways} & \begin{sideways} U\_ppm\_Int2SE \end{sideways} \\ 
   \hline
--0.143 & 1.369 & 0.002 & -0.143 & 0.699 & 0.01 & 32.0 & 1.600 \\ 
-  0.165 & 1.370 & 0.002 & 0.165 & 0.733 & 0.01 & 41.1 & 2.055 \\ 
-  0.319 & 1.364 & 0.002 & 0.319 & 0.672 & 0.01 & 35.8 & 1.790 \\ 
-  0.472 & 1.362 & 0.003 & 0.472 & 0.636 & 0.01 & 27.6 & 1.380 \\ 
-  0.626 & 1.365 & 0.003 & 0.626 & 0.641 & 0.01 & 31.0 & 1.550 \\ 
-  0.780 & 1.374 & 0.003 & 0.780 & 0.712 & 0.01 & 27.9 & 1.395 \\ 
+-0.143 & 1.369 & 0.002 & -0.143 & 0.699 & 0.006 & 32.0 & 1.6 \\ 
+  0.165 & 1.370 & 0.002 & 0.165 & 0.733 & 0.008 & 41.1 & 2.1 \\ 
+  0.319 & 1.364 & 0.002 & 0.319 & 0.672 & 0.006 & 35.8 & 1.8 \\ 
+  0.472 & 1.362 & 0.003 & 0.472 & 0.636 & 0.006 & 27.6 & 1.4 \\ 
+  0.626 & 1.365 & 0.003 & 0.626 & 0.641 & 0.006 & 31.0 & 1.6 \\ 
+  0.780 & 1.374 & 0.003 & 0.780 & 0.712 & 0.005 & 27.9 & 1.4 \\ 
    \hline
 \end{tabular}
 \caption{\label{tab:table-human}Data contained in the example CSV file Hobbit\_1\-1T\_for\_iDAD.csv included in the package} 
@@ -428,12 +433,12 @@ The package includes two sample data sets derived from Sutikna et al. (2016) : `
 
 For transect 2 of 132A/LB/27D/03, Sutikna et al. (2016) reported an age of 7.4 \(\pm\) 0.5 ka (thousand years before 2014). With iDADwigl, we first run the model with \texttt{nbit} = 1, \texttt{fsum\_target} = 0.05, \texttt{U48\_0\_min} and \texttt{U48\_0\_max} = 1.25 and 1.3, respectively, \texttt{l} = 5.35 cm, \texttt{U\_0} = 25 ppm, \texttt{K\_min} and \texttt{K\_max} = 10\textsuperscript{-13} and 10\textsuperscript{-11} cm\textsuperscript{2}/s, respectively, \texttt{T\_min} and \texttt{T\_max} = 10\textsuperscript{3} and 500x10\textsuperscript{3} yr, respectively. \texttt{U48\_0\_min} and \texttt{U48\_0\_max} are determined by considering the measured (\textsuperscript{234}U/\textsuperscript{238}U) values near the surfaces of the sample. \texttt{T\_min} and \texttt{T\_max} values were chosen such that no a priori knowledge of the age biases the results.
 
-With this first run, we obtain an age of 8 ka. There is no calculated error on the age since there is only one iteration. As we can see, the calculated (\textsuperscript{234}U/\textsuperscript{238}U) and (\textsuperscript{230}Th/\textsuperscript{238}U) ratios are higher than observed values (Figure \ref{fig:plot-panel-second-run-modern-fig}). For the (\textsuperscript{234}U/\textsuperscript{238}U), it makes sense to thus use a narrower range for \texttt{U48\_0\_min} and \texttt{U48\_0\_max}. Higher calculated (\textsuperscript{230}Th/\textsuperscript{238}U) ratios compared to observed values suggests that the calculated age is too old (since this ratio increases with age). Thus, we should consider a lower value for \texttt{T\_max}.
+With this first run, we obtain an age of 7 ka. There is no calculated error on the age since there is only one iteration. As we can see, the calculated (\textsuperscript{234}U/\textsuperscript{238}U) and (\textsuperscript{230}Th/\textsuperscript{238}U) ratios are higher than observed values (Figure \ref{fig:plot-panel-second-run-modern-fig}). For the (\textsuperscript{234}U/\textsuperscript{238}U), it makes sense to thus use a narrower range for \texttt{U48\_0\_min} and \texttt{U48\_0\_max}. Higher calculated (\textsuperscript{230}Th/\textsuperscript{238}U) ratios compared to observed values suggests that the calculated age is too old (since this ratio increases with age). Thus, we should consider a lower value for \texttt{T\_max}.
 
 
 
 \begin{figure}
-\includegraphics[width=0.95\linewidth]{/Users/bmarwick/Desktop/iDADwigl/vignettes/figures/plot-panel-first-run-modern} \caption{Results from the model's first run with the modern human femur. A: Calculated (red) and observed (blue) (\textsuperscript{234}U/\textsuperscript{238}U) activity ratios for transect 2 of modern human femur 132A/LB/27D/03. B: Calculated (red) and observed (blue) (\textsuperscript{230}Th/\textsuperscript{238}U) activity ratios for transect 2 of modern human femur 132A/LB/27D/03.}\label{fig:plot-panel-first-run-modern-fig}
+\includegraphics[width=0.95\linewidth]{figures/plot-panel-first-run-modern} \caption{Results from the model's first run with the modern human femur. A: Calculated (red) and observed (blue) (\textsuperscript{234}U/\textsuperscript{238}U) activity ratios for transect 2 of modern human femur 132A/LB/27D/03. B: Calculated (red) and observed (blue) (\textsuperscript{230}Th/\textsuperscript{238}U) activity ratios for transect 2 of modern human femur 132A/LB/27D/03.}\label{fig:plot-panel-first-run-modern-fig}
 \end{figure}
 
 \FloatBarrier
@@ -443,17 +448,17 @@ The model is thus run a second time, increasing the number of iterations to 1000
 
 
 \begin{figure}
-\includegraphics[width=1\linewidth]{/Users/bmarwick/Desktop/iDADwigl/vignettes/figures/plot-panel-second-run-modern} \caption{Results from the model's second run with the modern human femur. A: Calculated (red) and observed (blue) (\textsuperscript{234}U/\textsuperscript{238}U) activity ratios for transect 2 of modern human femur 132A/LB/27D/03. B: Calculated (red) and observed (blue) (\textsuperscript{230}Th/\textsuperscript{238}U) activity ratios for transect 2 of modern human femur 132A/LB/27D/03.}\label{fig:plot-panel-second-run-modern-fig}
+\includegraphics[width=1\linewidth]{figures/plot-panel-second-run-modern} \caption{Results from the model's second run with the modern human femur. A: Calculated (red) and observed (blue) (\textsuperscript{234}U/\textsuperscript{238}U) activity ratios for transect 2 of modern human femur 132A/LB/27D/03. B: Calculated (red) and observed (blue) (\textsuperscript{230}Th/\textsuperscript{238}U) activity ratios for transect 2 of modern human femur 132A/LB/27D/03.}\label{fig:plot-panel-second-run-modern-fig}
 \end{figure}
 
 \FloatBarrier
 
-\texttt{U48\_0\_min}, \texttt{U48\_0\_min}, \texttt{T\_min} and \texttt{T\_max} can be further adjusted. \texttt{fsum\_target} can also be decreased to 0.01 in order to get a better fit and error, but it is at the expense of computing time. Once a satisfying fit is obtained (assessed by inspecting the figures produced), the number of iterations \texttt{nbit} can be increased to 1000 (or higher). Following this method, we obtain an age of 6.3 +1.3/-1.1 ka (Figure \ref{fig:plot-panel-second-run-modern-fig}).
+\texttt{U48\_0\_min}, \texttt{U48\_0\_min}, \texttt{T\_min} and \texttt{T\_max} can be further adjusted. \texttt{fsum\_target} can also be decreased to 0.01 in order to get a better fit and error, but it is at the expense of computing time. Once a satisfying fit is obtained (assessed by inspecting the figures produced), the number of iterations \texttt{nbit} can be increased to 1000 (or higher). Following this method, we obtain an age of 6.1 +1.3/-1.3 ka (Figure \ref{fig:plot-panel-second-run-modern-fig}).
 
 \hypertarget{age-of-the-homo-floresiensis-remains-from-sutikna-et-al.2016}{%
 \subsection{\texorpdfstring{Age of the \emph{Homo floresiensis} remains from Sutikna et al.~2016}{Age of the Homo floresiensis remains from Sutikna et al.~2016}}\label{age-of-the-homo-floresiensis-remains-from-sutikna-et-al.2016}}
 
-For transect 1 of LB1/52, Sutikna et al. (2016) reported an age of 79.0 \(\pm\) 3.7 ka. With iDADwigl, using data in the file \texttt{Hobbit\_1-1T\_for\_iDAD.csv} provided in the package, and following the same method as above, we obtain an age of 75.5 +1/-1 ka (Figure \ref{fig:plot-panel-hobbit-fig}).
+For transect 1 of LB1/52, Sutikna et al. (2016) reported an age of 79.0 \(\pm\) 3.7 ka. With iDADwigl, using data in the file \texttt{Hobbit\_1-1T\_for\_iDAD.csv} provided in the package, and following the same method as above, we obtain an age of 75.4 +0.8/-0.9 ka (Figure \ref{fig:plot-panel-hobbit-fig}).
 
 Note that results and errors will vary slightly for each run since populations are solution sets are randomly generated.
 
@@ -462,7 +467,7 @@ Note that results and errors will vary slightly for each run since populations a
 
 
 \begin{figure}
-\includegraphics[width=0.95\linewidth]{/Users/bmarwick/Desktop/iDADwigl/vignettes/figures/plot-panel-hobbit} \caption{Results from running the model with \emph{Homo floresiensis} ulna LB1/52 data from Sutikna et al. (2016). A: Histogram of the solution ages, B: Uranium concentration profile for transect 1 of \emph{Homo floresiensis} ulna LB1/52. C: Calculated (red) and observed (blue) (\textsuperscript{234}U/\textsuperscript{238}U) activity ratios for transect 1 of \emph{Homo floresiensis} ulna LB1/52. D: Calculated (red) and observed (blue) (\textsuperscript{230}Th/\textsuperscript{238}U) activity ratios for transect 1 of \emph{Homo floresiensis} ulna LB1/52.}\label{fig:plot-panel-hobbit-fig}
+\includegraphics[width=0.95\linewidth]{figures/plot-panel-hobbit} \caption{Results from running the model with \emph{Homo floresiensis} ulna LB1/52 data from Sutikna et al. (2016). A: Histogram of the solution ages, B: Uranium concentration profile for transect 1 of \emph{Homo floresiensis} ulna LB1/52. C: Calculated (red) and observed (blue) (\textsuperscript{234}U/\textsuperscript{238}U) activity ratios for transect 1 of \emph{Homo floresiensis} ulna LB1/52. D: Calculated (red) and observed (blue) (\textsuperscript{230}Th/\textsuperscript{238}U) activity ratios for transect 1 of \emph{Homo floresiensis} ulna LB1/52.}\label{fig:plot-panel-hobbit-fig}
 \end{figure}
 
 \FloatBarrier
@@ -549,7 +554,7 @@ Wickham, Hadley, and Jennifer Bryan. 2018. \emph{Readxl: Read Excel Files}. \url
 \hypertarget{colophon}{%
 \subsubsection{Colophon}\label{colophon}}
 
-This report was generated on 2018-12-25 14:50:09 using the following computational environment and dependencies:
+This report was generated on 2018-12-29 22:45:33 using the following computational environment and dependencies:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -569,7 +574,7 @@ This report was generated on 2018-12-25 14:50:09 using the following computation
 ##  collate  en_US.UTF-8                 
 ##  ctype    en_US.UTF-8                 
 ##  tz       America/Los_Angeles         
-##  date     2018-12-25                  
+##  date     2018-12-29                  
 ## 
 ## - Packages --------------------------------------------------------------
 ##  package     * version     date       lib
@@ -578,7 +583,6 @@ This report was generated on 2018-12-25 14:50:09 using the following computation
 ##  bookdown      0.9         2018-12-21 [1]
 ##  callr         3.1.1       2018-12-21 [1]
 ##  cli           1.0.1       2018-09-25 [1]
-##  codetools     0.2-15      2016-10-05 [1]
 ##  colorspace    1.3-2       2016-12-14 [1]
 ##  cowplot     * 0.9.3       2018-07-15 [1]
 ##  crayon        1.3.4       2018-12-18 [1]
@@ -591,9 +595,8 @@ This report was generated on 2018-12-25 14:50:09 using the following computation
 ##  ggplot2     * 3.1.0.9000  2018-12-25 [1]
 ##  glue          1.3.0       2018-10-31 [1]
 ##  gtable        0.2.0       2016-02-26 [1]
-##  here          0.1         2017-05-28 [1]
 ##  htmltools     0.3.6       2017-04-28 [1]
-##  iDADwigl    * 0.1.0       2018-12-25 [1]
+##  iDADwigl    * 0.1.0       2018-12-30 [1]
 ##  knitr       * 1.21        2018-12-10 [1]
 ##  labeling      0.3         2014-08-23 [1]
 ##  lazyeval      0.2.1       2017-10-29 [1]
@@ -633,7 +636,6 @@ This report was generated on 2018-12-25 14:50:09 using the following computation
 ##  CRAN (R 3.5.0)                     
 ##  CRAN (R 3.5.0)                     
 ##  CRAN (R 3.5.0)                     
-##  CRAN (R 3.5.1)                     
 ##  CRAN (R 3.5.0)                     
 ##  CRAN (R 3.5.0)                     
 ##  Github (gaborcsardi/crayon@74bee76)
@@ -645,7 +647,6 @@ This report was generated on 2018-12-25 14:50:09 using the following computation
 ##  CRAN (R 3.5.0)                     
 ##  Github (tidyverse/ggplot2@7f13dfa) 
 ##  Github (tidyverse/glue@35c61e9)    
-##  CRAN (R 3.5.0)                     
 ##  CRAN (R 3.5.0)                     
 ##  CRAN (R 3.5.0)                     
 ##  local                              
@@ -697,7 +698,7 @@ The current Git commit details are:
 \begin{verbatim}
 ## Local:    master /Users/bmarwick/Desktop/iDADwigl
 ## Remote:   master @ origin (https://github.com/benmarwick/iDADwigl.git)
-## Head:     [298efc3] 2018-12-25: convert vignette into Elsevier article format, tidy tables and plots
+## Head:     [1b9217a] 2018-12-29: move gif, add Imports, remove dep on %>%
 \end{verbatim}
 
 \end{document}

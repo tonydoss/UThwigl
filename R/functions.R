@@ -44,7 +44,7 @@ iDADwigl <- function(input_data,
   {
     cat("All required columns are present in the input data 👍\n");
   } else {
-    ?OpenSystemUThDating::iDADwigl
+    ?iDADwigl::iDADwigl
     stop("\nThe input data frame does not contain the necessary columns, or the columns are not named correctly 😢 Please check the documentation for details of the required column names, update the column names using the `names()` function, and try again.\n")
   }
   
@@ -295,6 +295,176 @@ if(print_summary) {
 }
 
 
-# testing...
-# iDADwigl(Hobbit_MH2T_for_iDAD, nbit = 10)
-# input_data <- Hobbit_MH2T_for_iDAD
+#--------------------------------------------------------------------
+# functions to draw plots with the output
+
+#' Histogram of the solution ages
+#' 
+#' @param output Output from the `iDADwigl()` function
+#' @import ggplot2
+#' @export
+
+T_sol_plot <- function(output,
+                       big_size = 10,
+                       less_big_size = 8,
+                       point_size = 2,
+                       digits = 1){
+  
+  theme_plots <-
+    theme(
+      plot.title = element_text(size = big_size, hjust = 0.5),
+      legend.title = element_blank(),
+      axis.title.y = element_text(size = big_size),
+      axis.title.x = element_text(size = big_size),
+      axis.text.x = element_text(size = less_big_size),
+      axis.text.y = element_text(size = less_big_size)
+    ) +
+    theme_bw() +
+    theme(panel.grid.major = element_blank(),
+          panel.grid.minor = element_blank())
+  
+  ggplot(output$T_sol,
+         aes(T_sol)) +
+  geom_histogram(binwidth = 500,
+                 fill = "white",
+                 color = "black") +
+    ggtitle(paste(
+    "Age: ",
+    round(output$T_final / 1000, digits = digits),
+    " +",
+    round((quantile(output$T_sol$T_sol, .67) - output$T_final) / 1000, digits = digits),
+    "/-",
+    round((output$T_final - quantile(output$T_sol$T_sol, .33)) / 1000, digits = digits),
+    " ka",
+    sep = ""
+  )) +  theme_plots 
+
+}
+
+
+#` Uranium concentration profile for transect
+#' 
+#' 
+#' @param output Output from the `iDADwigl()` function
+#' @import ggplot2
+#' @export
+
+u_conc_profile_plot <- function(output,
+           big_size = 10,
+           less_big_size = 8,
+           point_size = 2,
+           digits = 1){
+    
+    theme_plots <-
+      theme(
+        plot.title = element_text(size = big_size, hjust = 0.5),
+        legend.title = element_blank(),
+        axis.title.y = element_text(size = big_size),
+        axis.title.x = element_text(size = big_size),
+        axis.text.x = element_text(size = less_big_size),
+        axis.text.y = element_text(size = less_big_size)
+      ) +
+      theme_bw() +
+      theme(panel.grid.major = element_blank(),
+            panel.grid.minor = element_blank())
+    
+  ggplot(output$output_data) +
+  geom_errorbar(aes(x = iDAD.position,
+                    ymax = U_ppm + U_ppm_Int2SE,
+                    ymin = U_ppm - U_ppm_Int2SE, width = 0.02)) + # plot error bars
+  geom_point(aes(iDAD.position, U_ppm),
+             color = "blue",
+             size = point_size) +
+  ylab("U (ppm)") +
+  xlab("Relative distance from center") +
+  theme_plots
+}
+
+#' Calculated (red) and observed (blue) (^234^U/^238^U) activity ratios for transect
+#' 
+#' 
+#' @param output Output from the `iDADwigl()` function
+#' @import ggplot2
+#' @export
+
+u234_u238_ratio_plot <- function(output,
+                                 big_size = 10,
+                                 less_big_size = 8,
+                                 point_size = 2,
+                                 digits = 1){
+  
+  theme_plots <-
+    theme(
+      plot.title = element_text(size = big_size, hjust = 0.5),
+      legend.title = element_blank(),
+      axis.title.y = element_text(size = big_size),
+      axis.title.x = element_text(size = big_size),
+      axis.text.x = element_text(size = less_big_size),
+      axis.text.y = element_text(size = less_big_size)
+    ) +
+    theme_bw() +
+    theme(panel.grid.major = element_blank(),
+          panel.grid.minor = element_blank())
+  
+  ggplot(output$output_data) +
+  geom_errorbar(aes(x = iDAD.position,
+                    ymax = U234_U238_CORR + U234_U238_CORR_Int2SE,
+                    ymin = U234_U238_CORR - U234_U238_CORR_Int2SE,
+                    width = 0.02)) + # plot error bars
+  geom_point(aes(iDAD.position,
+                 U234_U238_CORR),
+             color = "blue",
+             size = point_size) +
+  geom_point(aes(iDAD.position,
+                 U234_U238_CALC),
+             color = "red",
+             size = point_size) +
+  ylab(expression("("^234 * "U/"^238 * "U)")) +
+  xlab("Relative distance from center") +
+  theme_plots
+}
+
+#' Calculated (red) and observed (blue) (^230^Th/^238^U) activity ratios for transect 
+#' 
+#' @param output Output from the `iDADwigl()` function
+#' 
+#' @import ggplot2
+#' @export
+
+th230_u238_ratio_plot <-  function(output,
+         big_size = 10,
+         less_big_size = 8,
+         point_size = 2,
+         digits = 1){
+  
+  theme_plots <-
+    theme(
+      plot.title = element_text(size = big_size, hjust = 0.5),
+      legend.title = element_blank(),
+      axis.title.y = element_text(size = big_size),
+      axis.title.x = element_text(size = big_size),
+      axis.text.x = element_text(size = less_big_size),
+      axis.text.y = element_text(size = less_big_size)
+    ) +
+    theme_bw() +
+    theme(panel.grid.major = element_blank(),
+          panel.grid.minor = element_blank())
+
+  ggplot(output$output_data) +
+  geom_errorbar(
+    aes(
+      x = iDAD.position,
+      ymax = Th230_U238_CORR + Th230_U238_CORR_Int2SE,
+      ymin = Th230_U238_CORR - Th230_U238_CORR_Int2SE,
+      width = 0.02
+    )
+  ) + # plot error bars
+  geom_point(aes(iDAD.position, Th230_U238_CORR),
+             color = 'blue',
+             size = point_size) +
+  geom_point(aes(iDAD.position, Th230_U238_CALC),
+             color = 'red',
+             size = point_size) +
+  ylab(expression("(" ^ 230 * "Th/" ^ 238 * "U)")) + xlab("Relative distance from center") +
+  theme_plots
+}
