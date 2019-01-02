@@ -16,7 +16,7 @@ address:
 abstract: |
   For several decades, uranium-thorium (U-Th) dating has allowed geochronologists to precisely date geological materials, providing unvaluable geochronological constraints on Quaternary processes. Open-system dating of bones and teeth has also provided ages of human and faunal remains of archaeological significance.
   
-  To facilitate access of open-system U-Th dating to the broad scientific community, here we provide an R package, named *iDADwigl*, that implements the Diffusion-Adsorption-Decay model of Sambridge et al. [-@Sambridge2012]. Description of input and output parameters is given, as well as a guide for running the model. Examples of application of the model are also provided, showing that it yields ages within error of previously published values.   
+  To facilitate access of open-system U-Th dating to the broad scientific community, here we provide an R package, named *iDADwigl*, that implements the Diffusion-Adsorption-Decay model of Sambridge et al. [-@Sambridge2012]. Description of input and output parameters is given, as well as a guide for running the model. The package can be used three different ways: (i) as a web application, (ii) through your browser or (iii) in R studio. Examples of application of the model are also provided, showing that it yields ages within error of previously published values.   
 
 journal: "Quaternary Geochronology"
 date: "`r Sys.Date()`"
@@ -81,18 +81,21 @@ include_graphics("figures/bone.png")
 
 # Installing and attaching the package
 
-To run the model, start `R` and install the package from GitHub. There are many ways to do this, one simple method is shown in the line below. This only needs to be done once per computer.
+First you will need to download and install [R](https://www.r-project.org/), and we also recommend downloading and installing [RStudio](https://www.rstudio.com/). 
+To run the model, start `RStudio` and install the package from GitHub. There are many ways to do this, one simple method is shown in the line below. This only needs to be done once per computer.
 
 ```{r eval = FALSE}
 source("https://install-github.me/tonydoss/iDADwigl")
 ```
 
-For routine data analysis, R scripts need to contain this line to attach the package to the current working envirovnment. This line needs to be run at the start of each analysis:
+For routine data analysis, R scripts need to contain the following line to attach the package to the current working envirovnment. This line needs to be run at the start of each analysis:
 
 ```{r}
 # attach the package
 library(iDADwigl)
 ```
+
+Alternatively, the model can be run from your browser without installing R or RStudio with this [link](https://mybinder.org/v2/gh/benmarwick/iDADwigl/master?urlpath=rstudio).
 
 \newpage
 
@@ -119,11 +122,11 @@ data("Hobbit_MH2T_for_iDAD")
 
 This will make the built-in data available in the R environment to inspect and explore how to use the `iDADwigl()` function. 
 
-To use new data with this package, we can import an Excel or CSV file into the R environment using a generic function such as `read.csv` or `read_excel` from the `readxl` package [@Wickham_readxl]. The code chunk below shows how to read one of the CSV files included in the package into the R environment. This is a good method to use if you supply your own CSV file to use with `iDADwigl()`. In this case we assume that the working directory contains a directory called `data` and our CSV file is in this `data` directory: 
+To use new data with this package, we need to import a CSV or Excel file with the U-Th data into the R environment using a generic function such as `read.csv` or `read_excel` from the `readxl` package [@Wickham_readxl]. The code chunk below shows how to read one of the CSV files included in the package into the R environment. This is a good method to use if you supply your own CSV file to use with `iDADwigl()`. In this case we assume that the working directory contains a directory called `data` and our CSV file is in this `data` directory: 
 
 ```{r}
-# read in the example CSV file included in the package
-Hobbit_MH2T_for_iDAD <-
+# read in one of the example CSV files included in the package
+data_file <-
   read.csv('data/Hobbit_MH2T_for_iDAD.csv')
 ```
 
@@ -137,7 +140,7 @@ options(xtable.floating = TRUE,
         xtable.comment = FALSE)
 
 Hobbit_MH2T_for_iDAD_tbl <-
-Hobbit_MH2T_for_iDAD %>%
+data_file %>%
   xtable(
          digits = c(1,3,3,3,3,3,3,1,1),
          caption = "\\label{tab:hobbitone}Data contained in the example CSV file Hobbit\\_MH2T\\_for\\_iDAD.csv included in the package")
@@ -157,7 +160,7 @@ The `iDAD.position` column corresponds to the coordinates of the (^234^U/^238^U)
 Columns `U234_U238_CORR` and `U234_U238_CORR_Int2SE` are the (^234^U/^238^U) activity ratios and their 2$\sigma$ errors. Columns `Th230_U238_CORR` and
 `Th230_U238_CORR_Int2SE` are the (^230^Th/^238^U) activity ratios and their 2$\sigma$ errors.
 
-Columns `U_ppm` and `U_ppm_Int2SE` are the calculated uranium concentrations (in ppm) and their 2$\sigma$ errors. Uranium concentrations are not necessary for the model and only used for display of the U concentration profile in a figure.
+Columns `U_ppm` and `U_ppm_Int2SE` are the calculated uranium concentrations (in ppm) and their 2$\sigma$ errors. Uranium concentrations are not necessary for the model but needed to display the U concentration profile in a figure.
 
 # Details of the input parameters
 
@@ -183,10 +186,16 @@ After setting the `U480` maximum and minimum values, run the function and adjust
 
 # How to run the model
 
-To run the function, attach the package and then run `iDADwigl()`, specifying the input data frame and the input parameters as described above. The code block below shows a quick example that will execute in less than five seconds on a typical 2.3 GHz Intel Core i5 laptop:  
+To run the model, you can use the web application by entering the following command in RStudio:
+```{r eval = FALSE}
+runApp('inst/shinyapp')
+```
+The web application will open in a new window. There, you can upload the data file on the *Load the data* tab, set parameters from the *Set model parameters* tab, run the model by clicking the button *Run Simulation* on the same tab, and observe the results on the *Visualise the model* and *Inspect the model* tabs. You can change the parameters and re-run the model by click the button *Run Simulation*. Once done, close the window.
+
+Instead of using the web application, you can use commands in the R console. Attach the package as shown above and then run `iDADwigl()`, specifying the input data frame and the input parameters as described above. The code block below shows a quick example that will execute in less than five seconds on a typical 2.3 GHz Intel Core i5 laptop:  
 
 ```{r model-output, results='hide'}
-output <- iDADwigl(Hobbit_MH2T_for_iDAD,
+output <- iDADwigl(data_file,
                    nbit = 1000,
                    fsum_target = 0.01,
                    U48_0_min = 1.265,
@@ -353,7 +362,7 @@ output_first_run_modern <- iDADwigl(Hobbit_MH2T_for_iDAD,
                    T_max = 500e3)
 ```
 
-With this first run, we obtain an age of `r round(output_first_run_modern$T_final/1e3,1)` ka. There is no calculated error on the age since there is only one iteration. As we can see, the calculated (^234^U/^238^U) and (^230^Th/^238^U) ratios are higher than observed values (Figure \@ref(fig:plot-panel-second-run-modern-fig)). For the (^234^U/^238^U), it makes sense to thus use a narrower range for `U48_0_min` and `U48_0_max`. Higher calculated (^230^Th/^238^U) ratios compared to observed values suggests that the calculated age is too old (since this ratio increases with age). Thus, we should consider a lower value for `T_max`.
+With this first run, we obtain an age of `r round(output_first_run_modern$T_final/1e3,1)` ka. There is no calculated error on the age since there is only one iteration. The calculated (^234^U/^238^U) and (^230^Th/^238^U) ratios can be quite different from observed values (Figure \@ref(fig:plot-panel-second-run-modern-fig)). For the (^234^U/^238^U), it makes sense to thus use a narrower range for `U48_0_min` and `U48_0_max`. Higher calculated (^230^Th/^238^U) ratios compared to observed values suggests that the calculated age is too old (since this ratio increases with age), and the opposite if the calculated (^230^Th/^238^U) ratios are too low. Thus, we should adjust `T_mix` and/or `T_max` accordingly.
 
 ```{r U48-first-run-modern-human, echo=FALSE}
 # "Calculated (red) and observed (blue) (^234^U/^238^U) activity ratios for transect 2 of modern human femur 132A/LB/27D/03"
@@ -412,7 +421,13 @@ u234_u238_ratio_second_run_modern_human <- u234_u238_ratio_plot(output_second_ru
 th230_u238_ratio_second_run_modern_human <- th230_u238_ratio_plot(output_second_run_modern)   
 ```
 
-The model is thus run a second time, increasing the number of iterations to 1000, and changing `U48_0_min` and `U48_0_max` to 1.265 and 1.270, respecitvely, and `T_max` to 10^3^ yr. Since the first run suggests a Holocene age for the sample, the measured (^234^U/^238^U) at the surfaces must be similar to the calculated values, thus the chosen values for the range above.
+```{r create-variables-to-quote-in-text-modern-human, echo=FALSE}
+age <- round(output_second_run_modern$results$`Age (ka)`,1)
+age_plus <- round(output_second_run_modern$results$`Age 67% quantile (ka)`,1)
+age_minus <- round(output_second_run_modern$results$`Age 33% quantile (ka)`,1)
+```
+
+Since the first run suggests a Holocene age for the sample, the measured (^234^U/^238^U) at the surfaces must be similar to the calculated values, thus the chosen values for the range above. Once `U48_0_min`, `U48_0_min`, `T_min` and `T_max` parameters have been adjusted, the model is run again. `fsum_target` can also be decreased to 0.01 in order to get a better fit and error, but it is at the expense of computing time. This operation is repeated until a satisfying fit is obtained (by visual inspection of the figures). Finally, the moden is run once more, increasing the number of iterations to 1000 (or more). Following this method, we obtain an age of `r age` +`r age_plus`/-`r age_minus` ka (Figure \@ref(fig:plot-panel-second-run-modern-fig)).
 
 ```{r plot-panel-second-run-modern, echo=FALSE}
 # combine plots
@@ -432,14 +447,6 @@ include_graphics("figures/plot-panel-second-run-modern.png")
 ```
 
 \FloatBarrier
-
-```{r create-variables-to-quote-in-text-modern-human, echo=FALSE}
-age <- round(output_second_run_modern$results$`Age (ka)`,1)
-age_plus <- round(output_second_run_modern$results$`Age 67% quantile (ka)`,1)
-age_minus <- round(output_second_run_modern$results$`Age 33% quantile (ka)`,1)
-```
-
-`U48_0_min`, `U48_0_min`, `T_min` and `T_max` can be further adjusted. `fsum_target` can also be decreased to 0.01 in order to get a better fit and error, but it is at the expense of computing time. Once a satisfying fit is obtained (assessed by inspecting the figures produced), the number of iterations `nbit` can be increased to 1000 (or higher). Following this method, we obtain an age of `r age` +`r age_plus`/-`r age_minus` ka (Figure \@ref(fig:plot-panel-second-run-modern-fig)).
 
 ## Age of the *Homo floresiensis* remains from Sutikna et al. 2016
 
