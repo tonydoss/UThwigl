@@ -18,6 +18,8 @@ Description: Implements the diffusion-adsorption-decay (DAD) model developed by 
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
+Imports: 
+    ggplot2
 Suggests: 
     knitr,
     rmarkdown,

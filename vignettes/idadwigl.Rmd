@@ -10,13 +10,13 @@ author:
     affiliation: University of Washington
 address:
   - code: University of Wollongong
-    address: Wollongong Isotope Geochronology Laboratory, School of Earth & Envrionmental Sciences, University of Wollongong, Wollongong NSW Australia
+    address: Wollongong Isotope Geochronology Laboratory, School of Earth, Atmosphere & Life Sciences, University of Wollongong, Wollongong NSW Australia
   - code: University of Washington
     address: Department of Anthropology, University of Washington, Seattle, WA, USA
 abstract: |
-  This is the abstract.
-
-  It consists of two paragraphs.
+  For several decades, uranium-thorium (U-Th) dating has allowed geochronologists to precisely date geological materials, providing unvaluable geochronological constraints on Quaternary processes. Open-system dating of bones and teeth has also provided ages of human and faunal remains of archaeological significance.
+  
+  To facilitate access of open-system U-Th dating to the broad scientific community, here we provide an R package, named *iDADwigl*, that implements the Diffusion-Adsorption-Decay model of Sambridge et al. [-@Sambridge2012]. Description of input and output parameters is given, as well as a guide for running the model. Examples of application of the model are also provided, showing that it yields ages within error of previously published values.   
 
 journal: "Quaternary Geochronology"
 date: "`r Sys.Date()`"
@@ -74,7 +74,7 @@ The distance of each analysis location from the inner and outer surfaces of the 
 
 ```{r femurpic, out.width = "95%", fig.cap="(ref:femurpiccap)", echo = FALSE, eval = TRUE}
 library(knitr)
-include_graphics(here::here("vignettes", "figures", "bone.png"))
+include_graphics("figures/bone.png")
 ```
 
 \FloatBarrier
@@ -109,19 +109,22 @@ The key function of our package, `iDADwigl()` requires a data frame (a form of t
 - `U_ppm`
 - `U_ppm_Int2SE`        
 
-This data frame can be created by importing an Excel or CSV file into the R environment using a generic function such as `read.csv` or `read_excel` from the `readxl` package [@Wickham_readxl]. To help with preparing data for input into our function, we have included two examples of input files. The code chunk below shows how to access one of the two example CSV files included in the package, and how to read it into the R environment.
+ To help with preparing data for input into our function, we have included two examples of input files. Inspecting the included data sets will be helpful for understanding how to prepare new data to prepare for use with this package. After attaching the package, we can access the built-in datasets with the `data()` function, like this:
 
 ```{r}
-# get the path the one of the CSV files included in the package
-path_to_included_example_csv_file <-
-  system.file("extdata",
-            "input/Hobbit_MH2T_for_iDAD.csv",
-            package = "iDADwigl",
-            mustWork = TRUE)
+# access the data included in the iDADwigl package
+data("Hobbit_1_1T_for_iDAD")
+data("Hobbit_MH2T_for_iDAD")
+```
 
+This will make the built-in data available in the R environment to inspect and explore how to use the `iDADwigl()` function. 
+
+To use new data with this package, we can import an Excel or CSV file into the R environment using a generic function such as `read.csv` or `read_excel` from the `readxl` package [@Wickham_readxl]. The code chunk below shows how to read one of the CSV files included in the package into the R environment. This is a good method to use if you supply your own CSV file to use with `iDADwigl()`. In this case we assume that the working directory contains a directory called `data` and our CSV file is in this `data` directory: 
+
+```{r}
 # read in the example CSV file included in the package
 Hobbit_MH2T_for_iDAD <-
-  read.csv(path_to_included_example_csv_file)
+  read.csv('data/Hobbit_MH2T_for_iDAD.csv')
 ```
 
 \newpage
@@ -136,7 +139,7 @@ options(xtable.floating = TRUE,
 Hobbit_MH2T_for_iDAD_tbl <-
 Hobbit_MH2T_for_iDAD %>%
   xtable(
-         digits = c(1,3,3,3,3,3,2,1,3),
+         digits = c(1,3,3,3,3,3,3,1,1),
          caption = "\\label{tab:hobbitone}Data contained in the example CSV file Hobbit\\_MH2T\\_for\\_iDAD.csv included in the package")
 
 align(Hobbit_MH2T_for_iDAD_tbl) <- rep("c", ncol(Hobbit_MH2T_for_iDAD_tbl) + 1)
@@ -154,7 +157,7 @@ The `iDAD.position` column corresponds to the coordinates of the (^234^U/^238^U)
 Columns `U234_U238_CORR` and `U234_U238_CORR_Int2SE` are the (^234^U/^238^U) activity ratios and their 2$\sigma$ errors. Columns `Th230_U238_CORR` and
 `Th230_U238_CORR_Int2SE` are the (^230^Th/^238^U) activity ratios and their 2$\sigma$ errors.
 
-Columns `U_ppm` and `U_ppm_Int2SE` and calculated uranium concentrations (in ppm) and their 2$\sigma$ errors. Uranium concentrations are not necessary for the model and only used for display of the U concentration profile in a figure.
+Columns `U_ppm` and `U_ppm_Int2SE` are the calculated uranium concentrations (in ppm) and their 2$\sigma$ errors. Uranium concentrations are not necessary for the model and only used for display of the U concentration profile in a figure.
 
 # Details of the input parameters
 
@@ -225,7 +228,7 @@ output$results %>%
          digits = c(1,2,2,2,4,4,4),
          caption = "\\label{tab:outputresults}Summary table of the computed age and error values")
 
-align(output_results_table) <- rep("l", ncol(output_results_table) + 1)
+align(output_results_table) <- rep("c", ncol(output_results_table) + 1)
 
 print(output_results_table,
       method = 'compact',
@@ -265,103 +268,23 @@ print(output_data_table,
 4. the measured (in blue) and modelled (in red) (^230^Th/^238^U) activity ratios as a function of the relative distance from the center (Figure \@ref(fig:demopanelfig) D).   
 
 
-```{r echo=FALSE}
-library(ggplot2)
-
-big_size <- 10 
-less_big_size <- 8
-point_size <- 2
-
-theme_plots <-
-  theme(
-    plot.title = element_text(size = big_size, hjust = 0.5),
-    legend.title = element_blank(),
-    axis.title.y = element_text(size = big_size),
-    axis.title.x = element_text(size = big_size),
-    axis.text.x = element_text(size = less_big_size),
-    axis.text.y = element_text(size = less_big_size)
-  ) +
-  theme_bw() +
-  theme(panel.grid.major = element_blank(),
-        panel.grid.minor = element_blank())
-```
-
-
 ```{r tsol, echo=FALSE}
-T_sol_plot <-
-ggplot(output$T_sol,
-       aes(T_sol)) +
-  geom_histogram(binwidth = 500,
-                 fill = "white",
-                 color = "black") +
-  theme_plots +  ggtitle(paste(
-    "Age: ",
-    round(output$T_final / 1000, digits = 1),
-    " +",
-    round((quantile(output$T_sol$T_sol, .67) - output$T_final) / 1000, digits = 1),
-    "/-",
-    round((output$T_final - quantile(output$T_sol$T_sol, .33)) / 1000, digits = 1),
-    " ka",
-    sep = ""
-  ))
+T_sol_plot <- T_sol_plot(output)
 ```
 
 ```{r Uconc, echo = FALSE}
 # Uranium concentration profile for transect 2 of modern human femur 132A/LB/27D/03"
-u_conc_t2_human_femur <-
-ggplot(output$output_data) +
-  geom_errorbar(aes(x = iDAD.position,
-                    ymax = U_ppm + U_ppm_Int2SE,
-                    ymin = U_ppm - U_ppm_Int2SE, width = 0.02)) + # plot error bars
-  geom_point(aes(iDAD.position, U_ppm),
-             color = "blue",
-             size = point_size) +
-  ylab("U (ppm)") +
-  xlab("Relative distance from center") +
-  theme_plots
+u_conc_t2_human_femur <- u_conc_profile_plot(output)
 ```
 
 ```{r U48, echo=FALSE}
 # "Calculated (red) and observed (blue) (^234^U/^238^U) activity ratios for transect 2 of modern human femur 132A/LB/27D/03"
-u234_u238_ratio_t2_human_femur <-
-ggplot(output$output_data) +
-  geom_errorbar(aes(x = iDAD.position,
-                    ymax = U234_U238_CORR + U234_U238_CORR_Int2SE,
-                    ymin = U234_U238_CORR - U234_U238_CORR_Int2SE,
-                    width = 0.02)) + # plot error bars
-  geom_point(aes(iDAD.position,
-                 U234_U238_CORR),
-             color = "blue",
-             size = point_size) +
-  geom_point(aes(iDAD.position,
-                 U234_U238_CALC),
-             color = "red",
-             size = point_size) +
-  ylab(expression("("^234 * "U/"^238 * "U)")) +
-  xlab("Relative distance from center") +
-  theme_plots
+u234_u238_ratio_t2_human_femur <- u234_u238_ratio_plot(output)
 ```
 
 ```{r Th0U8, echo=FALSE}
 # Calculated (red) and observed (blue) (^230^Th/^238^U) activity ratios for transect 2 of modern human femur 132A/LB/27D/03"
-th230_u238_ratio_t2_human_femur <-
-ggplot(output$output_data) +
-  geom_errorbar(
-    aes(
-      x = iDAD.position,
-      ymax = Th230_U238_CORR + Th230_U238_CORR_Int2SE,
-      ymin = Th230_U238_CORR - Th230_U238_CORR_Int2SE,
-      width = 0.02
-    )
-  ) + # plot error bars
-  geom_point(aes(iDAD.position, Th230_U238_CORR),
-             color = 'blue',
-             size = point_size) +
-  geom_point(aes(iDAD.position, Th230_U238_CALC),
-             color = 'red',
-             size = point_size) +
-  ylab(expression("(" ^ 230 * "Th/" ^ 238 * "U)")) + xlab("Relative distance from center") +
-  theme_plots
+th230_u238_ratio_t2_human_femur <- th230_u238_ratio_plot(output)
 ```
 
 ```{r echo=FALSE, eval = T}
@@ -376,13 +299,13 @@ plot_grid(T_sol_plot,
           ncol = 2)
 # save the plot, then use include_graphics to overcome an
 # annoying latex error about 'Paragraph ended before \Gin@iii was complete.'
-ggsave(here::here("vignettes", "figures", "demo-panel-fig.png"))
+ggsave("figures/demo-panel-fig.png")
 ```
 
 (ref:demopanelfigcap) Example of the visualisations produced by the `iDADwigl()` function, using the demonstration run described avove. A: Histogram of the solution ages, B: Uranium concentration profile for transect 2 of modern human femur 132A/LB/27D/03. C: Calculated (red) and observed (blue) (^234^U/^238^U) activity ratios for transect 2 of modern human femur 132A/LB/27D/03. D: Calculated (red) and observed (blue) (^230^Th/^238^U) activity ratios for transect 2 of modern human femur 132A/LB/27D/03.
 
 ```{r demopanelfig, out.width = "95%", fig.cap="(ref:demopanelfigcap)", echo = FALSE, eval = TRUE}
-include_graphics(here::here("vignettes", "figures", "demo-panel-fig.png"))
+include_graphics("figures/demo-panel-fig.png")
 ```
 
 \FloatBarrier
@@ -400,7 +323,7 @@ options(xtable.floating = TRUE,
 Hobbit_1_1T_for_iDAD_tbl <-
 Hobbit_1_1T_for_iDAD %>%
   xtable(
-         digits = c(1,3,3,3,3,3,2,1,3),
+         digits = c(1,3,3,3,3,3,3,1,1),
          caption = "\\label{tab:table-human}Data contained in the example CSV file Hobbit\\_1\\-1T\\_for\\_iDAD.csv included in the package")
 
 align(Hobbit_1_1T_for_iDAD_tbl) <- rep("c", ncol(Hobbit_1_1T_for_iDAD_tbl) + 1)
@@ -416,7 +339,7 @@ print(Hobbit_1_1T_for_iDAD_tbl,
 
 For transect 2 of 132A/LB/27D/03, Sutikna et al. [-@Sutikna2016] reported an age of 7.4 $\pm$ 0.5 ka (thousand years before 2014). With iDADwigl, we first run the model with `nbit` = 1, `fsum_target` = 0.05, `U48_0_min` and `U48_0_max` = 1.25 and 1.3, respectively, `l` = 5.35 cm, `U_0` = 25 ppm, `K_min` and `K_max` = 10^-13^ and 10^-11^ cm^2^/s, respectively, `T_min` and `T_max` = 10^3^ and 500x10^3^ yr, respectively. `U48_0_min` and `U48_0_max` are determined by considering the measured (^234^U/^238^U) values near the surfaces of the sample. `T_min` and `T_max` values were chosen such that no a priori knowledge of the age biases the results.
 
-```{r first-run-modern-human, results='hide', cache = TRUE, echo=FALSE}
+```{r first-run-modern-human, results='hide', echo=FALSE}
 output_first_run_modern <- iDADwigl(Hobbit_MH2T_for_iDAD,
                    nbit = 1,
                    fsum_target = 0.05,
@@ -434,56 +357,13 @@ With this first run, we obtain an age of `r round(output_first_run_modern$T_fina
 
 ```{r U48-first-run-modern-human, echo=FALSE}
 # "Calculated (red) and observed (blue) (^234^U/^238^U) activity ratios for transect 2 of modern human femur 132A/LB/27D/03"
-u234_u238_ratio_first_run_modern_human <-
-ggplot(output_first_run_modern$output_data) +
-  geom_errorbar(aes(x = iDAD.position,
-                    ymax = U234_U238_CORR + U234_U238_CORR_Int2SE,
-                    ymin = U234_U238_CORR - U234_U238_CORR_Int2SE,
-                    width = 0.02)) + # plot error bars
-  geom_point(aes(iDAD.position,
-                 U234_U238_CORR),
-             color = "blue",
-             size = point_size) +
-  geom_point(aes(iDAD.position,
-                 U234_U238_CALC),
-             color = "red",
-             size = point_size) +
-  ylab(expression("("^234 * "U/"^238 * "U)")) +
-  xlab("Relative distance from center") +
-  theme_plots +   
-  ggtitle(paste("(234U/238U) at the\nsurface: ",
-    round(output_first_run_modern$U48_0_final, digits = 2),
-    sep = ""
-  ))
+u234_u238_ratio_first_run_modern_human <- u234_u238_ratio_plot(output_first_run_modern)
 ```
 
 
 ```{r Th0U8-first-run-modern-human, echo=FALSE}
 # Calculated (red) and observed (blue) (^230^Th/^238^U) activity ratios for transect 2 of modern human femur 132A/LB/27D/03"
-th230_u238_ratio_first_run_modern_human <-
-ggplot(output_first_run_modern$output_data) +
-  geom_errorbar(
-    aes(
-      x = iDAD.position,
-      ymax = Th230_U238_CORR + Th230_U238_CORR_Int2SE,
-      ymin = Th230_U238_CORR - Th230_U238_CORR_Int2SE,
-      width = 0.02
-    )
-  ) + # plot error bars
-  geom_point(aes(iDAD.position, Th230_U238_CORR),
-             color = 'blue',
-             size = point_size) +
-  geom_point(aes(iDAD.position, Th230_U238_CALC),
-             color = 'red',
-             size = point_size) +
-  ylab(expression("(" ^ 230 * "Th/" ^ 238 * "U)")) + xlab("Relative distance from center") +
-  theme_plots +
-   ggtitle(paste(
-    "Age: ",
-    round(output_first_run_modern$T_final / 1000, digits = 1),
-    " ka",
-    sep = ""
-  ))
+th230_u238_ratio_first_run_modern_human <- th230_u238_ratio_plot(output_first_run_modern)
 ```
 
 ```{r plot-panel-first-run-modern, echo=FALSE}
@@ -495,18 +375,18 @@ plot_grid(u234_u238_ratio_first_run_modern_human,
           labels = "AUTO",
           ncol = 2)
 
-ggsave(here::here("vignettes", "figures", "plot-panel-first-run-modern.png"))
+ggsave("figures/plot-panel-first-run-modern.png")
 ```
 
 (ref:plot-panel-first-run-modern-cap) Results from the model's first run with the modern human femur. A: Calculated (red) and observed (blue) (^234^U/^238^U) activity ratios for transect 2 of modern human femur 132A/LB/27D/03. B: Calculated (red) and observed (blue) (^230^Th/^238^U) activity ratios for transect 2 of modern human femur 132A/LB/27D/03.
 
 ```{r plot-panel-first-run-modern-fig, echo=FALSE, out.width = "95%", fig.cap="(ref:plot-panel-first-run-modern-cap)"}
-include_graphics(here::here("vignettes", "figures", "plot-panel-first-run-modern.png"))
+include_graphics("figures/plot-panel-first-run-modern.png")
 ```
 
 \FloatBarrier
 
-```{r second-run-modern-human, results='hide', cache = TRUE, echo=FALSE}
+```{r second-run-modern-human, results='hide', echo=FALSE}
 output_second_run_modern <- iDADwigl(Hobbit_MH2T_for_iDAD,
                    nbit = 1000,
                    fsum_target = 0.05,
@@ -523,55 +403,13 @@ output_second_run_modern <- iDADwigl(Hobbit_MH2T_for_iDAD,
 ```{r U48-second-run-modern-human, echo=FALSE}
 # "Calculated (red) and observed (blue) (^234^U/^238^U) activity ratios for transect 2 of modern human femur 132A/LB/27D/03"
 
-u234_u238_ratio_second_run_modern_human <-
-ggplot(output_second_run_modern$output_data) +
-  geom_errorbar(aes(x = iDAD.position,
-                    ymax = U234_U238_CORR + U234_U238_CORR_Int2SE,
-                    ymin = U234_U238_CORR - U234_U238_CORR_Int2SE,
-                    width = 0.02)) + # plot error bars
-  geom_point(aes(iDAD.position,
-                 U234_U238_CORR),
-             color = "blue",
-             size = point_size) +
-  geom_point(aes(iDAD.position,
-                 U234_U238_CALC),
-             color = "red",
-             size = point_size) +
-  ylab(expression("("^234 * "U/"^238 * "U)")) +
-  xlab("Relative distance from center") +
-  theme_plots +   ggtitle(paste("(234U/238U) at the\nsurface: ",
-    round(output_second_run_modern$U48_0_final, digits = 2),
-    sep = ""
-  ))
+u234_u238_ratio_second_run_modern_human <- u234_u238_ratio_plot(output_second_run_modern)   
 ```
 
 ```{r Th0U8-second-run-modern-human, echo=FALSE}
 # Calculated (red) and observed (blue) (^230^Th/^238^U) activity ratios for transect 2 of modern human femur 132A/LB/27D/03"
 
-th230_u238_ratio_second_run_modern_human <-
-ggplot(output_second_run_modern$output_data) +
-  geom_errorbar(
-    aes(
-      x = iDAD.position,
-      ymax = Th230_U238_CORR + Th230_U238_CORR_Int2SE,
-      ymin = Th230_U238_CORR - Th230_U238_CORR_Int2SE,
-      width = 0.02
-    )
-  ) + # plot error bars
-  geom_point(aes(iDAD.position, Th230_U238_CORR),
-             color = 'blue',
-             size = point_size) +
-  geom_point(aes(iDAD.position, Th230_U238_CALC),
-             color = 'red',
-             size = point_size) +
-  ylab(expression("(" ^ 230 * "Th/" ^ 238 * "U)")) + xlab("Relative distance from center") +
-  theme_plots +
-   ggtitle(paste(
-    "Age: ",
-    round(output_second_run_modern$T_final / 1000, digits = 1),
-    " ka",
-    sep = ""
-  ))
+th230_u238_ratio_second_run_modern_human <- th230_u238_ratio_plot(output_second_run_modern)   
 ```
 
 The model is thus run a second time, increasing the number of iterations to 1000, and changing `U48_0_min` and `U48_0_max` to 1.265 and 1.270, respecitvely, and `T_max` to 10^3^ yr. Since the first run suggests a Holocene age for the sample, the measured (^234^U/^238^U) at the surfaces must be similar to the calculated values, thus the chosen values for the range above.
@@ -584,13 +422,13 @@ plot_grid(u234_u238_ratio_second_run_modern_human,
           labels = "AUTO",
           ncol = 2)
 
-ggsave(here::here("vignettes", "figures", "plot-panel-second-run-modern.png"))
+ggsave("figures/plot-panel-second-run-modern.png")
 ```
 
 (ref:plot-panel-second-run-modern-cap) Results from the model's second run with the modern human femur. A: Calculated (red) and observed (blue) (^234^U/^238^U) activity ratios for transect 2 of modern human femur 132A/LB/27D/03. B: Calculated (red) and observed (blue) (^230^Th/^238^U) activity ratios for transect 2 of modern human femur 132A/LB/27D/03.
 
 ```{r plot-panel-second-run-modern-fig, echo=FALSE, out.width = "100%", fig.cap="(ref:plot-panel-second-run-modern-cap)"}
-include_graphics(here::here("vignettes", "figures", "plot-panel-second-run-modern.png"))
+include_graphics("figures/plot-panel-second-run-modern.png")
 ```
 
 \FloatBarrier
@@ -605,7 +443,7 @@ age_minus <- round(output_second_run_modern$results$`Age 33% quantile (ka)`,1)
 
 ## Age of the *Homo floresiensis* remains from Sutikna et al. 2016
 
-```{r model-output-hobbit, results='hide', cache = TRUE, echo=FALSE}
+```{r model-output-hobbit, results='hide', echo=FALSE}
 output_hobbit <- iDADwigl(Hobbit_1_1T_for_iDAD,
                    nbit = 1000,
                    fsum_target = 0.01,
@@ -631,82 +469,23 @@ Note that results and errors will vary slightly for each run since populations a
 
 ```{r tsol-hobbit, echo=FALSE}
 library(ggplot2)
-T_sol_plot_hobbit <-
-ggplot(output_hobbit$T_sol,
-       aes(T_sol)) +
-  geom_histogram(binwidth = 500,
-                 fill = "white",
-                 color = "black") +
-  theme_plots +  ggtitle(paste(
-    "Age: ",
-    round(output_hobbit$T_final / 1000, digits = 1),
-    " +",
-    round((quantile(output_hobbit$T_sol$T_sol, .67) - output_hobbit$T_final) / 1000, digits = 1),
-    "/-",
-    round((output_hobbit$T_final - quantile(output_hobbit$T_sol$T_sol, .33)) / 1000, digits = 1),
-    " ka",
-    sep = ""
-  ))
+T_sol_plot_hobbit <-  T_sol_plot(output_hobbit)
 ```
 
 ```{r Uconc-hobbit, echo = FALSE}
 # Uranium concentration profile for transect 1 of *Homo floresiensis* ulna LB1/52"
-u_conc_hobbit <-
-ggplot(output_hobbit$output_data) +
-  geom_errorbar(aes(x = iDAD.position,
-                    ymax = U_ppm + U_ppm_Int2SE,
-                    ymin = U_ppm - U_ppm_Int2SE, width = 0.02)) + # plot error bars
-  geom_point(aes(iDAD.position, U_ppm),
-             color = "blue",
-             size = point_size) +
-  ylab("U (ppm)") +
-  xlab("Relative distance from center") +
-  theme_plots
+u_conc_hobbit <- u_conc_profile_plot(output_hobbit)
 ```
 
 ```{r U48-hobbit, echo=FALSE}
 # "Calculated (red) and observed (blue) (^234^U/^238^U) activity ratios for transect 1 of *Homo floresiensis* ulna LB1/52"
-u234_u238_ratio_hobbit <-
-ggplot(output_hobbit$output_data) +
-  geom_errorbar(aes(x = iDAD.position,
-                    ymax = U234_U238_CORR + U234_U238_CORR_Int2SE,
-                    ymin = U234_U238_CORR - U234_U238_CORR_Int2SE,
-                    width = 0.02)) + # plot error bars
-  geom_point(aes(iDAD.position,
-                 U234_U238_CORR),
-             color = "blue",
-             size = point_size) +
-  geom_point(aes(iDAD.position,
-                 U234_U238_CALC),
-             color = "red",
-             size = point_size) +
-  ylab(expression("("^234 * "U/"^238 * "U)")) +
-  xlab("Relative distance from center") +
-  theme_plots
+u234_u238_ratio_hobbit <-  u234_u238_ratio_plot(output_hobbit)
 ```
 
 ```{r Th0U8-hobbit, echo=FALSE}
 # Calculated (red) and observed (blue) (^230^Th/^238^U) activity ratios for transect 1 of *Homo floresiensis* ulna LB1/52"
-th230_u238_ratio_hobbit <-
-ggplot(output_hobbit$output_data) +
-  geom_errorbar(
-    aes(
-      x = iDAD.position,
-      ymax = Th230_U238_CORR + Th230_U238_CORR_Int2SE,
-      ymin = Th230_U238_CORR - Th230_U238_CORR_Int2SE,
-      width = 0.02
-    )
-  ) + # plot error bars
-  geom_point(aes(iDAD.position, Th230_U238_CORR),
-             color = 'blue',
-             size = point_size) +
-  geom_point(aes(iDAD.position, Th230_U238_CALC),
-             color = 'red',
-             size = point_size) +
-  ylab(expression("(" ^ 230 * "Th/" ^ 238 * "U)")) + xlab("Relative distance from center") +
-  theme_plots
+th230_u238_ratio_hobbit <- th230_u238_ratio_plot(output_hobbit)
 ```
-
 
 ```{r plot-panel-hobbit-code,  echo=FALSE}
 # combine plots
@@ -719,7 +498,7 @@ plot_grid(T_sol_plot_hobbit,
           labels = "AUTO",
           ncol = 2)
 
-ggsave(here::here("vignettes", "figures", "plot-panel-hobbit.png"))
+ggsave("figures/plot-panel-hobbit.png")
 ```
 
 \newpage
@@ -727,7 +506,7 @@ ggsave(here::here("vignettes", "figures", "plot-panel-hobbit.png"))
 (ref:plot-panel-hobbit-cap) Results from running the model with *Homo floresiensis* ulna LB1/52 data from @Sutikna2016. A: Histogram of the solution ages, B: Uranium concentration profile for transect 1 of *Homo floresiensis* ulna LB1/52. C: Calculated (red) and observed (blue) (^234^U/^238^U) activity ratios for transect 1 of *Homo floresiensis* ulna LB1/52. D: Calculated (red) and observed (blue) (^230^Th/^238^U) activity ratios for transect 1 of *Homo floresiensis* ulna LB1/52.
 
 ```{r plot-panel-hobbit-fig, echo=FALSE, out.width="95%", fig.cap="(ref:plot-panel-hobbit-cap)"}
-include_graphics(here::here("vignettes", "figures", "plot-panel-hobbit.png"))
+include_graphics("figures/plot-panel-hobbit.png")
 ```
 
 \FloatBarrier
