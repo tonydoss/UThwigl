@@ -11,14 +11,14 @@ library(iDADwigl)
 # Define UI 
 ui <- bootstrapPage(
   mainPanel(
-  # Application title
-  titlePanel("iDADwigl: compute open-system uranium-thorium ages using the diffusion-adsorption-decay (DAD) model"),
-  
-  tabsetPanel(
+    # Application title
+    titlePanel("iDADwigl: compute open-system uranium-thorium ages using the diffusion-adsorption-decay (DAD) model"),
     
-  tabPanel("Load the data", 
-         p("Before uploading, check that your CSV file contains columns with these names:"),
-         HTML("
+    tabsetPanel(
+      
+      tabPanel("Load the data", 
+               p("Before uploading, check that your CSV file contains columns with these names:"),
+               HTML("
                <li> <b>iDAD.position</b>: column corresponds to the coordinates of the (<sup>234</sup>U/<sup>238</sup>U) analyses, which take values between -1 and 1
                <li> <b>U234_U238_CORR</b>: activity ratios 
                <li> <b>U234_U238_CORR_Int2SE</b>: the 2 sigma errors of the activity ratios
@@ -28,72 +28,78 @@ ui <- bootstrapPage(
                <li> <b>U_ppm</b>: calculated uranium concentrations (in ppm)
                <li> <b>U_ppm_Int2SE</b>:   the 2 sigma errors of the auranium concentrations
               "),
-         tags$hr(),
-  fileInput("file1", 
-            "Choose CSV file", 
-            accept = c("text/csv", 
-                       "text/comma-separated-values,text/plain", 
-                       ".csv")
-   )), # end of tab
-  
-  tabPanel("Inspect the data",
-           p("Here is the raw data from the CSV file"),
-           DT::dataTableOutput('contents')
-  ), # end of tab
-  
-  tabPanel("Set model parameters",
-  # defaults for Hobbit_MH2T
-  numericInput("nbit", "Number of iterations:", 1, min = 1, max = 1e6),
-  numericInput("fsumtarget", "Value of squared sum", 0.01, min = 0.001, max = 100),
-  numericInput("U48_0_min", "Min (234U/238U) at the surface:", 1.265, min = 0.5, max = 50),
-  numericInput("U48_0_max", "Max (234U/238U) at the surface:", 1.275, min = 0.5, max = 50),
-  numericInput("l", "Thickness of sample (cm):", 5.35, min = 0.01, max = 10),
-  numericInput("U_0", "Uranium concentration at the sample surface (ppm):", 25, min = 0.01, max = 500),
-  numericInput("K_min", "Min U diffusion coefficient:", 1e-13, min = 1e-16, max = 1e-9),
-  numericInput("K_max", "Max U diffusion coefficient:", 1e-11, min = 1e-16, max = 1e-9),
-  numericInput("T_min", "Age min (yr):", 1e3, min = 1e3, max = 500e3),
-  numericInput("T_max", "Age max (yr):", 20e3, min = 1e3, max = 500e3)
-  ),  # end of tab
-  
-  tabPanel("Visualise the model",
-           HTML("<p><b>Plot legend</b><p>
+               tags$hr(),
+               fileInput("file1", 
+                         "Choose CSV file", 
+                         accept = c("text/csv", 
+                                    "text/comma-separated-values,text/plain", 
+                                    ".csv")
+               )), # end of tab
+      
+      tabPanel("Inspect the data",
+               p("Here is the raw data from the CSV file"),
+               DT::dataTableOutput('contents')
+      ), # end of tab
+      
+      tabPanel("Set model parameters",
+               fluidRow(
+                 column(4, 
+                        # defaults for Hobbit_MH2T
+                        numericInput("nbit", "Number of iterations:", 1, min = 1, max = 1e6),
+                        numericInput("fsumtarget", "Value of squared sum", 0.01, min = 0.001, max = 100),
+                        numericInput("l", "Thickness of sample (cm):", 5.35, min = 0.01, max = 10),
+                        numericInput("U_0", "Uranium concentration at the sample surface (ppm):", 25, min = 0.01, max = 500)
+                 ),
+                 column(4,
+                        numericInput("U48_0_min", "Min (234U/238U) at the surface:", 1.265, min = 0.5, max = 50),
+                        numericInput("U48_0_max", "Max (234U/238U) at the surface:", 1.275, min = 0.5, max = 50),
+                        numericInput("T_min", "Age min (yr):", 1e3, min = 1e3, max = 500e3),
+                        numericInput("T_max", "Age max (yr):", 20e3, min = 1e3, max = 500e3),
+                        numericInput("K_min", "Min U diffusion coefficient:", 1e-13, min = 1e-16, max = 1e-9),
+                        numericInput("K_max", "Max U diffusion coefficient:", 1e-11, min = 1e-16, max = 1e-9)
+                 )
+               ),
+               actionButton("run", label = "Run Simulation")
+      ),  # end of tab
+      
+      tabPanel("Visualise the model",
+               HTML("<p><b>Plot legend</b><p>
                 <b>A.</b> A histogram of the solution ages. <p>
                 <b>B.</b> The U concentrations in the sample as a function of the relative distance from the center. <p>
                 <b>C.</b> The measured (in blue) and modelled (in red) (<sup>234</sup>U/<sup>238</sup>U) activity ratios as a function of the relative distance from the center, and <p>
                 <b>D.</b> The measured (in blue) and modelled (in red) (<sup>230</sup>Th/<sup>238</sup>U) activity ratios as a function of the relative distance from the center
                 <p>"),
-           tags$hr(),
-           # defaults for Hobbit_MH2T
-          # show a spinner while we wait for the plots to draw
-             withSpinner(plotOutput("plots", width = "100%", height = "600px"),
-                         color="blue", 
-                         size = 5)
-        
-  ), # end of tab
-  
-  tabPanel("Inspect the model",
-           # defaults for Hobbit_MH2T
-           tableOutput("model_results_table"),
-           tags$hr(),
-           tableOutput("model_results_items"),
-           tags$hr(),
-           tableOutput("U48_0_final"),
-           tags$hr(),
-           tableOutput("output_data")
-           
-  ) # end of tab
-           
-
-# end  tabset
-)))
+               tags$hr(),
+               # defaults for Hobbit_MH2T
+               # show a spinner while we wait for the plots to draw
+               withSpinner(plotOutput("plots", width = "100%", height = "600px"),
+                           color="blue", 
+                           size = 5)
+               
+      ), # end of tab
+      
+      tabPanel("Inspect the model",
+               # defaults for Hobbit_MH2T
+               tableOutput("model_results_table"),
+               tags$hr(),
+               tableOutput("model_results_items"),
+               tags$hr(),
+               tableOutput("U48_0_final"),
+               tags$hr(),
+               tableOutput("output_data")
+               
+      ) # end of tab
+      
+      
+      # end  tabset
+    )))
 
 
 server <- function(input, output) {
-
   
   
   output$contents <- DT::renderDataTable({
-
+    
     inFile <- input$file1
     
     if (is.null(inFile))
@@ -102,50 +108,51 @@ server <- function(input, output) {
     read.csv(inFile$datapath)
   })
   
-  model_output <-  reactive({
+  observeEvent(input$run, {
+    model_output <-  reactive({
+      
+      inFile <- input$file1
+      if (is.null(inFile)) return(NULL)
+      
+      input_data <- read.csv(inFile$datapath)
+      
+      output <- 
+        iDADwigl(input_data,
+                 nbit = input$nbit,
+                 fsum_target = input$fsumtarget,
+                 U48_0_min = input$U48_0_min,
+                 U48_0_max = input$U48_0_max,
+                 l = input$l,
+                 U_0 = input$U_0,
+                 K_min = input$K_min,
+                 K_max = input$K_max,
+                 T_min = input$T_min,
+                 T_max = input$T_max,
+                 print_summary = FALSE)
+      
+      output
+    })
     
-    inFile <- input$file1
-    if (is.null(inFile)) return(NULL)
+    # get some of the output from the function to display
     
-    input_data <- read.csv(inFile$datapath)
+    output$model_results_table <- renderTable({ model_output()$results })
     
-    output <- 
-      iDADwigl(input_data,
-               nbit = input$nbit,
-               fsum_target = input$fsumtarget,
-               U48_0_min = input$U48_0_min,
-               U48_0_max = input$U48_0_max,
-               l = input$l,
-               U_0 = input$U_0,
-               K_min = input$K_min,
-               K_max = input$K_max,
-               T_min = input$T_min,
-               T_max = input$T_max,
-               print_summary = FALSE)
+    output$model_results_items <- renderTable({ data.frame(model_output()[2:5]) })
     
-    output
-  })
-  
-  # get some of the output from the function to display
-  
-  output$model_results_table <- renderTable({ model_output()$results })
-  
-  output$model_results_items <- renderTable({ data.frame(model_output()[2:5]) })
-  
-  output$U48_0_final <- renderTable({ model_output()$U48_0_final })
-  
-  output$output_data <- renderTable({ model_output()$output_data })
-  
-  # draw the plots
-  
-  output$plots <- renderPlot({ 
+    output$U48_0_final <- renderTable({ model_output()$U48_0_final })
     
-    the_data <- model_output()
+    output$output_data <- renderTable({ model_output()$output_data })
     
-    big_size = 18
-    less_big_size = 14
-    point_size = 4
-
+    # draw the plots
+    
+    output$plots <- renderPlot({ 
+      
+      the_data <- model_output()
+      
+      big_size = 18
+      less_big_size = 14
+      point_size = 4
+      
       T_sol_plot <- T_sol_plot(the_data, 
                                big_size = big_size, 
                                less_big_size = less_big_size)
@@ -168,18 +175,18 @@ server <- function(input, output) {
       # combine the plots into one panel
       p1 <-
         cowplot::plot_grid(T_sol_plot,
-                  u_conc_t2_plot_out,
-                  u234_u238_ratio_plot_out,
-                  th230_u238_ratio_plot_out,
-                  labels = "AUTO",
-                  ncol = 2)
+                           u_conc_t2_plot_out,
+                           u234_u238_ratio_plot_out,
+                           th230_u238_ratio_plot_out,
+                           labels = "AUTO",
+                           ncol = 2)
       
       # print the plots
       p1
-    
-    
+      
+      
     })
-
+  })
   
 }
 
