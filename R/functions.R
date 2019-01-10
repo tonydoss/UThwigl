@@ -1,5 +1,25 @@
 
 
+#' Set a custom message the the user appears when they attach the pkg
+#' 
+.onAttach <- function(libname, pkgname) {
+  
+  # show the citation, but how to get a citation as a chr?: 
+  
+  packageStartupMessage("To cite the iDADwigl package use:
+
+  Dosseto, A. and B. Marwick, (2019) iDADwigl: An R package
+  for open-system uranium-thorium dating Quaternary
+  Geochronology 0:000--000, http://doi.org/10.17605/OSF.IO/D5P7S
+
+A BibTeX entry for LaTeX users can be obtained with
+'bibentry('iDADwigl')'.
+
+As iDADwigl is continually evolving, you may want to cite
+its version number. Find it with 'help(package=iDADwigl)'.
+                        ")
+ 
+}
 
 
 #' iDADwigl
@@ -50,10 +70,10 @@ iDADwigl <- function(input_data,
   
   if(all(col_names_we_need %in% colnames(input_data)))
   {
-    cat("All required columns are present in the input data. \n");
+    message("All required columns are present in the input data. \n");
   } else {
     ?iDADwigl::iDADwigl
-    stop("\nThe input data frame does not contain the necessary columns, or the columns are not named correctly.lease check the documentation for details of the required column names, update the column names using the `names()` function, and try again.\n")
+    stop("\nThe input data frame does not contain the necessary columns, or the columns are not named correctly. Please check the documentation for details of the required column names, update the column names using the `names()` function, and try again.\n")
   }
   
 
@@ -307,7 +327,7 @@ if(with_plots){
   th230_u238_ratio_plot_output <- th230_u238_ratio_plot(output)
   
   p1 <-
-    plot_grid(T_sol_plot_output,
+    cowplot::plot_grid(T_sol_plot_output,
               u_conc_profile_plot_output,
               u234_u238_ratio_plot_output,
               th230_u238_ratio_plot_output,
@@ -499,3 +519,5 @@ th230_u238_ratio_plot <-  function(output,
   ylab(expression("(" ^ 230 * "Th/" ^ 238 * "U)")) + xlab("Relative distance from center") +
   theme_plots
 }
+
+

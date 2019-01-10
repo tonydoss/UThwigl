@@ -1,0 +1,13 @@
+
+citHeader("To cite the iDADwigl package use:")
+citEntry(entry = "Article", 
+         author = personList(as.person("Anthony Dosseto"), 
+                             as.person("Ben Marwick")), 
+         title = "iDADwigl: An R package for open-system uranium-thorium dating", 
+         journal = "Quaternary Geochronology", year = 2019, 
+         volume = 0, pages = "000--000", 
+         url = "http://doi.org/10.17605/OSF.IO/D5P7S", 
+         textVersion = paste("Dosseto, A. and B. Marwick, (2019)", 
+                             "iDADwigl: An R package for open-system uranium-thorium dating", 
+                             "Quaternary Geochronology 0:000--000"))
+citFooter("As iDADwigl is continually evolving, you may want to cite its version number. Find it with 'help(package=iDADwigl)'.")

@@ -40,7 +40,7 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-```{r setup, echo=FALSE, message=FALSE}
+```{r setup, echo=FALSE, message=FALSE, warning = FALSE}
 library(knitr)
 opts_chunk$set(message = FALSE,
                warning = FALSE)
@@ -205,13 +205,16 @@ output <- iDADwigl(data_file,
                    K_min = 1e-13,
                    K_max = 1e-11,
                    T_min = 1e3,
-                   T_max = 20e3)
+                   T_max = 20e3,
+                   with_plots = FALSE)
 ```
+
+For efficient interactive use of this package, the default setting of `iDADwigl()` is to produce a panel plot as seen in Figure \@ref(fig:demopanelfig)(Figure \@ref(fig:demopanelfig). The setting `with_plots = FALSE` prevents plots from being generated which is more useful when the function is part of a longer sequence of code. The function runs faster when not producing pots, which is helpful when replicating many runs. 
 
 When run on the R console, this function will print a confirmation that the input data frame has the required columns, and print the resulting age value with an error reported as the 67% and 33% quantiles, for instance:
 
 ```
-All required columns are present in the input data 👍
+All required columns are present in the input data
 [1] "Age: 7 +0.6/-0.7 ka"
 ```
 
@@ -359,7 +362,8 @@ output_first_run_modern <- iDADwigl(Hobbit_MH2T_for_iDAD,
                    K_min = 1e-13,
                    K_max = 1e-11,
                    T_min = 1e3,
-                   T_max = 500e3)
+                   T_max = 500e3,
+                   with_plots = FALSE)
 ```
 
 With this first run, we obtain an age of `r round(output_first_run_modern$T_final/1e3,1)` ka. There is no calculated error on the age since there is only one iteration. The calculated (^234^U/^238^U) and (^230^Th/^238^U) ratios can be quite different from observed values (Figure \@ref(fig:plot-panel-second-run-modern-fig)). For the (^234^U/^238^U), it makes sense to thus use a narrower range for `U48_0_min` and `U48_0_max`. Higher calculated (^230^Th/^238^U) ratios compared to observed values suggests that the calculated age is too old (since this ratio increases with age), and the opposite if the calculated (^230^Th/^238^U) ratios are too low. Thus, we should adjust `T_mix` and/or `T_max` accordingly.
@@ -406,7 +410,8 @@ output_second_run_modern <- iDADwigl(Hobbit_MH2T_for_iDAD,
                    K_min = 1e-13,
                    K_max = 1e-11,
                    T_min = 1e3,
-                   T_max = 10e3)
+                   T_max = 10e3,
+                   with_plots = FALSE)
 ```
 
 ```{r U48-second-run-modern-human, echo=FALSE}
@@ -461,7 +466,8 @@ output_hobbit <- iDADwigl(Hobbit_1_1T_for_iDAD,
                    K_min = 1e-13,
                    K_max = 1e-11,
                    T_min = 50e3,
-                   T_max = 100e3)
+                   T_max = 100e3,
+                   with_plots = FALSE)
 ```
 
 ```{r create-variables-to-quote-in-text-hobbit, echo=FALSE}
