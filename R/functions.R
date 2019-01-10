@@ -17,6 +17,8 @@
 #' @param T_max 
 #' @param print_summary 
 #' @param with_plots
+#' 
+#' @import cowplot
 #'
 #' @return
 #' @export
@@ -48,10 +50,10 @@ iDADwigl <- function(input_data,
   
   if(all(col_names_we_need %in% colnames(input_data)))
   {
-    cat("All required columns are present in the input data 👍\n");
+    cat("All required columns are present in the input data. \n");
   } else {
     ?iDADwigl::iDADwigl
-    stop("\nThe input data frame does not contain the necessary columns, or the columns are not named correctly 😢 Please check the documentation for details of the required column names, update the column names using the `names()` function, and try again.\n")
+    stop("\nThe input data frame does not contain the necessary columns, or the columns are not named correctly.lease check the documentation for details of the required column names, update the column names using the `names()` function, and try again.\n")
   }
   
 
@@ -287,22 +289,39 @@ if(print_summary) {
   # don't print anything
 }
   
+# collect the output into a list ------------------------------------
+  output <- (list(results = results,
+                  diff = diff,
+                  T_final = T_final,
+                  K_final = K_final,
+                  T_sol = T_sol_df,
+                  U48_0_final = U48_0_final,
+                  output_data = output_data))
   
+# plot or not? ------------------------------------
 if(with_plots){
+  # draw plots in a panel
+  T_sol_plot_output <- T_sol_plot(output)
+  u_conc_profile_plot_output <- u_conc_profile_plot(output)
+  u234_u238_ratio_plot_output <- u234_u238_ratio_plot(output)
+  th230_u238_ratio_plot_output <- th230_u238_ratio_plot(output)
+  
+  p1 <-
+    plot_grid(T_sol_plot_output,
+              u_conc_profile_plot_output,
+              u234_u238_ratio_plot_output,
+              th230_u238_ratio_plot_output,
+              labels = "AUTO",
+              ncol = 2)
+  
+  print(p1)
   
 }else {
   # don't plot anything
 }
   
   
-# collect the output into a list ------------------------------------
-  return(list(results = results,
-              diff = diff,
-              T_final = T_final,
-              K_final = K_final,
-              T_sol = T_sol_df,
-              U48_0_final = U48_0_final,
-              output_data = output_data))
+return(output)
 
 }
 
