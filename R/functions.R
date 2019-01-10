@@ -16,23 +16,29 @@
 #' @param T_min 
 #' @param T_max 
 #' @param print_summary 
+#' @param with_plots
 #'
 #' @return
 #' @export
 #'
 #' @examples
 iDADwigl <- function(input_data,
-                            nbit = 1,
-                            fsum_target = 0.01,
-                            U48_0_min = 1.265, # Hobbit_1-1T: 1.3; Hobbit_MH2T: 1.265
-                            U48_0_max = 1.275, # Hobbit_1-1T: 1.4; Hobbit_MH2T: 1.275
-                            l = 5.35, # Hobbit_1-1T: 3.5 cm; Hobbit_MH2T: 5.35 cm
-                            U_0 = 25, # Hobbit_1-1T: 15 ppm; Hobbit_MH2T: 25 ppm
-                            K_min = 1e-13,
-                            K_max = 1e-11,
-                            T_min = 1e3, # Hobbit_1-1T: 50e3; Hobbit_MH2T: 1e3
-                            T_max = 20e3, # Hobbit_1-1T: 100e3; Hobbit_MH2T: 20e3
-                            print_summary = TRUE
+                     nbit = 1,
+                     fsum_target = 0.01,
+                     U48_0_min = 1.265, # Hobbit_1-1T: 1.3; Hobbit_MH2T: 1.265
+                     U48_0_max = 1.275, # Hobbit_1-1T: 1.4; Hobbit_MH2T: 1.275
+                     l = 5.35, # Hobbit_1-1T: 3.5 cm; Hobbit_MH2T: 5.35 cm
+                     U_0 = 25, # Hobbit_1-1T: 15 ppm; Hobbit_MH2T: 25 ppm
+                     K_min = 1e-13,
+                     K_max = 1e-11,
+                     T_min = 1e3, # Hobbit_1-1T: 50e3; Hobbit_MH2T: 1e3
+                     T_max = 20e3, # Hobbit_1-1T: 100e3; Hobbit_MH2T: 20e3
+                     print_summary = TRUE,
+                     with_plots = TRUE
+                     
+                            
+                     
+                     
 ){
   
   
@@ -281,6 +287,12 @@ if(print_summary) {
   # don't print anything
 }
   
+  
+if(with_plots){
+  
+}else {
+  # don't plot anything
+}
   
   
 # collect the output into a list ------------------------------------
