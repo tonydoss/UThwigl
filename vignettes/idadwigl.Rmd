@@ -79,6 +79,10 @@ include_graphics("figures/bone.png")
 
 \FloatBarrier
 
+# Working with the package
+
+We provide three methods for using this package to suit different levels of familiarity with the R programming language. The simplest way to use the package, requiring no familiarity with R at all, is our web application ... The second way, assuming a novice level of familiarity with R, is with Binder, a browser-based instance of R and RStudio that includes our package ready to work with. These two methods, the web application and Binder, do not require any software to be downloaded and installed, all computation occurs in the browser. limitation 
+
 # Installing and attaching the package
 
 First you will need to download and install [R](https://www.r-project.org/), and we also recommend downloading and installing [RStudio](https://www.rstudio.com/). 

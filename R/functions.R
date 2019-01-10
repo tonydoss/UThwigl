@@ -1,4 +1,18 @@
 
+globalVariables(c("iDAD.position",
+                  "Th230_U238_CORR",
+                  "Th230_U238_CORR_Int2SE",
+                  "Th230_U238_CALC",
+                  "U_ppm_Int2SE",
+                  "U234_U238_CORR",
+                  "U234_U238_CORR_Int2SE",
+                  "U234_U238_CALC",
+                  "T_sol",
+                  "U_ppm",
+                  "U_ppm_Int2SE"
+                  
+
+))
 
 #' Set a custom message the the user appears when they attach the pkg
 #' 
@@ -24,26 +38,29 @@ its version number. Find it with 'help(package=iDADwigl)'.
 
 #' iDADwigl
 #'
-#' @param input_data 
-#' @param nbit 
-#' @param fsum_target 
-#' @param U48_0_min 
-#' @param U48_0_max 
-#' @param l 
-#' @param U_0 
-#' @param K_min 
-#' @param K_max 
-#' @param T_min 
-#' @param T_max 
-#' @param print_summary 
-#' @param with_plots
+#' @param input_data A data frame with the required columns
+#' @param nbit  The number of iterations
+#' @param fsum_target The sum of the squared differences between the calculated and observed activity ratios.
+#' @param U48_0_min The minimum value allowed for the (^234^U/^238^U) activity ratio at the surface of the sample
+#' @param U48_0_max The maximum value allowed for the (^234^U/^238^U) activity ratio at the surface of the sample
+#' @param l The thickness of the sample in centimeters
+#' @param U_0 The uranium concentration at the surface in ppm
+#' @param K_min The minimum value allowed for the uranium diffusion coefficient (in cm^2^/s)
+#' @param K_max The maximum value allowed for the uranium diffusion coefficient (in cm^2^/s)
+#' @param T_min The minimum value for the age of the specimen (yr)
+#' @param T_max The maximum value for the age of the specimen (yr)
+#' @param print_summary Print a summary of the output to the console? Default is TRUE
+#' @param with_plots Display a panel of plots of the output? Default is TRUE
 #' 
-#' @import cowplot
+#' @importFrom cowplot plot_grid
+#' @importFrom stats median quantile runif 
+#' @importFrom utils ? 
 #'
-#' @return
+#' @return A list of results
 #' @export
 #'
 #' @examples
+
 iDADwigl <- function(input_data,
                      nbit = 1,
                      fsum_target = 0.01,

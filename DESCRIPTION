@@ -24,8 +24,8 @@ Imports:
 Suggests: 
     knitr,
     rmarkdown,
+    devtools,
     dplyr,
-    cowplot,
     bookdown,
     xtable,
     here,
