@@ -1,7 +1,7 @@
 
 
 if (!require("shinycssloaders")) install.packages("shinycssloaders")
-if (!require("iDADwigl")) source("https://install-github.me/tonydoss/iDADwigl")
+if (!require("iDADwigl")) devtools::install_github("benmarwick/iDADwigl")
 
 library(shiny)
 library(shinycssloaders)

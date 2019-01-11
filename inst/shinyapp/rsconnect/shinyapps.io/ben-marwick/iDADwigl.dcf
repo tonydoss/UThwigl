@@ -5,8 +5,8 @@ account: ben-marwick
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 624672
-bundleId: 1789111
+bundleId: 1789150
 url: https://ben-marwick.shinyapps.io/iDADwigl/
-when: 1546151312.68377
+when: 1546154823.68523
 asMultiple: FALSE
 asStatic: FALSE
