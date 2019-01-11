@@ -324,7 +324,7 @@ plot_grid(T_sol_plot,
           ncol = 2)
 # save the plot, then use include_graphics to overcome an
 # annoying latex error about 'Paragraph ended before \Gin@iii was complete.'
-ggsave("figures/demo-panel-fig.png")
+ggplot2::ggsave("figures/demo-panel-fig.png")
 ```
 
 (ref:demopanelfigcap) Example of the visualisations produced by the `iDADwigl()` function, using the demonstration run described avove. A: Histogram of the solution ages, B: Uranium concentration profile for transect 2 of modern human femur 132A/LB/27D/03. C: Calculated (red) and observed (blue) (^234^U/^238^U) activity ratios for transect 2 of modern human femur 132A/LB/27D/03. D: Calculated (red) and observed (blue) (^230^Th/^238^U) activity ratios for transect 2 of modern human femur 132A/LB/27D/03.
@@ -401,7 +401,7 @@ plot_grid(u234_u238_ratio_first_run_modern_human,
           labels = "AUTO",
           ncol = 2)
 
-ggsave("figures/plot-panel-first-run-modern.png")
+ggplot2::ggsave("figures/plot-panel-first-run-modern.png")
 ```
 
 (ref:plot-panel-first-run-modern-cap) Results from the model's first run with the modern human femur. A: Calculated (red) and observed (blue) (^234^U/^238^U) activity ratios for transect 2 of modern human femur 132A/LB/27D/03. B: Calculated (red) and observed (blue) (^230^Th/^238^U) activity ratios for transect 2 of modern human femur 132A/LB/27D/03.
@@ -455,7 +455,7 @@ plot_grid(u234_u238_ratio_second_run_modern_human,
           labels = "AUTO",
           ncol = 2)
 
-ggsave("figures/plot-panel-second-run-modern.png")
+ggplot2::ggsave("figures/plot-panel-second-run-modern.png")
 ```
 
 (ref:plot-panel-second-run-modern-cap) Results from the model's second run with the modern human femur. A: Calculated (red) and observed (blue) (^234^U/^238^U) activity ratios for transect 2 of modern human femur 132A/LB/27D/03. B: Calculated (red) and observed (blue) (^230^Th/^238^U) activity ratios for transect 2 of modern human femur 132A/LB/27D/03.
@@ -524,7 +524,7 @@ plot_grid(T_sol_plot_hobbit,
           labels = "AUTO",
           ncol = 2)
 
-ggsave("figures/plot-panel-hobbit.png")
+ggplot2::ggsave("figures/plot-panel-hobbit.png")
 ```
 
 \newpage

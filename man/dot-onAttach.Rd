@@ -6,6 +6,11 @@
 \usage{
 .onAttach(libname, pkgname)
 }
+\arguments{
+\item{libname}{Nothing to do}
+
+\item{pkgname}{Nothing to do}
+}
 \description{
 Set a custom message the the user appears when they attach the pkg
 }

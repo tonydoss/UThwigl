@@ -16,6 +16,8 @@ globalVariables(c("iDAD.position",
 
 #' Set a custom message the the user appears when they attach the pkg
 #' 
+#' @param libname Nothing to do
+#' @param pkgname Nothing to do
 .onAttach <- function(libname, pkgname) {
   
   # show the citation, but how to get a citation as a chr?: 
@@ -60,6 +62,22 @@ its version number. Find it with 'help(package=iDADwigl)'.
 #' @export
 #'
 #' @examples
+#' 
+#' data("Hobbit_MH2T_for_iDAD")
+#' output <- iDADwigl(Hobbit_MH2T_for_iDAD,
+#' nbit = 1,
+#' fsum_target = 0.01,
+#' U48_0_min = 1.265, # Hobbit_1-1T: 1.3; Hobbit_MH2T: 1.265
+#' U48_0_max = 1.275, # Hobbit_1-1T: 1.4; Hobbit_MH2T: 1.275
+#' l = 5.35, # Hobbit_1-1T: 3.5 cm; Hobbit_MH2T: 5.35 cm
+#' U_0 = 25, # Hobbit_1-1T: 15 ppm; Hobbit_MH2T: 25 ppm
+#' K_min = 1e-13,
+#' K_max = 1e-11,
+#' T_min = 1e3, # Hobbit_1-1T: 50e3; Hobbit_MH2T: 1e3
+#' T_max = 20e3, # Hobbit_1-1T: 100e3; Hobbit_MH2T: 20e3
+#' print_summary = TRUE,
+#' with_plots = TRUE)
+#' 
 
 iDADwigl <- function(input_data,
                      nbit = 1,
@@ -369,6 +387,10 @@ return(output)
 #' Histogram of the solution ages
 #' 
 #' @param output Output from the `iDADwigl()` function
+#' @param big_size Size of the main text on the plot, default is 10
+#' @param less_big_size Size of the minor text on the plot, default is 8
+#' @param point_size Size of the data points on the plot, default is 2
+#' @param digits Number of digits to round the numeric output displayed as the plot title, default is 1
 #' @import ggplot2
 #' @export
 
@@ -410,10 +432,14 @@ T_sol_plot <- function(output,
 }
 
 
-#` Uranium concentration profile for transect
+#' Uranium concentration profile for transect
 #' 
 #' 
 #' @param output Output from the `iDADwigl()` function
+#' @param big_size Size of the main text on the plot, default is 10
+#' @param less_big_size Size of the minor text on the plot, default is 8
+#' @param point_size Size of the data points on the plot, default is 2
+#' @param digits Number of digits to round the numeric output displayed as the plot title, default is 1
 #' @import ggplot2
 #' @export
 
@@ -452,6 +478,10 @@ u_conc_profile_plot <- function(output,
 #' 
 #' 
 #' @param output Output from the `iDADwigl()` function
+#' @param big_size Size of the main text on the plot, default is 10
+#' @param less_big_size Size of the minor text on the plot, default is 8
+#' @param point_size Size of the data points on the plot, default is 2
+#' @param digits Number of digits to round the numeric output displayed as the plot title, default is 1
 #' @import ggplot2
 #' @export
 
@@ -495,6 +525,10 @@ u234_u238_ratio_plot <- function(output,
 #' Calculated (red) and observed (blue) (^230^Th/^238^U) activity ratios for transect 
 #' 
 #' @param output Output from the `iDADwigl()` function
+#' @param big_size Size of the main text on the plot, default is 10
+#' @param less_big_size Size of the minor text on the plot, default is 8
+#' @param point_size Size of the data points on the plot, default is 2
+#' @param digits Number of digits to round the numeric output displayed as the plot title, default is 1
 #' 
 #' @import ggplot2
 #' @export
@@ -536,5 +570,45 @@ th230_u238_ratio_plot <-  function(output,
   ylab(expression("(" ^ 230 * "Th/" ^ 238 * "U)")) + xlab("Relative distance from center") +
   theme_plots
 }
+
+# document code objects ----------------------------------------
+
+#' Data from transect 1 for Homo floresiensis ulna LB1/52
+#'
+#' A dataset containing the U-Th measurement values for H. floresiensis.
+#'
+#' @format A data frame with 6 rows and 8 variables:
+#' \describe{
+#'   \item{iDAD.position}{...}
+#'   \item{U234_U238_CORR}{...}
+#'   \item{U234_U238_CORR_Int2SE}{...}
+#'   \item{iDAD.position.1}{...}
+#'   \item{Th230_U238_CORR}{...}
+#'   \item{Th230_U238_CORR_Int2SE}{...}
+#'   \item{U_ppm}{...}
+#'   \item{U_ppm_Int2SE}{...}
+#'   ...
+#' }
+#' @source \url{http://dx.doi.org/10.1038/nature17179}
+"Hobbit_1_1T_for_iDAD"
+
+#' Data transect 2 for modern human femur 132A/LB/27D/03
+#'
+#' A dataset containing the U-Th measurement values for a modern human
+#'
+#' @format A data frame with 6 rows and 8 variables:
+#' \describe{
+#'   \item{iDAD.position}{...}
+#'   \item{U234_U238_CORR}{...}
+#'   \item{U234_U238_CORR_Int2SE}{...}
+#'   \item{iDAD.position.1}{...}
+#'   \item{Th230_U238_CORR}{...}
+#'   \item{Th230_U238_CORR_Int2SE}{...}
+#'   \item{U_ppm}{...}
+#'   \item{U_ppm_Int2SE}{...}
+#'   ...
+#' }
+#' @source \url{http://dx.doi.org/10.1038/nature17179}
+"Hobbit_MH2T_for_iDAD"
 
 

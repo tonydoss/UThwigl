@@ -1,3 +1,5 @@
+^cran-comments\.md$
+^iDADwigl-shiny-app\.gif$
 ^\.travis\.yml$
 ^README\.Rmd$
 ^docs$
@@ -9,3 +11,6 @@
 ^iDADwigl\.Rcheck$
 ^iDADwigl.*\.tar\.gz$
 ^iDADwigl.*\.tgz$
+^install\.R$
+^iDADwigl-shiny-app\.gif$ 
+^rsconnect$
