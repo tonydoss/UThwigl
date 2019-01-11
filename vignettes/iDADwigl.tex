@@ -157,13 +157,28 @@ The distance of each analysis location from the inner and outer surfaces of the 
 \hypertarget{working-with-the-package}{%
 \section{Working with the package}\label{working-with-the-package}}
 
-We provide three methods for using this package to suit different levels of familiarity with the R programming language. The simplest way to use the package is our web application. Using the web application requires no familiarity with R. To use the web application you upload a CSV file, then click through a series of tabs to inspect the data, adjust the model parameters, run the model, and inspect the output. The interface is mouse-driven and requires no programming. The second way to use the package is with Binder, a browser-based instance of R and RStudio that includes our package ready to work with. Using Binder requires a novice level of familiarity with R, for example to use the code in this paper and adapt it to work with a different CSV file. Because Binder provides a complete R environment, custom R code can be written during a Binder instance to further explore the model's output. These two methods, the web application and Binder, do not require any software to be downloaded and installedon your computer, all computation occurs in the browser. The web app and Binder are suitable for to getting a quick start, but they have limited memory and compute time available.
+We provide three methods for using this package to suit different levels of familiarity with the R programming language. The simplest way to use the package is our web application (Figure \ref{fig:shinyfig}). Using the web application requires no familiarity with R. To use the web application you upload a CSV file, then click through a series of tabs to inspect the data, adjust the model parameters, run the model, and inspect the output. The interface is mouse-driven and requires no programming. In the web application you upload the data file on the \emph{Load the data} tab, set parameters from the \emph{Set model parameters} tab, run the model by clicking the button \emph{Run Simulation} on the same tab, and observe the results on the \emph{Visualise the model} and \emph{Inspect the model} tabs. You can change the parameters and re-run the model by click the button \emph{Run Simulation}. Once done, close the window.
+
+
+
+\begin{figure}
+\includegraphics[width=0.95\linewidth]{figures/shiny-app-screenshots} \caption{Screenshots of the web application for using the iDADwigl package. A: Upload a CSV file of the data to model, B: Inspect a table of the uploaded data. C: Set the model parameters and run the model. D: Inspect visualisations of the model's output. E: Inspect and download the numeric output from the model.}\label{fig:shinyfig}
+\end{figure}
+
+The second way to use the package is with Binder, a browser-based instance of R and RStudio that includes our package ready to work with. Binder is a server technology that turns computational material, such as an R package, into interactive computational environments in the cloud. Using Binder requires a novice level of familiarity with R, for example to use the code in this paper and adapt it to work with a different CSV file. Because Binder provides a complete R environment, custom R code can be written during a Binder instance to further explore the model's output in the browser. These two methods, the web application and Binder, do not require any software to be downloaded and installedon your computer, all computation occurs in the browser. The web app and Binder are suitable for getting a quick start on working with the package, but they require a connnection to the internet, and they have limited memory and compute time available per instance.
+
+
+
+\begin{figure}
+\includegraphics[width=0.95\linewidth]{figures/binder} \caption{Screenshot of Binder running R and RStudio in a web broswer window.}\label{fig:binderfig}
+\end{figure}
+
+The third method is to download and install the package locally to your computer, and work with it in your local installation of R and RStudio. This method requires some familiarity with R, but gives the most flexibility when working with the model because you are not limited by the memory and compute time of the cloud services. Our recommendation is to use Binder or a local installation of iDADwigl because then you can save an R script file that includes the name of the input file, the specific parameters used to generate the model output, and any downstream processing and visualisation. This script file and the CSV file can then be archived in a data repository to ensure long-term accessibility for other researchers.
 
 \hypertarget{installing-and-attaching-the-package}{%
 \section{Installing and attaching the package}\label{installing-and-attaching-the-package}}
 
-First you will need to download and install \href{https://www.r-project.org/}{R}, and we also recommend downloading and installing \href{https://www.rstudio.com/}{RStudio}.
-To run the model, start \texttt{RStudio} and install the package from GitHub. There are many ways to do this, one simple method is shown in the line below. This only needs to be done once per computer.
+First you will need to download and install \href{https://www.r-project.org/}{R}, and we also recommend downloading and installing \href{https://www.rstudio.com/}{RStudio}. To run the model, start \texttt{RStudio} and install the package from GitHub. There are many ways to do this, one simple method is shown in the line below. This only needs to be done once per computer.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -301,17 +316,7 @@ After setting the \texttt{U480} maximum and minimum values, run the function and
 \hypertarget{how-to-run-the-model}{%
 \section{How to run the model}\label{how-to-run-the-model}}
 
-To run the model, you can use the web application by entering the following command in RStudio:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\KeywordTok{runApp}\NormalTok{(}\StringTok{'inst/shinyapp'}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-The web application will open in a new window. There, you can upload the data file on the \emph{Load the data} tab, set parameters from the \emph{Set model parameters} tab, run the model by clicking the button \emph{Run Simulation} on the same tab, and observe the results on the \emph{Visualise the model} and \emph{Inspect the model} tabs. You can change the parameters and re-run the model by click the button \emph{Run Simulation}. Once done, close the window.
-
-Instead of using the web application, you can use commands in the R console. Attach the package as shown above and then run \texttt{iDADwigl()}, specifying the input data frame and the input parameters as described above. The code block below shows a quick example that will execute in less than five seconds on a typical 2.3 GHz Intel Core i5 laptop:
+Attach the package as shown above and then run \texttt{iDADwigl()}, specifying the input data frame and the input parameters as described above. The code block below shows a quick example that will execute in less than five seconds on a typical 2.3 GHz Intel Core i5 laptop:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -358,7 +363,7 @@ In a typical analysis we will explore the model fit by first running the model w
   \hline
 \begin{sideways} Age (ka) \end{sideways} & \begin{sideways} Age 67\% quantile (ka) \end{sideways} & \begin{sideways} Age 33\% quantile (ka) \end{sideways} & \begin{sideways} U234\_U238\_0 \end{sideways} & \begin{sideways} U234\_U238\_0 67\% quantile \end{sideways} & \begin{sideways} U234\_U238\_0 33\% quantile \end{sideways} \\ 
   \hline
-7.07 & 0.60 & 0.63 & 1.2680 & 0.0020 & 0.0030 \\ 
+6.94 & 0.65 & 0.58 & 1.2654 & 0.0046 & 0.0004 \\ 
    \hline
 \end{tabular}
 \caption{\label{tab:outputresults}Summary table of the computed age and error values} 
@@ -372,26 +377,26 @@ The last item in the output is a copy of the input data with two additional colu
   \hline
 \begin{sideways} iDAD.position \end{sideways} & \begin{sideways} U234\_U238\_CORR \end{sideways} & \begin{sideways} U234\_U238\_CORR\_Int2SE \end{sideways} & \begin{sideways} iDAD.position.1 \end{sideways} & \begin{sideways} Th230\_U238\_CORR \end{sideways} & \begin{sideways} Th230\_U238\_CORR\_Int2SE \end{sideways} & \begin{sideways} U\_ppm \end{sideways} & \begin{sideways} U\_ppm\_Int2SE \end{sideways} & \begin{sideways} U234\_U238\_CALC \end{sideways} & \begin{sideways} Th230\_U238\_CALC \end{sideways} \\ 
   \hline
--0.956 & 1.270 & 0.004 & -0.956 & 0.073 & 0.002 & 12.3 & 0.6 & 1.270 & 0.080 \\ 
-  -0.857 & 1.273 & 0.004 & -0.857 & 0.073 & 0.002 & 12.7 & 0.6 & 1.269 & 0.080 \\ 
-  -0.758 & 1.265 & 0.004 & -0.758 & 0.076 & 0.002 & 12.5 & 0.6 & 1.269 & 0.079 \\ 
-  -0.659 & 1.267 & 0.005 & -0.659 & 0.077 & 0.002 & 14.2 & 0.7 & 1.269 & 0.079 \\ 
-  -0.560 & 1.269 & 0.003 & -0.560 & 0.072 & 0.002 & 19.8 & 1.0 & 1.269 & 0.079 \\ 
-  -0.461 & 1.266 & 0.003 & -0.461 & 0.077 & 0.002 & 18.0 & 0.9 & 1.268 & 0.079 \\ 
-  -0.361 & 1.267 & 0.003 & -0.361 & 0.082 & 0.002 & 20.0 & 1.0 & 1.268 & 0.079 \\ 
-  -0.262 & 1.276 & 0.002 & -0.262 & 0.079 & 0.001 & 27.2 & 1.4 & 1.268 & 0.080 \\ 
-  -0.163 & 1.266 & 0.002 & -0.163 & 0.075 & 0.001 & 26.7 & 1.3 & 1.268 & 0.080 \\ 
-  -0.064 & 1.277 & 0.002 & -0.064 & 0.073 & 0.001 & 0.3 & 0.0 & 1.268 & 0.080 \\ 
-  0.035 & 1.271 & 0.002 & 0.035 & 0.078 & 0.002 & 33.9 & 1.7 & 1.268 & 0.080 \\ 
-  0.134 & 1.264 & 0.002 & 0.134 & 0.067 & 0.001 & 37.7 & 1.9 & 1.268 & 0.080 \\ 
-  0.233 & 1.266 & 0.003 & 0.233 & 0.071 & 0.001 & 30.7 & 1.5 & 1.268 & 0.080 \\ 
-  0.332 & 1.265 & 0.002 & 0.332 & 0.077 & 0.002 & 25.2 & 1.3 & 1.268 & 0.079 \\ 
-  0.431 & 1.266 & 0.003 & 0.431 & 0.083 & 0.001 & 28.9 & 1.4 & 1.268 & 0.079 \\ 
-  0.530 & 1.268 & 0.003 & 0.530 & 0.086 & 0.002 & 29.0 & 1.4 & 1.268 & 0.079 \\ 
-  0.629 & 1.264 & 0.003 & 0.629 & 0.082 & 0.002 & 27.5 & 1.4 & 1.269 & 0.079 \\ 
-  0.728 & 1.263 & 0.002 & 0.728 & 0.070 & 0.001 & 30.1 & 1.5 & 1.269 & 0.079 \\ 
-  0.827 & 1.266 & 0.005 & 0.827 & 0.095 & 0.002 & 19.6 & 1.0 & 1.269 & 0.080 \\ 
-  0.926 & 1.263 & 0.003 & 0.926 & 0.096 & 0.002 & 14.8 & 0.7 & 1.269 & 0.080 \\ 
+-0.956 & 1.270 & 0.004 & -0.956 & 0.073 & 0.002 & 12.3 & 0.6 & 1.267 & 0.078 \\ 
+  -0.857 & 1.273 & 0.004 & -0.857 & 0.073 & 0.002 & 12.7 & 0.6 & 1.266 & 0.078 \\ 
+  -0.758 & 1.265 & 0.004 & -0.758 & 0.076 & 0.002 & 12.5 & 0.6 & 1.266 & 0.078 \\ 
+  -0.659 & 1.267 & 0.005 & -0.659 & 0.077 & 0.002 & 14.2 & 0.7 & 1.266 & 0.078 \\ 
+  -0.560 & 1.269 & 0.003 & -0.560 & 0.072 & 0.002 & 19.8 & 1.0 & 1.266 & 0.078 \\ 
+  -0.461 & 1.266 & 0.003 & -0.461 & 0.077 & 0.002 & 18.0 & 0.9 & 1.266 & 0.078 \\ 
+  -0.361 & 1.267 & 0.003 & -0.361 & 0.082 & 0.002 & 20.0 & 1.0 & 1.266 & 0.078 \\ 
+  -0.262 & 1.276 & 0.002 & -0.262 & 0.079 & 0.001 & 27.2 & 1.4 & 1.266 & 0.078 \\ 
+  -0.163 & 1.266 & 0.002 & -0.163 & 0.075 & 0.001 & 26.7 & 1.3 & 1.265 & 0.078 \\ 
+  -0.064 & 1.277 & 0.002 & -0.064 & 0.073 & 0.001 & 0.3 & 0.0 & 1.265 & 0.078 \\ 
+  0.035 & 1.271 & 0.002 & 0.035 & 0.078 & 0.002 & 33.9 & 1.7 & 1.265 & 0.078 \\ 
+  0.134 & 1.264 & 0.002 & 0.134 & 0.067 & 0.001 & 37.7 & 1.9 & 1.265 & 0.078 \\ 
+  0.233 & 1.266 & 0.003 & 0.233 & 0.071 & 0.001 & 30.7 & 1.5 & 1.265 & 0.078 \\ 
+  0.332 & 1.265 & 0.002 & 0.332 & 0.077 & 0.002 & 25.2 & 1.3 & 1.266 & 0.078 \\ 
+  0.431 & 1.266 & 0.003 & 0.431 & 0.083 & 0.001 & 28.9 & 1.4 & 1.266 & 0.078 \\ 
+  0.530 & 1.268 & 0.003 & 0.530 & 0.086 & 0.002 & 29.0 & 1.4 & 1.266 & 0.078 \\ 
+  0.629 & 1.264 & 0.003 & 0.629 & 0.082 & 0.002 & 27.5 & 1.4 & 1.266 & 0.078 \\ 
+  0.728 & 1.263 & 0.002 & 0.728 & 0.070 & 0.001 & 30.1 & 1.5 & 1.266 & 0.078 \\ 
+  0.827 & 1.266 & 0.005 & 0.827 & 0.095 & 0.002 & 19.6 & 1.0 & 1.266 & 0.078 \\ 
+  0.926 & 1.263 & 0.003 & 0.926 & 0.096 & 0.002 & 14.8 & 0.7 & 1.267 & 0.078 \\ 
    \hline
 \end{tabular}
 \caption{\label{tab:outputdata}Example of output table including the input data described above, and two new columns} 
@@ -454,7 +459,7 @@ The package includes two sample data sets derived from Sutikna et al. (2016) : `
 
 For transect 2 of 132A/LB/27D/03, Sutikna et al. (2016) reported an age of 7.4 \(\pm\) 0.5 ka (thousand years before 2014). With iDADwigl, we first run the model with \texttt{nbit} = 1, \texttt{fsum\_target} = 0.05, \texttt{U48\_0\_min} and \texttt{U48\_0\_max} = 1.25 and 1.3, respectively, \texttt{l} = 5.35 cm, \texttt{U\_0} = 25 ppm, \texttt{K\_min} and \texttt{K\_max} = 10\textsuperscript{-13} and 10\textsuperscript{-11} cm\textsuperscript{2}/s, respectively, \texttt{T\_min} and \texttt{T\_max} = 10\textsuperscript{3} and 500x10\textsuperscript{3} yr, respectively. \texttt{U48\_0\_min} and \texttt{U48\_0\_max} are determined by considering the measured (\textsuperscript{234}U/\textsuperscript{238}U) values near the surfaces of the sample. \texttt{T\_min} and \texttt{T\_max} values were chosen such that no a priori knowledge of the age biases the results.
 
-With this first run, we obtain an age of 6.2 ka. There is no calculated error on the age since there is only one iteration. The calculated (\textsuperscript{234}U/\textsuperscript{238}U) and (\textsuperscript{230}Th/\textsuperscript{238}U) ratios can be quite different from observed values (Figure \ref{fig:plot-panel-second-run-modern-fig}). For the (\textsuperscript{234}U/\textsuperscript{238}U), it makes sense to thus use a narrower range for \texttt{U48\_0\_min} and \texttt{U48\_0\_max}. Higher calculated (\textsuperscript{230}Th/\textsuperscript{238}U) ratios compared to observed values suggests that the calculated age is too old (since this ratio increases with age), and the opposite if the calculated (\textsuperscript{230}Th/\textsuperscript{238}U) ratios are too low. Thus, we should adjust \texttt{T\_mix} and/or \texttt{T\_max} accordingly.
+With this first run, we obtain an age of 4.3 ka. There is no calculated error on the age since there is only one iteration. The calculated (\textsuperscript{234}U/\textsuperscript{238}U) and (\textsuperscript{230}Th/\textsuperscript{238}U) ratios can be quite different from observed values (Figure \ref{fig:plot-panel-second-run-modern-fig}). For the (\textsuperscript{234}U/\textsuperscript{238}U), it makes sense to thus use a narrower range for \texttt{U48\_0\_min} and \texttt{U48\_0\_max}. Higher calculated (\textsuperscript{230}Th/\textsuperscript{238}U) ratios compared to observed values suggests that the calculated age is too old (since this ratio increases with age), and the opposite if the calculated (\textsuperscript{230}Th/\textsuperscript{238}U) ratios are too low. Thus, we should adjust \texttt{T\_mix} and/or \texttt{T\_max} accordingly.
 
 
 
@@ -464,7 +469,7 @@ With this first run, we obtain an age of 6.2 ka. There is no calculated error on
 
 \FloatBarrier
 
-Since the first run suggests a Holocene age for the sample, the measured (\textsuperscript{234}U/\textsuperscript{238}U) at the surfaces must be similar to the calculated values, thus the chosen values for the range above. Once \texttt{U48\_0\_min}, \texttt{U48\_0\_min}, \texttt{T\_min} and \texttt{T\_max} parameters have been adjusted, the model is run again. \texttt{fsum\_target} can also be decreased to 0.01 in order to get a better fit and error, but it is at the expense of computing time. This operation is repeated until a satisfying fit is obtained (by visual inspection of the figures). Finally, the moden is run once more, increasing the number of iterations to 1000 (or more). Following this method, we obtain an age of 6.4 +1.2/-1.3 ka (Figure \ref{fig:plot-panel-second-run-modern-fig}).
+Since the first run suggests a Holocene age for the sample, the measured (\textsuperscript{234}U/\textsuperscript{238}U) at the surfaces must be similar to the calculated values, thus the chosen values for the range above. Once \texttt{U48\_0\_min}, \texttt{U48\_0\_min}, \texttt{T\_min} and \texttt{T\_max} parameters have been adjusted, the model is run again. \texttt{fsum\_target} can also be decreased to 0.01 in order to get a better fit and error, but it is at the expense of computing time. This operation is repeated until a satisfying fit is obtained (by visual inspection of the figures). Finally, the moden is run once more, increasing the number of iterations to 1000 (or more). Following this method, we obtain an age of 6.3 +1.2/-1.5 ka (Figure \ref{fig:plot-panel-second-run-modern-fig}).
 
 
 
@@ -477,7 +482,7 @@ Since the first run suggests a Holocene age for the sample, the measured (\texts
 \hypertarget{age-of-the-homo-floresiensis-remains-from-sutikna-et-al.2016}{%
 \subsection{\texorpdfstring{Age of the \emph{Homo floresiensis} remains from Sutikna et al.~2016}{Age of the Homo floresiensis remains from Sutikna et al.~2016}}\label{age-of-the-homo-floresiensis-remains-from-sutikna-et-al.2016}}
 
-For transect 1 of LB1/52, Sutikna et al. (2016) reported an age of 79.0 \(\pm\) 3.7 ka. With iDADwigl, using data in the file \texttt{Hobbit\_1-1T\_for\_iDAD.csv} provided in the package, and following the same method as above, we obtain an age of 75.4 +0.9/-0.9 ka (Figure \ref{fig:plot-panel-hobbit-fig}).
+For transect 1 of LB1/52, Sutikna et al. (2016) reported an age of 79.0 \(\pm\) 3.7 ka. With iDADwigl, using data in the file \texttt{Hobbit\_1-1T\_for\_iDAD.csv} provided in the package, and following the same method as above, we obtain an age of 75.4 +1/-1 ka (Figure \ref{fig:plot-panel-hobbit-fig}).
 
 Note that results and errors will vary slightly for each run since populations are solution sets are randomly generated.
 
@@ -573,7 +578,7 @@ Wickham, Hadley, and Jennifer Bryan. 2018. \emph{Readxl: Read Excel Files}. \url
 \hypertarget{colophon}{%
 \subsubsection{Colophon}\label{colophon}}
 
-This report was generated on 2019-01-10 22:21:07 using the following computational environment and dependencies:
+This report was generated on 2019-01-11 01:21:25 using the following computational environment and dependencies:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -593,7 +598,7 @@ This report was generated on 2019-01-10 22:21:07 using the following computation
 ##  collate  C                           
 ##  ctype    en_US.UTF-8                 
 ##  tz       America/Los_Angeles         
-##  date     2019-01-10                  
+##  date     2019-01-11                  
 ## 
 ## - Packages --------------------------------------------------------------
 ##  ! package     * version     date       lib
@@ -616,7 +621,7 @@ This report was generated on 2019-01-10 22:21:07 using the following computation
 ##    glue          1.3.0       2018-10-31 [1]
 ##    gtable        0.2.0       2016-02-26 [1]
 ##    htmltools     0.3.6       2017-04-28 [1]
-##  P iDADwigl    * 0.1.0       2018-12-30 [?]
+##  P iDADwigl    * 0.1.0       2019-01-11 [?]
 ##    knitr       * 1.21        2018-12-10 [1]
 ##    labeling      0.3         2014-08-23 [1]
 ##    lazyeval      0.2.1       2017-10-29 [1]
@@ -727,7 +732,7 @@ The current Git commit details are:
 \begin{verbatim}
 ## Local:    master /Users/bmarwick/Desktop/iDADwigl
 ## Remote:   master @ origin (https://github.com/benmarwick/iDADwigl.git)
-## Head:     [e3edd62] 2019-01-10: fix merge conflict
+## Head:     [3e3dff7] 2019-01-11: add screenshots of shiny, install.R for Binder, more text
 \end{verbatim}
 
 \end{document}
