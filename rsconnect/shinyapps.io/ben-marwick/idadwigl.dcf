@@ -1,12 +1,10 @@
-name: iDADwigl
-title: iDADwigl
+name: idadwigl
+title:
 username:
 account: ben-marwick
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 624672
-bundleId: 1789150
+bundleId: 1808230
 url: https://ben-marwick.shinyapps.io/iDADwigl/
-when: 1546154823.68523
-asMultiple: FALSE
-asStatic: FALSE
+when: 1547185517.37396

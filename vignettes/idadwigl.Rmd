@@ -81,12 +81,19 @@ include_graphics("figures/bone.png")
 
 # Working with the package
 
-We provide three methods for using this package to suit different levels of familiarity with the R programming language. The simplest way to use the package, requiring no familiarity with R at all, is our web application ... The second way, assuming a novice level of familiarity with R, is with Binder, a browser-based instance of R and RStudio that includes our package ready to work with. These two methods, the web application and Binder, do not require any software to be downloaded and installed, all computation occurs in the browser. limitation 
+We provide three methods for using this package to suit different levels of familiarity with the R programming language. The simplest way to use the package is our web application (Figure \@ref(fig:shinyfig)).  Using the web application requires no familiarity with R. To use the web application you upload a CSV file, then click through a series of tabs to inspect the data, adjust the model parameters, run the model, and inspect the output. The interface is mouse-driven and requires no programming. In the web application you  upload the data file on the *Load the data* tab, set parameters from the *Set model parameters* tab, run the model by clicking the button *Run Simulation* on the same tab, and observe the results on the *Visualise the model* and *Inspect the model* tabs. You can change the parameters and re-run the model by click the button *Run Simulation*. Once done, close the window.
+
+(ref:shinyfigcap) Screenshots of the web application for using the iDADwigl package. A: Upload a CSV file of the data to model, B: Inspect a table of the uploaded data. C: Set the model parameters and run the model. D: Inspect visualisations of the model's output. E: Inspect and download the numeric output from the model.
+
+```{r shinyfig, out.width = "95%", fig.cap="(ref:shinyfigcap)", echo = FALSE, eval = TRUE}
+include_graphics("figures/shiny-app-screenshots.png")
+```
+
+The second way to use the package is with Binder, a browser-based instance of R and RStudio that includes our package ready to work with. Using Binder requires a novice level of familiarity with R, for example to use the code in this paper and adapt it to work with a different CSV file. Because Binder provides a complete R environment, custom R code can be written during a Binder instance to further explore the model's output in the browser. These two methods, the web application and Binder, do not require any software to be downloaded and installedon your computer, all computation occurs in the browser. The web app and Binder are suitable for getting a quick start on working with the package, but they require a connnection to the internet, and they have limited memory and compute time available per instance. The third method is to download and install the package locally to your computer, and work with it in your local installation of R and RStudio. This method requires some familiarity with R, but gives the most flexibility when working with the model because you are not limited by the memory and compute time of the cloud services. Our recommendation is to use Binder or a local installation of iDADwigl because then you can save an R script file that includes the name of the input file, the specific parameters used to generate the model output, and any downstream processing and visualisation. This script file and the CSV file can then be archived in a data repository to ensure long-term accessibility for other researchers. 
 
 # Installing and attaching the package
 
-First you will need to download and install [R](https://www.r-project.org/), and we also recommend downloading and installing [RStudio](https://www.rstudio.com/). 
-To run the model, start `RStudio` and install the package from GitHub. There are many ways to do this, one simple method is shown in the line below. This only needs to be done once per computer.
+First you will need to download and install [R](https://www.r-project.org/), and we also recommend downloading and installing [RStudio](https://www.rstudio.com/). To run the model, start `RStudio` and install the package from GitHub. There are many ways to do this, one simple method is shown in the line below. This only needs to be done once per computer.
 
 ```{r eval = FALSE}
 source("https://install-github.me/tonydoss/iDADwigl")
@@ -190,13 +197,7 @@ After setting the `U480` maximum and minimum values, run the function and adjust
 
 # How to run the model
 
-To run the model, you can use the web application by entering the following command in RStudio:
-```{r eval = FALSE}
-runApp('inst/shinyapp')
-```
-The web application will open in a new window. There, you can upload the data file on the *Load the data* tab, set parameters from the *Set model parameters* tab, run the model by clicking the button *Run Simulation* on the same tab, and observe the results on the *Visualise the model* and *Inspect the model* tabs. You can change the parameters and re-run the model by click the button *Run Simulation*. Once done, close the window.
-
-Instead of using the web application, you can use commands in the R console. Attach the package as shown above and then run `iDADwigl()`, specifying the input data frame and the input parameters as described above. The code block below shows a quick example that will execute in less than five seconds on a typical 2.3 GHz Intel Core i5 laptop:  
+Attach the package as shown above and then run `iDADwigl()`, specifying the input data frame and the input parameters as described above. The code block below shows a quick example that will execute in less than five seconds on a typical 2.3 GHz Intel Core i5 laptop:  
 
 ```{r model-output, results='hide'}
 output <- iDADwigl(data_file,
