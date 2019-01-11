@@ -6,3 +6,6 @@
 ^data-raw$
 ^.*\.Rproj$
 ^\.Rproj\.user$
+^iDADwigl\.Rcheck$
+^iDADwigl.*\.tar\.gz$
+^iDADwigl.*\.tgz$

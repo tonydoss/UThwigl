@@ -118,7 +118,7 @@
   \begin{abstract}
   For several decades, uranium-thorium (U-Th) dating has allowed geochronologists to precisely date geological materials, providing unvaluable geochronological constraints on Quaternary processes. Open-system dating of bones and teeth has also provided ages of human and faunal remains of archaeological significance.
   
-  To facilitate access of open-system U-Th dating to the broad scientific community, here we provide an R package, named \emph{iDADwigl}, that implements the Diffusion-Adsorption-Decay model of Sambridge et al. (2012). Description of input and output parameters is given, as well as a guide for running the model. Examples of application of the model are also provided, showing that it yields ages within error of previously published values.\\
+  To facilitate access of open-system U-Th dating to the broad scientific community, here we provide an R package, named \emph{iDADwigl}, that implements the Diffusion-Adsorption-Decay model of Sambridge et al.~(2012). Description of input and output parameters is given, as well as a guide for running the model. The package can be used three different ways: (i) as a web application, (ii) through your browser or (iii) in R studio. Examples of application of the model are also provided, showing that it yields ages within error of previously published values.\\
   \end{abstract}
   
  \end{frontmatter}
@@ -129,13 +129,13 @@
 \hypertarget{introduction}{%
 \section{Introduction}\label{introduction}}
 
-Open-system uranium-thorium (U-Th) dating of teeth and bones, while challenging, has revolutionised our ability to provide reliable chronology for humans and fauna (Eggins et al. 2005; Grün et al. 2014; Sambridge, Grün, and Eggins 2012). Thus, this approach has significantly improved our understanding of human evolution (e.g. Dirks et al. 2017; Sutikna et al. 2016). Uranium-thorium dating is based on the premise that a material takes up U but no Th, so all the \textsuperscript{230}Th in the sample comes from decay of \textsuperscript{238}U. If detrital Th is included to the sample, a correction must be included to account for the fraction of \textsuperscript{230}Th which is detrital and not derived from \textsuperscript{238}U decay. Another requirement is that there is no gain or loss of \textsuperscript{230}Th, \textsuperscript{234}U or \textsuperscript{238}U after formation of the material. While it is often the case for many geological samples such as corals or speleothems, this requirement is rarely met for teeth and bone (although enamel can sometimes be quite impervious to isotope gain or loss). Thus, for teeth and bone, U-Th dating requires to take into account open system behaviour. The diffusion-adsorption-decay (DAD) model developed by Sambridge et al. (2012) was instrumental to implement successfully open-system U-Th dating. It allows for advective and diffusive transport of uranium and thorium isotopes, while include synchronous radioactive decay. The software implementation was written in Fortran and is available as a Java GUI (\url{http://www.iearth.org.au/codes/iDaD/}). In this article, we propose a R package which implements the model of Sambridge et al. (2012).
+Open-system uranium-thorium (U-Th) dating of teeth and bones, while challenging, has revolutionised our ability to provide reliable chronology for humans and fauna (Eggins et al. 2005; Grün et al. 2014; Sambridge, Grün, and Eggins 2012). Thus, this approach has significantly improved our understanding of human evolution (e.g.~Dirks et al. 2017; Sutikna et al. 2016). Uranium-thorium dating is based on the premise that a material takes up U but no Th, so all the \textsuperscript{230}Th in the sample comes from decay of \textsuperscript{238}U. If detrital Th is included to the sample, a correction must be included to account for the fraction of \textsuperscript{230}Th which is detrital and not derived from \textsuperscript{238}U decay. Another requirement is that there is no gain or loss of \textsuperscript{230}Th, \textsuperscript{234}U or \textsuperscript{238}U after formation of the material. While it is often the case for many geological samples such as corals or speleothems, this requirement is rarely met for teeth and bone (although enamel can sometimes be quite impervious to isotope gain or loss). Thus, for teeth and bone, U-Th dating requires to take into account open system behaviour. The diffusion-adsorption-decay (DAD) model developed by Sambridge et al.~(2012) was instrumental to implement successfully open-system U-Th dating. It allows for advective and diffusive transport of uranium and thorium isotopes, while include synchronous radioactive decay. The software implementation was written in Fortran and is available as a Java GUI (\url{http://www.iearth.org.au/codes/iDaD/}). In this article, we propose a R package which implements the model of Sambridge et al.~(2012).
 
 The motivation for providing this model as an R package is to increase the transparency, reproducibility, and flexibility of the analytical workflow for computing U-Th ages. Currently it is difficult to include the Java GUI in a fully scripted data analysis so the method for computing the DAD model is not highly transparent. This can obscure steps where key decisions are made that are important for others to see to verify the reliability of the analysis. Enabling a scripted workflow for computational analysis of geoscience data is important for improving the reproducibiltiy of results. Reproducibility refers the ability to recreate the results or retest the hypotheses leading to a scientific claim, either by rerunning the same code used by the original authors, or by writing new code. High rates of irreproducibility of research results have been estimated in several fields and disciplines (Medical Sciences 2015; Freedman, Cockburn, and Simcoe 2015; Institute 2013; Ioannidis 2005; Collaboration and others 2015; Camerer et al. 2018, 2016). Consequently, the transparency, openness, and reproducibility of results and methods are receiving increased attention, and the norms of research in many fields are changing (Nosek et al. 2015; Miguel et al. 2014; Marwick 2016).
 
 There is strong interest in open, transparent, and reusable research in the geoscience community (Gil et al. 2016) and substantial progress toward open data has been made in the geosciences with the widespread use of data services of NASA, USGS, NOAA and community-built data portals such as OneGeology, EarthChem, RRUFF, PANGAEA, PaleoBioDB, and others (Kattge, Díaz, and Wirth 2014; Ma 2018). However, the use of open source software such as R (Pebesma, Nüst, and Bivand 2012), and sharing of scripted data analysis workflows with research publications is not yet widespread (Hutton et al. 2016). With this R package our goal is to make scripted and reproducible data analysis easy for open-system uranium-thorium dating. This will improve the transparency of geochronology research, and provide a more credible and robust foundation for scientific advancement (Hutton et al. 2016).
 
-To enable re-use of our materials and improve reproducibility and transparency, all the results and visualisations in this paper can be reproduced using the RMarkdown vignette document included with the iDADwigl package. We have archived these files at \url{http://doi.org/XXX/XXX} to ensure long-term accessibility. Our code is released under the MIT licence, our data as CC-0, and our figures as CC-BY, to enable maximum re-use (for more details, see Marwick 2016).
+To enable re-use of our materials and improve reproducibility and transparency, all the results and visualisations in this paper can be reproduced using the RMarkdown vignette document included with the iDADwigl package. We have archived these files at \url{http://doi.org/10.17605/OSF.IO/D5P7S} to ensure long-term accessibility. Our code is released under the MIT licence, our data as CC-0, and our figures as CC-BY, to enable maximum re-use (for more details, see Marwick 2016).
 
 \hypertarget{methods}{%
 \section{Methods}\label{methods}}
@@ -149,15 +149,21 @@ The distance of each analysis location from the inner and outer surfaces of the 
 
 
 \begin{figure}
-\includegraphics[width=0.95\linewidth]{figures/bone} \caption{Modern human femur (132A/LB/27D/03) from Liang Bua, Flores, Indonesia. Two analysis transects can be seen. For a given transect, the outer and inner surface of the bone are given 1 and -1 reference coordinates, and the position of each analysis is calculated accordingly. Modified from Sutikna et al. (2016)}\label{fig:femurpic}
+\includegraphics[width=0.95\linewidth]{figures/bone} \caption{Modern human femur (132A/LB/27D/03) from Liang Bua, Flores, Indonesia. Two analysis transects can be seen. For a given transect, the outer and inner surface of the bone are given 1 and -1 reference coordinates, and the position of each analysis is calculated accordingly. Modified from Sutikna et al.~(2016)}\label{fig:femurpic}
 \end{figure}
 
 \FloatBarrier
 
+\hypertarget{working-with-the-package}{%
+\section{Working with the package}\label{working-with-the-package}}
+
+We provide three methods for using this packa
+
 \hypertarget{installing-and-attaching-the-package}{%
 \section{Installing and attaching the package}\label{installing-and-attaching-the-package}}
 
-To run the model, start \texttt{R} and install the package from GitHub. There are many ways to do this, one simple method is shown in the line below. This only needs to be done once per computer.
+First you will need to download and install \href{https://www.r-project.org/}{R}, and we also recommend downloading and installing \href{https://www.rstudio.com/}{RStudio}.
+To run the model, start \texttt{RStudio} and install the package from GitHub. There are many ways to do this, one simple method is shown in the line below. This only needs to be done once per computer.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -165,7 +171,7 @@ To run the model, start \texttt{R} and install the package from GitHub. There ar
 \end{Highlighting}
 \end{Shaded}
 
-For routine data analysis, R scripts need to contain this line to attach the package to the current working envirovnment. This line needs to be run at the start of each analysis:
+For routine data analysis, R scripts need to contain the following line to attach the package to the current working envirovnment. This line needs to be run at the start of each analysis:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -173,6 +179,8 @@ For routine data analysis, R scripts need to contain this line to attach the pac
 \KeywordTok{library}\NormalTok{(iDADwigl)}
 \end{Highlighting}
 \end{Shaded}
+
+Alternatively, the model can be run from your browser without installing R or RStudio with this \href{https://mybinder.org/v2/gh/benmarwick/iDADwigl/master?urlpath=rstudio}{link}.
 
 \newpage
 
@@ -213,12 +221,12 @@ To help with preparing data for input into our function, we have included two ex
 
 This will make the built-in data available in the R environment to inspect and explore how to use the \texttt{iDADwigl()} function.
 
-To use new data with this package, we can import an Excel or CSV file into the R environment using a generic function such as \texttt{read.csv} or \texttt{read\_excel} from the \texttt{readxl} package (Wickham and Bryan 2018). The code chunk below shows how to read one of the CSV files included in the package into the R environment. This is a good method to use if you supply your own CSV file to use with \texttt{iDADwigl()}. In this case we assume that the working directory contains a directory called \texttt{data} and our CSV file is in this \texttt{data} directory:
+To use new data with this package, we need to import a CSV or Excel file with the U-Th data into the R environment using a generic function such as \texttt{read.csv} or \texttt{read\_excel} from the \texttt{readxl} package (Wickham and Bryan 2018). The code chunk below shows how to read one of the CSV files included in the package into the R environment. This is a good method to use if you supply your own CSV file to use with \texttt{iDADwigl()}. In this case we assume that the working directory contains a directory called \texttt{data} and our CSV file is in this \texttt{data} directory:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{# read in the example CSV file included in the package}
-\NormalTok{Hobbit_MH2T_for_iDAD <-}
+\CommentTok{# read in one of the example CSV files included in the package}
+\NormalTok{data_file <-}
 \StringTok{  }\KeywordTok{read.csv}\NormalTok{(}\StringTok{'data/Hobbit_MH2T_for_iDAD.csv'}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
@@ -265,7 +273,7 @@ The \texttt{iDAD.position} column corresponds to the coordinates of the (\textsu
 Columns \texttt{U234\_U238\_CORR} and \texttt{U234\_U238\_CORR\_Int2SE} are the (\textsuperscript{234}U/\textsuperscript{238}U) activity ratios and their 2\(\sigma\) errors. Columns \texttt{Th230\_U238\_CORR} and
 \texttt{Th230\_U238\_CORR\_Int2SE} are the (\textsuperscript{230}Th/\textsuperscript{238}U) activity ratios and their 2\(\sigma\) errors.
 
-Columns \texttt{U\_ppm} and \texttt{U\_ppm\_Int2SE} are the calculated uranium concentrations (in ppm) and their 2\(\sigma\) errors. Uranium concentrations are not necessary for the model and only used for display of the U concentration profile in a figure.
+Columns \texttt{U\_ppm} and \texttt{U\_ppm\_Int2SE} are the calculated uranium concentrations (in ppm) and their 2\(\sigma\) errors. Uranium concentrations are not necessary for the model but needed to display the U concentration profile in a figure.
 
 \hypertarget{details-of-the-input-parameters}{%
 \section{Details of the input parameters}\label{details-of-the-input-parameters}}
@@ -293,11 +301,21 @@ After setting the \texttt{U480} maximum and minimum values, run the function and
 \hypertarget{how-to-run-the-model}{%
 \section{How to run the model}\label{how-to-run-the-model}}
 
-To run the function, attach the package and then run \texttt{iDADwigl()}, specifying the input data frame and the input parameters as described above. The code block below shows a quick example that will execute in less than five seconds on a typical 2.3 GHz Intel Core i5 laptop:
+To run the model, you can use the web application by entering the following command in RStudio:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{output <-}\StringTok{ }\KeywordTok{iDADwigl}\NormalTok{(Hobbit_MH2T_for_iDAD,}
+\KeywordTok{runApp}\NormalTok{(}\StringTok{'inst/shinyapp'}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+The web application will open in a new window. There, you can upload the data file on the \emph{Load the data} tab, set parameters from the \emph{Set model parameters} tab, run the model by clicking the button \emph{Run Simulation} on the same tab, and observe the results on the \emph{Visualise the model} and \emph{Inspect the model} tabs. You can change the parameters and re-run the model by click the button \emph{Run Simulation}. Once done, close the window.
+
+Instead of using the web application, you can use commands in the R console. Attach the package as shown above and then run \texttt{iDADwigl()}, specifying the input data frame and the input parameters as described above. The code block below shows a quick example that will execute in less than five seconds on a typical 2.3 GHz Intel Core i5 laptop:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{output <-}\StringTok{ }\KeywordTok{iDADwigl}\NormalTok{(data_file,}
                    \DataTypeTok{nbit =} \DecValTok{1000}\NormalTok{,}
                    \DataTypeTok{fsum_target =} \FloatTok{0.01}\NormalTok{,}
                    \DataTypeTok{U48_0_min =} \FloatTok{1.265}\NormalTok{,}
@@ -307,14 +325,17 @@ To run the function, attach the package and then run \texttt{iDADwigl()}, specif
                    \DataTypeTok{K_min =} \FloatTok{1e-13}\NormalTok{,}
                    \DataTypeTok{K_max =} \FloatTok{1e-11}\NormalTok{,}
                    \DataTypeTok{T_min =} \FloatTok{1e3}\NormalTok{,}
-                   \DataTypeTok{T_max =} \FloatTok{20e3}\NormalTok{)}
+                   \DataTypeTok{T_max =} \FloatTok{20e3}\NormalTok{,}
+                   \DataTypeTok{with_plots =} \OtherTok{FALSE}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
+
+For efficient interactive use of this package, the default setting of \texttt{iDADwigl()} is to produce a panel plot as seen in Figure \ref{fig:demopanelfig}(Figure \ref{fig:demopanelfig}. The setting \texttt{with\_plots\ =\ FALSE} prevents plots from being generated which is more useful when the function is part of a longer sequence of code. The function runs faster when not producing pots, which is helpful when replicating many runs.
 
 When run on the R console, this function will print a confirmation that the input data frame has the required columns, and print the resulting age value with an error reported as the 67\% and 33\% quantiles, for instance:
 
 \begin{verbatim}
-All required columns are present in the input data 👍
+All required columns are present in the input data
 [1] "Age: 7 +0.6/-0.7 ka"
 \end{verbatim}
 
@@ -337,7 +358,7 @@ In a typical analysis we will explore the model fit by first running the model w
   \hline
 \begin{sideways} Age (ka) \end{sideways} & \begin{sideways} Age 67\% quantile (ka) \end{sideways} & \begin{sideways} Age 33\% quantile (ka) \end{sideways} & \begin{sideways} U234\_U238\_0 \end{sideways} & \begin{sideways} U234\_U238\_0 67\% quantile \end{sideways} & \begin{sideways} U234\_U238\_0 33\% quantile \end{sideways} \\ 
   \hline
-6.91 & 0.60 & 0.62 & 1.2667 & 0.0033 & 0.0017 \\ 
+6.85 & 0.68 & 0.55 & 1.2684 & 0.0016 & 0.0034 \\ 
    \hline
 \end{tabular}
 \caption{\label{tab:outputresults}Summary table of the computed age and error values} 
@@ -351,26 +372,26 @@ The last item in the output is a copy of the input data with two additional colu
   \hline
 \begin{sideways} iDAD.position \end{sideways} & \begin{sideways} U234\_U238\_CORR \end{sideways} & \begin{sideways} U234\_U238\_CORR\_Int2SE \end{sideways} & \begin{sideways} iDAD.position.1 \end{sideways} & \begin{sideways} Th230\_U238\_CORR \end{sideways} & \begin{sideways} Th230\_U238\_CORR\_Int2SE \end{sideways} & \begin{sideways} U\_ppm \end{sideways} & \begin{sideways} U\_ppm\_Int2SE \end{sideways} & \begin{sideways} U234\_U238\_CALC \end{sideways} & \begin{sideways} Th230\_U238\_CALC \end{sideways} \\ 
   \hline
--0.956 & 1.270 & 0.004 & -0.956 & 0.073 & 0.002 & 12.3 & 0.6 & 1.269 & 0.079 \\ 
-  -0.857 & 1.273 & 0.004 & -0.857 & 0.073 & 0.002 & 12.7 & 0.6 & 1.269 & 0.078 \\ 
-  -0.758 & 1.265 & 0.004 & -0.758 & 0.076 & 0.002 & 12.5 & 0.6 & 1.268 & 0.078 \\ 
-  -0.659 & 1.267 & 0.005 & -0.659 & 0.077 & 0.002 & 14.2 & 0.7 & 1.268 & 0.077 \\ 
-  -0.560 & 1.269 & 0.003 & -0.560 & 0.072 & 0.002 & 19.8 & 1.0 & 1.268 & 0.077 \\ 
-  -0.461 & 1.266 & 0.003 & -0.461 & 0.077 & 0.002 & 18.0 & 0.9 & 1.267 & 0.077 \\ 
-  -0.361 & 1.267 & 0.003 & -0.361 & 0.082 & 0.002 & 20.0 & 1.0 & 1.267 & 0.077 \\ 
-  -0.262 & 1.276 & 0.002 & -0.262 & 0.079 & 0.001 & 27.2 & 1.4 & 1.267 & 0.078 \\ 
-  -0.163 & 1.266 & 0.002 & -0.163 & 0.075 & 0.001 & 26.7 & 1.3 & 1.267 & 0.078 \\ 
-  -0.064 & 1.277 & 0.002 & -0.064 & 0.073 & 0.001 & 0.3 & 0.0 & 1.267 & 0.079 \\ 
-  0.035 & 1.271 & 0.002 & 0.035 & 0.078 & 0.002 & 33.9 & 1.7 & 1.267 & 0.079 \\ 
-  0.134 & 1.264 & 0.002 & 0.134 & 0.067 & 0.001 & 37.7 & 1.9 & 1.267 & 0.078 \\ 
-  0.233 & 1.266 & 0.003 & 0.233 & 0.071 & 0.001 & 30.7 & 1.5 & 1.267 & 0.078 \\ 
-  0.332 & 1.265 & 0.002 & 0.332 & 0.077 & 0.002 & 25.2 & 1.3 & 1.267 & 0.078 \\ 
-  0.431 & 1.266 & 0.003 & 0.431 & 0.083 & 0.001 & 28.9 & 1.4 & 1.267 & 0.077 \\ 
-  0.530 & 1.268 & 0.003 & 0.530 & 0.086 & 0.002 & 29.0 & 1.4 & 1.267 & 0.077 \\ 
-  0.629 & 1.264 & 0.003 & 0.629 & 0.082 & 0.002 & 27.5 & 1.4 & 1.268 & 0.077 \\ 
-  0.728 & 1.263 & 0.002 & 0.728 & 0.070 & 0.001 & 30.1 & 1.5 & 1.268 & 0.078 \\ 
-  0.827 & 1.266 & 0.005 & 0.827 & 0.095 & 0.002 & 19.6 & 1.0 & 1.269 & 0.078 \\ 
-  0.926 & 1.263 & 0.003 & 0.926 & 0.096 & 0.002 & 14.8 & 0.7 & 1.269 & 0.079 \\ 
+-0.956 & 1.270 & 0.004 & -0.956 & 0.073 & 0.002 & 12.3 & 0.6 & 1.270 & 0.078 \\ 
+  -0.857 & 1.273 & 0.004 & -0.857 & 0.073 & 0.002 & 12.7 & 0.6 & 1.270 & 0.077 \\ 
+  -0.758 & 1.265 & 0.004 & -0.758 & 0.076 & 0.002 & 12.5 & 0.6 & 1.269 & 0.077 \\ 
+  -0.659 & 1.267 & 0.005 & -0.659 & 0.077 & 0.002 & 14.2 & 0.7 & 1.269 & 0.077 \\ 
+  -0.560 & 1.269 & 0.003 & -0.560 & 0.072 & 0.002 & 19.8 & 1.0 & 1.269 & 0.077 \\ 
+  -0.461 & 1.266 & 0.003 & -0.461 & 0.077 & 0.002 & 18.0 & 0.9 & 1.269 & 0.077 \\ 
+  -0.361 & 1.267 & 0.003 & -0.361 & 0.082 & 0.002 & 20.0 & 1.0 & 1.269 & 0.077 \\ 
+  -0.262 & 1.276 & 0.002 & -0.262 & 0.079 & 0.001 & 27.2 & 1.4 & 1.268 & 0.077 \\ 
+  -0.163 & 1.266 & 0.002 & -0.163 & 0.075 & 0.001 & 26.7 & 1.3 & 1.268 & 0.077 \\ 
+  -0.064 & 1.277 & 0.002 & -0.064 & 0.073 & 0.001 & 0.3 & 0.0 & 1.268 & 0.077 \\ 
+  0.035 & 1.271 & 0.002 & 0.035 & 0.078 & 0.002 & 33.9 & 1.7 & 1.268 & 0.078 \\ 
+  0.134 & 1.264 & 0.002 & 0.134 & 0.067 & 0.001 & 37.7 & 1.9 & 1.268 & 0.077 \\ 
+  0.233 & 1.266 & 0.003 & 0.233 & 0.071 & 0.001 & 30.7 & 1.5 & 1.268 & 0.077 \\ 
+  0.332 & 1.265 & 0.002 & 0.332 & 0.077 & 0.002 & 25.2 & 1.3 & 1.269 & 0.077 \\ 
+  0.431 & 1.266 & 0.003 & 0.431 & 0.083 & 0.001 & 28.9 & 1.4 & 1.269 & 0.077 \\ 
+  0.530 & 1.268 & 0.003 & 0.530 & 0.086 & 0.002 & 29.0 & 1.4 & 1.269 & 0.077 \\ 
+  0.629 & 1.264 & 0.003 & 0.629 & 0.082 & 0.002 & 27.5 & 1.4 & 1.269 & 0.077 \\ 
+  0.728 & 1.263 & 0.002 & 0.728 & 0.070 & 0.001 & 30.1 & 1.5 & 1.269 & 0.077 \\ 
+  0.827 & 1.266 & 0.005 & 0.827 & 0.095 & 0.002 & 19.6 & 1.0 & 1.270 & 0.077 \\ 
+  0.926 & 1.263 & 0.003 & 0.926 & 0.096 & 0.002 & 14.8 & 0.7 & 1.270 & 0.077 \\ 
    \hline
 \end{tabular}
 \caption{\label{tab:outputdata}Example of output table including the input data described above, and two new columns} 
@@ -406,8 +427,8 @@ The last item in the output is a copy of the input data with two additional colu
 
 \newpage
 
-\hypertarget{case-study-of-two-ages-from-sutikna-et-al.2016}{%
-\section{Case study of two ages from Sutikna et al.~2016}\label{case-study-of-two-ages-from-sutikna-et-al.2016}}
+\hypertarget{case-study-of-two-ages-from-sutikna-et-al.-2016}{%
+\section{Case study of two ages from Sutikna et al.~2016}\label{case-study-of-two-ages-from-sutikna-et-al.-2016}}
 
 The package includes two sample data sets derived from Sutikna et al. (2016) : ``Hobbit\_MH2T\_for\_iDAD.csv'' is data from transect 2 for modern human femur 132A/LB/27D/03 (shown above in Table \ref{tab:hobbitone}). ``Hobbit\_1-1T\_for\_iDAD.csv'' is data from transect 1 for \emph{Homo floresiensis} ulna LB1/52 (Table \ref{tab:table-human}). For the latter, six analyses were removed from the set as in Sutikna et al. (2016).
 
@@ -428,12 +449,12 @@ The package includes two sample data sets derived from Sutikna et al. (2016) : `
 \caption{\label{tab:table-human}Data contained in the example CSV file Hobbit\_1\-1T\_for\_iDAD.csv included in the package} 
 \end{table}
 
-\hypertarget{age-of-the-modern-human-remains-from-sutikna-et-al.2016}{%
-\subsection{Age of the modern human remains from Sutikna et al.~2016}\label{age-of-the-modern-human-remains-from-sutikna-et-al.2016}}
+\hypertarget{age-of-the-modern-human-remains-from-sutikna-et-al.-2016}{%
+\subsection{Age of the modern human remains from Sutikna et al.~2016}\label{age-of-the-modern-human-remains-from-sutikna-et-al.-2016}}
 
-For transect 2 of 132A/LB/27D/03, Sutikna et al. (2016) reported an age of 7.4 \(\pm\) 0.5 ka (thousand years before 2014). With iDADwigl, we first run the model with \texttt{nbit} = 1, \texttt{fsum\_target} = 0.05, \texttt{U48\_0\_min} and \texttt{U48\_0\_max} = 1.25 and 1.3, respectively, \texttt{l} = 5.35 cm, \texttt{U\_0} = 25 ppm, \texttt{K\_min} and \texttt{K\_max} = 10\textsuperscript{-13} and 10\textsuperscript{-11} cm\textsuperscript{2}/s, respectively, \texttt{T\_min} and \texttt{T\_max} = 10\textsuperscript{3} and 500x10\textsuperscript{3} yr, respectively. \texttt{U48\_0\_min} and \texttt{U48\_0\_max} are determined by considering the measured (\textsuperscript{234}U/\textsuperscript{238}U) values near the surfaces of the sample. \texttt{T\_min} and \texttt{T\_max} values were chosen such that no a priori knowledge of the age biases the results.
+For transect 2 of 132A/LB/27D/03, Sutikna et al.~(2016) reported an age of 7.4 \(\pm\) 0.5 ka (thousand years before 2014). With iDADwigl, we first run the model with \texttt{nbit} = 1, \texttt{fsum\_target} = 0.05, \texttt{U48\_0\_min} and \texttt{U48\_0\_max} = 1.25 and 1.3, respectively, \texttt{l} = 5.35 cm, \texttt{U\_0} = 25 ppm, \texttt{K\_min} and \texttt{K\_max} = 10\textsuperscript{-13} and 10\textsuperscript{-11} cm\textsuperscript{2}/s, respectively, \texttt{T\_min} and \texttt{T\_max} = 10\textsuperscript{3} and 500x10\textsuperscript{3} yr, respectively. \texttt{U48\_0\_min} and \texttt{U48\_0\_max} are determined by considering the measured (\textsuperscript{234}U/\textsuperscript{238}U) values near the surfaces of the sample. \texttt{T\_min} and \texttt{T\_max} values were chosen such that no a priori knowledge of the age biases the results.
 
-With this first run, we obtain an age of 6.2 ka. There is no calculated error on the age since there is only one iteration. As we can see, the calculated (\textsuperscript{234}U/\textsuperscript{238}U) and (\textsuperscript{230}Th/\textsuperscript{238}U) ratios are higher than observed values (Figure \ref{fig:plot-panel-second-run-modern-fig}). For the (\textsuperscript{234}U/\textsuperscript{238}U), it makes sense to thus use a narrower range for \texttt{U48\_0\_min} and \texttt{U48\_0\_max}. Higher calculated (\textsuperscript{230}Th/\textsuperscript{238}U) ratios compared to observed values suggests that the calculated age is too old (since this ratio increases with age). Thus, we should consider a lower value for \texttt{T\_max}.
+With this first run, we obtain an age of 8.4 ka. There is no calculated error on the age since there is only one iteration. The calculated (\textsuperscript{234}U/\textsuperscript{238}U) and (\textsuperscript{230}Th/\textsuperscript{238}U) ratios can be quite different from observed values (Figure \ref{fig:plot-panel-second-run-modern-fig}). For the (\textsuperscript{234}U/\textsuperscript{238}U), it makes sense to thus use a narrower range for \texttt{U48\_0\_min} and \texttt{U48\_0\_max}. Higher calculated (\textsuperscript{230}Th/\textsuperscript{238}U) ratios compared to observed values suggests that the calculated age is too old (since this ratio increases with age), and the opposite if the calculated (\textsuperscript{230}Th/\textsuperscript{238}U) ratios are too low. Thus, we should adjust \texttt{T\_mix} and/or \texttt{T\_max} accordingly.
 
 
 
@@ -443,7 +464,7 @@ With this first run, we obtain an age of 6.2 ka. There is no calculated error on
 
 \FloatBarrier
 
-The model is thus run a second time, increasing the number of iterations to 1000, and changing \texttt{U48\_0\_min} and \texttt{U48\_0\_max} to 1.265 and 1.270, respecitvely, and \texttt{T\_max} to 10\textsuperscript{3} yr. Since the first run suggests a Holocene age for the sample, the measured (\textsuperscript{234}U/\textsuperscript{238}U) at the surfaces must be similar to the calculated values, thus the chosen values for the range above.
+Since the first run suggests a Holocene age for the sample, the measured (\textsuperscript{234}U/\textsuperscript{238}U) at the surfaces must be similar to the calculated values, thus the chosen values for the range above. Once \texttt{U48\_0\_min}, \texttt{U48\_0\_min}, \texttt{T\_min} and \texttt{T\_max} parameters have been adjusted, the model is run again. \texttt{fsum\_target} can also be decreased to 0.01 in order to get a better fit and error, but it is at the expense of computing time. This operation is repeated until a satisfying fit is obtained (by visual inspection of the figures). Finally, the moden is run once more, increasing the number of iterations to 1000 (or more). Following this method, we obtain an age of 6.3 +1.2/-1.3 ka (Figure \ref{fig:plot-panel-second-run-modern-fig}).
 
 
 
@@ -453,12 +474,10 @@ The model is thus run a second time, increasing the number of iterations to 1000
 
 \FloatBarrier
 
-\texttt{U48\_0\_min}, \texttt{U48\_0\_min}, \texttt{T\_min} and \texttt{T\_max} can be further adjusted. \texttt{fsum\_target} can also be decreased to 0.01 in order to get a better fit and error, but it is at the expense of computing time. Once a satisfying fit is obtained (assessed by inspecting the figures produced), the number of iterations \texttt{nbit} can be increased to 1000 (or higher). Following this method, we obtain an age of 6.2 +1.4/-1.3 ka (Figure \ref{fig:plot-panel-second-run-modern-fig}).
+\hypertarget{age-of-the-homo-floresiensis-remains-from-sutikna-et-al.-2016}{%
+\subsection{\texorpdfstring{Age of the \emph{Homo floresiensis} remains from Sutikna et al.~2016}{Age of the Homo floresiensis remains from Sutikna et al.~2016}}\label{age-of-the-homo-floresiensis-remains-from-sutikna-et-al.-2016}}
 
-\hypertarget{age-of-the-homo-floresiensis-remains-from-sutikna-et-al.2016}{%
-\subsection{\texorpdfstring{Age of the \emph{Homo floresiensis} remains from Sutikna et al.~2016}{Age of the Homo floresiensis remains from Sutikna et al.~2016}}\label{age-of-the-homo-floresiensis-remains-from-sutikna-et-al.2016}}
-
-For transect 1 of LB1/52, Sutikna et al. (2016) reported an age of 79.0 \(\pm\) 3.7 ka. With iDADwigl, using data in the file \texttt{Hobbit\_1-1T\_for\_iDAD.csv} provided in the package, and following the same method as above, we obtain an age of 75.4 +1/-0.9 ka (Figure \ref{fig:plot-panel-hobbit-fig}).
+For transect 1 of LB1/52, Sutikna et al.~(2016) reported an age of 79.0 \(\pm\) 3.7 ka. With iDADwigl, using data in the file \texttt{Hobbit\_1-1T\_for\_iDAD.csv} provided in the package, and following the same method as above, we obtain an age of 75.3 +1/-0.9 ka (Figure \ref{fig:plot-panel-hobbit-fig}).
 
 Note that results and errors will vary slightly for each run since populations are solution sets are randomly generated.
 
@@ -554,7 +573,7 @@ Wickham, Hadley, and Jennifer Bryan. 2018. \emph{Readxl: Read Excel Files}. \url
 \hypertarget{colophon}{%
 \subsubsection{Colophon}\label{colophon}}
 
-This report was generated on 2018-12-29 22:24:53 using the following computational environment and dependencies:
+This report was generated on 2019-01-10 14:29:04 using the following computational environment and dependencies:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -567,132 +586,79 @@ This report was generated on 2018-12-29 22:24:53 using the following computation
 ## - Session info ----------------------------------------------------------
 ##  setting  value                       
 ##  version  R version 3.5.1 (2018-07-02)
-##  os       macOS  10.14.2              
-##  system   x86_64, darwin15.6.0        
-##  ui       X11                         
+##  os       Windows 10 x64              
+##  system   x86_64, mingw32             
+##  ui       RTerm                       
 ##  language (EN)                        
 ##  collate  C                           
-##  ctype    en_US.UTF-8                 
+##  ctype    English_United States.1252  
 ##  tz       America/Los_Angeles         
-##  date     2018-12-29                  
+##  date     2019-01-10                  
 ## 
 ## - Packages --------------------------------------------------------------
-##  ! package     * version     date       lib
-##    assertthat    0.2.0       2017-04-11 [1]
-##    backports     1.1.3       2018-12-14 [1]
-##    bookdown      0.9         2018-12-21 [1]
-##    callr         3.1.1       2018-12-21 [1]
-##    cli           1.0.1       2018-09-25 [1]
-##    colorspace    1.3-2       2016-12-14 [1]
-##    commonmark    1.7         2018-12-01 [1]
-##    cowplot     * 0.9.3       2018-07-15 [1]
-##    crayon        1.3.4       2018-12-18 [1]
-##    desc          1.2.0       2018-05-01 [1]
-##    devtools      2.0.1       2018-10-26 [1]
-##    digest        0.6.18      2018-10-10 [1]
-##    dplyr       * 0.7.99.9000 2018-12-25 [1]
-##    evaluate      0.12        2018-10-09 [1]
-##    fs            1.2.6       2018-08-23 [1]
-##    ggplot2     * 3.1.0.9000  2018-12-25 [1]
-##    glue          1.3.0       2018-10-31 [1]
-##    gtable        0.2.0       2016-02-26 [1]
-##    htmltools     0.3.6       2017-04-28 [1]
-##  P iDADwigl    * 0.1.0       2018-12-30 [?]
-##    knitr       * 1.21        2018-12-10 [1]
-##    labeling      0.3         2014-08-23 [1]
-##    lazyeval      0.2.1       2017-10-29 [1]
-##    magrittr      1.5         2014-11-22 [1]
-##    memoise       1.1.0       2017-04-21 [1]
-##    munsell       0.5.0       2018-06-12 [1]
-##    pillar        1.3.1.9000  2018-12-23 [1]
-##    pkgbuild      1.0.2       2018-10-16 [1]
-##    pkgconfig     2.0.2       2018-08-16 [1]
-##    pkgload       1.0.2       2018-10-29 [1]
-##    prettyunits   1.0.2       2015-07-13 [1]
-##    processx      3.2.1       2018-12-05 [1]
-##    ps            1.3.0       2018-12-21 [1]
-##    purrr         0.2.5       2018-05-29 [1]
-##    R6            2.3.0       2018-10-04 [1]
-##    Rcpp          1.0.0       2018-11-07 [1]
-##    remotes       2.0.2       2018-10-30 [1]
-##    rlang         0.3.0.1     2018-10-25 [1]
-##    rmarkdown     1.11        2018-12-08 [1]
-##    roxygen2      6.1.1       2018-11-07 [1]
-##    rprojroot     1.3-2       2018-01-03 [1]
-##    rstudioapi    0.8         2018-10-02 [1]
-##    rticles       0.6         2018-10-09 [1]
-##    scales        1.0.0       2018-08-09 [1]
-##    sessioninfo   1.1.1       2018-11-05 [1]
-##    stringi       1.2.4       2018-07-20 [1]
-##    stringr       1.3.1       2018-05-10 [1]
-##    testthat      2.0.1       2018-10-13 [1]
-##    tibble        1.4.99.9006 2018-12-25 [1]
-##    tidyselect    0.2.5       2018-10-11 [1]
-##    usethis       1.4.0       2018-08-14 [1]
-##    withr         2.1.2       2018-03-15 [1]
-##    xfun          0.4         2018-10-23 [1]
-##    xml2          1.2.0.9000  2018-12-02 [1]
-##    xtable      * 1.8-3       2018-08-29 [1]
-##    yaml          2.2.0       2018-07-25 [1]
-##  source                             
-##  CRAN (R 3.5.0)                     
-##  CRAN (R 3.5.0)                     
-##  CRAN (R 3.5.0)                     
-##  CRAN (R 3.5.0)                     
-##  CRAN (R 3.5.0)                     
-##  CRAN (R 3.5.0)                     
-##  CRAN (R 3.5.0)                     
-##  CRAN (R 3.5.0)                     
-##  Github (gaborcsardi/crayon@74bee76)
-##  CRAN (R 3.5.0)                     
-##  CRAN (R 3.5.1)                     
-##  CRAN (R 3.5.0)                     
-##  Github (tidyverse/dplyr@bee3351)   
-##  CRAN (R 3.5.0)                     
-##  CRAN (R 3.5.0)                     
-##  Github (tidyverse/ggplot2@7f13dfa) 
-##  Github (tidyverse/glue@35c61e9)    
-##  CRAN (R 3.5.0)                     
-##  CRAN (R 3.5.0)                     
-##  local                              
-##  CRAN (R 3.5.1)                     
-##  CRAN (R 3.5.0)                     
-##  CRAN (R 3.5.0)                     
-##  CRAN (R 3.5.0)                     
-##  CRAN (R 3.5.0)                     
-##  CRAN (R 3.5.0)                     
-##  Github (r-lib/pillar@9cc3030)      
-##  CRAN (R 3.5.0)                     
-##  CRAN (R 3.5.0)                     
-##  CRAN (R 3.5.0)                     
-##  CRAN (R 3.5.0)                     
-##  CRAN (R 3.5.0)                     
-##  CRAN (R 3.5.0)                     
-##  CRAN (R 3.5.0)                     
-##  CRAN (R 3.5.0)                     
-##  CRAN (R 3.5.0)                     
-##  CRAN (R 3.5.0)                     
-##  CRAN (R 3.5.0)                     
-##  CRAN (R 3.5.0)                     
-##  CRAN (R 3.5.0)                     
-##  CRAN (R 3.5.0)                     
-##  CRAN (R 3.5.0)                     
-##  CRAN (R 3.5.0)                     
-##  CRAN (R 3.5.0)                     
-##  CRAN (R 3.5.0)                     
-##  CRAN (R 3.5.0)                     
-##  CRAN (R 3.5.0)                     
-##  CRAN (R 3.5.0)                     
-##  Github (tidyverse/tibble@f3b40c2)  
-##  CRAN (R 3.5.0)                     
-##  CRAN (R 3.5.0)                     
-##  CRAN (R 3.5.0)                     
-##  CRAN (R 3.5.0)                     
-##  Github (hadley/xml2@de9781d)       
-##  CRAN (R 3.5.0)                     
-##  CRAN (R 3.5.0)                     
+##  ! package     * version date       lib source        
+##    assertthat    0.2.0   2017-04-11 [1] CRAN (R 3.5.1)
+##    backports     1.1.3   2018-12-14 [1] CRAN (R 3.5.1)
+##    bindr         0.1.1   2018-03-13 [1] CRAN (R 3.5.1)
+##    bindrcpp      0.2.2   2018-03-29 [1] CRAN (R 3.5.1)
+##    bookdown      0.9     2018-12-21 [1] CRAN (R 3.5.2)
+##    callr         3.1.1   2018-12-21 [1] CRAN (R 3.5.2)
+##    cli           1.0.1   2018-09-25 [1] CRAN (R 3.5.1)
+##    colorspace    1.3-2   2016-12-14 [1] CRAN (R 3.5.1)
+##    commonmark    1.7     2018-12-01 [1] CRAN (R 3.5.1)
+##    cowplot     * 0.9.4   2019-01-08 [1] CRAN (R 3.5.2)
+##    crayon        1.3.4   2017-09-16 [1] CRAN (R 3.5.1)
+##    desc          1.2.0   2018-05-01 [1] CRAN (R 3.5.1)
+##    devtools      2.0.1   2018-10-26 [1] CRAN (R 3.5.1)
+##    digest        0.6.18  2018-10-10 [1] CRAN (R 3.5.1)
+##    dplyr       * 0.7.8   2018-11-10 [1] CRAN (R 3.5.2)
+##    evaluate      0.12    2018-10-09 [1] CRAN (R 3.5.1)
+##    fs            1.2.6   2018-08-23 [1] CRAN (R 3.5.1)
+##    ggplot2     * 3.1.0   2018-10-25 [1] CRAN (R 3.5.1)
+##    glue          1.3.0   2018-07-17 [1] CRAN (R 3.5.1)
+##    gtable        0.2.0   2016-02-26 [1] CRAN (R 3.5.1)
+##    htmltools     0.3.6   2017-04-28 [1] CRAN (R 3.5.1)
+##  P iDADwigl    * 0.1.0   2019-01-10 [?] local         
+##    knitr       * 1.21    2018-12-10 [1] CRAN (R 3.5.2)
+##    labeling      0.3     2014-08-23 [1] CRAN (R 3.5.0)
+##    lazyeval      0.2.1   2017-10-29 [1] CRAN (R 3.5.1)
+##    magrittr      1.5     2014-11-22 [1] CRAN (R 3.5.1)
+##    memoise       1.1.0   2017-04-21 [1] CRAN (R 3.5.1)
+##    munsell       0.5.0   2018-06-12 [1] CRAN (R 3.5.1)
+##    pillar        1.3.1   2018-12-15 [1] CRAN (R 3.5.1)
+##    pkgbuild      1.0.2   2018-10-16 [1] CRAN (R 3.5.1)
+##    pkgconfig     2.0.2   2018-08-16 [1] CRAN (R 3.5.1)
+##    pkgload       1.0.2   2018-10-29 [1] CRAN (R 3.5.1)
+##    plyr          1.8.4   2016-06-08 [1] CRAN (R 3.5.1)
+##    prettyunits   1.0.2   2015-07-13 [1] CRAN (R 3.5.1)
+##    processx      3.2.1   2018-12-05 [1] CRAN (R 3.5.1)
+##    ps            1.3.0   2018-12-21 [1] CRAN (R 3.5.2)
+##    purrr         0.2.5   2018-05-29 [1] CRAN (R 3.5.1)
+##    R6            2.3.0   2018-10-04 [1] CRAN (R 3.5.1)
+##    Rcpp          1.0.0   2018-11-07 [1] CRAN (R 3.5.1)
+##    remotes       2.0.2   2018-10-30 [1] CRAN (R 3.5.1)
+##    rlang         0.3.1   2019-01-08 [1] CRAN (R 3.5.2)
+##    rmarkdown     1.11    2018-12-08 [1] CRAN (R 3.5.2)
+##    roxygen2      6.1.1   2018-11-07 [1] CRAN (R 3.5.1)
+##    rprojroot     1.3-2   2018-01-03 [1] CRAN (R 3.5.1)
+##    rstudioapi    0.8     2018-10-02 [1] CRAN (R 3.5.1)
+##    rticles       0.6     2018-10-09 [1] CRAN (R 3.5.2)
+##    scales        1.0.0   2018-08-09 [1] CRAN (R 3.5.1)
+##    sessioninfo   1.1.1   2018-11-05 [1] CRAN (R 3.5.1)
+##    stringi       1.2.4   2018-07-20 [1] CRAN (R 3.5.1)
+##    stringr       1.3.1   2018-05-10 [1] CRAN (R 3.5.1)
+##    testthat      2.0.1   2018-10-13 [1] CRAN (R 3.5.1)
+##    tibble        2.0.0   2019-01-04 [1] CRAN (R 3.5.1)
+##    tidyselect    0.2.5   2018-10-11 [1] CRAN (R 3.5.1)
+##    usethis       1.4.0   2018-08-14 [1] CRAN (R 3.5.2)
+##    withr         2.1.2   2018-03-15 [1] CRAN (R 3.5.1)
+##    xfun          0.4     2018-10-23 [1] CRAN (R 3.5.1)
+##    xml2          1.2.0   2018-01-24 [1] CRAN (R 3.5.1)
+##    xtable      * 1.8-3   2018-08-29 [1] CRAN (R 3.5.2)
+##    yaml          2.2.0   2018-07-25 [1] CRAN (R 3.5.1)
 ## 
-## [1] /Library/Frameworks/R.framework/Versions/3.5/Resources/library
+## [1] C:/Users/bmarwick/Documents/R/win-library/3.5
+## [2] C:/Program Files/R/R-3.5.1/library
 ## 
 ##  P -- Loaded and on-disk path mismatch.
 \end{verbatim}
@@ -706,9 +672,9 @@ The current Git commit details are:
 \end{Shaded}
 
 \begin{verbatim}
-## Local:    master /Users/bmarwick/Desktop/iDADwigl
-## Remote:   master @ origin (https://github.com/benmarwick/iDADwigl.git)
-## Head:     [694f1b8] 2018-12-29: add shiny app, update readme and pkgdown site
+## Local:    master C:/Users/bmarwick/Desktop/iDADwigl
+## Remote:   master @ origin (https://github.com/benmarwick/iDADwigl)
+## Head:     [77bc182] 2019-01-10: add tests and pkg startup msg to encourage citation
 \end{verbatim}
 
 \end{document}
