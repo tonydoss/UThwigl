@@ -9,4 +9,8 @@ install.packages(c("ggplot2",
                    "xtable",
                    "here",
                    "rticles",
-                   "testthat"))
+                   "testthat",
+                   "tinytex"))
+
+# so we can render the vignette in Binder, we need xelatex
+tinytex::install_tinytex()
