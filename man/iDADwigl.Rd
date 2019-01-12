@@ -6,33 +6,57 @@
 \usage{
 iDADwigl(input_data, nbit = 1, fsum_target = 0.01, U48_0_min = 1.265,
   U48_0_max = 1.275, l = 5.35, U_0 = 25, K_min = 1e-13,
-  K_max = 1e-11, T_min = 1000, T_max = 20000, print_summary = TRUE)
+  K_max = 1e-11, T_min = 1000, T_max = 20000, print_summary = TRUE,
+  with_plots = TRUE)
 }
 \arguments{
-\item{input_data}{}
+\item{input_data}{A data frame with the required columns}
 
-\item{nbit}{}
+\item{nbit}{The number of iterations}
 
-\item{fsum_target}{}
+\item{fsum_target}{The sum of the squared differences between the calculated and observed activity ratios.}
 
-\item{U48_0_min}{}
+\item{U48_0_min}{The minimum value allowed for the (^234^U/^238^U) activity ratio at the surface of the sample}
 
-\item{U48_0_max}{}
+\item{U48_0_max}{The maximum value allowed for the (^234^U/^238^U) activity ratio at the surface of the sample}
 
-\item{l}{}
+\item{l}{The thickness of the sample in centimeters}
 
-\item{U_0}{}
+\item{U_0}{The uranium concentration at the surface in ppm}
 
-\item{K_min}{}
+\item{K_min}{The minimum value allowed for the uranium diffusion coefficient (in cm^2^/s)}
 
-\item{K_max}{}
+\item{K_max}{The maximum value allowed for the uranium diffusion coefficient (in cm^2^/s)}
 
-\item{T_min}{}
+\item{T_min}{The minimum value for the age of the specimen (yr)}
 
-\item{T_max}{}
+\item{T_max}{The maximum value for the age of the specimen (yr)}
 
-\item{print_summary}{}
+\item{print_summary}{Print a summary of the output to the console? Default is TRUE}
+
+\item{with_plots}{Display a panel of plots of the output? Default is TRUE}
+}
+\value{
+A list of results
 }
 \description{
 iDADwigl
+}
+\examples{
+
+data("Hobbit_MH2T_for_iDAD")
+output <- iDADwigl(Hobbit_MH2T_for_iDAD,
+nbit = 1,
+fsum_target = 0.01,
+U48_0_min = 1.265, # Hobbit_1-1T: 1.3; Hobbit_MH2T: 1.265
+U48_0_max = 1.275, # Hobbit_1-1T: 1.4; Hobbit_MH2T: 1.275
+l = 5.35, # Hobbit_1-1T: 3.5 cm; Hobbit_MH2T: 5.35 cm
+U_0 = 25, # Hobbit_1-1T: 15 ppm; Hobbit_MH2T: 25 ppm
+K_min = 1e-13,
+K_max = 1e-11,
+T_min = 1e3, # Hobbit_1-1T: 50e3; Hobbit_MH2T: 1e3
+T_max = 20e3, # Hobbit_1-1T: 100e3; Hobbit_MH2T: 20e3
+print_summary = TRUE,
+with_plots = TRUE)
+
 }

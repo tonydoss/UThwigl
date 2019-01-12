@@ -1,38 +1,101 @@
 
+globalVariables(c("iDAD.position",
+                  "Th230_U238_CORR",
+                  "Th230_U238_CORR_Int2SE",
+                  "Th230_U238_CALC",
+                  "U_ppm_Int2SE",
+                  "U234_U238_CORR",
+                  "U234_U238_CORR_Int2SE",
+                  "U234_U238_CALC",
+                  "T_sol",
+                  "U_ppm",
+                  "U_ppm_Int2SE"
+                  
 
+))
+
+#' Set a custom message the the user appears when they attach the pkg
+#' 
+#' @param libname Nothing to do
+#' @param pkgname Nothing to do
+.onAttach <- function(libname, pkgname) {
+  
+  # show the citation, but how to get a citation as a chr?: 
+  
+  packageStartupMessage("To cite the iDADwigl package use:
+
+  Dosseto, A. and B. Marwick, (2019) iDADwigl: An R package
+  for open-system uranium-thorium dating Quaternary
+  Geochronology 0:000--000, http://doi.org/10.17605/OSF.IO/D5P7S
+
+A BibTeX entry for LaTeX users can be obtained with
+'bibentry('iDADwigl')'.
+
+As iDADwigl is continually evolving, you may want to cite
+its version number. Find it with 'help(package=iDADwigl)'.
+                        ")
+ 
+}
 
 
 #' iDADwigl
 #'
-#' @param input_data 
-#' @param nbit 
-#' @param fsum_target 
-#' @param U48_0_min 
-#' @param U48_0_max 
-#' @param l 
-#' @param U_0 
-#' @param K_min 
-#' @param K_max 
-#' @param T_min 
-#' @param T_max 
-#' @param print_summary 
+#' @param input_data A data frame with the required columns
+#' @param nbit  The number of iterations
+#' @param fsum_target The sum of the squared differences between the calculated and observed activity ratios.
+#' @param U48_0_min The minimum value allowed for the (^234^U/^238^U) activity ratio at the surface of the sample
+#' @param U48_0_max The maximum value allowed for the (^234^U/^238^U) activity ratio at the surface of the sample
+#' @param l The thickness of the sample in centimeters
+#' @param U_0 The uranium concentration at the surface in ppm
+#' @param K_min The minimum value allowed for the uranium diffusion coefficient (in cm^2^/s)
+#' @param K_max The maximum value allowed for the uranium diffusion coefficient (in cm^2^/s)
+#' @param T_min The minimum value for the age of the specimen (yr)
+#' @param T_max The maximum value for the age of the specimen (yr)
+#' @param print_summary Print a summary of the output to the console? Default is TRUE
+#' @param with_plots Display a panel of plots of the output? Default is TRUE
+#' 
+#' @importFrom cowplot plot_grid
+#' @importFrom stats median quantile runif 
+#' @importFrom utils ? 
 #'
-#' @return
+#' @return A list of results
 #' @export
 #'
 #' @examples
+#' 
+#' data("Hobbit_MH2T_for_iDAD")
+#' output <- iDADwigl(Hobbit_MH2T_for_iDAD,
+#' nbit = 1,
+#' fsum_target = 0.01,
+#' U48_0_min = 1.265, # Hobbit_1-1T: 1.3; Hobbit_MH2T: 1.265
+#' U48_0_max = 1.275, # Hobbit_1-1T: 1.4; Hobbit_MH2T: 1.275
+#' l = 5.35, # Hobbit_1-1T: 3.5 cm; Hobbit_MH2T: 5.35 cm
+#' U_0 = 25, # Hobbit_1-1T: 15 ppm; Hobbit_MH2T: 25 ppm
+#' K_min = 1e-13,
+#' K_max = 1e-11,
+#' T_min = 1e3, # Hobbit_1-1T: 50e3; Hobbit_MH2T: 1e3
+#' T_max = 20e3, # Hobbit_1-1T: 100e3; Hobbit_MH2T: 20e3
+#' print_summary = TRUE,
+#' with_plots = TRUE)
+#' 
+
 iDADwigl <- function(input_data,
-                            nbit = 1,
-                            fsum_target = 0.01,
-                            U48_0_min = 1.265, # Hobbit_1-1T: 1.3; Hobbit_MH2T: 1.265
-                            U48_0_max = 1.275, # Hobbit_1-1T: 1.4; Hobbit_MH2T: 1.275
-                            l = 5.35, # Hobbit_1-1T: 3.5 cm; Hobbit_MH2T: 5.35 cm
-                            U_0 = 25, # Hobbit_1-1T: 15 ppm; Hobbit_MH2T: 25 ppm
-                            K_min = 1e-13,
-                            K_max = 1e-11,
-                            T_min = 1e3, # Hobbit_1-1T: 50e3; Hobbit_MH2T: 1e3
-                            T_max = 20e3, # Hobbit_1-1T: 100e3; Hobbit_MH2T: 20e3
-                            print_summary = TRUE
+                     nbit = 1,
+                     fsum_target = 0.01,
+                     U48_0_min = 1.265, # Hobbit_1-1T: 1.3; Hobbit_MH2T: 1.265
+                     U48_0_max = 1.275, # Hobbit_1-1T: 1.4; Hobbit_MH2T: 1.275
+                     l = 5.35, # Hobbit_1-1T: 3.5 cm; Hobbit_MH2T: 5.35 cm
+                     U_0 = 25, # Hobbit_1-1T: 15 ppm; Hobbit_MH2T: 25 ppm
+                     K_min = 1e-13,
+                     K_max = 1e-11,
+                     T_min = 1e3, # Hobbit_1-1T: 50e3; Hobbit_MH2T: 1e3
+                     T_max = 20e3, # Hobbit_1-1T: 100e3; Hobbit_MH2T: 20e3
+                     print_summary = TRUE,
+                     with_plots = TRUE
+                     
+                            
+                     
+                     
 ){
   
   
@@ -42,10 +105,10 @@ iDADwigl <- function(input_data,
   
   if(all(col_names_we_need %in% colnames(input_data)))
   {
-    cat("All required columns are present in the input data 👍\n");
+    message("All required columns are present in the input data. \n");
   } else {
     ?iDADwigl::iDADwigl
-    stop("\nThe input data frame does not contain the necessary columns, or the columns are not named correctly 😢 Please check the documentation for details of the required column names, update the column names using the `names()` function, and try again.\n")
+    stop("\nThe input data frame does not contain the necessary columns, or the columns are not named correctly. Please check the documentation for details of the required column names, update the column names using the `names()` function, and try again.\n")
   }
   
 
@@ -281,16 +344,39 @@ if(print_summary) {
   # don't print anything
 }
   
-  
-  
 # collect the output into a list ------------------------------------
-  return(list(results = results,
-              diff = diff,
-              T_final = T_final,
-              K_final = K_final,
-              T_sol = T_sol_df,
-              U48_0_final = U48_0_final,
-              output_data = output_data))
+  output <- (list(results = results,
+                  diff = diff,
+                  T_final = T_final,
+                  K_final = K_final,
+                  T_sol = T_sol_df,
+                  U48_0_final = U48_0_final,
+                  output_data = output_data))
+  
+# plot or not? ------------------------------------
+if(with_plots){
+  # draw plots in a panel
+  T_sol_plot_output <- T_sol_plot(output)
+  u_conc_profile_plot_output <- u_conc_profile_plot(output)
+  u234_u238_ratio_plot_output <- u234_u238_ratio_plot(output)
+  th230_u238_ratio_plot_output <- th230_u238_ratio_plot(output)
+  
+  p1 <-
+    cowplot::plot_grid(T_sol_plot_output,
+              u_conc_profile_plot_output,
+              u234_u238_ratio_plot_output,
+              th230_u238_ratio_plot_output,
+              labels = "AUTO",
+              ncol = 2)
+  
+  print(p1)
+  
+}else {
+  # don't plot anything
+}
+  
+  
+return(output)
 
 }
 
@@ -301,6 +387,10 @@ if(print_summary) {
 #' Histogram of the solution ages
 #' 
 #' @param output Output from the `iDADwigl()` function
+#' @param big_size Size of the main text on the plot, default is 10
+#' @param less_big_size Size of the minor text on the plot, default is 8
+#' @param point_size Size of the data points on the plot, default is 2
+#' @param digits Number of digits to round the numeric output displayed as the plot title, default is 1
 #' @import ggplot2
 #' @export
 
@@ -342,10 +432,14 @@ T_sol_plot <- function(output,
 }
 
 
-#` Uranium concentration profile for transect
+#' Uranium concentration profile for transect
 #' 
 #' 
 #' @param output Output from the `iDADwigl()` function
+#' @param big_size Size of the main text on the plot, default is 10
+#' @param less_big_size Size of the minor text on the plot, default is 8
+#' @param point_size Size of the data points on the plot, default is 2
+#' @param digits Number of digits to round the numeric output displayed as the plot title, default is 1
 #' @import ggplot2
 #' @export
 
@@ -384,6 +478,10 @@ u_conc_profile_plot <- function(output,
 #' 
 #' 
 #' @param output Output from the `iDADwigl()` function
+#' @param big_size Size of the main text on the plot, default is 10
+#' @param less_big_size Size of the minor text on the plot, default is 8
+#' @param point_size Size of the data points on the plot, default is 2
+#' @param digits Number of digits to round the numeric output displayed as the plot title, default is 1
 #' @import ggplot2
 #' @export
 
@@ -427,6 +525,10 @@ u234_u238_ratio_plot <- function(output,
 #' Calculated (red) and observed (blue) (^230^Th/^238^U) activity ratios for transect 
 #' 
 #' @param output Output from the `iDADwigl()` function
+#' @param big_size Size of the main text on the plot, default is 10
+#' @param less_big_size Size of the minor text on the plot, default is 8
+#' @param point_size Size of the data points on the plot, default is 2
+#' @param digits Number of digits to round the numeric output displayed as the plot title, default is 1
 #' 
 #' @import ggplot2
 #' @export
@@ -468,3 +570,45 @@ th230_u238_ratio_plot <-  function(output,
   ylab(expression("(" ^ 230 * "Th/" ^ 238 * "U)")) + xlab("Relative distance from center") +
   theme_plots
 }
+
+# document code objects ----------------------------------------
+
+#' Data from transect 1 for Homo floresiensis ulna LB1/52
+#'
+#' A dataset containing the U-Th measurement values for H. floresiensis.
+#'
+#' @format A data frame with 6 rows and 8 variables:
+#' \describe{
+#'   \item{iDAD.position}{...}
+#'   \item{U234_U238_CORR}{...}
+#'   \item{U234_U238_CORR_Int2SE}{...}
+#'   \item{iDAD.position.1}{...}
+#'   \item{Th230_U238_CORR}{...}
+#'   \item{Th230_U238_CORR_Int2SE}{...}
+#'   \item{U_ppm}{...}
+#'   \item{U_ppm_Int2SE}{...}
+#'   ...
+#' }
+#' @source \url{http://dx.doi.org/10.1038/nature17179}
+"Hobbit_1_1T_for_iDAD"
+
+#' Data transect 2 for modern human femur 132A/LB/27D/03
+#'
+#' A dataset containing the U-Th measurement values for a modern human
+#'
+#' @format A data frame with 6 rows and 8 variables:
+#' \describe{
+#'   \item{iDAD.position}{...}
+#'   \item{U234_U238_CORR}{...}
+#'   \item{U234_U238_CORR_Int2SE}{...}
+#'   \item{iDAD.position.1}{...}
+#'   \item{Th230_U238_CORR}{...}
+#'   \item{Th230_U238_CORR_Int2SE}{...}
+#'   \item{U_ppm}{...}
+#'   \item{U_ppm_Int2SE}{...}
+#'   ...
+#' }
+#' @source \url{http://dx.doi.org/10.1038/nature17179}
+"Hobbit_MH2T_for_iDAD"
+
+

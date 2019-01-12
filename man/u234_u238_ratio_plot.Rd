@@ -9,6 +9,14 @@ u234_u238_ratio_plot(output, big_size = 10, less_big_size = 8,
 }
 \arguments{
 \item{output}{Output from the `iDADwigl()` function}
+
+\item{big_size}{Size of the main text on the plot, default is 10}
+
+\item{less_big_size}{Size of the minor text on the plot, default is 8}
+
+\item{point_size}{Size of the data points on the plot, default is 2}
+
+\item{digits}{Number of digits to round the numeric output displayed as the plot title, default is 1}
 }
 \description{
 Calculated (red) and observed (blue) (^234^U/^238^U) activity ratios for transect

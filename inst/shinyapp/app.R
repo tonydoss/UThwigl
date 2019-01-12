@@ -1,11 +1,16 @@
 
-
+if (!require("shiny")) install.packages("shiny")
 if (!require("shinycssloaders")) install.packages("shinycssloaders")
-if (!require("iDADwigl")) source("https://install-github.me/tonydoss/iDADwigl")
+if (!require("DT")) install.packages("DT")
+if (!require("devtools")) install.packages("devtools")
+if (!require("iDADwigl")) devtools::install_github("tonydoss/iDADwigl")
 
-library(shiny)
-library(shinycssloaders)
-library(iDADwigl)
+require(devtools)
+require(shiny)
+require(shinycssloaders)
+require(iDADwigl)
+require(DT)
+require(cowplot)
 
 # Define UI 
 ui <- bootstrapPage(
@@ -127,7 +132,8 @@ server <- function(input, output) {
                  K_max = input$K_max,
                  T_min = input$T_min,
                  T_max = input$T_max,
-                 print_summary = FALSE)
+                 print_summary = FALSE,
+                 with_plots = FALSE)
       
       output
     })
