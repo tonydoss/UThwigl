@@ -7,11 +7,11 @@
 status](https://travis-ci.org/benmarwick/UThwigl.svg?branch=master)](https://travis-ci.org/benmarwick/UThwigl)
 [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/benmarwick/UThwigl/master?urlpath=rstudio)
 
-The goal of UThwigl is to compute open-and closed-system uranium-thorium
-ages of geological and archaeological samples. It is based on the
-diffusion-adsorption-decay (DAD) model of Sambridge et al. (2012), which
-allows for advective and diffusive transport of uranium and thorium
-isotopes, while including synchronous radioactive decay.
+The goal of UThwigl is to compute open- and closed-system
+Uranium-Thorium ages of geological and archaeological samples. It is
+based on the diffusion-adsorption-decay (DAD) model of Sambridge et al.
+(2012), which allows for advective and diffusive transport of uranium
+and thorium isotopes, while including synchronous radioactive decay.
 
 The first function, `osUTh()`, will take the
 (<sup>230</sup>Th/<sup>238</sup>U) and (<sup>234</sup>U/<sup>238</sup>U)

@@ -779,24 +779,13 @@ csUTh <- function(input_data,
   # change column name of initial (234U/238U) error so it can be used to show error bars
   colnames(plotdata)[16:19] <- c("Age (ka)", "Age 2se", "(234U/238U)i", "Ratio 2se")
   
-  # plot initial (234U/238U)
-  p2 <- ggplot(plotdata, aes(ID, `(234U/238U)i`)) + # plot ages
-    geom_errorbar(aes(ymin = (`(234U/238U)i` - `Ratio 2se`),
-                      ymax = (`(234U/238U)i` + `Ratio 2se`)), 
-                  width=0.1) + # plot error bars
-    geom_point(size=5) + # plot points
-    xlab("Sample ID") + # x axis label
-    ylab(expression("Initial ("^234*"U/"^238*"U)")) # y axis label
+  output <- plotdata[,c(1, 16:19)]
   
+  # plot initial (234U/238U)
+  p2 <- initial_234U_238U_plot(output)
   
   # plot ages
-  p1 <- ggplot(plotdata, aes(ID, `Age (ka)`)) + # plot ages
-    geom_errorbar(aes(ymin = (`Age (ka)` - `Age 2se`),
-                      ymax = (`Age (ka)` + `Age 2se`)), 
-                  width=0.1) + # plot error bars
-    geom_point(size=5) + # plot points
-    xlab("Sample ID") + # x axis label
-    ylab("Age (ka)") # y axis label
+  p1 <- ages_plot(output)
   
   # draw plots
   
@@ -809,15 +798,93 @@ csUTh <- function(input_data,
   }
   
   # return results
-  return(plotdata[,16:19])
+  return(output)
   
   if(print_summary){
   
-  print(paste('Mean age: ',round(mean(plotdata$`Age (ka)`, na.rm = TRUE),1),
-              '+/-', round(2*sd(plotdata$`Age (ka)`, na.rm = TRUE)/
-                             sqrt(length(plotdata$`Age (ka)`)), 1), ' ka'))
+  print(paste('Mean age: ',round(mean(output$`Age (ka)`, na.rm = TRUE),1),
+              '+/-', round(2*sd(output$`Age (ka)`, na.rm = TRUE)/
+                             sqrt(length(output$`Age (ka)`)), 1), ' ka'))
   } else {
     # don't print anything
   }
 }
+
+
+
+#' Initial (^234^U/^238^U) plot
+#' 
+#' @param output Output from the `csUTh()` function
+#' @param big_size Size of the main text on the plot, default is 10
+#' @param less_big_size Size of the minor text on the plot, default is 8
+#' @param point_size Size of the data points on the plot, default is 5
+#' @import ggplot2
+#' @export
+
+initial_234U_238U_plot <- function(output,
+                                 big_size = 10,
+                                 less_big_size = 8,
+                                 point_size = 5){
+  
+  theme_plots <-
+    theme(
+      plot.title = element_text(size = big_size, hjust = 0.5),
+      legend.title = element_blank(),
+      axis.title.y = element_text(size = big_size),
+      axis.title.x = element_text(size = big_size),
+      axis.text.x = element_text(size = less_big_size),
+      axis.text.y = element_text(size = less_big_size)
+    ) +
+    theme_bw() +
+    theme(panel.grid.major = element_blank(),
+          panel.grid.minor = element_blank())
+  
+  ggplot(output, aes(ID, `(234U/238U)i`)) + # plot ages
+  geom_errorbar(aes(ymin = (`(234U/238U)i` - `Ratio 2se`),
+                    ymax = (`(234U/238U)i` + `Ratio 2se`)), 
+                width=0.1) + # plot error bars
+  geom_point(size=point_size) + # plot points
+  xlab("Sample ID") + # x axis label
+  ylab(expression("Initial ("^234*"U/"^238*"U)")) + # y axis label
+    theme_plots
+}
+
+
+#' Ages plot for open-system analysis
+#' 
+#' 
+#' @param output Output from the `csUTh()` function
+#' @param big_size Size of the main text on the plot, default is 10
+#' @param less_big_size Size of the minor text on the plot, default is 8
+#' @param point_size Size of the data points on the plot, default is 5
+#' @import ggplot2
+#' @export
+ages_plot <- function(output,
+                   big_size = 10,
+                   less_big_size = 8,
+                   point_size = 5){
+  
+  theme_plots <-
+    theme(
+      plot.title = element_text(size = big_size, hjust = 0.5),
+      legend.title = element_blank(),
+      axis.title.y = element_text(size = big_size),
+      axis.title.x = element_text(size = big_size),
+      axis.text.x = element_text(size = less_big_size),
+      axis.text.y = element_text(size = less_big_size)
+    ) +
+    theme_bw() +
+    theme(panel.grid.major = element_blank(),
+          panel.grid.minor = element_blank())
+  
+  ggplot(output, aes(ID, `Age (ka)`)) + # plot ages
+  geom_errorbar(aes(ymin = (`Age (ka)` - `Age 2se`),
+                    ymax = (`Age (ka)` + `Age 2se`)), 
+                width=0.1) + # plot error bars
+  geom_point(size=point_size) + # plot points
+  xlab("Sample ID") + # x axis label
+  ylab("Age (ka)")  + # y axis label
+  theme_plots
+}
+
 
