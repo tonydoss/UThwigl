@@ -16,17 +16,17 @@ csUTh(input_data, nbitchoice = 100, detcorrectionchoice = TRUE,
 
 \item{detcorrectionchoice}{Do a detrital correction? Enter TRUE for yes, or FALSE for no. Default: TRUE}
 
-\item{R28det}{default is 0.8}
+\item{R28det}{(232Th/238U) activity ratio of the detritus. Default is 0.8}
 
-\item{R28det_err}{default is 0.08}
+\item{R28det_err}{Error on the (232Th/238U) activity ratio of the detritus. Default is 0.08}
 
-\item{R08det}{default is 1}
+\item{R08det}{(230Th/238U) activity ratio of the detritus. Default is 1}
 
-\item{R08det_err}{default is 0.05}
+\item{R08det_err}{Error on the (230Th/238U) activity ratio of the detritus. Default is 0.05}
 
-\item{R48det}{default is 1}
+\item{R48det}{(234U/238U) activity ratio of the detritus. Default is 1}
 
-\item{R48det_err}{default is 0.02}
+\item{R48det_err}{Error on the (234U/238U) activity ratio of the detritus. Default is 0.02}
 
 \item{keepfiltereddata}{Save filtered data on which an outlier test was performed? Only recommended if all analyses of a same sample are supposed to give the same age. Enter TRUE for yes, or FALSE for no. Default: FALSE}
 

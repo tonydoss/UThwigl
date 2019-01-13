@@ -587,12 +587,12 @@ th230_u238_ratio_plot <-  function(output,
 #' @param input_data Input data frame, containing only rows of data for the sample that you want to solve. The following columns need to be present in this data frame: U234_U238_CORR, U234_U238_CORR_Int2SE, Th230_U238_CORR, Th230_U238_CORR_Int2SE, Th232_U238_CORR, Th232_U238_CORR_Int2SE.
 #' @param nbitchoice Number of iterations in the model. Recommended to have at least 100. Default: 100.
 #' @param detcorrectionchoice Do a detrital correction? Enter TRUE for yes, or FALSE for no. Default: TRUE
-#' @param R28det default is 0.8
-#' @param R28det_err default is 0.08
-#' @param R08det default is 1
-#' @param R08det_err default is 0.05
-#' @param R48det default is 1
-#' @param R48det_err default is 0.02
+#' @param R28det (232Th/238U) activity ratio of the detritus. Default is 0.8
+#' @param R28det_err Error on the (232Th/238U) activity ratio of the detritus. Default is 0.08
+#' @param R08det (230Th/238U) activity ratio of the detritus. Default is 1
+#' @param R08det_err Error on the (230Th/238U) activity ratio of the detritus. Default is 0.05
+#' @param R48det (234U/238U) activity ratio of the detritus. Default is 1
+#' @param R48det_err Error on the (234U/238U) activity ratio of the detritus. Default is 0.02
 #' @param keepfiltereddata Save filtered data on which an outlier test was performed? Only recommended if all analyses of a same sample are supposed to give the same age. Enter TRUE for yes, or FALSE for no. Default: FALSE
 #' @param print_summary Print a summary of the output to the console? Default is TRUE
 #' @param with_plots Draw plots? Default is TRUE
