@@ -1,4 +1,4 @@
 library(testthat)
-library(iDADwigl)
+library(UThwigl)
 
-test_check("iDADwigl")
+test_check("UThwigl")

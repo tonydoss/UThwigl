@@ -21,7 +21,8 @@ LazyData: true
 Depends: R (>= 3.5)
 Imports: 
     ggplot2,
-    cowplot
+    cowplot,
+    deSolve
 Suggests: 
     knitr,
     rmarkdown,
