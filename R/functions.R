@@ -9,8 +9,12 @@ globalVariables(c("iDAD.position",
                   "U234_U238_CALC",
                   "T_sol",
                   "U_ppm",
-                  "U_ppm_Int2SE"
-                  
+                  "U_ppm_Int2SE",
+                  "ID",
+                  "Age (ka)", 
+                  "Age 2se", 
+                  "(234U/238U)i", 
+                  "Ratio 2se"
 
 ))
 
@@ -25,7 +29,7 @@ globalVariables(c("iDAD.position",
   packageStartupMessage("To cite the UThwigl package use:
 
   Dosseto, A. and B. Marwick, (2019) UThwigl: An R package
-  for closed- and open-system uranium-thorium dating Quaternary
+  for closed- and open-system Uranium-Thorium dating Quaternary
   Geochronology 0:000--000, http://doi.org/10.17605/OSF.IO/D5P7S
 
 A BibTeX entry for LaTeX users can be obtained with
@@ -571,45 +575,6 @@ th230_u238_ratio_plot <-  function(output,
   theme_plots
 }
 
-# document code objects ----------------------------------------
-
-#' Data from transect 1 for Homo floresiensis ulna LB1/52
-#'
-#' A dataset containing the U-Th measurement values for H. floresiensis.
-#'
-#' @format A data frame with 6 rows and 8 variables:
-#' \describe{
-#'   \item{iDAD.position}{...}
-#'   \item{U234_U238_CORR}{...}
-#'   \item{U234_U238_CORR_Int2SE}{...}
-#'   \item{iDAD.position.1}{...}
-#'   \item{Th230_U238_CORR}{...}
-#'   \item{Th230_U238_CORR_Int2SE}{...}
-#'   \item{U_ppm}{...}
-#'   \item{U_ppm_Int2SE}{...}
-#'   ...
-#' }
-#' @source \url{http://dx.doi.org/10.1038/nature17179}
-"Hobbit_1_1T_for_iDAD"
-
-#' Data transect 2 for modern human femur 132A/LB/27D/03
-#'
-#' A dataset containing the U-Th measurement values for a modern human
-#'
-#' @format A data frame with 6 rows and 8 variables:
-#' \describe{
-#'   \item{iDAD.position}{...}
-#'   \item{U234_U238_CORR}{...}
-#'   \item{U234_U238_CORR_Int2SE}{...}
-#'   \item{iDAD.position.1}{...}
-#'   \item{Th230_U238_CORR}{...}
-#'   \item{Th230_U238_CORR_Int2SE}{...}
-#'   \item{U_ppm}{...}
-#'   \item{U_ppm_Int2SE}{...}
-#'   ...
-#' }
-#' @source \url{http://dx.doi.org/10.1038/nature17179}
-"Hobbit_MH2T_for_iDAD"
 
 #--------------------------------------------------------------------
 # function for closed-system dating
@@ -618,33 +583,51 @@ th230_u238_ratio_plot <-  function(output,
 #'
 #' csUTh calculates closed-system Th-230/U ages, including detrital correction.
 #'
-#' The data need to be in a tab-separated text file named 'IoliteExport_All_Integrations.txt'.
 #'
-#' The following columns need to be present in the data file: U234_U238_CORR, U234_U238_CORR_Int2SE, Th230_U238_CORR, Th230_U238_CORR_Int2SE, Th232_U238_CORR, Th232_U238_CORR_Int2SE.
-#'
-#' @param sample_name_choice Name of the sample to solve. It needs to be exactly as in the data file. For example, you want to solve for sample MK16, enter 'MK16'. Default: 'MK16'
-#' @param nbitchoice Number of iterations in the model. Have at least 100. Default: 100.
-#' @param detcorrectionchoice Whether to do a detrital correction. Enter 'Y' for yes, or 'N' for no. Default: 'Y'.
-#' @param keepfiltereddata Whether to do save filtered data on which an outlier test was performed. Only recommended if all analyses of a same sample are supposed to give the same age. Enter 'Y' for yes, or 'N' for no. Default: 'N'.
+#' @param input_data Input data frame, containing only rows of data for the sample that you want to solve. The following columns need to be present in this data frame: U234_U238_CORR, U234_U238_CORR_Int2SE, Th230_U238_CORR, Th230_U238_CORR_Int2SE, Th232_U238_CORR, Th232_U238_CORR_Int2SE.
+#' @param nbitchoice Number of iterations in the model. Recommended to have at least 100. Default: 100.
+#' @param detcorrectionchoice Do a detrital correction? Enter TRUE for yes, or FALSE for no. Default: TRUE
+#' @param R28det default is 0.8
+#' @param R28det_err default is 0.08
+#' @param R08det default is 1
+#' @param R08det_err default is 0.05
+#' @param R48det default is 1
+#' @param R48det_err default is 0.02
+#' @param keepfiltereddata Save filtered data on which an outlier test was performed? Only recommended if all analyses of a same sample are supposed to give the same age. Enter TRUE for yes, or FALSE for no. Default: FALSE
+#' @param print_summary Print a summary of the output to the console? Default is TRUE
+#' @param with_plots Draw plots? Default is TRUE
+#' 
+#' @import deSolve ggplot2
+#' @importFrom stats IQR optim sd
+#' 
+#' @examples 
+#' data("iolite_export")
+#' # Only solve for sample MK16
+#' output <- csUTh(iolite_export[grepl('MK16', iolite_export$X), ],
+#' nbitchoice = 100,
+#' detcorrectionchoice = TRUE,
+#' keepfiltereddata = FALSE,
+#' print_summary = TRUE)
+#' 
+#' @export
 
-csUTh <- function(sample_name_choice = 'MK16',
-                      nbitchoice = 100,
-                      detcorrectionchoice = 'Y',
-                      keepfiltereddata = 'N',
-                      print_summary = TRUE
+csUTh <- function(input_data, 
+                  nbitchoice = 100,
+                  detcorrectionchoice = TRUE,
+                  R28det = 0.8,
+                  R28det_err = 0.08,
+                  R08det = 1,
+                  R08det_err = 0.05,
+                  R48det = 1,
+                  R48det_err = 0.02,
+                  keepfiltereddata = FALSE,
+                  print_summary = TRUE,
+                  with_plots = TRUE
 ){
   
-  if (!require("deSolve")) install.packages("deSolve")
-  if (!require("ggplot2")) install.packages("ggplot2")
-  
-  library(deSolve)
-  library(ggplot2)
   
   l234 <- 2.8262e-6 # 234U decay constant (a-1)
   l230 <- 9.1577e-6 # 230Th decay constant (a-1)
-  
-  # name of sample to solve
-  sample_name <- sample_name_choice
   
   # nb of times optimisation is repeated (for each sample)
   nbit <- nbitchoice
@@ -663,14 +646,11 @@ csUTh <- function(sample_name_choice = 'MK16',
   R48det <- 1
   R48det_err <- 0.02
   
-  # import iolite results
-  iolite_results <- read.table("input/IoliteExport_All_Integrations.txt",
-                               header = TRUE, sep = "\t", comment.char = "")
+  # import iolite results, we are assuming the user has already subset their iolite output
+  # so that it only includes rows of the sample they want to solve.
+  iolite_results <- input_data
   
-  # create dataframe with data only for samples to solve
-  data <- subset(iolite_results, (grepl(sample_name, X)))
-  # data <- subset(ABL_AV_C, MATERIAL == sample_name)
-  # data <- data[-c(8,11),]
+  data <- input_data
   # number of samples to solve
   number_sampletosolve <- nrow(data)
   
@@ -763,19 +743,6 @@ csUTh <- function(sample_name_choice = 'MK16',
     R48i_median <- median(results$R48i)
     R48i_2se <- 2*sd(results$R48i)/sqrt(nbit)
     
-    # library(ggplot2)
-    # ggplot(data=results, aes(time)) + geom_histogram()
-    
-    # calculate error on age and initial (234U/23U)
-    # gamma_0 <- 1 + (U48meas - 1)*exp(l234*median_time)
-    # k1 <- l230/(l230 - l234)*(1 - exp(-(l230 - l234)*median_time))
-    # k2 <- l234*(U48meas - 1)*exp(l234*median_time)
-    # D <- l230*(exp(-l230*median_time) + (U48meas-1)*exp(-(l230 - l234)*median_time))
-    # err_time <- sqrt((err_R08^2 + k1^2*err_R48^2)/D^2)#/2
-    # # err_time <- sqrt((err_R08^2 + k1^2*err_R48^2 + 2*k1*cov(Th0U8meas, U48meas))/D^2)
-    # err_R48i <- sqrt(k2*err_time^2 + (exp(l234*median_time)*err_R48)^2 + 2*k2*exp(l234*median_time)/D*
-    #                    (k1*err_R48^2))#/1000
-    
     # store age, error on age and initial (234U/23U) for each sample
     time_results[count] <- time_median
     time2se_results[count] <- time_2se
@@ -788,7 +755,7 @@ csUTh <- function(sample_name_choice = 'MK16',
                                        round(time_results/1000,3), round(time2se_results/1000,3),
                                        round(R48i_results,3), round(R48i2se_results,3)))
   colnames(final_results)[1] <- c("ID")
-  colnames(final_results)[16:19] <- c("Age (kyr)", "2se", "(234U/238U)i", "2se")
+  colnames(final_results)[16:19] <- c("Age (ka)", "Age 2se", "(234U/238U)i", "Ratio 2se")
   
   remove_outliers <- function(x, na.rm = TRUE, ...) {
     qnt <- quantile(x, probs=c(.25, .75), na.rm = na.rm, ...)
@@ -800,45 +767,124 @@ csUTh <- function(sample_name_choice = 'MK16',
   }
   
   final_results_filtered <- final_results
-  final_results_filtered$`Age (kyr)` <- remove_outliers(final_results$`Age (kyr)`)
-  final_results_filtered <- final_results_filtered[!is.na(final_results_filtered$`Age (kyr)`),]
+  final_results_filtered$`Age (ka)` <- remove_outliers(final_results$`Age (ka)`)
+  final_results_filtered <- final_results_filtered[!is.na(final_results_filtered$`Age (ka)`),]
   
-  if (keepfiltereddata == 'N'){
-    write.table(final_results, file = paste("output/",sample_name,".csv", sep = ""), sep = ",", row.names = F)
+  if (!keepfiltereddata){
     plotdata <- final_results
-  } else if (keepfiltereddata == 'Y'){
-    write.table(final_results_filtered, file = paste("output/",sample_name,".csv", sep = ""), sep = ",", row.names = F)
+  } else if (keepfiltereddata){
     plotdata <- final_results_filtered
   }
   
   # change column name of initial (234U/238U) error so it can be used to show error bars
-  colnames(plotdata)[16:19] <- c("Age (kyr)", "2se", "(234U/238U)i", "2se#2")
+  colnames(plotdata)[16:19] <- c("Age (ka)", "Age 2se", "(234U/238U)i", "Ratio 2se")
+  
+  output <- plotdata[,c(1, 16:19)]
   
   # plot initial (234U/238U)
-  p2 <- ggplot(plotdata, aes(ID, `(234U/238U)i`)) + # plot ages
-    geom_errorbar(aes(ymin = (`(234U/238U)i` - `2se#2`),ymax = (`(234U/238U)i` + `2se#2`)), width=0.1) + # plot error bars
-    geom_point(size=5) + # plot points
-    xlab("Sample ID") + # x axis label
-    ylab(expression("Initial ("^234*"U/"^238*"U)")) # y axis label
-  
-  p2
+  p2 <- initial_234U_238U_plot(output)
   
   # plot ages
-  p1 <- ggplot(plotdata, aes(ID, `Age (kyr)`)) + # plot ages
-    geom_errorbar(aes(ymin = (`Age (kyr)` - `2se`),ymax = (`Age (kyr)` + `2se`)), width=0.1) + # plot error bars
-    geom_point(size=5) + # plot points
-    xlab("Sample ID") + # x axis label
-    ylab("Age (ka)") # y axis label
+  p1 <- ages_plot(output)
   
-  print(p1)
+  # draw plots
   
-  ggsave(paste("output/",sample_name," - Age.png",sep = ""))
+  # plot or not? ------------------------------------
+  if(with_plots){
+    # draw plots in a panel
+  print(cowplot::plot_grid(p1, p2, ncol = 1))
+  } else {
+    # don't draw plots
+  }
   
-  # display results
-  print(plotdata[,16:19])
+  # return results
+  return(output)
   
-  print(paste('Mean age: ',round(mean(plotdata$`Age (kyr)`, na.rm = TRUE),1),
-              '+/-', round(2*sd(plotdata$`Age (kyr)`, na.rm = TRUE)/
-                             sqrt(length(plotdata$`Age (kyr)`)), 1), ' ka'))
+  if(print_summary){
+  
+  print(paste('Mean age: ',round(mean(output$`Age (ka)`, na.rm = TRUE),1),
+              '+/-', round(2*sd(output$`Age (ka)`, na.rm = TRUE)/
+                             sqrt(length(output$`Age (ka)`)), 1), ' ka'))
+  } else {
+    # don't print anything
+  }
 }
+
+
+
+#' Initial (^234^U/^238^U) plot
+#' 
+#' @param output Output from the `csUTh()` function
+#' @param big_size Size of the main text on the plot, default is 10
+#' @param less_big_size Size of the minor text on the plot, default is 8
+#' @param point_size Size of the data points on the plot, default is 5
+#' @import ggplot2
+#' @export
+
+initial_234U_238U_plot <- function(output,
+                                 big_size = 10,
+                                 less_big_size = 8,
+                                 point_size = 5){
+  
+  theme_plots <-
+    theme(
+      plot.title = element_text(size = big_size, hjust = 0.5),
+      legend.title = element_blank(),
+      axis.title.y = element_text(size = big_size),
+      axis.title.x = element_text(size = big_size),
+      axis.text.x = element_text(size = less_big_size),
+      axis.text.y = element_text(size = less_big_size)
+    ) +
+    theme_bw() +
+    theme(panel.grid.major = element_blank(),
+          panel.grid.minor = element_blank())
+  
+  ggplot(output, aes(ID, `(234U/238U)i`)) + # plot ages
+  geom_errorbar(aes(ymin = (`(234U/238U)i` - `Ratio 2se`),
+                    ymax = (`(234U/238U)i` + `Ratio 2se`)), 
+                width=0.1) + # plot error bars
+  geom_point(size=point_size) + # plot points
+  xlab("Sample ID") + # x axis label
+  ylab(expression("Initial ("^234*"U/"^238*"U)")) + # y axis label
+    theme_plots
+}
+
+
+#' Ages plot for open-system analysis
+#' 
+#' 
+#' @param output Output from the `csUTh()` function
+#' @param big_size Size of the main text on the plot, default is 10
+#' @param less_big_size Size of the minor text on the plot, default is 8
+#' @param point_size Size of the data points on the plot, default is 5
+#' @import ggplot2
+#' @export
+ages_plot <- function(output,
+                   big_size = 10,
+                   less_big_size = 8,
+                   point_size = 5){
+  
+  theme_plots <-
+    theme(
+      plot.title = element_text(size = big_size, hjust = 0.5),
+      legend.title = element_blank(),
+      axis.title.y = element_text(size = big_size),
+      axis.title.x = element_text(size = big_size),
+      axis.text.x = element_text(size = less_big_size),
+      axis.text.y = element_text(size = less_big_size)
+    ) +
+    theme_bw() +
+    theme(panel.grid.major = element_blank(),
+          panel.grid.minor = element_blank())
+  
+  ggplot(output, aes(ID, `Age (ka)`)) + # plot ages
+  geom_errorbar(aes(ymin = (`Age (ka)` - `Age 2se`),
+                    ymax = (`Age (ka)` + `Age 2se`)), 
+                width=0.1) + # plot error bars
+  geom_point(size=point_size) + # plot points
+  xlab("Sample ID") + # x axis label
+  ylab("Age (ka)")  + # y axis label
+  theme_plots
+}
+
 

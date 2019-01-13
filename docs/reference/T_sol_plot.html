@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Histogram of the solution ages — T_sol_plot • iDADwigl</title>
+<title>Histogram of the solution ages — T_sol_plot • UThwigl</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -62,7 +62,7 @@
         <span class="icon-bar"></span>
       </button>
       <span class="navbar-brand">
-        <a class="navbar-link" href="../index.html">iDADwigl</a>
+        <a class="navbar-link" href="../index.html">UThwigl</a>
         <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
       </span>
     </div>
@@ -86,19 +86,14 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/idadwigl.pdf">iDADwigl - an R package for open-system uranium-thorium dating (PDF)</a>
+      <a href="../articles/uthwigl.pdf">UThwigl - an R package for closed- and open-system uranium-thorium dating (PDF)</a>
     </li>
   </ul>
 </li>
       </ul>
       
       <ul class="nav navbar-nav navbar-right">
-        <li>
-  <a href="https://github.com/tonydoss/iDADwigl">
-    <span class="fa fa-github fa-lg"></span>
-     
-  </a>
-</li>
+        
       </ul>
       
     </div><!--/.nav-collapse -->
@@ -112,7 +107,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Histogram of the solution ages</h1>
-    <small class="dont-index">Source: <a href='https://github.com/tonydoss/iDADwigl/blob/master/R/functions.R'><code>R/functions.R</code></a></small>
+    
     <div class="hidden name"><code>T_sol_plot.Rd</code></div>
     </div>
 
@@ -130,7 +125,23 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>output</th>
-      <td><p>Output from the `iDADwigl()` function</p></td>
+      <td><p>Output from the `osUTh()` function</p></td>
+    </tr>
+    <tr>
+      <th>big_size</th>
+      <td><p>Size of the main text on the plot, default is 10</p></td>
+    </tr>
+    <tr>
+      <th>less_big_size</th>
+      <td><p>Size of the minor text on the plot, default is 8</p></td>
+    </tr>
+    <tr>
+      <th>point_size</th>
+      <td><p>Size of the data points on the plot, default is 2</p></td>
+    </tr>
+    <tr>
+      <th>digits</th>
+      <td><p>Number of digits to round the numeric output displayed as the plot title, default is 1</p></td>
     </tr>
     </table>
     

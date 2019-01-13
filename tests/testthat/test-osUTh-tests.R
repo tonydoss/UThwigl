@@ -1,10 +1,9 @@
-context("test-idadwigl-tests")
-
+context("test-uthwigl-tests")
 
 data("Hobbit_MH2T_for_iDAD")
 
-suppressMessages(png(filename = "test1.png")) # capture the plot
-output <- suppressMessages(iDADwigl(Hobbit_MH2T_for_iDAD,
+suppressMessages(png(filename = "test-osUTh.png")) # capture the plot
+output <- suppressMessages(osUTh(Hobbit_MH2T_for_iDAD,
                    nbit = 10, # to make the tests run fast
                    fsum_target = 0.01,
                    U48_0_min = 1.265,
@@ -21,27 +20,26 @@ suppressMessages(dev.off()) # finish capturing the plot
 
 # here are the tests:
 
-test_that("iDADwigl() returns a list", {
+test_that("osUTh() returns a list", {
   expect_true(is.list(output))
 })
 
-test_that("iDADwigl() returns a plot", {
-  expect_true(file.exists("test1.png"))
+test_that("osUTh() returns a plot", {
+  expect_true(file.exists("test-osUTh.png"))
 })
 
 # these tests below may fail is the tolerance is set too low:
 
-test_that("iDADwigl() returns sensible values for the age", {
+test_that("osUTh() returns sensible values for the age", {
   
   expect_equal(output$results$`Age (ka)`, 7.1, tolerance = 1)
 })
 
-test_that("iDADwigl() returns sensible values for T_final", {
+test_that("osUTh() returns sensible values for T_final", {
   
   expect_equal(output$T_final, 7100, tolerance = 1000)
 })
 
 
-
 # delete the plot after testing
-file.remove("test1.png")
+file.remove("test-osUTh.png")

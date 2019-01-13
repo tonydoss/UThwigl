@@ -4,24 +4,46 @@
 \alias{csUTh}
 \title{csUTh}
 \usage{
-csUTh(sample_name_choice = "MK16", nbitchoice = 100,
-  detcorrectionchoice = "Y", keepfiltereddata = "N",
-  print_summary = TRUE)
+csUTh(input_data, nbitchoice = 100, detcorrectionchoice = TRUE,
+  R28det = 0.8, R28det_err = 0.08, R08det = 1, R08det_err = 0.05,
+  R48det = 1, R48det_err = 0.02, keepfiltereddata = FALSE,
+  print_summary = TRUE, with_plots = TRUE)
 }
 \arguments{
-\item{sample_name_choice}{Name of the sample to solve. It needs to be exactly as in the data file. For example, you want to solve for sample MK16, enter 'MK16'. Default: 'MK16'}
+\item{input_data}{Input data frame, containing only rows of data for the sample that you want to solve. The following columns need to be present in this data frame: U234_U238_CORR, U234_U238_CORR_Int2SE, Th230_U238_CORR, Th230_U238_CORR_Int2SE, Th232_U238_CORR, Th232_U238_CORR_Int2SE.}
 
-\item{nbitchoice}{Number of iterations in the model. Have at least 100. Default: 100.}
+\item{nbitchoice}{Number of iterations in the model. Recommended to have at least 100. Default: 100.}
 
-\item{detcorrectionchoice}{Whether to do a detrital correction. Enter 'Y' for yes, or 'N' for no. Default: 'Y'.}
+\item{detcorrectionchoice}{Do a detrital correction? Enter TRUE for yes, or FALSE for no. Default: TRUE}
 
-\item{keepfiltereddata}{Whether to do save filtered data on which an outlier test was performed. Only recommended if all analyses of a same sample are supposed to give the same age. Enter 'Y' for yes, or 'N' for no. Default: 'N'.}
+\item{R28det}{default is 0.8}
+
+\item{R28det_err}{default is 0.08}
+
+\item{R08det}{default is 1}
+
+\item{R08det_err}{default is 0.05}
+
+\item{R48det}{default is 1}
+
+\item{R48det_err}{default is 0.02}
+
+\item{keepfiltereddata}{Save filtered data on which an outlier test was performed? Only recommended if all analyses of a same sample are supposed to give the same age. Enter TRUE for yes, or FALSE for no. Default: FALSE}
+
+\item{print_summary}{Print a summary of the output to the console? Default is TRUE}
+
+\item{with_plots}{Draw plots? Default is TRUE}
 }
 \description{
 csUTh calculates closed-system Th-230/U ages, including detrital correction.
 }
-\details{
-The data need to be in a tab-separated text file named 'IoliteExport_All_Integrations.txt'.
+\examples{
+data("iolite_export")
+# Only solve for sample MK16
+output <- csUTh(iolite_export[grepl('MK16', iolite_export$X), ],
+nbitchoice = 100,
+detcorrectionchoice = TRUE,
+keepfiltereddata = FALSE,
+print_summary = TRUE)
 
-The following columns need to be present in the data file: U234_U238_CORR, U234_U238_CORR_Int2SE, Th230_U238_CORR, Th230_U238_CORR_Int2SE, Th232_U238_CORR, Th232_U238_CORR_Int2SE.
 }

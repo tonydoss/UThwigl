@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Calculated (red) and observed (blue) (^230^Th/^238^U) activity ratios for transect — th230_u238_ratio_plot • UThwigl</title>
+<title>csUTh — csUTh • UThwigl</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -30,9 +30,9 @@
 
 
 
-<meta property="og:title" content="Calculated (red) and observed (blue) (^230^Th/^238^U) activity ratios for transect — th230_u238_ratio_plot" />
+<meta property="og:title" content="csUTh — csUTh" />
 
-<meta property="og:description" content="Calculated (red) and observed (blue) (^230^Th/^238^U) activity ratios for transect" />
+<meta property="og:description" content="csUTh calculates closed-system Th-230/U ages, including detrital correction." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -106,52 +106,93 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Calculated (red) and observed (blue) (^230^Th/^238^U) activity ratios for transect</h1>
+    <h1>csUTh</h1>
     
-    <div class="hidden name"><code>th230_u238_ratio_plot.Rd</code></div>
+    <div class="hidden name"><code>csUTh.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Calculated (red) and observed (blue) (^230^Th/^238^U) activity ratios for transect</p>
+    <p>csUTh calculates closed-system Th-230/U ages, including detrital correction.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>th230_u238_ratio_plot</span>(<span class='no'>output</span>, <span class='kw'>big_size</span> <span class='kw'>=</span> <span class='fl'>10</span>, <span class='kw'>less_big_size</span> <span class='kw'>=</span> <span class='fl'>8</span>,
-  <span class='kw'>point_size</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>digits</span> <span class='kw'>=</span> <span class='fl'>1</span>)</pre>
+    <pre class="usage"><span class='fu'>csUTh</span>(<span class='no'>input_data</span>, <span class='kw'>nbitchoice</span> <span class='kw'>=</span> <span class='fl'>100</span>, <span class='kw'>detcorrectionchoice</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>R28det</span> <span class='kw'>=</span> <span class='fl'>0.8</span>, <span class='kw'>R28det_err</span> <span class='kw'>=</span> <span class='fl'>0.08</span>, <span class='kw'>R08det</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>R08det_err</span> <span class='kw'>=</span> <span class='fl'>0.05</span>,
+  <span class='kw'>R48det</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>R48det_err</span> <span class='kw'>=</span> <span class='fl'>0.02</span>, <span class='kw'>keepfiltereddata</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>print_summary</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>with_plots</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>output</th>
-      <td><p>Output from the `osUTh()` function</p></td>
+      <th>input_data</th>
+      <td><p>Input data frame, containing only rows of data for the sample that you want to solve. The following columns need to be present in this data frame: U234_U238_CORR, U234_U238_CORR_Int2SE, Th230_U238_CORR, Th230_U238_CORR_Int2SE, Th232_U238_CORR, Th232_U238_CORR_Int2SE.</p></td>
     </tr>
     <tr>
-      <th>big_size</th>
-      <td><p>Size of the main text on the plot, default is 10</p></td>
+      <th>nbitchoice</th>
+      <td><p>Number of iterations in the model. Recommended to have at least 100. Default: 100.</p></td>
     </tr>
     <tr>
-      <th>less_big_size</th>
-      <td><p>Size of the minor text on the plot, default is 8</p></td>
+      <th>detcorrectionchoice</th>
+      <td><p>Do a detrital correction? Enter TRUE for yes, or FALSE for no. Default: TRUE</p></td>
     </tr>
     <tr>
-      <th>point_size</th>
-      <td><p>Size of the data points on the plot, default is 2</p></td>
+      <th>R28det</th>
+      <td><p>default is 0.8</p></td>
     </tr>
     <tr>
-      <th>digits</th>
-      <td><p>Number of digits to round the numeric output displayed as the plot title, default is 1</p></td>
+      <th>R28det_err</th>
+      <td><p>default is 0.08</p></td>
+    </tr>
+    <tr>
+      <th>R08det</th>
+      <td><p>default is 1</p></td>
+    </tr>
+    <tr>
+      <th>R08det_err</th>
+      <td><p>default is 0.05</p></td>
+    </tr>
+    <tr>
+      <th>R48det</th>
+      <td><p>default is 1</p></td>
+    </tr>
+    <tr>
+      <th>R48det_err</th>
+      <td><p>default is 0.02</p></td>
+    </tr>
+    <tr>
+      <th>keepfiltereddata</th>
+      <td><p>Save filtered data on which an outlier test was performed? Only recommended if all analyses of a same sample are supposed to give the same age. Enter TRUE for yes, or FALSE for no. Default: FALSE</p></td>
+    </tr>
+    <tr>
+      <th>print_summary</th>
+      <td><p>Print a summary of the output to the console? Default is TRUE</p></td>
+    </tr>
+    <tr>
+      <th>with_plots</th>
+      <td><p>Draw plots? Default is TRUE</p></td>
     </tr>
     </table>
     
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/data'>data</a></span>(<span class='st'>"iolite_export"</span>)
+<span class='co'># Only solve for sample MK16</span>
+<span class='no'>output</span> <span class='kw'>&lt;-</span> <span class='fu'>csUTh</span>(<span class='no'>iolite_export</span>[<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/grep'>grepl</a></span>(<span class='st'>'MK16'</span>, <span class='no'>iolite_export</span>$<span class='no'>X</span>), ],
+<span class='kw'>nbitchoice</span> <span class='kw'>=</span> <span class='fl'>100</span>,
+<span class='kw'>detcorrectionchoice</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+<span class='kw'>keepfiltereddata</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+<span class='kw'>print_summary</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='img'><img src='csUTh-1.png' alt='' width='700' height='433' /></div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-                </ul>
+            
+      <li><a href="#examples">Examples</a></li>
+    </ul>
 
   </div>
 </div>

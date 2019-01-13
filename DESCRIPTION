@@ -1,19 +1,19 @@
 Package: UThwigl
 Type: Package
-Title: Closed- and open-system U-Th dating
+Title: Closed- and Open-System Uranium-Thorium Dating
 Version: 0.1.0
 Authors@R:
     c(person(given = "Anthony", 
     family = "Dosseto", 
     role = c("aut", "cre"), 
-    email = "tonyd@uow.edu.au",
+    email = "benmarwick@gmail.com",
     comment = c(ORCID = "0000-0002-3575-0106")),
     person(given = "Ben", 
     family = "Marwick", 
     role = c("aut"), 
     email = "benmarwick@gmail.com", 
     comment = c(ORCID = "0000-0001-7879-4531")))
-Maintainer: Ben Marwick <benmarwick@gmail.com>
+Maintainer: Anthony Dosseto <benmarwick@gmail.com>
 Description: Calculates closed- and open-system U-Th ages.
 License: MIT + file LICENSE
 Encoding: UTF-8
@@ -21,7 +21,8 @@ LazyData: true
 Depends: R (>= 3.5)
 Imports: 
     ggplot2,
-    cowplot
+    cowplot,
+    deSolve
 Suggests: 
     knitr,
     rmarkdown,
