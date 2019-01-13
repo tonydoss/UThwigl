@@ -1,6 +1,6 @@
-Package: iDADwigl
+Package: UThwigl
 Type: Package
-Title: Diffusion-Adsorption-Decay (DAD) Model for U-Th Dating
+Title: Closed- and Open-system Uranium-Thorium Dating
 Version: 0.1.0
 Authors@R:
     c(person(given = "Anthony", 
@@ -14,7 +14,8 @@ Authors@R:
     email = "benmarwick@gmail.com", 
     comment = c(ORCID = "0000-0001-7879-4531")))
 Maintainer: Anthony Dosseto <benmarwick@gmail.com>
-Description: Implements the diffusion-adsorption-decay (DAD) model developed by Sambridge et al. for open-system U-Th dating.
+Maintainer: Anthony Dosseto <benmarwick@gmail.com>
+Description: Calculates closed- and open-system U-Th ages.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
@@ -36,5 +37,5 @@ Suggests:
 VignetteBuilder: knitr
 RoxygenNote: 6.1.1
 URL: https://doi.org/10.17605/OSF.IO/D5P7S
-BugReports: https://github.com/tonydoss/iDADwigl/issues
+BugReports: https://github.com/tonydoss/UThwigl/issues
 Date: 2019-01-30

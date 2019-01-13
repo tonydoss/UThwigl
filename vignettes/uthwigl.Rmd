@@ -1,5 +1,5 @@
 ---
-title: iDADwigl - an R package for open-system uranium-thorium dating
+title: UThwigl - an R package for closed- and open-system uranium-thorium dating
 author:
   - name: Anthony Dosseto
     email: tonyd@uow.edu.au
@@ -16,7 +16,7 @@ address:
 abstract: |
   For several decades, uranium-thorium (U-Th) dating has allowed geochronologists to precisely date geological materials, providing unvaluable geochronological constraints on Quaternary processes. Open-system dating of bones and teeth has also provided ages of human and faunal remains of archaeological significance.
   
-  To facilitate access of open-system U-Th dating to the broad scientific community, here we provide an R package, named *iDADwigl*, that implements the Diffusion-Adsorption-Decay model of Sambridge et al. [-@Sambridge2012]. Description of input and output parameters is given, as well as a guide for running the model. The package can be used three different ways: (i) as a web application, (ii) through your browser or (iii) in R studio. Examples of application of the model are also provided, showing that it yields ages within error of previously published values.   
+  To facilitate access of open-system U-Th dating to the broad scientific community, here we provide an R package, named *UThwigl*, that implements the Diffusion-Adsorption-Decay model of Sambridge et al. [-@Sambridge2012]. Description of input and output parameters is given, as well as a guide for running the model. The package can be used three different ways: (i) as a web application, (ii) through your browser or (iii) in R studio. Examples of application of the model are also provided, showing that it yields ages within error of previously published values.   
 
 journal: "Quaternary Geochronology"
 date: "`r Sys.Date()`"
@@ -35,7 +35,7 @@ pkgdown:
    as_is: true
    extension: pdf
 vignette: >
-  %\VignetteIndexEntry{iDADwigl - a R package for open-system #uranium-thorium dating}
+  %\VignetteIndexEntry{UThwigl - a R package for closed- and open-system #uranium-thorium dating}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -60,7 +60,7 @@ The motivation for providing this model as an R package is to increase the trans
 
 There is strong interest in open, transparent, and reusable research in the geoscience community [@Gil_et_al_2016] and substantial progress toward open data has been made in the geosciences with the widespread use of data services of NASA, USGS, NOAA and community-built data portals such as OneGeology, EarthChem, RRUFF, PANGAEA, PaleoBioDB, and others [@Kattge_Díaz_Wirth_2014; @ma2018data]. However, the use of open source software such as R [@Pebesma_Nust_Bivand_2012], and sharing of scripted data analysis workflows with research publications is not yet widespread [@Hutton_et_al_2016]. With this R package our goal is to make scripted and reproducible data analysis easy for open-system uranium-thorium dating. This will improve the transparency of geochronology research, and provide a more credible and robust foundation for scientific advancement [@Hutton_et_al_2016].
 
-To enable re-use of our materials and improve reproducibility and transparency, all the results and visualisations in this paper can be reproduced using the RMarkdown vignette document included with the iDADwigl package. We have archived these files at <http://doi.org/10.17605/OSF.IO/D5P7S> to ensure long-term accessibility. Our code is released under the MIT licence, our data as CC-0, and our figures as CC-BY, to enable maximum re-use [for more details, see @Marwick2016repro].
+To enable re-use of our materials and improve reproducibility and transparency, all the results and visualisations in this paper can be reproduced using the RMarkdown vignette document included with the UThwigl package. We have archived these files at <http://doi.org/10.17605/OSF.IO/D5P7S> to ensure long-term accessibility. Our code is released under the MIT licence, our data as CC-0, and our figures as CC-BY, to enable maximum re-use [for more details, see @Marwick2016repro].
 
 # Methods
 
@@ -83,7 +83,7 @@ include_graphics("figures/bone.png")
 
 We provide three methods for using this package to suit different levels of familiarity with the R programming language. The simplest way to use the package is our web application (Figure \@ref(fig:shinyfig)).  Using the web application requires no familiarity with R. To use the web application you upload a CSV file, then click through a series of tabs to inspect the data, adjust the model parameters, run the model, and inspect the output. The interface is mouse-driven and requires no programming. In the web application you  upload the data file on the *Load the data* tab, set parameters from the *Set model parameters* tab, run the model by clicking the button *Run Simulation* on the same tab, and observe the results on the *Visualise the model* and *Inspect the model* tabs. You can change the parameters and re-run the model by click the button *Run Simulation*. Once done, close the window.
 
-(ref:shinyfigcap) Screenshots of the web application for using the iDADwigl package. A: Upload a CSV file of the data to model, B: Inspect a table of the uploaded data. C: Set the model parameters and run the model. D: Inspect visualisations of the model's output. E: Inspect and download the numeric output from the model.
+(ref:shinyfigcap) Screenshots of the web application for using the UThwigl package. A: Upload a CSV file of the data to model, B: Inspect a table of the uploaded data. C: Set the model parameters and run the model. D: Inspect visualisations of the model's output. E: Inspect and download the numeric output from the model.
 
 ```{r shinyfig, out.width = "95%", fig.cap="(ref:shinyfigcap)", echo = FALSE, eval = TRUE}
 include_graphics("figures/shiny-app-screenshots.png")
@@ -97,21 +97,21 @@ The second way to use the package is with Binder, a browser-based instance of R 
 include_graphics("figures/binder.png")
 ```
 
-The third method is to download and install the package locally to your computer, and work with it in your local installation of R and RStudio. This method requires some familiarity with R, but gives the most flexibility when working with the model because you are not limited by the memory and compute time of the cloud services. Our recommendation is to use Binder or a local installation of iDADwigl because then you can save an R script file that includes the name of the input file, the specific parameters used to generate the model output, and any downstream processing and visualisation. This script file and the CSV file can then be archived in a data repository to ensure long-term accessibility for other researchers. 
+The third method is to download and install the package locally to your computer, and work with it in your local installation of R and RStudio. This method requires some familiarity with R, but gives the most flexibility when working with the model because you are not limited by the memory and compute time of the cloud services. Our recommendation is to use Binder or a local installation of UThwigl because then you can save an R script file that includes the name of the input file, the specific parameters used to generate the model output, and any downstream processing and visualisation. This script file and the CSV file can then be archived in a data repository to ensure long-term accessibility for other researchers. 
 
 # Installing and attaching the package
 
 First you will need to download and install [R](https://www.r-project.org/), and we also recommend downloading and installing [RStudio](https://www.rstudio.com/). To run the model, start `RStudio` and install the package from GitHub. There are many ways to do this, one simple method is shown in the line below. This only needs to be done once per computer.
 
 ```{r eval = FALSE}
-source("https://install-github.me/tonydoss/iDADwigl")
+source("https://install-github.me/tonydoss/UThwigl")
 ```
 
 For routine data analysis, R scripts need to contain the following line to attach the package to the current working envirovnment. This line needs to be run at the start of each analysis:
 
 ```{r}
 # attach the package
-library(iDADwigl)
+library(UThwigl)
 ```
 
 Alternatively, the model can be run from your browser without installing R or RStudio with this [link](https://mybinder.org/v2/gh/benmarwick/iDADwigl/master?urlpath=rstudio).
@@ -208,7 +208,7 @@ After setting the `U480` maximum and minimum values, run the function and adjust
 Attach the package as shown above and then run `iDADwigl()`, specifying the input data frame and the input parameters as described above. The code block below shows a quick example that will execute in less than five seconds on a typical 2.3 GHz Intel Core i5 laptop:  
 
 ```{r model-output, results='hide'}
-output <- iDADwigl(data_file,
+output <- osUTh(data_file,
                    nbit = 1000,
                    fsum_target = 0.01,
                    U48_0_min = 1.265,
@@ -329,7 +329,11 @@ ggplot2::ggsave("figures/demopanelfig.png")
 (ref:demopanelfigcap) Example of the visualisations produced by the `iDADwigl()` function, using the demonstration run described avove. A: Histogram of the solution ages, B: Uranium concentration profile for transect 2 of modern human femur 132A/LB/27D/03. C: Calculated (red) and observed (blue) (^234^U/^238^U) activity ratios for transect 2 of modern human femur 132A/LB/27D/03. D: Calculated (red) and observed (blue) (^230^Th/^238^U) activity ratios for transect 2 of modern human femur 132A/LB/27D/03.
 
 ```{r demopanelfig, out.width = "95%", fig.cap="(ref:demopanelfigcap)", echo = FALSE, eval = TRUE}
+<<<<<<< HEAD:vignettes/idadwigl.Rmd
 include_graphics("figures/demopanelfig.png")
+=======
+include_graphics("figures/demo-panel-fig.png")
+>>>>>>> upstream/master:vignettes/uthwigl.Rmd
 ```
 
 \FloatBarrier
@@ -364,7 +368,7 @@ print(Hobbit_1_1T_for_iDAD_tbl,
 For transect 2 of 132A/LB/27D/03, Sutikna et al. [-@Sutikna2016] reported an age of 7.4 $\pm$ 0.5 ka (thousand years before 2014). With iDADwigl, we first run the model with `nbit` = 1, `fsum_target` = 0.05, `U48_0_min` and `U48_0_max` = 1.25 and 1.3, respectively, `l` = 5.35 cm, `U_0` = 25 ppm, `K_min` and `K_max` = 10^-13^ and 10^-11^ cm^2^/s, respectively, `T_min` and `T_max` = 10^3^ and 500x10^3^ yr, respectively. `U48_0_min` and `U48_0_max` are determined by considering the measured (^234^U/^238^U) values near the surfaces of the sample. `T_min` and `T_max` values were chosen such that no a priori knowledge of the age biases the results.
 
 ```{r first-run-modern-human, results='hide', echo=FALSE}
-output_first_run_modern <- iDADwigl(Hobbit_MH2T_for_iDAD,
+output_first_run_modern <- osUTh(Hobbit_MH2T_for_iDAD,
                    nbit = 1,
                    fsum_target = 0.05,
                    U48_0_min = 1.25,
@@ -412,7 +416,7 @@ include_graphics("figures/plot-panel-first-run-modern.png")
 \FloatBarrier
 
 ```{r second-run-modern-human, results='hide', echo=FALSE}
-output_second_run_modern <- iDADwigl(Hobbit_MH2T_for_iDAD,
+output_second_run_modern <- osUTh(Hobbit_MH2T_for_iDAD,
                    nbit = 1000,
                    fsum_target = 0.05,
                    U48_0_min = 1.265,
@@ -468,7 +472,7 @@ include_graphics("figures/plot-panel-second-run-modern.png")
 ## Age of the *Homo floresiensis* remains from Sutikna et al. 2016
 
 ```{r model-output-hobbit, results='hide', echo=FALSE}
-output_hobbit <- iDADwigl(Hobbit_1_1T_for_iDAD,
+output_hobbit <- osUTh(Hobbit_1_1T_for_iDAD,
                    nbit = 1000,
                    fsum_target = 0.01,
                    U48_0_min = 1.360,
@@ -488,7 +492,7 @@ age_plus <- round(output_hobbit$results$`Age 67% quantile (ka)`,1)
 age_minus <- round(output_hobbit$results$`Age 33% quantile (ka)`,1)
 ```
 
-For transect 1 of LB1/52, Sutikna et al. [-@Sutikna2016] reported an age of 79.0 $\pm$ 3.7 ka. With iDADwigl, using data in the file `Hobbit_1-1T_for_iDAD.csv` provided in the package, and following the same method as above, we obtain an age of `r age` +`r age_plus`/-`r age_minus` ka (Figure \@ref(fig:plot-panel-hobbit-fig)). 
+For transect 1 of LB1/52, Sutikna et al. [-@Sutikna2016] reported an age of 79.0 $\pm$ 3.7 ka. With osUth, using data in the file `Hobbit_1-1T_for_iDAD.csv` provided in the package, and following the same method as above, we obtain an age of `r age` +`r age_plus`/-`r age_minus` ka (Figure \@ref(fig:plot-panel-hobbit-fig)). 
 
 Note that results and errors will vary slightly for each run since populations are solution sets are randomly generated.
 
@@ -538,7 +542,7 @@ include_graphics("figures/plot-panel-hobbit.png")
 
 # Conclusions
 
-In this paper we have described `iDADwigl`, an open source R package for computation of open-system U-Th ages. This helps to enable transparency, reproducibility, and flexibility of the analytical workflow for computing U-Th ages. The examples above show that results from our model are within error of previously published ages.
+In this paper we have described `UThwigl`, an open source R package for computation of open-system U-Th ages. This helps to enable transparency, reproducibility, and flexibility of the analytical workflow for computing U-Th ages. The examples above show that results from our model are within error of previously published ages.
 
 \newpage
 
