@@ -18,7 +18,7 @@ Description: Calculates closed- and open-system U-Th ages.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
-Depends: R (>= 3.5)
+Depends: R (>= 3.4)
 Imports: 
     ggplot2,
     cowplot,
