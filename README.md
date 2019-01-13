@@ -25,7 +25,7 @@ you can upload your CSV file, set the model parameters, run the model,
 and view the results. Choose this option is you are not familiar with R.
 Here’s a screenshot of the web app:
 
-![](iDADwigl-shiny-app.gif)
+![](inst/iDADwigl-shiny-app.gif)
 
 ## Run code without downloading anything
 
@@ -45,3 +45,9 @@ source("https://install-github.me/tonydoss/iDADwigl")
 
 Please see the [vignette](articles/idadwigl.pdf) for an example of how
 to use this package.
+
+<!--
+git fetch upstream
+git checkout master
+git merge upstream/master
+-->

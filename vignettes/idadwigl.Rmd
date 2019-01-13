@@ -314,9 +314,8 @@ th230_u238_ratio_t2_human_femur <- th230_u238_ratio_plot(output)
 
 ```{r echo=FALSE, eval = T}
 # combine plots
-library(cowplot)
 p1 <-
-plot_grid(T_sol_plot,
+cowplot::plot_grid(T_sol_plot,
           u_conc_t2_human_femur,
           u234_u238_ratio_t2_human_femur,
           th230_u238_ratio_t2_human_femur,
@@ -324,13 +323,13 @@ plot_grid(T_sol_plot,
           ncol = 2)
 # save the plot, then use include_graphics to overcome an
 # annoying latex error about 'Paragraph ended before \Gin@iii was complete.'
-ggplot2::ggsave("figures/demo-panel-fig.png")
+ggplot2::ggsave("figures/demopanelfig.png")
 ```
 
 (ref:demopanelfigcap) Example of the visualisations produced by the `iDADwigl()` function, using the demonstration run described avove. A: Histogram of the solution ages, B: Uranium concentration profile for transect 2 of modern human femur 132A/LB/27D/03. C: Calculated (red) and observed (blue) (^234^U/^238^U) activity ratios for transect 2 of modern human femur 132A/LB/27D/03. D: Calculated (red) and observed (blue) (^230^Th/^238^U) activity ratios for transect 2 of modern human femur 132A/LB/27D/03.
 
 ```{r demopanelfig, out.width = "95%", fig.cap="(ref:demopanelfigcap)", echo = FALSE, eval = TRUE}
-include_graphics(here::here("vignettes", "figures", "demo-panel-fig.png"))
+include_graphics("figures/demopanelfig.png")
 ```
 
 \FloatBarrier
