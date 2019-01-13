@@ -14,7 +14,6 @@ Authors@R:
     email = "benmarwick@gmail.com", 
     comment = c(ORCID = "0000-0001-7879-4531")))
 Maintainer: Anthony Dosseto <benmarwick@gmail.com>
-Maintainer: Anthony Dosseto <benmarwick@gmail.com>
 Description: Calculates closed- and open-system U-Th ages.
 License: MIT + file LICENSE
 Encoding: UTF-8

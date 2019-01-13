@@ -12,4 +12,4 @@
 0 errors | 0 warnings | 1 note
 
 * This is a new release.
-* To deal with a W about ' PDF files under ‘inst/doc’', I did tools::compactPDF('vignettes/idadwigl.pdf', gs_quality = "ebook") but it makes no difference... in RStudio setting --compact-vignettes=both in build options doesn't help, but this W is not on travis
+* To deal with a W about ' PDF files under ‘inst/doc’', I did tools::compactPDF('vignettes/uthwigl.pdf', gs_quality = "ebook") but it makes no difference... in RStudio setting --compact-vignettes=both in build options doesn't help, but this W is not on travis
