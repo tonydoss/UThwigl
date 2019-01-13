@@ -36,13 +36,13 @@ of the tooth or bone and return an age in thousands of years ago.
 
 ## Web application
 
-The package includes a web application that runs in your browser where you can upload your CSV file, set the model parameters, run the model, and view the results. Choose this option is you are not familiar with R. Here's a screenshot of the web app:
+The package includes a web application that runs `osTuh()` in your browser where you can upload your CSV file, set the model parameters, run the model, and view the results. Choose this option is you are not familiar with R. Here's a screenshot of the web app:
 
 ![](inst/iDADwigl-shiny-app.gif)
 
 ## Run code without downloading anything 
 
-You can run the package function in your browser by [starting a binder instance](https://mybinder.org/v2/gh/benmarwick/UThwigl/master?urlpath=rstudio). This will open RStudio in your browser, together with the contents of this GitHub repository. 
+You can run the package functions in your browser by [starting a binder instance](https://mybinder.org/v2/gh/benmarwick/UThwigl/master?urlpath=rstudio). This will open RStudio in your browser, together with the contents of this GitHub repository. 
 
 ## Installing the UThwigl package on your computer
 

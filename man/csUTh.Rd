@@ -4,43 +4,46 @@
 \alias{csUTh}
 \title{csUTh}
 \usage{
-csUTh(input_data, nbitchoice = 100, detcorrectionchoice = TRUE,
-  R28det = 0.8, R28det_err = 0.08, R08det = 1, R08det_err = 0.05,
-  R48det = 1, R48det_err = 0.02, keepfiltereddata = FALSE,
-  print_summary = TRUE, with_plots = TRUE)
+csUTh(input_data, sample_name = "MK16", nbitchoice = 100,
+  detcorrectionchoice = TRUE, R28det = 0.8, R28det_err = 0.08,
+  R08det = 1, R08det_err = 0.05, R48det = 1, R48det_err = 0.02,
+  keepfiltereddata = FALSE, print_summary = TRUE, with_plots = TRUE)
 }
 \arguments{
-\item{input_data}{Input data frame, containing only rows of data for the sample that you want to solve. The following columns need to be present in this data frame: U234_U238_CORR, U234_U238_CORR_Int2SE, Th230_U238_CORR, Th230_U238_CORR_Int2SE, Th232_U238_CORR, Th232_U238_CORR_Int2SE.}
+\item{input_data}{Input data frame, containing only rows of data for the sample that you want to solve. The following columns need to be present in this data frame: Sample_ID, U234_U238_CORR, U234_U238_CORR_Int2SE, Th230_U238_CORR, Th230_U238_CORR_Int2SE, Th232_U238_CORR, Th232_U238_CORR_Int2SE.}
+
+\item{sample_name}{Name of the sample to calculate closed-system ages for. The string entered must match characters for the chosen sample in the column 'Sample_ID' of the data file. Default: 'MK16'.}
 
 \item{nbitchoice}{Number of iterations in the model. Recommended to have at least 100. Default: 100.}
 
 \item{detcorrectionchoice}{Do a detrital correction? Enter TRUE for yes, or FALSE for no. Default: TRUE}
 
-\item{R28det}{(232Th/238U) activity ratio of the detritus. Default is 0.8}
+\item{R28det}{(232Th/238U) activity ratio of the detritus. Default: 0.8}
 
-\item{R28det_err}{Error on the (232Th/238U) activity ratio of the detritus. Default is 0.08}
+\item{R28det_err}{Error on the (232Th/238U) activity ratio of the detritus. Default: 0.08}
 
-\item{R08det}{(230Th/238U) activity ratio of the detritus. Default is 1}
+\item{R08det}{(230Th/238U) activity ratio of the detritus. Default: 1}
 
-\item{R08det_err}{Error on the (230Th/238U) activity ratio of the detritus. Default is 0.05}
+\item{R08det_err}{Error on the (230Th/238U) activity ratio of the detritus. Default: 0.05}
 
-\item{R48det}{(234U/238U) activity ratio of the detritus. Default is 1}
+\item{R48det}{(234U/238U) activity ratio of the detritus. Default: 1}
 
-\item{R48det_err}{Error on the (234U/238U) activity ratio of the detritus. Default is 0.02}
+\item{R48det_err}{Error on the (234U/238U) activity ratio of the detritus. Default: 0.02}
 
 \item{keepfiltereddata}{Save filtered data on which an outlier test was performed? Only recommended if all analyses of a same sample are supposed to give the same age. Enter TRUE for yes, or FALSE for no. Default: FALSE}
 
-\item{print_summary}{Print a summary of the output to the console? Default is TRUE}
+\item{print_summary}{Print a summary of the output to the console? Default: TRUE}
 
-\item{with_plots}{Draw plots? Default is TRUE}
+\item{with_plots}{Draw plots? Default: TRUE}
 }
 \description{
 csUTh calculates closed-system Th-230/U ages, including detrital correction.
 }
 \examples{
-data("iolite_export")
-# Only solve for sample MK16
-output <- csUTh(iolite_export[grepl('MK16', iolite_export$X), ],
+data_file <- read.csv('data/example_data.csv')
+# Solve for sample MK16
+output <- csUTh(data_file,
+'MK16',
 nbitchoice = 100,
 detcorrectionchoice = TRUE,
 keepfiltereddata = FALSE,

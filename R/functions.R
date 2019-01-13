@@ -584,26 +584,28 @@ th230_u238_ratio_plot <-  function(output,
 #' csUTh calculates closed-system Th-230/U ages, including detrital correction.
 #'
 #'
-#' @param input_data Input data frame, containing only rows of data for the sample that you want to solve. The following columns need to be present in this data frame: U234_U238_CORR, U234_U238_CORR_Int2SE, Th230_U238_CORR, Th230_U238_CORR_Int2SE, Th232_U238_CORR, Th232_U238_CORR_Int2SE.
+#' @param input_data Input data frame, containing only rows of data for the sample that you want to solve. The following columns need to be present in this data frame: Sample_ID, U234_U238_CORR, U234_U238_CORR_Int2SE, Th230_U238_CORR, Th230_U238_CORR_Int2SE, Th232_U238_CORR, Th232_U238_CORR_Int2SE.
+#' @param sample_name Name of the sample to calculate closed-system ages for. The string entered must match characters for the chosen sample in the column 'Sample_ID' of the data file. Default: 'MK16'.
 #' @param nbitchoice Number of iterations in the model. Recommended to have at least 100. Default: 100.
 #' @param detcorrectionchoice Do a detrital correction? Enter TRUE for yes, or FALSE for no. Default: TRUE
-#' @param R28det (232Th/238U) activity ratio of the detritus. Default is 0.8
-#' @param R28det_err Error on the (232Th/238U) activity ratio of the detritus. Default is 0.08
-#' @param R08det (230Th/238U) activity ratio of the detritus. Default is 1
-#' @param R08det_err Error on the (230Th/238U) activity ratio of the detritus. Default is 0.05
-#' @param R48det (234U/238U) activity ratio of the detritus. Default is 1
-#' @param R48det_err Error on the (234U/238U) activity ratio of the detritus. Default is 0.02
+#' @param R28det (232Th/238U) activity ratio of the detritus. Default: 0.8
+#' @param R28det_err Error on the (232Th/238U) activity ratio of the detritus. Default: 0.08
+#' @param R08det (230Th/238U) activity ratio of the detritus. Default: 1
+#' @param R08det_err Error on the (230Th/238U) activity ratio of the detritus. Default: 0.05
+#' @param R48det (234U/238U) activity ratio of the detritus. Default: 1
+#' @param R48det_err Error on the (234U/238U) activity ratio of the detritus. Default: 0.02
 #' @param keepfiltereddata Save filtered data on which an outlier test was performed? Only recommended if all analyses of a same sample are supposed to give the same age. Enter TRUE for yes, or FALSE for no. Default: FALSE
-#' @param print_summary Print a summary of the output to the console? Default is TRUE
-#' @param with_plots Draw plots? Default is TRUE
+#' @param print_summary Print a summary of the output to the console? Default: TRUE
+#' @param with_plots Draw plots? Default: TRUE
 #' 
 #' @import deSolve ggplot2
 #' @importFrom stats IQR optim sd
 #' 
 #' @examples 
-#' data("iolite_export")
-#' # Only solve for sample MK16
-#' output <- csUTh(iolite_export[grepl('MK16', iolite_export$X), ],
+#' data_file <- read.csv('data/example_data.csv')
+#' # Solve for sample MK16
+#' output <- csUTh(data_file,
+#' sample_name = 'MK16',
 #' nbitchoice = 100,
 #' detcorrectionchoice = TRUE,
 #' keepfiltereddata = FALSE,
@@ -612,6 +614,7 @@ th230_u238_ratio_plot <-  function(output,
 #' @export
 
 csUTh <- function(input_data, 
+                  sample_name = 'MK16',
                   nbitchoice = 100,
                   detcorrectionchoice = TRUE,
                   R28det = 0.8,
@@ -635,22 +638,19 @@ csUTh <- function(input_data,
   lowerbound <- c(2, 01.0) # lower bound values for age (log10(yr)) and initial (234U/238U)
   upperbound <- c(6, 10.0) # upper bound values for age (log10(yr)) and initial (234U/238U)
   
-  # use detrital correction (Y) or not (N)
+  # use detrital correction (TRUE) or not (FALSE)
   detcorrection <- detcorrectionchoice
   
-  # composition detritus
-  R28det <- 0.8
-  R28det_err <- 0.08
-  R08det <- 1
-  R08det_err <- 0.05
-  R48det <- 1
-  R48det_err <- 0.02
+  # # composition detritus
+  # R28det <- 0.8
+  # R28det_err <- 0.08
+  # R08det <- 1
+  # R08det_err <- 0.05
+  # R48det <- 1
+  # R48det_err <- 0.02
   
-  # import iolite results, we are assuming the user has already subset their iolite output
-  # so that it only includes rows of the sample they want to solve.
-  iolite_results <- input_data
-  
-  data <- input_data
+  # create dataframe with data only for samples to solve
+  data <- subset(input_data, (grepl(sample_name, input_data$Sample_ID)))
   # number of samples to solve
   number_sampletosolve <- nrow(data)
   
@@ -750,11 +750,11 @@ csUTh <- function(input_data,
     R48i2se_results[count] <- R48i_2se
   }
   
-  final_results <- as.data.frame(cbind(as.character(data$X),
-                                       data[,27:36], data[,41:44],
+  final_results <- as.data.frame(cbind(as.character(data$Sample_ID),
+                                       data[,29:38], data[,43:46],
                                        round(time_results/1000,3), round(time2se_results/1000,3),
                                        round(R48i_results,3), round(R48i2se_results,3)))
-  colnames(final_results)[1] <- c("ID")
+  colnames(final_results)[1] <- c("Sample ID")
   colnames(final_results)[16:19] <- c("Age (ka)", "Age 2se", "(234U/238U)i", "Ratio 2se")
   
   remove_outliers <- function(x, na.rm = TRUE, ...) {
@@ -839,7 +839,7 @@ initial_234U_238U_plot <- function(output,
     theme(panel.grid.major = element_blank(),
           panel.grid.minor = element_blank())
   
-  ggplot(output, aes(ID, `(234U/238U)i`)) + # plot ages
+  ggplot(output, aes(`Sample ID`, `(234U/238U)i`)) + # plot ages
   geom_errorbar(aes(ymin = (`(234U/238U)i` - `Ratio 2se`),
                     ymax = (`(234U/238U)i` + `Ratio 2se`)), 
                 width=0.1) + # plot error bars
@@ -877,7 +877,7 @@ ages_plot <- function(output,
     theme(panel.grid.major = element_blank(),
           panel.grid.minor = element_blank())
   
-  ggplot(output, aes(ID, `Age (ka)`)) + # plot ages
+  ggplot(output, aes(`Sample ID`, `Age (ka)`)) + # plot ages
   geom_errorbar(aes(ymin = (`Age (ka)` - `Age 2se`),
                     ymax = (`Age (ka)` + `Age 2se`)), 
                 width=0.1) + # plot error bars

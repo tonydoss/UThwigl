@@ -114,12 +114,14 @@ For routine data analysis, R scripts need to contain the following line to attac
 library(UThwigl)
 ```
 
-Alternatively, the model can be run from the user's browser without installing R or RStudio with this [link](https://mybinder.org/v2/gh/benmarwick/UThwigl/master?urlpath=rstudio).
 
 \newpage
 
 # Input data format
 
+## Closed-system U-Th dating
+
+## Open-system U-Th dating
 The key function of our package, `osUTh()` requires a data frame (a form of table in R) with the following column names:
 
 - `iDAD.position`
@@ -141,7 +143,14 @@ data("Hobbit_MH2T_for_iDAD")
 
 This will make the built-in data available in the R environment to inspect and explore how to use the `osUTh()` function. 
 
-To use new data with this package, we need to import a CSV or Excel file with the U-Th data into the R environment using a generic function such as `read.csv` or `read_excel` from the `readxl` package [@Wickham_readxl]. The code chunk below shows how to read one of the CSV files included in the package into the R environment. This is a good method to use if the user supplies their own CSV file to use with `osUTh()`. In this case we assume that the user's working directory contains a directory called `data` and our CSV file is in this `data` directory: 
+To use new data with this package, we need to import a CSV or Excel file with the U-Th data into the R environment using a generic function such as `read.csv` or `read_excel` from the `readxl` package [@Wickham_readxl]. The code chunk below shows how to read one of the CSV files included in the package into the R environment. 
+This is a good method to use if the user supplies their own CSV file to use with `osUTh()`. *TONY: I think it's obvious users will supply their own data. I suggest removing this sentence*
+First, in RStudio'Files panel, the user should navigate to the working directorty of choice and select 'More > Set As Working Directory'. Alternatively, the working directory can be defined in the Console panel as in the example below:
+
+```{r}
+setwd("C:/Users/tonyd/OneDrive - University of Wollongong/LAB/MC-ICPMS laser ablation")
+```
+Assuming the user's working directory contains a directory called `data` and the CSV file is in this `data` directory, data can be imported as follows: 
 
 ```{r}
 # read in one of the example CSV files included in the package
