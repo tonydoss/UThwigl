@@ -3,12 +3,12 @@ if (!require("shiny")) install.packages("shiny")
 if (!require("shinycssloaders")) install.packages("shinycssloaders")
 if (!require("DT")) install.packages("DT")
 if (!require("devtools")) install.packages("devtools")
-if (!require("iDADwigl")) devtools::install_github("tonydoss/iDADwigl")
+if (!require("iDADwigl")) devtools::install_github("tonydoss/UThwigl")
 
 require(devtools)
 require(shiny)
 require(shinycssloaders)
-require(iDADwigl)
+require(UThwigl)
 require(DT)
 require(cowplot)
 
@@ -16,7 +16,7 @@ require(cowplot)
 ui <- bootstrapPage(
   mainPanel(
     # Application title
-    titlePanel("iDADwigl: compute open-system uranium-thorium ages using the diffusion-adsorption-decay (DAD) model"),
+    titlePanel("UThwigl::csUTh : compute open-system uranium-thorium ages using the diffusion-adsorption-decay (DAD) model"),
     
     tabsetPanel(
       
@@ -121,7 +121,7 @@ server <- function(input, output) {
       input_data <- read.csv(inFile$datapath)
       
       output <- 
-        iDADwigl(input_data,
+        csUTh(input_data,
                  nbit = input$nbit,
                  fsum_target = input$fsumtarget,
                  U48_0_min = input$U48_0_min,
