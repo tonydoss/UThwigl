@@ -1,4 +1,4 @@
-context("test-uthwigl-tests")
+context("test-uthwigl-osUTh-tests")
 
 data("Hobbit_MH2T_for_iDAD")
 
