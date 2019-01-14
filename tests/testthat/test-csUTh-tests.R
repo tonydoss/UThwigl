@@ -1,4 +1,4 @@
-context("test-uthwigl-tests")
+context("test-uthwigl-csUTh-tests")
 
 data("iolite_export")
  # Only solve for sample MK16

@@ -5,11 +5,11 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Closed- and Open-system Uranium-Thorium Dating • UThwigl</title>
+<title>Closed- and Open-System Uranium-Thorium Dating • UThwigl</title>
 <!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- sticky kit --><script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
-<script src="pkgdown.js"></script><meta property="og:title" content="Closed- and Open-system Uranium-Thorium Dating">
+<script src="pkgdown.js"></script><meta property="og:title" content="Closed- and Open-System Uranium-Thorium Dating">
 <meta property="og:description" content="Calculates closed- and open-system U-Th ages.">
 <meta name="twitter:card" content="summary">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
@@ -78,13 +78,14 @@
 <div class="page-header"><h1 class="hasAnchor">
 <a href="#uthwigl" class="anchor"></a>UThwigl</h1></div>
 
-<p>The goal of UThwigl is to compute open- and closed-system Uranium-Thorium ages of geological and archaeological samples. It is based on the diffusion-adsorption-decay (DAD) model of Sambridge et al. (2012), which allows for advective and diffusive transport of uranium and thorium isotopes, while including synchronous radioactive decay.</p>
-<p>The first function, <code><a href="reference/osUTh.html">osUTh()</a></code>, will take the (<sup>230</sup>Th/<sup>238</sup>U) and (<sup>234</sup>U/<sup>238</sup>U) activity ratios collected along a transect perpendicular to the surface of the tooth or bone and return an age in thousands of years ago.</p>
+<p>The goal of UThwigl is to compute closed- and open-system uranium-thorium (U-Th) ages of geological and archaeological samples. Closed-system U-Th dating follows the principles presented in Edwards et al. (2003), Richards and Dorale (2003) and Ludwig (2003). Open-system U-Th dating is based on the diffusion-adsorption-decay (DAD) model of Sambridge et al. (2012), which allows for advective and diffusive transport of uranium and thorium isotopes, while including synchronous radioactive decay.</p>
+<p>The function, <code>csTuh()</code>, calculates closed-system ages and uses (<sup>230</sup>Th/<sup>238</sup>U) and (<sup>234</sup>U/<sup>238</sup>U) activity ratios on a single analysis to return an age in thousands of years ago. The (<sup>230</sup>Th/<sup>238</sup>U) activity ratio is also needed for detrital correction.</p>
+<p>The function, <code>osTuh()</code>, calculates open-system ages and take the (<sup>230</sup>Th/<sup>238</sup>U) and (<sup>234</sup>U/<sup>238</sup>U) activity ratios collected along a transect perpendicular to the surface of the tooth or bone and return an age in thousands of years ago.</p>
 <div id="web-application" class="section level2">
 <h2 class="hasAnchor">
 <a href="#web-application" class="anchor"></a>Web application</h2>
 <p>The package includes a web application that runs in your browser where you can upload your CSV file, set the model parameters, run the model, and view the results. Choose this option is you are not familiar with R. Here’s a screenshot of the web app:</p>
-<p><img src="inst/iDADwigl-shiny-app.gif"></p>
+<p><img src="../inst/iDADwigl-shiny-app.gif"></p>
 </div>
 <div id="run-code-without-downloading-anything" class="section level2">
 <h2 class="hasAnchor">

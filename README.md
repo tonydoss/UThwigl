@@ -5,6 +5,8 @@
 
 [![Travis build
 status](https://travis-ci.org/benmarwick/UThwigl.svg?branch=master)](https://travis-ci.org/benmarwick/UThwigl)
+[![AppVeyor build
+status](https://ci.appveyor.com/api/projects/status/github/benmarwick/UThwigl?branch=master&svg=true)](https://ci.appveyor.com/project/benmarwick/UThwigl)
 [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/benmarwick/UThwigl/master?urlpath=rstudio)
 
 The goal of UThwigl is to compute closed- and open-system
@@ -34,7 +36,7 @@ you can upload your CSV file, set the model parameters, run the model,
 and view the results. Choose this option is you are not familiar with R.
 Here’s a screenshot of the web app:
 
-![](inst/iDADwigl-shiny-app.gif)
+![](/Users/bmarwick/Desktop/UThwigl/inst/iDADwigl-shiny-app.gif)
 
 ## Run code without downloading anything
 
@@ -59,4 +61,4 @@ use this package.
 git fetch upstream
 git checkout master
 git merge upstream/master 
--->
+--> 

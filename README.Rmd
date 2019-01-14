@@ -8,14 +8,13 @@ output: github_document
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
-  fig.path = "man/figures/README-",
   out.width = "100%"
 )
 ```
 # UThwigl
 
 [![Travis build
-status](https://travis-ci.org/benmarwick/UThwigl.svg?branch=master)](https://travis-ci.org/benmarwick/UThwigl) [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/benmarwick/UThwigl/master?urlpath=rstudio)
+status](https://travis-ci.org/benmarwick/UThwigl.svg?branch=master)](https://travis-ci.org/benmarwick/UThwigl) [![AppVeyor build status](https://ci.appveyor.com/api/projects/status/github/benmarwick/UThwigl?branch=master&svg=true)](https://ci.appveyor.com/project/benmarwick/UThwigl)  [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/benmarwick/UThwigl/master?urlpath=rstudio)
 
 The goal of UThwigl is to compute closed- and open-system uranium-thorium (U-Th) ages of
 geological and archaeological samples. Closed-system U-Th dating follows the principles presented in 
@@ -38,7 +37,7 @@ of the tooth or bone and return an age in thousands of years ago.
 
 The package includes a web application that runs `osTuh()` in your browser where you can upload your CSV file, set the model parameters, run the model, and view the results. Choose this option is you are not familiar with R. Here's a screenshot of the web app:
 
-![](inst/iDADwigl-shiny-app.gif)
+![](`r here::here("inst", "iDADwigl-shiny-app.gif")`)
 
 ## Run code without downloading anything 
 
@@ -48,7 +47,7 @@ You can run the package functions in your browser by [starting a binder instance
 
 To  install the development version of UThwigl from GitHub on your computer, run:
 
-``` r
+```{r eval = FALSE}
 source("https://install-github.me/tonydoss/UThwigl")
 ```
 
