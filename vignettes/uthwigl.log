@@ -1,9 +1,9 @@
-This is XeTeX, Version 3.14159265-2.6-0.99999 (MiKTeX 2.9.6730 64-bit) (preloaded format=xelatex 2018.8.23)  14 JAN 2019 07:39
+This is XeTeX, Version 3.14159265-2.6-0.99999 (MiKTeX 2.9.6730 64-bit) (preloaded format=xelatex 2018.8.23)  14 JAN 2019 12:18
 entering extended mode
-**C:/Users/tonyd/AppData/Local/Temp/RtmpCOvLeJ/preview-2b9852835aa1.dir/uthwigl
+**C:/Users/tonyd/AppData/Local/Temp/RtmpwFKkvj/preview-404815885321.dir/uthwigl
 .tex
 
-(C:/Users/tonyd/AppData/Local/Temp/RtmpCOvLeJ/preview-2b9852835aa1.dir/uthwigl.
+(C:/Users/tonyd/AppData/Local/Temp/RtmpwFKkvj/preview-404815885321.dir/uthwigl.
 tex
 LaTeX2e <2018-04-01> patch level 5
 (elsarticle.cls
@@ -1165,21 +1165,21 @@ File: figures/binder.png Graphic file (type bmp)
 <figures/binder.png>
 [6]
 LaTeX Font Info:    Font shape `TU/lmtt/bx/n' in size <10> not available
-(Font)              Font shape `TU/lmtt/b/n' tried instead on input line 185.
+(Font)              Font shape `TU/lmtt/b/n' tried instead on input line 188.
 [7] [8] [9]
-Overfull \hbox (4.72801pt too wide) in paragraph at lines 300--301
+Overfull \hbox (4.72801pt too wide) in paragraph at lines 303--304
 []\TU/lmr/m/n/10 The \TU/lmtt/m/n/10 iDAD.position \TU/lmr/m/n/10 column corres
 ponds to the coordinates of the ($[]$U/$[]$U)
  []
 
 [10]
-Overfull \hbox (0.33582pt too wide) in paragraph at lines 302--304
+Overfull \hbox (0.33582pt too wide) in paragraph at lines 305--307
 []\TU/lmr/m/n/10 Columns \TU/lmtt/m/n/10 U234_U238_CORR \TU/lmr/m/n/10 and \TU/
 lmtt/m/n/10 U234_U238_CORR_Int2SE \TU/lmr/m/n/10 are the ($[]$U/$[]$U)
  []
 
 
-Overfull \hbox (58.8818pt too wide) in paragraph at lines 302--304
+Overfull \hbox (58.8818pt too wide) in paragraph at lines 305--307
 \TU/lmr/m/n/10 activity ratios and their 2$\OML/lmm/m/it/10 ^^[$ \TU/lmr/m/n/10
  errors. Columns \TU/lmtt/m/n/10 Th230_U238_CORR \TU/lmr/m/n/10 and \TU/lmtt/m/
 n/10 Th230_U238_CORR_Int2SE
@@ -1201,41 +1201,41 @@ File: figures/plot-panel-hobbit.png Graphic file (type bmp)
 [21] [22] [23]
 
 Package hyperref Warning: Difference (2) between bookmark levels is greater 
-(hyperref)                than one, level fixed on input line 593.
+(hyperref)                than one, level fixed on input line 602.
 
 
-Overfull \hbox (51.37pt too wide) in paragraph at lines 677--677
+Overfull \hbox (51.37pt too wide) in paragraph at lines 686--686
 []\TU/lmtt/m/n/10 ## - Session info -------------------------------------------
 ---------------[] 
  []
 
 
-Overfull \hbox (51.37pt too wide) in paragraph at lines 677--677
+Overfull \hbox (51.37pt too wide) in paragraph at lines 686--686
 []\TU/lmtt/m/n/10 ## - Packages -----------------------------------------------
 ---------------[] 
  []
 
 [24]
-Overfull \hbox (85.5pt too wide) in paragraph at lines 691--691
+Overfull \hbox (85.5pt too wide) in paragraph at lines 700--700
 []\TU/lmtt/m/n/10 ## Local:    master C:/Users/tonyd/OneDrive - University of W
 ollongong/R/U-Th wigl[] 
  []
 
 
-Overfull \hbox (5.7pt too wide) in paragraph at lines 691--691
+Overfull \hbox (5.7pt too wide) in paragraph at lines 700--700
 []\TU/lmtt/m/n/10 ## Remote:   master @ origin (https://github.com/tonydoss/iDA
 Dwigl)[] 
  []
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 693.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 702.
 [25]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 693.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 702.
 (uthwigl.aux)
-Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 693.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 693.
+Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 702.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 702.
 Package rerunfilecheck Info: File `uthwigl.out' has not changed.
 (rerunfilecheck)             Checksum: 460C45567E4A3C6B6BFE5AA7FE9BF617.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 693.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 702.
  ) 
 Here is how much of TeX's memory you used:
  26225 strings out of 427798
@@ -1244,6 +1244,6 @@ Here is how much of TeX's memory you used:
  29966 multiletter control sequences out of 15000+200000
  556788 words of font info for 71 fonts, out of 3000000 for 9000
  1328 hyphenation exceptions out of 8191
- 39i,10n,47p,1820b,465s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 39i,10n,47p,1779b,465s stack positions out of 5000i,500n,10000p,200000b,50000s
 
 Output written on uthwigl.pdf (25 pages).

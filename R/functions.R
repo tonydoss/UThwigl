@@ -380,7 +380,7 @@ if(with_plots){
 }
   
   
-#return(output)
+return(output)
 
 }
 
