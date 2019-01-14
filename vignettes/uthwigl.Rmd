@@ -148,14 +148,14 @@ This will make the built-in data available in the R environment to inspect and e
 
 To use new data with this package, we need to import a CSV or Excel file with the U-Th data into the R environment using a generic function such as `read.csv` or `read_excel` from the `readxl` package [@Wickham_readxl]. The code chunk below shows how to read one of the CSV files included in the package into the R environment. 
 This is a good method to use if the user supplies their own CSV file to use with `osUTh()`. *TONY: I think it's obvious users will supply their own data. I suggest removing this sentence*
-First, in RStudio'Files panel, the user should navigate to the working directorty of choice and select 'More > Set As Working Directory'. Alternatively, the working directory can be defined in the Console panel as in the example below:
+First, in RStudio's Files panel, the user should navigate to the working directorty of choice and select 'More > Set As Working Directory'. Alternatively, the working directory can be defined in the Console panel as in the example below:
 
-```{r}
+```{r, eval = FALSE, echo=TRUE}
 setwd("C:/Users/tonyd/OneDrive - University of Wollongong/LAB/MC-ICPMS laser ablation")
 ```
 Assuming the user's working directory contains a directory called `data` and the CSV file is in this `data` directory, data can be imported as follows: 
 
-```{r}
+```{r, eval = FALSE, echo=TRUE}
 # read in one of the example CSV files included in the package
 data_file <-
   read.csv('data/Hobbit_MH2T_for_iDAD.csv')

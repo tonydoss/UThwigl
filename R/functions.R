@@ -14,8 +14,8 @@ globalVariables(c("iDAD.position",
                   "Age (ka)", 
                   "Age 2se", 
                   "(234U/238U)i", 
-                  "Ratio 2se"
-
+                  "Ratio 2se",
+                  "Sample ID"
 ))
 
 #' Set a custom message the the user appears when they attach the pkg

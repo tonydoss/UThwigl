@@ -43,7 +43,7 @@ csUTh calculates closed-system Th-230/U ages, including detrital correction.
 data_file <- read.csv('data/example_data.csv')
 # Solve for sample MK16
 output <- csUTh(data_file,
-'MK16',
+sample_name = 'MK16',
 nbitchoice = 100,
 detcorrectionchoice = TRUE,
 keepfiltereddata = FALSE,
