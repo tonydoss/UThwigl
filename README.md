@@ -12,9 +12,9 @@ status](https://ci.appveyor.com/api/projects/status/github/benmarwick/UThwigl?br
 The goal of UThwigl is to compute closed- and open-system
 uranium-thorium (U-Th) ages of geological and archaeological samples.
 Closed-system U-Th dating follows the principles presented in Edwards et
-al. (2003), Richards and Dorale (2003) and Ludwig (2003). Open-system
+al. (2003), Richards and Dorale (2003) and Ludwig (2003). Open-system
 U-Th dating is based on the diffusion-adsorption-decay (DAD) model of
-Sambridge et al. (2012), which allows for advective and diffusive
+Sambridge et al. (2012), which allows for advective and diffusive
 transport of uranium and thorium isotopes, while including synchronous
 radioactive decay.
 
@@ -31,16 +31,16 @@ of the tooth or bone and return an age in thousands of years ago.
 
 ## Web application
 
-The package includes a web application that runs in your browser where
-you can upload your CSV file, set the model parameters, run the model,
-and view the results. Choose this option is you are not familiar with R.
-Here’s a screenshot of the web app:
+The package includes a web application that runs `osTuh()` in your
+browser where you can upload your CSV file, set the model parameters,
+run the model, and view the results. Choose this option is you are not
+familiar with R. Here’s a screenshot of the web app:
 
-![](/Users/bmarwick/Desktop/UThwigl/inst/iDADwigl-shiny-app.gif)
+![](C:/Users/bmarwick/Desktop/iDADwigl/inst/iDADwigl-shiny-app.gif)
 
 ## Run code without downloading anything
 
-You can run the package function in your browser by [starting a binder
+You can run the package functions in your browser by [starting a binder
 instance](https://mybinder.org/v2/gh/benmarwick/UThwigl/master?urlpath=rstudio).
 This will open RStudio in your browser, together with the contents of
 this GitHub repository.
@@ -61,4 +61,4 @@ use this package.
 git fetch upstream
 git checkout master
 git merge upstream/master 
---> 
+-->
