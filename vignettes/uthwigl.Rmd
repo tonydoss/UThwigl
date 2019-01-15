@@ -571,5 +571,5 @@ devtools::session_info()
 The current Git commit details are:
 
 ```{r}
-git2r::repository("../")
+# git2r::repository(here::here())
 ```
