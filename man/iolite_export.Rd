@@ -4,7 +4,7 @@
 \name{iolite_export}
 \alias{iolite_export}
 \title{Output from Iolite software}
-\format{An object of class \code{data.frame} with 75 rows and 38 columns.}
+\format{An object of class \code{data.frame} with 74 rows and 38 columns.}
 \source{
 \url{http://dx.doi.org/}
 }

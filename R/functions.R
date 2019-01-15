@@ -602,9 +602,9 @@ th230_u238_ratio_plot <-  function(output,
 #' @importFrom stats IQR optim sd
 #' 
 #' @examples 
-#' data_file <- read.csv('data/example_data.csv')
+#' data("iolite_export")
 #' # Solve for sample MK16
-#' output <- csUTh(data_file,
+#' output <- csUTh(iolite_export,
 #' sample_name = 'MK16',
 #' nbitchoice = 100,
 #' detcorrectionchoice = TRUE,

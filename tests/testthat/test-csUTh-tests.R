@@ -6,7 +6,8 @@ data("iolite_export")
 suppressMessages(png(filename = "test-csUTh.png")) # capture the plot
 output <-
   suppressMessages(csUTh(
-    iolite_export[grepl('MK16', iolite_export$X),],
+    iolite_export,
+    sample_name = 'MK16',
     nbitchoice = 10,
     detcorrectionchoice = TRUE,
     keepfiltereddata = FALSE,
