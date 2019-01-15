@@ -10,10 +10,11 @@ init:
 install:
   ps: Bootstrap
 
-cache:
-  - C:\RLibrary
-
 # Adapt as necessary starting from here
+
+environment:
+  global:
+    USE_RTOOLS: true
 
 build_script:
   - travis-tool.sh install_deps
@@ -38,6 +39,13 @@ artifacts:
   - path: '*.Rcheck\**\*.Rout'
     name: Logs
 
+  - path: '\*_*.tar.gz'
+    name: Bits
+
+  - path: '\*_*.zip'
+    name: Bits
+    
+    
   - path: '\*_*.tar.gz'
     name: Bits
 
