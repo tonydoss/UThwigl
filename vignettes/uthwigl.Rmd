@@ -100,7 +100,7 @@ The second way to use the package is with Binder, a browser-based instance of R 
 include_graphics("figures/binder.png")
 ```
 
-The third method is to download and install the package locally to the user's computer, and work with it in the user's local installation of R and RStudio. This method requires some familiarity with R, but gives the most flexibility when working with the model because we are not limited by the memory and compute time of the cloud services. Our recommendation is to use Binder or a local installation of UThwigl because then the user can save an R script file that includes the name of the input file, the specific parameters used to generate the model output, and any downstream processing and visualisation. This script file and the CSV file can then be archived in a data repository to ensure long-term accessibility for other researchers. 
+The third method is to download and install the package locally to the user's computer, and work with it in the user's local installation of R and RStudio. This method requires some familiarity with R, but gives the most flexibility when working with the model because we are not limited by the memory and compute time of the cloud services. Our recommendation is to use Binder or a local installation of UThwigl because then the user can save an R script file that includes the name of the input file, the specific parameters used to generate the model output, and any downstream processing and visualisation. This script file and the CSV file can then be archived in a data repository to ensure long-term accessibility for other researchers. In the following sections we demonstrate the use of UThwigl with a local installation of R and RStudio. 
 
 # Installing and attaching the package
 
@@ -110,7 +110,7 @@ First the user will need to download and install [R](https://www.r-project.org/)
 source("https://install-github.me/tonydoss/UThwigl")
 ```
 
-For routine data analysis, R scripts need to contain the following line to attach the package to the current working envirovnment. This line needs to be run at the start of each analysis:
+For routine data analysis, R scripts need to contain the following line to attach the package to the current working environnment. This line needs to be run at the start of each analysis:
 
 ```{r}
 # attach the package
@@ -146,11 +146,9 @@ data("Hobbit_MH2T_for_iDAD")
 
 This will make the built-in data available in the R environment to inspect and explore how to use the `osUTh()` function. 
 
-To use new data with this package, we need to import a CSV or Excel file with the U-Th data into the R environment using a generic function such as `read.csv` or `read_excel` from the `readxl` package [@Wickham_readxl]. The code chunk below shows how to read one of the CSV files included in the package into the R environment. 
-This is a good method to use if the user supplies their own CSV file to use with `osUTh()`. *TONY: I think it's obvious users will supply their own data. I suggest removing this sentence*
-First, in RStudio's Files panel, the user should navigate to the working directorty of choice and select 'More > Set As Working Directory'. Alternatively, the working directory can be defined interactively in the Console panel useing `setwd()` We do not recommend including `setwd()` in script files because it is bad for reproducibility. 
+To use new data with this package, the user needs to import a CSV or Excel file with the U-Th data into the R environment. This can be done using a generic function such as `read.csv` or `read_excel` from the `readxl` package [@Wickham_readxl]. Before reading in the data file, the user needs to set the working directory to the folder containing the data file. This can be done in RStudio using the menu item 'Session' > 'Set Working Directory' > 'To Source File Location'. Alternatively, the working directory can be defined interactively at the R prompt in the Console panel useing `setwd()`. However, we do not recommend including `setwd()` in script files because it is bad for reproducibility, since the path to one user's working directory will not exist on another user's computer.  
 
-Assuming the user's working directory contains a directory called `data` and the CSV file is in this `data` directory, data can be imported as follows: 
+The code chunk below shows how to read one of the CSV files included in the package into the R environment. We assume that the user's working directory contains a directory called `data` and the CSV file is in this `data` directory, and so the data can be imported as follows: 
 
 ```{r, eval = TRUE, echo=TRUE}
 # read in one of the example CSV files included in the package
@@ -181,7 +179,7 @@ print(Hobbit_MH2T_for_iDAD_tbl,
         rotate.colnames = TRUE)
 ```
 
-The columns `iDAD.position`, `U234_U238_CORR`, `U234_U238_CORR_Int2SE`, `Th230_U238_CORR` and `Th230_U238_CORR_Int2SE` must be present in the input data frame with these exact names for the model to function. The `osUTh()` function will check if the input data frame has these columns, and will stop with an error message if it does not find these columns. The `names()` function can be used to update column names of a data frame to ensure they match the names that the model function requires. The order of the columns in the data frame is not important.
+The columns `iDAD.position`, `U234_U238_CORR`, `U234_U238_CORR_Int2SE`, `Th230_U238_CORR` and `Th230_U238_CORR_Int2SE` must be present in the input data frame with these exact names for the model to function. The `osUTh()` function will check if the input data frame has these columns, and will stop with an error message if it does not find these columns. The `names()` function can be used to update column names of a data frame to ensure they match the names that the model function requires. Alteratively the user can edit the column names in a spreadsheet program such as Microsoft Excel. The order of the columns in the data frame is not important.
 
 The `iDAD.position` column corresponds to the coordinates of the (^234^U/^238^U) analyses, which as indicated above take values between -1 and 1 (Figure \@ref(fig:femurpic)). The second `iDAD.position.1` column is used if the coordinates of the (^230^Th/^238^U) analyses are different from those of the (^234^U/^238^U) analyses.
 
@@ -192,7 +190,7 @@ Columns `U_ppm` and `U_ppm_Int2SE` are the calculated uranium concentrations (in
 
 # Details of the input parameters
 
-Our key function, `osUTh()` has several arguments that need to be set before we can get meaningful results.
+Our key function, `osUTh()` has several arguments that need to be set before meaningful results can be obtained:
 
 `nbit` is the number of iterations. For the first run, set to 1.
 
@@ -233,7 +231,7 @@ output <- osUTh(data_file,
 
 For efficient interactive use of this package, the default setting of `osUTh()` is to produce a panel plot as seen in Figure \@ref(fig:demopanelfig)(Figure \@ref(fig:demopanelfig). The setting `with_plots = FALSE` prevents plots from being generated which is more useful when the function is part of a longer sequence of code. The function runs faster when not producing pots, which is helpful when replicating many runs. 
 
-When run on the R console, this function will print a confirmation that the input data frame has the required columns, and print the resulting age value with an error reported as the 67% and 33% quantiles, for instance:
+When run on the R console, this function will print a confirmation that the input data frame has the required columns, and print the resulting age value with an error reported as the 67% and 33% quantiles, for example:
 
 ```
 All required columns are present in the input data
@@ -244,7 +242,7 @@ The model computes a Monte Carlo simulation where age of the sample, U diffusion
 
 The final calculated age `T_final` (in yr), U diffusion coefficient `K_final` (in cm^2^/s) and (^234^U/^238^U) ratio at the surface of the sample `U48_0_final` are the set of solutions where the solution age is the closest to the median age of the population of solutions. The uncertainty on each output paramter is calculated as the 67% and 33% quantiles of the population of solution sets.
 
-In a typical analysis we will explore the model fit by first running the model with a single iteration `nbit` and a small value for `fsum_target`, and then changing the range of allowed values for the (^234^U/^238^U) ratio at the surface and the age of the sample. Once we obtain a satisfying fit (by visual inspection of the produced figures), we would increase `nbit` to a higher value (e.g. 1000) and run the model one last time. See below for an example of analysis.
+In a typical analysis the user will explore the model fit by first running the model with a single iteration `nbit` and a small value for `fsum_target`, and then changing the range of allowed values for the (^234^U/^238^U) ratio at the surface and the age of the sample. Once the user has obtained a satisfying fit (by visual inspection of the produced figures), they would increase `nbit` to a higher value (e.g. 1000) and run the model one last time. We provide an example of a typical analysis analysis below.
 
 \newpage
 

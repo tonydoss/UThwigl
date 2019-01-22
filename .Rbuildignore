@@ -15,3 +15,6 @@
 ^install\.R$
 ^iDADwigl-shiny-app\.gif$ 
 ^rsconnect$
+^UThwigl\.Rcheck$
+^UThwigl.*\.tar\.gz$
+^UThwigl.*\.tgz$
