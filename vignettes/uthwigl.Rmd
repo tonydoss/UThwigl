@@ -186,27 +186,76 @@ Columns `U234_U238_CORR` and `U234_U238_CORR_Int2SE` are the (^234^U/^238^U) act
 `nbitchoice` is the number of iterations in the model. Recommended to have at least 100.
 `detcorrectionchoice` is a parameter for chosing whether or not to apply a detrital correction to the calculation. 
 
-`R28det` and `R28det_err` are the values for the (232Th/238U) activity ratio of the detritus and its standard error. Similarly, `R08det` and `R08det_err` are the values for the (230Th/238U) activity ratio of the detritus and its standard error, and `R48det` and `R48det_err` are the corresponding values for (234U/238U) activity ratio of the detritus.
+`R28det` (0.8) and `R28det_err` (0.08) are the values for the (232Th/238U) activity ratio of the detritus and its standard error (default values in parentheses). Similarly, `R08det` (1) and `R08det_err` (0.05) are the values for the (230Th/238U) activity ratio of the detritus and its standard error, and `R48det` (1) and `R48det_err` (0.02) are the corresponding values for (234U/238U) activity ratio of the detritus.
 
 # How to run the closed-system model
 
-Attach the package as shown above and then run `csUTh()`, specifying the input data frame and the input parameters as described above. The code block below shows a quick example that will execute in less than five seconds on a typical 2.3 GHz Intel Core i5 laptop:  
+Assuming that the package is attached with `library(UThwigl)`, as shown above, and the data have been imported to the working environment as noted above, run `csUTh()`, specifying the input data frame and the input parameters as described above. The code block below shows a typical example that will execute in less than five seconds on a typical 2.3 GHz Intel Core i5 laptop:  
 
-```{r model-output, results='hide'}
+```{r cs-model-output, results='hide'}
 # Solve for sample YP003
 cs_output <-
   csUTh(
     Pan2018,
     sample_name = 'YP003',
-    nbitchoice = 100,
+    nbitchoice = 1000,
     detcorrectionchoice = TRUE,
     keepfiltereddata = FALSE,
-    print_summary = TRUE
+    print_summary = FALSE,
+    with_plots = FALSE
   )
-   
 ```
 
+For efficient interactive use of this package, the default setting of `csUTh()` is to produce a panel plot as seen in Figure \@ref(fig:csfigure). The setting `with_plots = FALSE` prevents plots from being generated which is more useful when the function is part of a longer sequence of code. The function runs faster when not producing pots, which is helpful when replicating many runs. 
 
+When run on the R console, this function will print a confirmation that the input data frame has the required columns, and print the resulting age value with an error reported as the 67% and 33% quantiles, for example:
+
+```
+All required columns are present in the input data
+[1] "Mean age:  117.1 +/- 3.7  ka"
+```
+
+The function returns a data frame with the age, error and summary output for each measurement, as shown in Table \@ref(tab:panoutput)
+
+```{r panoutput, results="asis", echo = FALSE, eval=TRUE}
+# inspect the data frame produced by importing the CSV file
+options(xtable.floating = TRUE,
+        xtable.comment = FALSE)
+
+cs_output_tbl <-
+cs_output %>%
+  xtable(
+         digits = c(1,3,3,4,4,4),
+         caption = "\\label{tab:panoutput}Output produced by the csUTh function used with data from Pan et al. 2018")
+
+align(cs_output_tbl) <- rep("c", ncol(cs_output_tbl) + 1)
+
+print(cs_output_tbl,
+        method = 'compact',
+        include.rownames = FALSE,
+        rotate.colnames = TRUE)
+```
+
+The results can be visualised...
+
+```{r csuthviz1, echo=FALSE}
+p2 <- initial_234U_238U_plot(cs_output)
+p1 <- ages_plot(cs_output)
+```
+
+```{r csuthviz2, echo=FALSE}
+png("figures/cs-panel-fig.png", res = 300, h = 12, w = 15, units = "cm")
+cowplot::plot_grid(p1, p2, 
+                   ncol = 2,
+                   labels = "AUTO")
+dev.off()
+```
+
+(ref:csuthvizfigcap) Example of the visualisations produced by the `csUTh()` function, using the demonstration run described avove. A: ????, B: ????
+
+```{r csuthvizfig, out.width = "95%", fig.cap="(ref:csuthvizfigcap)", echo = FALSE, eval = TRUE}
+include_graphics("figures/cs-panel-fig.png")
+```
 
 ## Open-system U-Th dating
 
@@ -307,9 +356,9 @@ output <- osUTh(data_file,
                    with_plots = FALSE)
 ```
 
-For efficient interactive use of this package, the default setting of `osUTh()` is to produce a panel plot as seen in Figure \@ref(fig:demopanelfig)(Figure \@ref(fig:demopanelfig). The setting `with_plots = FALSE` prevents plots from being generated which is more useful when the function is part of a longer sequence of code. The function runs faster when not producing pots, which is helpful when replicating many runs. 
+The default setting of `osUTh()` is to produce a panel plot as seen in Figure \@ref(fig:demopanelfig)(Figure \@ref(fig:demopanelfig). The setting `with_plots = FALSE` prevents plots from being generated which is more useful when the function is part of a longer sequence of code. The function runs faster when not producing pots, which is helpful when replicating many runs. 
 
-When run on the R console, this function will print a confirmation that the input data frame has the required columns, and print the resulting age value with an error reported as the 67% and 33% quantiles, for example:
+Similar to the `csUTh()` function, when `osUTh()` is run on the R console, it will print a confirmation that the input data frame has the required columns, and print the resulting age value with an error reported as the 67% and 33% quantiles, for example:
 
 ```
 All required columns are present in the input data

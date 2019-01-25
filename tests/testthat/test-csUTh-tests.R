@@ -1,13 +1,13 @@
 context("test-uthwigl-csUTh-tests")
 
-data("iolite_export")
+data("Pan2018")
  # Only solve for sample MK16
 
 suppressMessages(png(filename = "test-csUTh.png")) # capture the plot
 output <-
   suppressMessages(csUTh(
-    iolite_export,
-    sample_name = 'MK16',
+    Pan2018,
+    sample_name = 'YP003',
     nbitchoice = 10,
     detcorrectionchoice = TRUE,
     keepfiltereddata = FALSE,

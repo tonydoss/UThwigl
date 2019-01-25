@@ -759,6 +759,7 @@ csUTh <- function(input_data,
                                        data,
                                        round(time_results/1000,3), round(time2se_results/1000,3),
                                        round(R48i_results,3), round(R48i2se_results,3)))
+  final_results$Sample_ID <- sample_name
   colnames(final_results)[1] <- "Sample ID"
   colnames(final_results)[(ncol(final_results)-3):ncol(final_results)] <- c("Age (ka)", "Age 2se", "(234U/238U)i", "Ratio 2se")
   
@@ -785,23 +786,23 @@ csUTh <- function(input_data,
   output <- plotdata[,c(1, 16:19)]
   
   # plot initial (234U/238U)
-  p2 <- initial_234U_238U_plot(output)
-  
-  # plot ages
-  p1 <- ages_plot(output)
+
   
   # draw plots
   
   # plot or not? ------------------------------------
   if(with_plots){
+    
+    p2 <- initial_234U_238U_plot(output)
+    
+    # plot ages
+    p1 <- ages_plot(output)
+    
     # draw plots in a panel
-  print(cowplot::plot_grid(p1, p2, ncol = 1))
+  print(cowplot::plot_grid(p1, p2, ncol = 2))
   } else {
     # don't draw plots
   }
-  
-  # return results
-  return(output)
   
   if(print_summary){
   
@@ -811,6 +812,9 @@ csUTh <- function(input_data,
   } else {
     # don't print anything
   }
+  
+  # return results
+  return(output)
 }
 
 
