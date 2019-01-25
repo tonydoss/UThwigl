@@ -120,15 +120,20 @@ For routine data analysis, R scripts need to contain the following line to attac
 library(UThwigl)
 ```
 
-
 \newpage
 
 # Input data format
 
 ## Closed-system U-Th dating
 
+Our package provides the fuction `csUTh()` for closed-system U-Th dating. 
+
+
+
+
 ## Open-system U-Th dating
-The key function of our package, `osUTh()` requires a data frame (a form of table in R) with the following column names:
+
+For open-system U-Th dating we provide the function `osUTh()` requires a data frame (a form of table in R) with the following column names:
 
 - `iDAD.position`
 - `U234_U238_CORR`
