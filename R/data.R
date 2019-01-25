@@ -39,9 +39,10 @@
 "Hobbit_MH2T_for_iDAD"
 
 
-#' Output from Iolite software
+#' Data from South Australian corals
 #'
-#' A dataset containing the U-Th measurement values for a closed system
+#' A dataset containing the U-Th measurement values for closed system dating
+#' The first two rows are solution analyses, the rest are laser ablation analyses
 #'
-#' @source \url{http://dx.doi.org/}
-"iolite_export"
+#' @source \url{http://dx.doi.org/10.1016/j.margeo.2018.01.012}
+"Pan2018"
