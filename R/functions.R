@@ -584,7 +584,7 @@ th230_u238_ratio_plot <-  function(output,
 #' csUTh calculates closed-system Th-230/U ages, including detrital correction.
 #'
 #'
-#' @param input_data Input data frame, containing only rows of data for the sample that you want to solve. The following columns need to be present in this data frame: Sample_ID, U234_U238_CORR, U234_U238_CORR_Int2SE, Th230_U238_CORR, Th230_U238_CORR_Int2SE, Th232_U238_CORR, Th232_U238_CORR_Int2SE.
+#' @param input_data Input data frame. The following columns need to be present in this data frame, with these exact names: Sample_ID, U234_U238_CORR, U234_U238_CORR_Int2SE, Th230_U238_CORR, Th230_U238_CORR_Int2SE, Th232_U238_CORR, Th232_U238_CORR_Int2SE.
 #' @param sample_name Name of the sample to calculate closed-system ages for. The string entered must match characters for the chosen sample in the column 'Sample_ID' of the data file. Default: 'MK16'.
 #' @param nbitchoice Number of iterations in the model. Recommended to have at least 100. Default: 100.
 #' @param detcorrectionchoice Do a detrital correction? Enter TRUE for yes, or FALSE for no. Default: TRUE
@@ -602,10 +602,10 @@ th230_u238_ratio_plot <-  function(output,
 #' @importFrom stats IQR optim sd
 #' 
 #' @examples 
-#' data("iolite_export")
-#' # Solve for sample MK16
-#' output <- csUTh(iolite_export,
-#' sample_name = 'MK16',
+#' data("Pan2018")
+#' # Solve for sample YP003
+#' output <- csUTh(Pan2018,
+#' sample_name = 'YP003',
 #' nbitchoice = 100,
 #' detcorrectionchoice = TRUE,
 #' keepfiltereddata = FALSE,
@@ -614,7 +614,7 @@ th230_u238_ratio_plot <-  function(output,
 #' @export
 
 csUTh <- function(input_data, 
-                  sample_name = 'MK16',
+                  sample_name = 'YP003',
                   nbitchoice = 100,
                   detcorrectionchoice = TRUE,
                   R28det = 0.8,
@@ -628,6 +628,19 @@ csUTh <- function(input_data,
                   with_plots = TRUE
 ){
   
+  # check that the input data frame has the columns with the right names
+  
+  col_names_we_need <-  c("Sample_ID", "U234_U238_CORR", "U234_U238_CORR_Int2SE", "Th230_U238_CORR", "Th230_U238_CORR_Int2SE", "Th232_U238_CORR", "Th232_U238_CORR_Int2SE")
+  
+  if(all(col_names_we_need %in% colnames(input_data)))
+  {
+    message("All required columns are present in the input data. \n");
+  } else {
+    ?UThwigl::csUTh
+    stop("\nThe input data frame does not contain the necessary columns, or the columns are not named correctly. Please check the documentation for details of the required column names, update the column names using the `names()` function, and try again.\n")
+  }
+  
+  
   
   l234 <- 2.8262e-6 # 234U decay constant (a-1)
   l230 <- 9.1577e-6 # 230Th decay constant (a-1)
@@ -640,14 +653,6 @@ csUTh <- function(input_data,
   
   # use detrital correction (TRUE) or not (FALSE)
   detcorrection <- detcorrectionchoice
-  
-  # # composition detritus
-  # R28det <- 0.8
-  # R28det_err <- 0.08
-  # R08det <- 1
-  # R08det_err <- 0.05
-  # R48det <- 1
-  # R48det_err <- 0.02
   
   # create dataframe with data only for samples to solve
   data <- subset(input_data, (grepl(sample_name, input_data$Sample_ID)))
@@ -750,12 +755,13 @@ csUTh <- function(input_data,
     R48i2se_results[count] <- R48i_2se
   }
   
-  final_results <- as.data.frame(cbind(as.character(data$Sample_ID),
-                                       data[,29:38], data[,43:46],
+  final_results <- as.data.frame(cbind(
+                                       data,
                                        round(time_results/1000,3), round(time2se_results/1000,3),
                                        round(R48i_results,3), round(R48i2se_results,3)))
-  colnames(final_results)[1] <- c("Sample ID")
-  colnames(final_results)[16:19] <- c("Age (ka)", "Age 2se", "(234U/238U)i", "Ratio 2se")
+  final_results$Sample_ID <- sample_name
+  colnames(final_results)[1] <- "Sample ID"
+  colnames(final_results)[(ncol(final_results)-3):ncol(final_results)] <- c("Age (ka)", "Age 2se", "(234U/238U)i", "Ratio 2se")
   
   remove_outliers <- function(x, na.rm = TRUE, ...) {
     qnt <- quantile(x, probs=c(.25, .75), na.rm = na.rm, ...)
@@ -776,29 +782,27 @@ csUTh <- function(input_data,
     plotdata <- final_results_filtered
   }
   
-  # change column name of initial (234U/238U) error so it can be used to show error bars
-  colnames(plotdata)[16:19] <- c("Age (ka)", "Age 2se", "(234U/238U)i", "Ratio 2se")
-  
+  # simplify output
   output <- plotdata[,c(1, 16:19)]
   
   # plot initial (234U/238U)
-  p2 <- initial_234U_238U_plot(output)
-  
-  # plot ages
-  p1 <- ages_plot(output)
+
   
   # draw plots
   
   # plot or not? ------------------------------------
   if(with_plots){
+    
+    p2 <- initial_234U_238U_plot(output)
+    
+    # plot ages
+    p1 <- ages_plot(output)
+    
     # draw plots in a panel
-  print(cowplot::plot_grid(p1, p2, ncol = 1))
+  print(cowplot::plot_grid(p1, p2, ncol = 2))
   } else {
     # don't draw plots
   }
-  
-  # return results
-  return(output)
   
   if(print_summary){
   
@@ -808,6 +812,9 @@ csUTh <- function(input_data,
   } else {
     # don't print anything
   }
+  
+  # return results
+  return(output)
 }
 
 

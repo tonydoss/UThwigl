@@ -103,7 +103,7 @@ The second way to use the package is with Binder, a browser-based instance of R 
 include_graphics("figures/binder.png")
 ```
 
-The third method is to download and install the package locally to the user's computer, and work with it in the user's local installation of R and RStudio. This method requires some familiarity with R, but gives the most flexibility when working with the model because we are not limited by the memory and compute time of the cloud services. Our recommendation is to use Binder or a local installation of UThwigl because then the user can save an R script file that includes the name of the input file, the specific parameters used to generate the model output, and any downstream processing and visualisation. This script file and the CSV file can then be archived in a data repository to ensure long-term accessibility for other researchers. 
+The third method is to download and install the package locally to the user's computer, and work with it in the user's local installation of R and RStudio. This method requires some familiarity with R, but gives the most flexibility when working with the model because we are not limited by the memory and compute time of the cloud services. Our recommendation is to use Binder or a local installation of UThwigl because then the user can save an R script file that includes the name of the input file, the specific parameters used to generate the model output, and any downstream processing and visualisation. This script file and the CSV file can then be archived in a data repository to ensure long-term accessibility for other researchers. In the following sections we demonstrate the use of UThwigl with a local installation of R and RStudio. 
 
 # Installing and attaching the package
 
@@ -113,13 +113,12 @@ First the user will need to download and install [R](https://www.r-project.org/)
 source("https://install-github.me/tonydoss/UThwigl")
 ```
 
-For routine data analysis, R scripts need to contain the following line to attach the package to the current working envirovnment. This line needs to be run at the start of each analysis:
+For routine data analysis, R scripts need to contain the following line to attach the package to the current working environnment. This line needs to be run at the start of each analysis:
 
 ```{r}
 # attach the package
 library(UThwigl)
 ```
-
 
 \newpage
 
@@ -127,8 +126,140 @@ library(UThwigl)
 
 ## Closed-system U-Th dating
 
+Our package provides the fuction `csUTh()` for closed-system U-Th dating. Data for this function needs to be in a data frame (a form of table in R) with the following column names:
+
+- `Sample_ID`
+- `U234_U238_CORR`
+- `U234_U238_CORR_Int2SE`
+- `Th230_U238_CORR`
+- `Th230_U238_CORR_Int2SE`
+- `Th232_U238_CORR`
+- `Th232_U238_CORR_Int2SE`
+
+ To help with preparing data for input into our function, we have included an example of an input file, taken from @RN5108. Inspecting the included data sets will be helpful for understanding how to prepare new data to prepare for use with this package. After attaching the package, we can access the built-in datasets with the `data()` function, like this:
+
+```{r}
+# access the data included in the UThwigl package
+data("Pan2018")
+```
+
+This will make the built-in data available in the R environment to inspect and explore how to use the `csUTh()` function. To use new data with this package, the user needs to import a CSV or Excel file with the U-Th data into the R environment. This can be done using a generic function such as `read.csv` or `read_excel` from the `readxl` package [@Wickham_readxl]. Before reading in the data file, the user needs to set the working directory to the folder containing the data file. This can be done in RStudio using the menu item 'Session' > 'Set Working Directory' > 'To Source File Location'. Alternatively, the working directory can be defined interactively at the R prompt in the Console panel useing `setwd()`. However, we do not recommend including `setwd()` in script files because it is bad for reproducibility, since the path to one user's working directory will not exist on another user's computer.  
+
+The code chunk below shows how to read one of the CSV files included in the package into the R environment. We assume that the user's working directory contains a directory called `data` and the CSV file is in this `data` directory, and so the data can be imported as follows: 
+
+```{r, eval = TRUE, echo=TRUE}
+# read in one of the example CSV files included in the package
+Pan2018 <-
+  read.csv('data/Pan2018.csv')
+```
+
+Table \@ref(tab:pan) shows the data contained in the `Pan2018.csv` file included in the package
+
+```{r pan, results="asis", echo = FALSE, eval=TRUE}
+# inspect the data frame produced by importing the CSV file
+options(xtable.floating = TRUE,
+        xtable.comment = FALSE)
+
+Pan2018_tbl <-
+Pan2018 %>%
+  xtable(
+         digits = c(1,3,3,3,3,3,3, 5),
+         caption = "\\label{tab:hobbitone}Data contained in the example CSV file Pan2018.csv included in the package")
+
+align(Pan2018_tbl) <- rep("c", ncol(Pan2018_tbl) + 1)
+
+print(Pan2018_tbl,
+        method = 'compact',
+        include.rownames = FALSE,
+        rotate.colnames = TRUE)
+```
+
+The columns `Sample_ID`, `U234_U238_CORR`, `U234_U238_CORR_Int2SE`, `Th230_U238_CORR`,  `Th230_U238_CORR_Int2SE`, `Th232_U238_CORR` and `Th232_U238_CORR_Int2SE` must be present in the input data frame with these exact names for the model to function. The `csUTh()` function will check if the input data frame has these columns, and will stop with an error message if it does not find these columns. The `names()` function can be used to update column names of a data frame to ensure they match the names that the model function requires. Alteratively the user can edit the column names in a spreadsheet program such as Microsoft Excel. The order of the columns in the data frame is not important.
+
+Columns `U234_U238_CORR` and `U234_U238_CORR_Int2SE` are the (^234^U/^238^U) activity ratios and their 2$\sigma$ errors. Columns `Th230_U238_CORR` and `Th230_U238_CORR_Int2SE` are the (^230^Th/^238^U) activity ratios and their 2$\sigma$ errors. Columns `Th232_U238_CORR` and `Th232_U238_CORR_Int2SE` are ???
+
+# Details of the input parameters of closed-system analysis 
+
+`sample_name` is the name of the sample to calculate closed-system ages for. The function will partially match by sample prefix.  For example in Table \@ref(tab:pan) one sample is indicated by the Sample ID 'YP003'. If the user inputs 'YP003' for the `sample_name`, then this will match rows where the Sample ID is 
+ 'YP003-1', 'YP003-2', 'YP003-3', and so on.   
+ 
+`nbitchoice` is the number of iterations in the model. Recommended to have at least 100.
+`detcorrectionchoice` is a parameter for chosing whether or not to apply a detrital correction to the calculation. 
+
+`R28det` (0.8) and `R28det_err` (0.08) are the values for the (232Th/238U) activity ratio of the detritus and its standard error (default values in parentheses). Similarly, `R08det` (1) and `R08det_err` (0.05) are the values for the (230Th/238U) activity ratio of the detritus and its standard error, and `R48det` (1) and `R48det_err` (0.02) are the corresponding values for (234U/238U) activity ratio of the detritus.
+
+# How to run the closed-system model
+
+Assuming that the package is attached with `library(UThwigl)`, as shown above, and the data have been imported to the working environment as noted above, run `csUTh()`, specifying the input data frame and the input parameters as described above. The code block below shows a typical example that will execute in less than five seconds on a typical 2.3 GHz Intel Core i5 laptop:  
+
+```{r cs-model-output, results='hide'}
+# Solve for sample YP003
+cs_output <-
+  csUTh(
+    Pan2018,
+    sample_name = 'YP003',
+    nbitchoice = 1000,
+    detcorrectionchoice = TRUE,
+    keepfiltereddata = FALSE,
+    print_summary = FALSE,
+    with_plots = FALSE
+  )
+```
+
+For efficient interactive use of this package, the default setting of `csUTh()` is to produce a panel plot as seen in Figure \@ref(fig:csfigure). The setting `with_plots = FALSE` prevents plots from being generated which is more useful when the function is part of a longer sequence of code. The function runs faster when not producing pots, which is helpful when replicating many runs. 
+
+When run on the R console, this function will print a confirmation that the input data frame has the required columns, and print the resulting age value with an error reported as the 67% and 33% quantiles, for example:
+
+```
+All required columns are present in the input data
+[1] "Mean age:  117.1 +/- 3.7  ka"
+```
+
+The function returns a data frame with the age, error and summary output for each measurement, as shown in Table \@ref(tab:panoutput)
+
+```{r panoutput, results="asis", echo = FALSE, eval=TRUE}
+# inspect the data frame produced by importing the CSV file
+options(xtable.floating = TRUE,
+        xtable.comment = FALSE)
+
+cs_output_tbl <-
+cs_output %>%
+  xtable(
+         digits = c(1,3,3,4,4,4),
+         caption = "\\label{tab:panoutput}Output produced by the csUTh function used with data from Pan et al. 2018")
+
+align(cs_output_tbl) <- rep("c", ncol(cs_output_tbl) + 1)
+
+print(cs_output_tbl,
+        method = 'compact',
+        include.rownames = FALSE,
+        rotate.colnames = TRUE)
+```
+
+The results can be visualised...
+
+```{r csuthviz1, echo=FALSE}
+p2 <- initial_234U_238U_plot(cs_output)
+p1 <- ages_plot(cs_output)
+```
+
+```{r csuthviz2, echo=FALSE}
+png("figures/cs-panel-fig.png", res = 300, h = 12, w = 15, units = "cm")
+cowplot::plot_grid(p1, p2, 
+                   ncol = 2,
+                   labels = "AUTO")
+dev.off()
+```
+
+(ref:csuthvizfigcap) Example of the visualisations produced by the `csUTh()` function, using the demonstration run described avove. A: ????, B: ????
+
+```{r csuthvizfig, out.width = "95%", fig.cap="(ref:csuthvizfigcap)", echo = FALSE, eval = TRUE}
+include_graphics("figures/cs-panel-fig.png")
+```
+
 ## Open-system U-Th dating
-The key function of our package, `osUTh()` requires a data frame (a form of table in R) with the following column names:
+
+For open-system U-Th dating we provide the function `osUTh()`, which requires a data frame with the following column names:
 
 - `iDAD.position`
 - `U234_U238_CORR`
@@ -139,7 +270,7 @@ The key function of our package, `osUTh()` requires a data frame (a form of tabl
 - `U_ppm`
 - `U_ppm_Int2SE`        
 
- To help with preparing data for input into our function, we have included two examples of input files. Inspecting the included data sets will be helpful for understanding how to prepare new data to prepare for use with this package. After attaching the package, we can access the built-in datasets with the `data()` function, like this:
+We have included two examples of input files. After attaching the package, we can access the built-in datasets with the `data()` function, like this:
 
 ```{r}
 # access the data included in the UThwigl package
@@ -147,13 +278,7 @@ data("Hobbit_1_1T_for_iDAD")
 data("Hobbit_MH2T_for_iDAD")
 ```
 
-This will make the built-in data available in the R environment to inspect and explore how to use the `osUTh()` function. 
-
-To use new data with this package, we need to import a CSV or Excel file with the U-Th data into the R environment using a generic function such as `read.csv` or `read_excel` from the `readxl` package [@Wickham_readxl]. The code chunk below shows how to read one of the CSV files included in the package into the R environment. 
-This is a good method to use if the user supplies their own CSV file to use with `osUTh()`. *TONY: I think it's obvious users will supply their own data. I suggest removing this sentence*
-First, in RStudio's Files panel, the user should navigate to the working directorty of choice and select 'More > Set As Working Directory'. Alternatively, the working directory can be defined interactively in the Console panel useing `setwd()` We do not recommend including `setwd()` in script files because it is bad for reproducibility. 
-
-Assuming the user's working directory contains a directory called `data` and the CSV file is in this `data` directory, data can be imported as follows: 
+The code chunk below shows how to read one of the CSV files included in the package into the R environment. As above, we assume that the user's working directory contains a directory called `data` and the CSV file is in this `data` directory, and so the data can be imported as follows: 
 
 ```{r, eval = TRUE, echo=TRUE}
 # read in one of the example CSV files included in the package
@@ -184,18 +309,15 @@ print(Hobbit_MH2T_for_iDAD_tbl,
         rotate.colnames = TRUE)
 ```
 
-The columns `iDAD.position`, `U234_U238_CORR`, `U234_U238_CORR_Int2SE`, `Th230_U238_CORR` and `Th230_U238_CORR_Int2SE` must be present in the input data frame with these exact names for the model to function. The `osUTh()` function will check if the input data frame has these columns, and will stop with an error message if it does not find these columns. The `names()` function can be used to update column names of a data frame to ensure they match the names that the model function requires. The order of the columns in the data frame is not important.
+As for the closed-system function, the columns `iDAD.position`, `U234_U238_CORR`, `U234_U238_CORR_Int2SE`, `Th230_U238_CORR` and `Th230_U238_CORR_Int2SE` must be present in the input data frame with these exact names for the model to function. The `osUTh()` function will check if the input data frame has these columns, and will stop with an error message if it does not find these columns.
 
 The `iDAD.position` column corresponds to the coordinates of the (^234^U/^238^U) analyses, which as indicated above take values between -1 and 1 (Figure \@ref(fig:femurpic)). The second `iDAD.position.1` column is used if the coordinates of the (^230^Th/^238^U) analyses are different from those of the (^234^U/^238^U) analyses.
 
-Columns `U234_U238_CORR` and `U234_U238_CORR_Int2SE` are the (^234^U/^238^U) activity ratios and their 2$\sigma$ errors. Columns `Th230_U238_CORR` and
-`Th230_U238_CORR_Int2SE` are the (^230^Th/^238^U) activity ratios and their 2$\sigma$ errors.
-
 Columns `U_ppm` and `U_ppm_Int2SE` are the calculated uranium concentrations (in ppm) and their 2$\sigma$ errors. Uranium concentrations are not necessary for the model but needed to display the U concentration profile in a figure.
 
-# Details of the input parameters
+# Details of the input parameters of open-system analysis 
 
-Our key function, `osUTh()` has several arguments that need to be set before we can get meaningful results.
+Our key function, `osUTh()` has several arguments that need to be set before meaningful results can be obtained:
 
 `nbit` is the number of iterations. For the first run, set to 1.
 
@@ -215,7 +337,7 @@ After setting the `U480` maximum and minimum values, run the function and adjust
 
 \newpage
 
-# How to run the model
+# How to run the open-system model
 
 Attach the package as shown above and then run `osUTh()`, specifying the input data frame and the input parameters as described above. The code block below shows a quick example that will execute in less than five seconds on a typical 2.3 GHz Intel Core i5 laptop:  
 
@@ -234,9 +356,9 @@ output <- osUTh(data_file,
                    with_plots = FALSE)
 ```
 
-For efficient interactive use of this package, the default setting of `osUTh()` is to produce a panel plot as seen in Figure \@ref(fig:demopanelfig)(Figure \@ref(fig:demopanelfig). The setting `with_plots = FALSE` prevents plots from being generated which is more useful when the function is part of a longer sequence of code. The function runs faster when not producing pots, which is helpful when replicating many runs. 
+The default setting of `osUTh()` is to produce a panel plot as seen in Figure \@ref(fig:demopanelfig)(Figure \@ref(fig:demopanelfig). The setting `with_plots = FALSE` prevents plots from being generated which is more useful when the function is part of a longer sequence of code. The function runs faster when not producing pots, which is helpful when replicating many runs. 
 
-When run on the R console, this function will print a confirmation that the input data frame has the required columns, and print the resulting age value with an error reported as the 67% and 33% quantiles, for instance:
+Similar to the `csUTh()` function, when `osUTh()` is run on the R console, it will print a confirmation that the input data frame has the required columns, and print the resulting age value with an error reported as the 67% and 33% quantiles, for example:
 
 ```
 All required columns are present in the input data
@@ -247,11 +369,11 @@ The model computes a Monte Carlo simulation where age of the sample, U diffusion
 
 The final calculated age `T_final` (in yr), U diffusion coefficient `K_final` (in cm^2^/s) and (^234^U/^238^U) ratio at the surface of the sample `U48_0_final` are the set of solutions where the solution age is the closest to the median age of the population of solutions. The uncertainty on each output paramter is calculated as the 67% and 33% quantiles of the population of solution sets.
 
-In a typical analysis we will explore the model fit by first running the model with a single iteration `nbit` and a small value for `fsum_target`, and then changing the range of allowed values for the (^234^U/^238^U) ratio at the surface and the age of the sample. Once we obtain a satisfying fit (by visual inspection of the produced figures), we would increase `nbit` to a higher value (e.g. 1000) and run the model one last time. See below for an example of analysis.
+In a typical analysis the user will explore the model fit by first running the model with a single iteration `nbit` and a small value for `fsum_target`, and then changing the range of allowed values for the (^234^U/^238^U) ratio at the surface and the age of the sample. Once the user has obtained a satisfying fit (by visual inspection of the produced figures), they would increase `nbit` to a higher value (e.g. 1000) and run the model one last time. We provide an example of a typical analysis analysis below.
 
 \newpage
 
-## Inspecting the model's output
+## Inspecting the open-system model's output
 
 `T_final`, `K_final` and `U48_0_final` are included in the model's output, along with their uncertainties. The function also includes a one-row data frame summarising the age:  
 
@@ -295,7 +417,7 @@ print(output_data_table,
 
 \newpage
 
-## Visualising the model's output
+## Visualising the open-system model's output
 
 `osUTh()` returns several figures useful for visualisation of the model results along with the data:
 

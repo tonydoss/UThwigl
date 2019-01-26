@@ -4,13 +4,13 @@
 \alias{csUTh}
 \title{csUTh}
 \usage{
-csUTh(input_data, sample_name = "MK16", nbitchoice = 100,
+csUTh(input_data, sample_name = "YP003", nbitchoice = 100,
   detcorrectionchoice = TRUE, R28det = 0.8, R28det_err = 0.08,
   R08det = 1, R08det_err = 0.05, R48det = 1, R48det_err = 0.02,
   keepfiltereddata = FALSE, print_summary = TRUE, with_plots = TRUE)
 }
 \arguments{
-\item{input_data}{Input data frame, containing only rows of data for the sample that you want to solve. The following columns need to be present in this data frame: Sample_ID, U234_U238_CORR, U234_U238_CORR_Int2SE, Th230_U238_CORR, Th230_U238_CORR_Int2SE, Th232_U238_CORR, Th232_U238_CORR_Int2SE.}
+\item{input_data}{Input data frame. The following columns need to be present in this data frame, with these exact names: Sample_ID, U234_U238_CORR, U234_U238_CORR_Int2SE, Th230_U238_CORR, Th230_U238_CORR_Int2SE, Th232_U238_CORR, Th232_U238_CORR_Int2SE.}
 
 \item{sample_name}{Name of the sample to calculate closed-system ages for. The string entered must match characters for the chosen sample in the column 'Sample_ID' of the data file. Default: 'MK16'.}
 
@@ -40,10 +40,10 @@ csUTh(input_data, sample_name = "MK16", nbitchoice = 100,
 csUTh calculates closed-system Th-230/U ages, including detrital correction.
 }
 \examples{
-data("iolite_export")
-# Solve for sample MK16
-output <- csUTh(iolite_export,
-sample_name = 'MK16',
+data("Pan2018")
+# Solve for sample YP003
+output <- csUTh(Pan2018,
+sample_name = 'YP003',
 nbitchoice = 100,
 detcorrectionchoice = TRUE,
 keepfiltereddata = FALSE,
