@@ -1,9 +1,9 @@
-This is XeTeX, Version 3.14159265-2.6-0.99999 (MiKTeX 2.9.6730 64-bit) (preloaded format=xelatex 2018.8.23)  26 JAN 2019 19:26
+This is XeTeX, Version 3.14159265-2.6-0.99999 (MiKTeX 2.9.6730 64-bit) (preloaded format=xelatex 2018.8.23)  27 JAN 2019 16:19
 entering extended mode
-**C:/Users/tonyd/AppData/Local/Temp/RtmpU7eaR2/preview-4bf86ad77d74.dir/uthwigl
+**C:/Users/tonyd/AppData/Local/Temp/RtmpKCDKMD/preview-4300296d7a4b.dir/uthwigl
 .tex
 
-(C:/Users/tonyd/AppData/Local/Temp/RtmpU7eaR2/preview-4bf86ad77d74.dir/uthwigl.
+(C:/Users/tonyd/AppData/Local/Temp/RtmpKCDKMD/preview-4300296d7a4b.dir/uthwigl.
 tex
 LaTeX2e <2018-04-01> patch level 5
 (elsarticle.cls
@@ -999,10 +999,10 @@ Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
 )
 \Hy@SectionHShift=\skip61
 )
-Package hyperref Info: Option `breaklinks' set `true' on input line 92.
+Package hyperref Info: Option `breaklinks' set `true' on input line 102.
 
 Package hyperref Warning: Option `bookmarks' has already been used,
-(hyperref)                setting the option has no effect on input line 92.
+(hyperref)                setting the option has no effect on input line 102.
 
 
 ("C:\Users\tonyd\AppData\Local\Programs\MiKTeX 2.9\tex\generic\oberdiek\se-asci
@@ -1010,7 +1010,7 @@ i-print.def"
 File: se-ascii-print.def 2016/05/16 v1.11 stringenc: Printable ASCII characters
 
 )
-Package hyperref Info: Option `colorlinks' set `false' on input line 92.
+Package hyperref Info: Option `colorlinks' set `false' on input line 102.
 
 ("C:\Users\tonyd\AppData\Local\Programs\MiKTeX 2.9\tex\latex\graphics\rotating.
 sty"
@@ -1027,45 +1027,42 @@ Package: ifthen 2014/09/29 v1.1c Standard LaTeX ifthen package (DPC)
 ("C:\Users\tonyd\AppData\Local\Programs\MiKTeX 2.9\tex\latex\placeins\placeins.
 sty"
 Package: placeins 2005/04/18  v 2.2
-) (uthwigl.aux
-
-LaTeX Warning: Label `tab:hobbitone' multiply defined.
-
 )
+No file uthwigl.aux.
 \openout1 = `uthwigl.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 105.
-LaTeX Font Info:    ... okay on input line 105.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 105.
-LaTeX Font Info:    ... okay on input line 105.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 105.
-LaTeX Font Info:    ... okay on input line 105.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 105.
-LaTeX Font Info:    ... okay on input line 105.
-LaTeX Font Info:    Checking defaults for TU/lmr/m/n on input line 105.
-LaTeX Font Info:    ... okay on input line 105.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 105.
-LaTeX Font Info:    ... okay on input line 105.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 105.
-LaTeX Font Info:    ... okay on input line 105.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 105.
-LaTeX Font Info:    Try loading font information for TS1+cmr on input line 105.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 115.
+LaTeX Font Info:    ... okay on input line 115.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 115.
+LaTeX Font Info:    ... okay on input line 115.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 115.
+LaTeX Font Info:    ... okay on input line 115.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 115.
+LaTeX Font Info:    ... okay on input line 115.
+LaTeX Font Info:    Checking defaults for TU/lmr/m/n on input line 115.
+LaTeX Font Info:    ... okay on input line 115.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 115.
+LaTeX Font Info:    ... okay on input line 115.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 115.
+LaTeX Font Info:    ... okay on input line 115.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 115.
+LaTeX Font Info:    Try loading font information for TS1+cmr on input line 115.
 
 ("C:\Users\tonyd\AppData\Local\Programs\MiKTeX 2.9\tex\latex\base\ts1cmr.fd"
 File: ts1cmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
-LaTeX Font Info:    ... okay on input line 105.
-LaTeX Font Info:    Checking defaults for T3/cmr/m/n on input line 105.
-LaTeX Font Info:    Try loading font information for T3+cmr on input line 105.
+LaTeX Font Info:    ... okay on input line 115.
+LaTeX Font Info:    Checking defaults for T3/cmr/m/n on input line 115.
+LaTeX Font Info:    Try loading font information for T3+cmr on input line 115.
 ("C:\Users\tonyd\AppData\Local\Programs\MiKTeX 2.9\tex\latex\tipa\t3cmr.fd"
 File: t3cmr.fd 2001/12/31 TIPA font definitions
 )
-LaTeX Font Info:    ... okay on input line 105.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 105.
-LaTeX Font Info:    ... okay on input line 105.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 105.
-LaTeX Font Info:    ... okay on input line 105.
-LaTeX Info: Redefining \microtypecontext on input line 105.
+LaTeX Font Info:    ... okay on input line 115.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 115.
+LaTeX Font Info:    ... okay on input line 115.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 115.
+LaTeX Font Info:    ... okay on input line 115.
+LaTeX Info: Redefining \microtypecontext on input line 115.
 Package microtype Info: Character protrusion enabled (level 2).
 Package microtype Info: Using default protrusion set `alltext'.
 Package microtype Info: No adjustment of tracking.
@@ -1076,7 +1073,7 @@ File: mt-LatinModernRoman.cfg 2013/03/13 v1.0 microtype config. file: Latin Mod
 ern Roman (RS)
 )
 \AtBeginShipoutBox=\box59
-Package hyperref Info: Link coloring OFF on input line 105.
+Package hyperref Info: Link coloring OFF on input line 115.
 
 ("C:\Users\tonyd\AppData\Local\Programs\MiKTeX 2.9\tex\latex\hyperref\nameref.s
 ty"
@@ -1088,19 +1085,21 @@ Package: gettitlestring 2016/05/16 v1.5 Cleanup title references (HO)
 )
 \c@section@level=\count302
 )
-LaTeX Info: Redefining \ref on input line 105.
-LaTeX Info: Redefining \pageref on input line 105.
-LaTeX Info: Redefining \nameref on input line 105.
-(uthwigl.out) (uthwigl.out)
+LaTeX Info: Redefining \ref on input line 115.
+LaTeX Info: Redefining \pageref on input line 115.
+LaTeX Info: Redefining \nameref on input line 115.
 \@outlinefile=\write5
 \openout5 = `uthwigl.out'.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 121--122
+Package hyperref Warning: Rerun to get /PageLabels entry.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 131--132
 
  []
 
-LaTeX Font Info:    Try loading font information for OT1+lmr on input line 124.
+LaTeX Font Info:    Try loading font information for OT1+lmr on input line 134.
 
 ("C:\Users\tonyd\AppData\Local\Programs\MiKTeX 2.9\tex\latex\lm\ot1lmr.fd"
 File: ot1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
@@ -1109,47 +1108,43 @@ Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             `lmr' (encoding: OT1).
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
-LaTeX Font Info:    Try loading font information for OML+lmm on input line 124.
+LaTeX Font Info:    Try loading font information for OML+lmm on input line 134.
 
 ("C:\Users\tonyd\AppData\Local\Programs\MiKTeX 2.9\tex\latex\lm\omllmm.fd"
 File: omllmm.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-LaTeX Font Info:    Try loading font information for OMS+lmsy on input line 124
+LaTeX Font Info:    Try loading font information for OMS+lmsy on input line 134
 .
 ("C:\Users\tonyd\AppData\Local\Programs\MiKTeX 2.9\tex\latex\lm\omslmsy.fd"
 File: omslmsy.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-LaTeX Font Info:    Try loading font information for OMX+lmex on input line 124
+LaTeX Font Info:    Try loading font information for OMX+lmex on input line 134
 .
 ("C:\Users\tonyd\AppData\Local\Programs\MiKTeX 2.9\tex\latex\lm\omxlmex.fd"
 File: omxlmex.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <8> on input line 124.
+(Font)              <8> on input line 134.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <6> on input line 124.
+(Font)              <6> on input line 134.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <5> on input line 124.
-LaTeX Font Info:    Try loading font information for U+msa on input line 124.
+(Font)              <5> on input line 134.
+LaTeX Font Info:    Try loading font information for U+msa on input line 134.
 ("C:\Users\tonyd\AppData\Local\Programs\MiKTeX 2.9\tex\latex\amsfonts\umsa.fd"
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 ) ("C:\Program Files\MiKTeX 2.9\tex\latex\microtype\mt-msa.cfg"
 File: mt-msa.cfg 2006/02/04 v1.1 microtype config. file: AMS symbols (a) (RS)
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 124.
+LaTeX Font Info:    Try loading font information for U+msb on input line 134.
 ("C:\Users\tonyd\AppData\Local\Programs\MiKTeX 2.9\tex\latex\amsfonts\umsb.fd"
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 ) ("C:\Program Files\MiKTeX 2.9\tex\latex\microtype\mt-msb.cfg"
 File: mt-msb.cfg 2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
 )
-Package microtype Info: Loading generic protrusion settings for font family
-(microtype)             `lmtt' (encoding: TU).
-(microtype)             For optimal results, create family-specific settings.
-(microtype)             See the microtype manual for details.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10> on input line 124.
+(Font)              <10> on input line 134.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <7> on input line 124.
+(Font)              <7> on input line 134.
 [1
 
 
@@ -1159,137 +1154,33 @@ Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
 
-Overfull \hbox (3.12001pt too wide) in paragraph at lines 136--138
+Overfull \hbox (3.12001pt too wide) in paragraph at lines 146--148
 []\TU/lmr/m/n/10 Closed-system conditions are seldom met in teeth and bones (al
 though enamel
  []
 
+Package microtype Info: Loading generic protrusion settings for font family
+(microtype)             `lmtt' (encoding: TU).
+(microtype)             For optimal results, create family-specific settings.
+(microtype)             See the microtype manual for details.
 [2] [3]
-File: figures/bone.png Graphic file (type bmp)
-<figures/bone.png>
-[4]
-File: figures/shiny-app-screenshots.png Graphic file (type bmp)
-<figures/shiny-app-screenshots.png>
-File: figures/binder.png Graphic file (type bmp)
-<figures/binder.png>
-LaTeX Font Info:    Font shape `TU/lmtt/bx/n' in size <10> not available
-(Font)              Font shape `TU/lmtt/b/n' tried instead on input line 199.
-[5] [6] [7] [8]
 
-LaTeX Warning: Reference `tab:pan' on page 9 undefined on input line 261.
+LaTeX Warning: Reference `fig:femurpic' on page 4 undefined on input line 171.
 
-
-Overfull \hbox (53.41pt too wide) in paragraph at lines 286--287
-[]\TU/lmr/m/n/10 The columns \TU/lmtt/m/n/10 Sample_ID\TU/lmr/m/n/10 , \TU/lmtt
-/m/n/10 U234_U238_CORR\TU/lmr/m/n/10 , \TU/lmtt/m/n/10 U234_U238_CORR_Int2SE\TU
-/lmr/m/n/10 , \TU/lmtt/m/n/10 Th230_U238_CORR\TU/lmr/m/n/10 ,
- []
-
-
-Overfull \hbox (13.4378pt too wide) in paragraph at lines 286--287
-\TU/lmtt/m/n/10 Th230_U238_CORR_Int2SE\TU/lmr/m/n/10 , \TU/lmtt/m/n/10 Th232_U2
-38_CORR \TU/lmr/m/n/10 and \TU/lmtt/m/n/10 Th232_U238_CORR_Int2SE \TU/lmr/m/n/1
-0 must
- []
-
-[9]
-Overfull \hbox (0.33582pt too wide) in paragraph at lines 288--289
-[]\TU/lmr/m/n/10 Columns \TU/lmtt/m/n/10 U234_U238_CORR \TU/lmr/m/n/10 and \TU/
-lmtt/m/n/10 U234_U238_CORR_Int2SE \TU/lmr/m/n/10 are the ($[]$U/$[]$U)
- []
-
-
-Overfull \hbox (58.8818pt too wide) in paragraph at lines 288--289
-\TU/lmr/m/n/10 activity ratios and their 2$\OML/lmm/m/it/10 ^^[$ \TU/lmr/m/n/10
- errors. Columns \TU/lmtt/m/n/10 Th230_U238_CORR \TU/lmr/m/n/10 and \TU/lmtt/m/
-n/10 Th230_U238_CORR_Int2SE
- []
-
-
-Overfull \hbox (14.68982pt too wide) in paragraph at lines 288--289
-\TU/lmr/m/n/10 are the ($[]$Th/$[]$U) activity ratios and their 2$\OML/lmm/m/it
-/10 ^^[$ \TU/lmr/m/n/10 errors. Columns \TU/lmtt/m/n/10 Th232_U238_CORR
- []
-
-
-LaTeX Warning: Reference `tab:pan' on page 10 undefined on input line 293.
-
-[10] [11]
-Overfull \hbox (18.87401pt too wide) in paragraph at lines 381--382
-[]\TU/lmr/m/n/10 As for the closed-system function, the columns \TU/lmtt/m/n/10
- iDAD.position\TU/lmr/m/n/10 , \TU/lmtt/m/n/10 U234_U238_CORR\TU/lmr/m/n/10 ,
- []
-
-
-Overfull \hbox (8.4478pt too wide) in paragraph at lines 381--382
-\TU/lmtt/m/n/10 U234_U238_CORR_Int2SE\TU/lmr/m/n/10 , \TU/lmtt/m/n/10 Th230_U23
-8_CORR \TU/lmr/m/n/10 and \TU/lmtt/m/n/10 Th230_U238_CORR_Int2SE \TU/lmr/m/n/10
- must
- []
-
-
-Overfull \hbox (4.72801pt too wide) in paragraph at lines 383--384
-[]\TU/lmr/m/n/10 The \TU/lmtt/m/n/10 iDAD.position \TU/lmr/m/n/10 column corres
-ponds to the coordinates of the ($[]$U/$[]$U)
- []
-
-[12] [13]
-File: figures/cs-panel-fig.png Graphic file (type bmp)
-<figures/cs-panel-fig.png>
-[14] [15] [16] [17] [18]
-File: figures/demo-panel-fig.png Graphic file (type bmp)
-<figures/demo-panel-fig.png>
-[19] [20] [21
-
-]
-File: figures/plot-panel-first-run-modern.png Graphic file (type bmp)
-<figures/plot-panel-first-run-modern.png>
-File: figures/plot-panel-second-run-modern.png Graphic file (type bmp)
-<figures/plot-panel-second-run-modern.png>
-[22] [23] [24]
-File: figures/plot-panel-hobbit.png Graphic file (type bmp)
-<figures/plot-panel-hobbit.png>
-[25] [26] [27] [28]
-
-Package hyperref Warning: Difference (2) between bookmark levels is greater 
-(hyperref)                than one, level fixed on input line 776.
-
-
-Overfull \hbox (51.37pt too wide) in paragraph at lines 861--861
-[]\TU/lmtt/m/n/10 ## - Session info -------------------------------------------
----------------[] 
- []
-
-
-Overfull \hbox (51.37pt too wide) in paragraph at lines 861--861
-[]\TU/lmtt/m/n/10 ## - Packages -----------------------------------------------
----------------[] 
- []
-
-[29]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 871.
-[30]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 871.
-(uthwigl.aux)
-Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 871.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 871.
-Package rerunfilecheck Info: File `uthwigl.out' has not changed.
-(rerunfilecheck)             Checksum: 04E2E5F0FC2A442DD9002170CC1B4551.
-
-LaTeX Warning: There were undefined references.
-
-
-LaTeX Warning: There were multiply-defined labels.
-
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 871.
- ) 
+Runaway argument?
+width=\maxwidth ][width=0.95\linewidth ]{figures/bone} \caption {Mode\ETC.
+! Paragraph ended before \Gin@iii was complete.
+<to be read again> 
+                   \par 
+l.178 
+       
 Here is how much of TeX's memory you used:
- 26249 strings out of 427798
- 468486 string characters out of 3147828
- 580522 words of memory out of 3000000
- 29989 multiletter control sequences out of 15000+200000
- 556788 words of font info for 71 fonts, out of 3000000 for 9000
+ 26136 strings out of 427798
+ 465941 string characters out of 3147828
+ 573579 words of memory out of 3000000
+ 29904 multiletter control sequences out of 15000+200000
+ 556764 words of font info for 68 fonts, out of 3000000 for 9000
  1328 hyphenation exceptions out of 8191
- 39i,10n,47p,1383b,465s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 39i,9n,47p,1383b,443s stack positions out of 5000i,500n,10000p,200000b,50000s
 
-Output written on uthwigl.pdf (30 pages).
+Output written on uthwigl.pdf (3 pages).

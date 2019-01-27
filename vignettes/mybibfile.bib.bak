@@ -42,15 +42,15 @@ language={English}
   publisher={Springer}
 }
 
-@Article{Kattge_Diaz_Wirth_2014,
-  author  = {Kattge, Jens and Díaz, Sandra and Wirth, Christian},
-  title   = {Of carrots and sticks},
-  journal = {Nature Geoscience},
-  year    = {2014},
-  volume  = {7},
-  pages   = {778},
-  month   = {Oct},
-}
+ @article{Kattge_Díaz_Wirth_2014, 
+ title={Of carrots and sticks}, 
+ volume={7}, 
+ journal={Nature Geoscience}, 
+ author={Kattge, Jens and Díaz, Sandra and Wirth, Christian}, 
+ year={2014}, 
+ month={Oct}, 
+ pages={778} 
+ }
 
 
 @article{nosek2015promoting,

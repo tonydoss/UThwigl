@@ -2,7 +2,7 @@
 % Please edit documentation in R/functions.R
 \name{ages_plot}
 \alias{ages_plot}
-\title{Ages plot for open-system analysis}
+\title{Ages plot for closed-system analysis}
 \usage{
 ages_plot(output, big_size = 10, less_big_size = 8, point_size = 5)
 }
@@ -16,5 +16,5 @@ ages_plot(output, big_size = 10, less_big_size = 8, point_size = 5)
 \item{point_size}{Size of the data points on the plot, default is 5}
 }
 \description{
-Ages plot for open-system analysis
+Ages plot for closed-system analysis
 }
