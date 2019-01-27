@@ -759,7 +759,7 @@ csUTh <- function(input_data,
                                        data,
                                        round(time_results/1000,3), round(time2se_results/1000,3),
                                        round(R48i_results,3), round(R48i2se_results,3)))
-  final_results$Sample_ID <- sample_name
+  final_results$Sample_ID <- data$Sample_ID
   colnames(final_results)[1] <- "Sample ID"
   colnames(final_results)[(ncol(final_results)-3):ncol(final_results)] <- c("Age (ka)", "Age 2se", "(234U/238U)i", "Ratio 2se")
   
@@ -857,7 +857,7 @@ initial_234U_238U_plot <- function(output,
 }
 
 
-#' Ages plot for open-system analysis
+#' Ages plot for closed-system analysis
 #' 
 #' 
 #' @param output Output from the `csUTh()` function

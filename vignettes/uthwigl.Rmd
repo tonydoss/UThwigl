@@ -61,22 +61,26 @@ Closed-system U-Th dating has been successfully applied to a range of carbonates
 Closed-system conditions are seldom met in teeth and bones (although enamel can sometimes be quite impervious to isotope gain or loss). Thus, for teeth and bone, U-Th dating requires to take into account open system behaviour. The diffusion-adsorption-decay (DAD) model developed by Sambridge et al. [-@Sambridge2012] was instrumental to implement successfully open-system U-Th dating. It allows for advective and diffusive transport of uranium and thorium isotopes, while include synchronous radioactive decay. The software implementation was written in Fortran and is available as a Java GUI (<http://www.iearth.org.au/codes/iDaD/>). 
 Open-system U-Th dating of teeth and bones, while challenging, has provided quantitative ages for human and faunal remains [@Eggins2005; @Gruen2014; @Sambridge2012]. Thus, this approach has significantly improved our understanding of human evolution [e.g. @Dirks2017; @Sutikna2016]. 
 
-In this article, we propose a R package which offers functions to perform closed-system, `csUTh()`, and open-system, `osUTh()`, U-Th age calculations. The former implements formulations given in Ludwig [-@RN4370] while the latter applies the model of Sambridge et al. [-@Sambridge2012].
+In this article, we propose a R package which offers functions to perform closed-system, `csUTh()`, and open-system, `osUTh()`, U-Th age calculations. The former implements formulations given in Ludwig [-@RN4370] while the latter applies the Diffusion-Adsorption-Decay (DAD) model of Sambridge et al. [-@Sambridge2012].
 The motivation for providing an R package is to increase the transparency, reproducibility, and flexibility of the analytical workflow for computing U-Th ages. In particular, for open-system Currently it is difficult to include the Java GUI in a fully scripted data analysis so the method for computing the DAD model is not highly transparent. This can obscure steps where key decisions are made that are important for others to see to verify the reliability of the analysis. Enabling a scripted workflow for computational analysis of geoscience data is important for improving the reproducibiltiy of results. Reproducibility refers the ability to recreate the results or retest the hypotheses leading to a scientific claim, either by rerunning the same code used by the original authors, or by writing new code. High rates of irreproducibility of research results have been estimated in several fields and disciplines [@academy2015reproducibility; @freedman2015economics; @global2013case;  @ioannidis2005most; @open2015estimating; @camerer2018evaluating; @Camerer1433]. Consequently, the transparency, openness, and reproducibility of results and methods are receiving increased attention, and the norms of research in many fields are changing [@nosek2015promoting; @miguel2014promoting; @Marwick2016repro].
 
-There is strong interest in open, transparent, and reusable research in the geoscience community [@Gil_et_al_2016] and substantial progress toward open data has been made in the geosciences with the widespread use of data services of NASA, USGS, NOAA and community-built data portals such as OneGeology, EarthChem, RRUFF, PANGAEA, PaleoBioDB, and others [@Kattge_Díaz_Wirth_2014; @ma2018data]. However, the use of open source software such as R [@Pebesma_Nust_Bivand_2012], and sharing of scripted data analysis workflows with research publications is not yet widespread [@Hutton_et_al_2016]. With this R package our goal is to make scripted and reproducible data analysis easy for open-system uranium-thorium dating. This will improve the transparency of geochronology research, and provide a more credible and robust foundation for scientific advancement [@Hutton_et_al_2016].
+There is strong interest in open, transparent, and reusable research in the geoscience community [@Gil_et_al_2016] and substantial progress toward open data has been made in the geosciences with the widespread use of data services of NASA, USGS, NOAA and community-built data portals such as OneGeology, EarthChem, RRUFF, PANGAEA, PaleoBioDB, and others [@Kattge_Diaz_Wirth_2014; @ma2018data]. However, the use of open source software such as R [@Pebesma_Nust_Bivand_2012], and sharing of scripted data analysis workflows with research publications is not yet widespread [@Hutton_et_al_2016]. With this R package our goal is to make scripted and reproducible data analysis easy for open-system uranium-thorium dating. This will improve the transparency of geochronology research, and provide a more credible and robust foundation for scientific advancement [@Hutton_et_al_2016].
 
 To enable re-use of our materials and improve reproducibility and transparency, all the results and visualisations in this paper can be reproduced using the RMarkdown vignette document included with the UThwigl package. We have archived these files at <http://doi.org/10.17605/OSF.IO/D5P7S> to ensure long-term accessibility. Our code is released under the MIT licence, our data as CC-0, and our figures as CC-BY, to enable maximum re-use [for more details, see @Marwick2016repro].
 
 # Methods
 
-Data required for the DAD model are (^230^Th/^238^U) and (^234^U/^238^U) activity ratios collected along a transect perpendicular to the surface of the tooth or bone (brackets denote activity ratios throughout this article). Sampling for analysis can be done by micro-drilling or laser ablation. If the former, aliquots are then dissolved, followed by separation of U and Th using ion exchange chromatography. This is more time consuming (at least one week of work) than laser ablation, where the material sampled by the laser is directly sent to the mass spectrometer.
+## Closed-system dating
+Pending closed-system behaviour can be assessed, it is possible to derive an age for each U-Th analysis. The closed-system function `csUTh()` requires that for each analysis to yield an age, (^234^U/^238^U), (^230^Th/^238^U) and (^232^Th/^238^U) activity ratios are measured (parentheses denote activity ratios throughout this article). The (^232^Th/^238^U) activity ratio is required for detrital correction (although it is needed to use `csUTh()` whether the detrital correction is performed or not).
+
+## Open-system dating
+Data required for the DAD model are (^230^Th/^238^U) and (^234^U/^238^U) activity ratios collected along a transect perpendicular to the surface of the tooth or bone. Sampling for analysis can be done by micro-drilling or laser ablation. If the former, aliquots are then dissolved, followed by separation of U and Th using ion exchange chromatography. This is more time consuming (at least one week of work) than laser ablation, where the material sampled by the laser is directly sent to the mass spectrometer.
 
 While laser ablation also offers a better spatial resolution than micro-drilling, the precision of the data is inferior because of the much smaller amount of material sampled. Uranium and thorium isotope ratios are then analysed by multi-collector inductively-coupled plasma mass spectrometry. A plasma ionise all U and Th atoms, their isotopes are separated through a magnetic field and each collected in a different collector. If using laser ablation, it is best to have two ion counters so ^230^Th and ^234^U can be collected simultaneously.
 
 The distance of each analysis location from the inner and outer surfaces of the bones, for instance, needs to be recorded. One surface is given a coordinate of 1 and the other one -1, thus coordinates of analyses take values in between (Figure \@ref(fig:femurpic)).
 
-(ref:femurpiccap) Modern human femur (132A/LB/27D/03) from Liang Bua, Flores, Indonesia. Two analysis transects can be seen. For a given transect, the outer and inner surface of the bone are given 1 and -1 reference coordinates, and the position of each analysis is calculated accordingly. Modified from Sutikna et al. [-@Sutikna2016]
+(ref:femurpiccap) Modern human femur (132A/LB/27D/03) from Liang Bua, Flores, Indonesia. Two analysis transects can be seen. For a given transect, the outer and inner surface of the bone are given 1 and -1 reference coordinates, and the position of each analysis is calculated accordingly. Modified from Sutikna et al. [-@Sutikna2016].
 
 ```{r femurpic, out.width = "95%", fig.cap="(ref:femurpiccap)", echo = FALSE, eval = TRUE}
 library(knitr)
@@ -87,7 +91,7 @@ include_graphics("figures/bone.png")
 
 # Working with the package
 
-We provide three methods for using this package to suit different levels of familiarity with the R programming language. The simplest way to use the package is our web application (Figure \@ref(fig:shinyfig)).  Using the web application requires no familiarity with R. To use the web application we upload a CSV file, then click through a series of tabs to inspect the data, adjust the model parameters, run the model, and inspect the output. The interface is mouse-driven and requires no programming. In the web application we upload the data file on the *Load the data* tab, set parameters from the *Set model parameters* tab, run the model by clicking the button *Run Simulation* on the same tab, and observe the results on the *Visualise the model* and *Inspect the model* tabs. We can change the parameters and re-run the model by click the button *Run Simulation*. Once done, close the window.
+We provide three methods for using this package to suit different levels of familiarity with the R programming language. The simplest way to use the package is our web application (Figure \@ref(fig:shinyfig)). Using the web application requires no familiarity with R. To use the web application we upload a CSV file, then click through a series of tabs to inspect the data, adjust the model parameters, run the model, and inspect the output. The interface is mouse-driven and requires no programming. In the web application we upload the data file on the *Load the data* tab, set parameters from the *Set model parameters* tab, run the model by clicking the button *Run Simulation* on the same tab, and observe the results on the *Visualise the model* and *Inspect the model* tabs. We can change the parameters and re-run the model by click the button *Run Simulation*. Once done, close the window.
 
 (ref:shinyfigcap) Screenshots of the web application for using the UThwigl package. A: Upload a CSV file of the data to model, B: Inspect a table of the uploaded data. C: Set the model parameters and run the model. D: Inspect visualisations of the model's output. E: Inspect and download the numeric output from the model.
 
@@ -136,7 +140,7 @@ Our package provides the fuction `csUTh()` for closed-system U-Th dating. Data f
 - `Th232_U238_CORR`
 - `Th232_U238_CORR_Int2SE`
 
- To help with preparing data for input into our function, we have included an example of an input file, taken from @RN5108. Inspecting the included data sets will be helpful for understanding how to prepare new data to prepare for use with this package. After attaching the package, we can access the built-in datasets with the `data()` function, like this:
+ To help with preparing data for input into our function, we have included an example of an input file, taken from Pan et al. [-@RN5108]. Inspecting the included data sets will be helpful for understanding how to prepare new data to prepare for use with this package. After attaching the package, we can access the built-in datasets with the `data()` function, like this:
 
 ```{r}
 # access the data included in the UThwigl package
@@ -153,7 +157,7 @@ Pan2018 <-
   read.csv('data/Pan2018.csv')
 ```
 
-Table \@ref(tab:pan) shows the data contained in the `Pan2018.csv` file included in the package
+Table \@ref(tab:pan) shows the data contained in the `Pan2018.csv` file included in the package.
 
 ```{r pan, results="asis", echo = FALSE, eval=TRUE}
 # inspect the data frame produced by importing the CSV file
@@ -176,9 +180,9 @@ print(Pan2018_tbl,
 
 The columns `Sample_ID`, `U234_U238_CORR`, `U234_U238_CORR_Int2SE`, `Th230_U238_CORR`,  `Th230_U238_CORR_Int2SE`, `Th232_U238_CORR` and `Th232_U238_CORR_Int2SE` must be present in the input data frame with these exact names for the model to function. The `csUTh()` function will check if the input data frame has these columns, and will stop with an error message if it does not find these columns. The `names()` function can be used to update column names of a data frame to ensure they match the names that the model function requires. Alteratively the user can edit the column names in a spreadsheet program such as Microsoft Excel. The order of the columns in the data frame is not important.
 
-Columns `U234_U238_CORR` and `U234_U238_CORR_Int2SE` are the (^234^U/^238^U) activity ratios and their 2$\sigma$ errors. Columns `Th230_U238_CORR` and `Th230_U238_CORR_Int2SE` are the (^230^Th/^238^U) activity ratios and their 2$\sigma$ errors. Columns `Th232_U238_CORR` and `Th232_U238_CORR_Int2SE` are ???
+Columns `U234_U238_CORR` and `U234_U238_CORR_Int2SE` are the (^234^U/^238^U) activity ratios and their 2$\sigma$ errors. Columns `Th230_U238_CORR` and `Th230_U238_CORR_Int2SE` are the (^230^Th/^238^U) activity ratios and their 2$\sigma$ errors. Columns `Th232_U238_CORR` and `Th232_U238_CORR_Int2SE` are the (^232^Th/^238^U) activity ratios and their 2$\sigma$ errors.
 
-# Details of the input parameters of closed-system analysis 
+### Details of the input parameters of closed-system analysis 
 
 `sample_name` is the name of the sample to calculate closed-system ages for. The function will partially match by sample prefix.  For example in Table \@ref(tab:pan) one sample is indicated by the Sample ID 'YP003'. If the user inputs 'YP003' for the `sample_name`, then this will match rows where the Sample ID is 
  'YP003-1', 'YP003-2', 'YP003-3', and so on.   
@@ -187,75 +191,6 @@ Columns `U234_U238_CORR` and `U234_U238_CORR_Int2SE` are the (^234^U/^238^U) act
 `detcorrectionchoice` is a parameter for chosing whether or not to apply a detrital correction to the calculation. 
 
 `R28det` (0.8) and `R28det_err` (0.08) are the values for the (232Th/238U) activity ratio of the detritus and its standard error (default values in parentheses). Similarly, `R08det` (1) and `R08det_err` (0.05) are the values for the (230Th/238U) activity ratio of the detritus and its standard error, and `R48det` (1) and `R48det_err` (0.02) are the corresponding values for (234U/238U) activity ratio of the detritus.
-
-# How to run the closed-system model
-
-Assuming that the package is attached with `library(UThwigl)`, as shown above, and the data have been imported to the working environment as noted above, run `csUTh()`, specifying the input data frame and the input parameters as described above. The code block below shows a typical example that will execute in less than five seconds on a typical 2.3 GHz Intel Core i5 laptop:  
-
-```{r cs-model-output, results='hide'}
-# Solve for sample YP003
-cs_output <-
-  csUTh(
-    Pan2018,
-    sample_name = 'YP003',
-    nbitchoice = 1000,
-    detcorrectionchoice = TRUE,
-    keepfiltereddata = FALSE,
-    print_summary = FALSE,
-    with_plots = FALSE
-  )
-```
-
-For efficient interactive use of this package, the default setting of `csUTh()` is to produce a panel plot as seen in Figure \@ref(fig:csfigure). The setting `with_plots = FALSE` prevents plots from being generated which is more useful when the function is part of a longer sequence of code. The function runs faster when not producing pots, which is helpful when replicating many runs. 
-
-When run on the R console, this function will print a confirmation that the input data frame has the required columns, and print the resulting age value with an error reported as the 67% and 33% quantiles, for example:
-
-```
-All required columns are present in the input data
-[1] "Mean age:  117.1 +/- 3.7  ka"
-```
-
-The function returns a data frame with the age, error and summary output for each measurement, as shown in Table \@ref(tab:panoutput)
-
-```{r panoutput, results="asis", echo = FALSE, eval=TRUE}
-# inspect the data frame produced by importing the CSV file
-options(xtable.floating = TRUE,
-        xtable.comment = FALSE)
-
-cs_output_tbl <-
-cs_output %>%
-  xtable(
-         digits = c(1,3,3,4,4,4),
-         caption = "\\label{tab:panoutput}Output produced by the csUTh function used with data from Pan et al. 2018")
-
-align(cs_output_tbl) <- rep("c", ncol(cs_output_tbl) + 1)
-
-print(cs_output_tbl,
-        method = 'compact',
-        include.rownames = FALSE,
-        rotate.colnames = TRUE)
-```
-
-The results can be visualised...
-
-```{r csuthviz1, echo=FALSE}
-p2 <- initial_234U_238U_plot(cs_output)
-p1 <- ages_plot(cs_output)
-```
-
-```{r csuthviz2, echo=FALSE}
-png("figures/cs-panel-fig.png", res = 300, h = 12, w = 15, units = "cm")
-cowplot::plot_grid(p1, p2, 
-                   ncol = 2,
-                   labels = "AUTO")
-dev.off()
-```
-
-(ref:csuthvizfigcap) Example of the visualisations produced by the `csUTh()` function, using the demonstration run described avove. A: ????, B: ????
-
-```{r csuthvizfig, out.width = "95%", fig.cap="(ref:csuthvizfigcap)", echo = FALSE, eval = TRUE}
-include_graphics("figures/cs-panel-fig.png")
-```
 
 ## Open-system U-Th dating
 
@@ -315,7 +250,7 @@ The `iDAD.position` column corresponds to the coordinates of the (^234^U/^238^U)
 
 Columns `U_ppm` and `U_ppm_Int2SE` are the calculated uranium concentrations (in ppm) and their 2$\sigma$ errors. Uranium concentrations are not necessary for the model but needed to display the U concentration profile in a figure.
 
-# Details of the input parameters of open-system analysis 
+### Details of the input parameters of open-system analysis 
 
 Our key function, `osUTh()` has several arguments that need to be set before meaningful results can be obtained:
 
@@ -335,9 +270,84 @@ Our key function, `osUTh()` has several arguments that need to be set before mea
 
 After setting the `U480` maximum and minimum values, run the function and adjust these min and max values by looking at the calculated `U48_0_final`, `K_final`, and `T_final`. Adjust `T_min` and `T_max` using first estimates of the age. As we iterate, increase the `nbit` value to reduce the error.
 
+# How to run the models
+
+## Closed-system dating
+
+Assuming that the package is attached with `library(UThwigl)`, as shown above, and the data have been imported to the working environment as noted above, run `csUTh()`, specifying the input data frame and the input parameters as described above. The code block below shows a typical example that will execute in less than five seconds on a typical 2.3 GHz Intel Core i5 laptop:  
+
+```{r cs-model-output, results='hide'}
+# Solve for sample YP003
+cs_output <-
+  csUTh(
+    Pan2018,
+    sample_name = 'YP003',
+    nbitchoice = 100,
+    detcorrectionchoice = TRUE,
+    keepfiltereddata = FALSE,
+    print_summary = TRUE,
+    with_plots = TRUE
+  )
+```
+
+For efficient interactive use of this package, the default setting of `csUTh()` is to produce a panel plot as seen in Figure \@ref(fig:csuthvizfig). The setting `with_plots = FALSE` prevents plots from being generated which is more useful when the function is part of a longer sequence of code. The function runs faster when not producing pots, which is helpful when replicating many runs. 
+
+When run on the R console, this function will print a confirmation that the input data frame has the required columns, and print the resulting mean age value of several analyses on a single sample, with an error reported as 2 Standard Error, for example:
+
+```
+All required columns are present in the input data
+[1] "Mean age:  117.1 +/- 3.7  ka"
+```
+
+`print_summary` should be set to `FALSE` if ages computed are not for analyses of the same sample, since this mean age would be meaningless. 
+
+The function returns a data frame with the age, error and summary output for each measurement, as shown in Table \@ref(tab:panoutput)
+
+```{r panoutput, results="asis", echo = FALSE, eval=TRUE}
+# inspect the data frame produced by importing the CSV file
+options(xtable.floating = TRUE,
+        xtable.comment = FALSE)
+
+cs_output_tbl <-
+cs_output %>%
+  xtable(
+         digits = c(1,3,3,4,4,4),
+         caption = "\\label{tab:panoutput}Output produced by the csUTh function used with data from Pan et al. 2018")
+
+align(cs_output_tbl) <- rep("c", ncol(cs_output_tbl) + 1)
+
+print(cs_output_tbl,
+        method = 'compact',
+        include.rownames = FALSE,
+        rotate.colnames = TRUE)
+```
+
+The results can be visualised...
+
+```{r csuthviz1, echo=FALSE}
+p2 <- initial_234U_238U_plot(cs_output)
+p1 <- ages_plot(cs_output)
+```
+
+```{r csuthviz2, echo=FALSE}
+png("figures/cs-panel-fig.png", res = 300, h = 12, w = 15, units = "cm")
+cowplot::plot_grid(p1, p2, 
+                   ncol = 2,
+                   labels = "AUTO")
+dev.off()
+```
+
+(ref:csuthvizfigcap) Example of the visualisations produced by the `csUTh()` function, using the demonstration run described avove. A: ????, B: ????
+
+```{r csuthvizfig, out.width = "95%", fig.cap="(ref:csuthvizfigcap)", echo = FALSE, eval = TRUE}
+include_graphics("figures/cs-panel-fig.png")
+```
+
+
+
 \newpage
 
-# How to run the open-system model
+## Open-system dating
 
 Attach the package as shown above and then run `osUTh()`, specifying the input data frame and the input parameters as described above. The code block below shows a quick example that will execute in less than five seconds on a typical 2.3 GHz Intel Core i5 laptop:  
 
@@ -373,7 +383,11 @@ In a typical analysis the user will explore the model fit by first running the m
 
 \newpage
 
-## Inspecting the open-system model's output
+# Inspecting the models' output
+
+## Closed-system dating
+
+## Open-system dating
 
 `T_final`, `K_final` and `U48_0_final` are included in the model's output, along with their uncertainties. The function also includes a one-row data frame summarising the age:  
 
@@ -417,7 +431,11 @@ print(output_data_table,
 
 \newpage
 
-## Visualising the open-system model's output
+# Visualising the models' output
+
+## Closed-system dating
+
+## Open-system dating
 
 `osUTh()` returns several figures useful for visualisation of the model results along with the data:
 
@@ -470,7 +488,11 @@ include_graphics("figures/demo-panel-fig.png")
 
 \newpage
 
-# Case study of two ages from Sutikna et al. 2016
+# Case studies
+
+## Closed-system dating - Case study from Pan et al. 2018
+
+## Open-system dating - Case study of two ages from Sutikna et al. 2016
 
 The package includes two sample data sets derived from @Sutikna2016 : "Hobbit_MH2T_for_iDAD.csv" is data from transect 2 for modern human femur 132A/LB/27D/03 (shown above in Table \@ref(tab:hobbitone)). "Hobbit_1-1T_for_iDAD.csv" is data from transect 1 for *Homo floresiensis* ulna LB1/52 (Table \@ref(tab:table-human)). For the latter, six analyses were removed from the set as in @Sutikna2016.
 
@@ -493,7 +515,7 @@ print(Hobbit_1_1T_for_iDAD_tbl,
 
 ```
 
-## Age of the modern human remains from Sutikna et al. 2016
+### Age of the modern human remains from Sutikna et al. 2016
 
 For transect 2 of 132A/LB/27D/03, Sutikna et al. [-@Sutikna2016] reported an age of 7.4 $\pm$ 0.5 ka (thousand years before 2014). With UThwigl, we first run the model with `nbit` = 1, `fsum_target` = 0.05, `U48_0_min` and `U48_0_max` = 1.25 and 1.3, respectively, `l` = 5.35 cm, `U_0` = 25 ppm, `K_min` and `K_max` = 10^-13^ and 10^-11^ cm^2^/s, respectively, `T_min` and `T_max` = 10^3^ and 500x10^3^ yr, respectively. `U48_0_min` and `U48_0_max` are determined by considering the measured (^234^U/^238^U) values near the surfaces of the sample. `T_min` and `T_max` values were chosen such that no a priori knowledge of the age biases the results.
 
@@ -599,7 +621,7 @@ include_graphics("figures/plot-panel-second-run-modern.png")
 
 \FloatBarrier
 
-## Age of the *Homo floresiensis* remains from Sutikna et al. 2016
+### Age of the *Homo floresiensis* remains from Sutikna et al. 2016
 
 ```{r model-output-hobbit, results='hide', echo=FALSE}
 output_hobbit <- osUTh(Hobbit_1_1T_for_iDAD,
