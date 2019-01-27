@@ -3,7 +3,7 @@ context("test-uthwigl-osUTh-tests")
 data("Hobbit_MH2T_for_iDAD")
 
 suppressMessages(png(filename = "test-osUTh.png")) # capture the plot
-output <- suppressMessages(osUTh(Hobbit_MH2T_for_iDAD,
+output_os <- suppressMessages(osUTh(Hobbit_MH2T_for_iDAD,
                    nbit = 10, # to make the tests run fast
                    fsum_target = 0.01,
                    U48_0_min = 1.265,
@@ -16,12 +16,13 @@ output <- suppressMessages(osUTh(Hobbit_MH2T_for_iDAD,
                    T_max = 20e3,
                    print_summary = FALSE,
                    with_plots = TRUE))
+print(output_os$plots)
 suppressMessages(dev.off()) # finish capturing the plot
 
 # here are the tests:
 
 test_that("osUTh() returns a list", {
-  expect_true(is.list(output))
+  expect_true(is.list(output_os))
 })
 
 test_that("osUTh() returns a plot", {
@@ -32,12 +33,12 @@ test_that("osUTh() returns a plot", {
 
 test_that("osUTh() returns sensible values for the age", {
   
-  expect_equal(output$results$`Age (ka)`, 7.1, tolerance = 1)
+  expect_equal(output_os$results$`Age (ka)`, 7.1, tolerance = 1)
 })
 
 test_that("osUTh() returns sensible values for T_final", {
   
-  expect_equal(output$T_final, 7100, tolerance = 1000)
+  expect_equal(output_os$T_final, 7100, tolerance = 1000)
 })
 
 

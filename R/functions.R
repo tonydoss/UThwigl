@@ -355,7 +355,8 @@ if(print_summary) {
                   K_final = K_final,
                   T_sol = T_sol_df,
                   U48_0_final = U48_0_final,
-                  output_data = output_data))
+                  output_data = output_data,
+                  plots = NULL))
   
 # plot or not? ------------------------------------
 if(with_plots){
@@ -374,7 +375,7 @@ if(with_plots){
               labels = "AUTO",
               ncol = 2)
   
-  output <- list(output, plots = p1)
+  output$plots <-  p1
   message("Done.")
   
 }else {
@@ -785,15 +786,16 @@ csUTh <- function(input_data,
   }
   
   # simplify output
-  output <- plotdata[,c(1, 16:19)]
+  output <- list(results = NULL, plots = NULL)
+  output$results <- plotdata[,c(1, 16:19)]
   
   # plot initial (234U/238U)
-
   
   # draw plots
   
   # plot or not? ------------------------------------
   if(with_plots){
+    message("Drawing plots...")
     
     p2 <- initial_234U_238U_plot(output)
     
@@ -801,16 +803,20 @@ csUTh <- function(input_data,
     p1 <- ages_plot(output)
     
     # draw plots in a panel
-  print(cowplot::plot_grid(p1, p2, ncol = 2))
+  p3 <- cowplot::plot_grid(p1, p2, ncol = 2)
+  
+  output$plots <-  p3
+  message("Done.")
+  
   } else {
     # don't draw plots
   }
   
   if(print_summary){
   
-  print(paste('Mean age: ',round(mean(output$`Age (ka)`, na.rm = TRUE),1),
-              '+/-', round(2*sd(output$`Age (ka)`, na.rm = TRUE)/
-                             sqrt(length(output$`Age (ka)`)), 1), ' ka'))
+  print(paste('Mean age: ',round(mean(output$results$`Age (ka)`, na.rm = TRUE),1),
+              '+/-', round(2*sd(output$results$`Age (ka)`, na.rm = TRUE)/
+                             sqrt(output$results$`Age (ka)`), 1), ' ka'))
   } else {
     # don't print anything
   }
@@ -848,7 +854,7 @@ initial_234U_238U_plot <- function(output,
     theme(panel.grid.major = element_blank(),
           panel.grid.minor = element_blank())
   
-  ggplot(output, aes(`Sample ID`, `(234U/238U)i`)) + # plot ages
+  ggplot(output$results, aes(`Sample ID`, `(234U/238U)i`)) + # plot ages
   geom_errorbar(aes(ymin = (`(234U/238U)i` - `Ratio 2se`),
                     ymax = (`(234U/238U)i` + `Ratio 2se`)), 
                 width=0.1) + # plot error bars
@@ -886,7 +892,7 @@ ages_plot <- function(output,
     theme(panel.grid.major = element_blank(),
           panel.grid.minor = element_blank())
   
-  ggplot(output, aes(`Sample ID`, `Age (ka)`)) + # plot ages
+  ggplot(output$results, aes(`Sample ID`, `Age (ka)`)) + # plot ages
   geom_errorbar(aes(ymin = (`Age (ka)` - `Age 2se`),
                     ymax = (`Age (ka)` + `Age 2se`)), 
                 width=0.1) + # plot error bars
