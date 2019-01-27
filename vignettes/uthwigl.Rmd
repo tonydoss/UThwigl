@@ -140,7 +140,7 @@ Our package provides the fuction `csUTh()` for closed-system U-Th dating. Data f
 - `Th232_U238_CORR`
 - `Th232_U238_CORR_Int2SE`
 
- To help with preparing data for input into our function, we have included an example of an input file, taken from @RN5108. Inspecting the included data sets will be helpful for understanding how to prepare new data to prepare for use with this package. After attaching the package, we can access the built-in datasets with the `data()` function, like this:
+ To help with preparing data for input into our function, we have included an example of an input file, taken from Pan et al. [-@RN5108]. Inspecting the included data sets will be helpful for understanding how to prepare new data to prepare for use with this package. After attaching the package, we can access the built-in datasets with the `data()` function, like this:
 
 ```{r}
 # access the data included in the UThwigl package
@@ -286,7 +286,7 @@ cs_output <-
     detcorrectionchoice = TRUE,
     keepfiltereddata = FALSE,
     print_summary = TRUE,
-    with_plots = FALSE
+    with_plots = TRUE
   )
 ```
 
