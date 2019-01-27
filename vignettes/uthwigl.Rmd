@@ -356,7 +356,7 @@ include_graphics("figures/cs-panel-fig.png")
 
 Attach the package as shown above and then run `osUTh()`, specifying the input data frame and the input parameters as described above. The code block below shows a quick example that will execute in less than five seconds on a typical 2.3 GHz Intel Core i5 laptop:  
 
-```{r model-output, results='hide'}
+```{r model-output}
 output <- osUTh(data_file,
                    nbit = 1000,
                    fsum_target = 0.01,

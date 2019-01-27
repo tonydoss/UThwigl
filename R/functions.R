@@ -359,6 +359,7 @@ if(print_summary) {
   
 # plot or not? ------------------------------------
 if(with_plots){
+  message("Drawing plots...")
   # draw plots in a panel
   T_sol_plot_output <- T_sol_plot(output)
   u_conc_profile_plot_output <- u_conc_profile_plot(output)
@@ -373,7 +374,8 @@ if(with_plots){
               labels = "AUTO",
               ncol = 2)
   
-  print(p1)
+  output <- list(output, plots = p1)
+  message("Done.")
   
 }else {
   # don't plot anything
