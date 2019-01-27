@@ -48,6 +48,7 @@ opts_chunk$set(message = FALSE,
 
 library(dplyr)
 library(xtable)
+library(ggplot2)
 ```
 
 \newpage
@@ -88,7 +89,6 @@ The distance of each analysis location from the inner and outer surfaces of the 
 
 
 ```{r femurpic, out.width = "95%", fig.cap="(ref:femurpiccap)", echo = FALSE, eval = TRUE}
-library(knitr)
 include_graphics("figures/bone.png")
 ```
 
