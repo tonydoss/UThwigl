@@ -40,6 +40,7 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
+
 ```{r setup, echo=FALSE, message=FALSE, warning = FALSE}
 library(knitr)
 opts_chunk$set(message = FALSE,
@@ -58,7 +59,8 @@ Uranium-thoriumg (U-Th) dating has revolutionised Quaternary science and archaeo
 
 Closed-system U-Th dating has been successfully applied to a range of carbonates, from corals [@RN4495] to speleothems [@RN4494]. In corals and most speleothems, detrital correction is minimal; however, it can be significant when dating pedogenic carbonates, for instance [@RN801]. In this case, detrital correction can be performed using the measured or assumed composition of the detrital fraction [e.g. @RN4370]. Alternatively, isochron techniques can be applied [@RN2155]; the latter are beyond the scope of this article but IsoPlot is a commonly used software for isochron calculations and other geochronological applications [@RN2163].
 
-Closed-system conditions are seldom met in teeth and bones (although enamel can sometimes be quite impervious to isotope gain or loss). Thus, for teeth and bone, U-Th dating requires to take into account open system behaviour. The diffusion-adsorption-decay (DAD) model developed by Sambridge et al. [-@Sambridge2012] was instrumental to implement successfully open-system U-Th dating. It allows for advective and diffusive transport of uranium and thorium isotopes, while include synchronous radioactive decay. The software implementation was written in Fortran and is available as a Java GUI (<http://www.iearth.org.au/codes/iDaD/>). 
+Closed-system conditions are seldom met in teeth and bones (although enamel can sometimes be quite impervious to isotope gain or loss). Thus, for teeth and bone, U-Th dating requires to take into account open system behaviour. The diffusion-adsorption-decay (DAD) model developed by Sambridge et al. [-@Sambridge2012] was instrumental to implement successfully open-system U-Th dating. It allows for advective and diffusive transport of uranium and thorium isotopes, while include synchronous radioactive decay. The software implementation was written in Fortran and is available as a Java GUI (<http://www.iearth.org.au/codes/iDaD/>).  
+
 Open-system U-Th dating of teeth and bones, while challenging, has provided quantitative ages for human and faunal remains [@Eggins2005; @Gruen2014; @Sambridge2012]. Thus, this approach has significantly improved our understanding of human evolution [e.g. @Dirks2017; @Sutikna2016]. 
 
 In this article, we propose a R package which offers functions to perform closed-system, `csUTh()`, and open-system, `osUTh()`, U-Th age calculations. The former implements formulations given in Ludwig [-@RN4370] while the latter applies the Diffusion-Adsorption-Decay (DAD) model of Sambridge et al. [-@Sambridge2012].
@@ -71,9 +73,11 @@ To enable re-use of our materials and improve reproducibility and transparency, 
 # Methods
 
 ## Closed-system dating
+
 Pending closed-system behaviour can be assessed, it is possible to derive an age for each U-Th analysis. The closed-system function `csUTh()` requires that for each analysis to yield an age, (^234^U/^238^U), (^230^Th/^238^U) and (^232^Th/^238^U) activity ratios are measured (parentheses denote activity ratios throughout this article). The (^232^Th/^238^U) activity ratio is required for detrital correction (although it is needed to use `csUTh()` whether the detrital correction is performed or not).
 
 ## Open-system dating
+
 Data required for the DAD model are (^230^Th/^238^U) and (^234^U/^238^U) activity ratios collected along a transect perpendicular to the surface of the tooth or bone. Sampling for analysis can be done by micro-drilling or laser ablation. If the former, aliquots are then dissolved, followed by separation of U and Th using ion exchange chromatography. This is more time consuming (at least one week of work) than laser ablation, where the material sampled by the laser is directly sent to the mass spectrometer.
 
 While laser ablation also offers a better spatial resolution than micro-drilling, the precision of the data is inferior because of the much smaller amount of material sampled. Uranium and thorium isotope ratios are then analysed by multi-collector inductively-coupled plasma mass spectrometry. A plasma ionise all U and Th atoms, their isotopes are separated through a magnetic field and each collected in a different collector. If using laser ablation, it is best to have two ion counters so ^230^Th and ^234^U can be collected simultaneously.
@@ -81,6 +85,7 @@ While laser ablation also offers a better spatial resolution than micro-drilling
 The distance of each analysis location from the inner and outer surfaces of the bones, for instance, needs to be recorded. One surface is given a coordinate of 1 and the other one -1, thus coordinates of analyses take values in between (Figure \@ref(fig:femurpic)).
 
 (ref:femurpiccap) Modern human femur (132A/LB/27D/03) from Liang Bua, Flores, Indonesia. Two analysis transects can be seen. For a given transect, the outer and inner surface of the bone are given 1 and -1 reference coordinates, and the position of each analysis is calculated accordingly. Modified from Sutikna et al. [-@Sutikna2016].
+
 
 ```{r femurpic, out.width = "95%", fig.cap="(ref:femurpiccap)", echo = FALSE, eval = TRUE}
 library(knitr)
@@ -106,7 +111,6 @@ The second way to use the package is with Binder, a browser-based instance of R 
 ```{r binderfig, out.width = "95%", fig.cap="(ref:binderfigcap)", echo = FALSE, eval = TRUE}
 include_graphics("figures/binder.png")
 ```
-
 The third method is to download and install the package locally to the user's computer, and work with it in the user's local installation of R and RStudio. This method requires some familiarity with R, but gives the most flexibility when working with the model because we are not limited by the memory and compute time of the cloud services. Our recommendation is to use Binder or a local installation of UThwigl because then the user can save an R script file that includes the name of the input file, the specific parameters used to generate the model output, and any downstream processing and visualisation. This script file and the CSV file can then be archived in a data repository to ensure long-term accessibility for other researchers. In the following sections we demonstrate the use of UThwigl with a local installation of R and RStudio. 
 
 # Installing and attaching the package
@@ -157,6 +161,7 @@ Pan2018 <-
   read.csv('data/Pan2018.csv')
 ```
 
+
 Table \@ref(tab:pan) shows the data contained in the `Pan2018.csv` file included in the package.
 
 ```{r pan, results="asis", echo = FALSE, eval=TRUE}
@@ -168,7 +173,7 @@ Pan2018_tbl <-
 Pan2018 %>%
   xtable(
          digits = c(1,3,3,3,3,3,3, 5),
-         caption = "\\label{tab:hobbitone}Data contained in the example CSV file Pan2018.csv included in the package")
+         caption = "\\label{tab:pan}Data contained in the example CSV file Pan2018.csv included in the package")
 
 align(Pan2018_tbl) <- rep("c", ncol(Pan2018_tbl) + 1)
 
@@ -286,7 +291,7 @@ cs_output <-
     detcorrectionchoice = TRUE,
     keepfiltereddata = FALSE,
     print_summary = TRUE,
-    with_plots = TRUE
+    with_plots = FALSE
   )
 ```
 
@@ -720,3 +725,4 @@ The current Git commit details are:
 ```{r}
 # git2r::repository(here::here())
 ```
+
