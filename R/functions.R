@@ -57,10 +57,13 @@ its version number. Find it with 'help(package=UThwigl)'.
 #' @param T_max The maximum value for the age of the specimen (yr)
 #' @param print_summary Print a summary of the output to the console? Default is TRUE
 #' @param with_plots Display a panel of plots of the output? Default is TRUE
+#' @param save_plots Save plots as a png file to the current working directory? Default: TRUE
+#' 
 #' 
 #' @importFrom cowplot plot_grid
 #' @importFrom stats median quantile runif 
 #' @importFrom utils ? 
+#' @importFrom grDevices dev.off png
 #'
 #' @return A list of results
 #' @export
@@ -95,7 +98,8 @@ osUTh <- function(input_data,
                      T_min = 1e3, # Hobbit_1-1T: 50e3; Hobbit_MH2T: 1e3
                      T_max = 20e3, # Hobbit_1-1T: 100e3; Hobbit_MH2T: 20e3
                      print_summary = TRUE,
-                     with_plots = TRUE
+                     with_plots = TRUE,
+                     save_plots = TRUE
                      
                             
                      
@@ -378,6 +382,18 @@ if(with_plots){
   output$plots <-  p1
   message("Done.")
   
+  if(save_plots){
+    
+    plot_file_name <- "output_os.png"
+    message(paste0("Saving plots to ", getwd(), ", look for '", plot_file_name, "'" ))
+    png(plot_file_name, width = 15, height = 15, units = "cm", res = 300 )
+    print(output$plots)
+    dev.off()
+    
+  } else {
+    # don't save plots
+  }
+  
 }else {
   # don't plot anything
 }
@@ -600,9 +616,11 @@ th230_u238_ratio_plot <-  function(output,
 #' @param keepfiltereddata Save filtered data on which an outlier test was performed? Only recommended if all analyses of a same sample are supposed to give the same age. Enter TRUE for yes, or FALSE for no. Default: FALSE
 #' @param print_summary Print a summary of the output to the console? Default: TRUE
 #' @param with_plots Draw plots? Default: TRUE
+#' @param save_plots Save plots as a png file to the current working directory? Default: TRUE
 #' 
 #' @import deSolve ggplot2
 #' @importFrom stats IQR optim sd
+#' @importFrom grDevices dev.off png
 #' 
 #' @examples 
 #' data("Pan2018")
@@ -628,7 +646,8 @@ csUTh <- function(input_data,
                   R48det_err = 0.02,
                   keepfiltereddata = FALSE,
                   print_summary = TRUE,
-                  with_plots = TRUE
+                  with_plots = TRUE,
+                  save_plots = TRUE
 ){
   
   # check that the input data frame has the columns with the right names
@@ -797,15 +816,30 @@ csUTh <- function(input_data,
   if(with_plots){
     message("Drawing plots...")
     
-    p2 <- initial_234U_238U_plot(output)
+    p2 <- initial_234U_238U_plot(output) +
+      theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5))
     
     # plot ages
-    p1 <- ages_plot(output)
+    p1 <- ages_plot(output) +
+      theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5))
     
     # draw plots in a panel
   p3 <- cowplot::plot_grid(p1, p2, ncol = 2)
   
   output$plots <-  p3
+  
+  if(save_plots){
+    
+    plot_file_name <- "output_cs.png"
+    message(paste0("Saving plots to ", getwd(), ", look for '", plot_file_name, "'"))
+    png(plot_file_name, width = 15, height = 10, units = "cm", res = 300 )
+    print(output$plots)
+    dev.off()
+    
+  } else {
+    # don't save plots
+  }
+  
   message("Done.")
   
   } else {
@@ -813,10 +847,11 @@ csUTh <- function(input_data,
   }
   
   if(print_summary){
-  
+    
   print(paste('Mean age: ',round(mean(output$results$`Age (ka)`, na.rm = TRUE),1),
-              '+/-', round(2*sd(output$results$`Age (ka)`, na.rm = TRUE)/
-                             sqrt(output$results$`Age (ka)`), 1), ' ka'))
+                '+/-', round(2*sd(output$results$`Age (ka)`, na.rm = TRUE)/
+                               sqrt(length(output$results$`Age (ka)`)), 1), ' ka'))
+    
   } else {
     # don't print anything
   }

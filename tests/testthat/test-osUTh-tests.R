@@ -2,7 +2,6 @@ context("test-uthwigl-osUTh-tests")
 
 data("Hobbit_MH2T_for_iDAD")
 
-suppressMessages(png(filename = "test-osUTh.png")) # capture the plot
 output_os <- suppressMessages(osUTh(Hobbit_MH2T_for_iDAD,
                    nbit = 10, # to make the tests run fast
                    fsum_target = 0.01,
@@ -15,9 +14,8 @@ output_os <- suppressMessages(osUTh(Hobbit_MH2T_for_iDAD,
                    T_min = 1e3,
                    T_max = 20e3,
                    print_summary = FALSE,
-                   with_plots = TRUE))
-print(output_os$plots)
-suppressMessages(dev.off()) # finish capturing the plot
+                   with_plots = TRUE,
+                   save_plots = TRUE))
 
 # here are the tests:
 
@@ -26,7 +24,7 @@ test_that("osUTh() returns a list", {
 })
 
 test_that("osUTh() returns a plot", {
-  expect_true(file.exists("test-osUTh.png"))
+  expect_true(file.exists("output_os.png"))
 })
 
 # these tests below may fail is the tolerance is set too low:
@@ -43,4 +41,4 @@ test_that("osUTh() returns sensible values for T_final", {
 
 
 # delete the plot after testing
-file.remove("test-osUTh.png")
+file.remove("output_os.png")

@@ -7,7 +7,8 @@
 csUTh(input_data, sample_name = "YP003", nbitchoice = 100,
   detcorrectionchoice = TRUE, R28det = 0.8, R28det_err = 0.08,
   R08det = 1, R08det_err = 0.05, R48det = 1, R48det_err = 0.02,
-  keepfiltereddata = FALSE, print_summary = TRUE, with_plots = TRUE)
+  keepfiltereddata = FALSE, print_summary = TRUE, with_plots = TRUE,
+  save_plots = TRUE)
 }
 \arguments{
 \item{input_data}{Input data frame. The following columns need to be present in this data frame, with these exact names: Sample_ID, U234_U238_CORR, U234_U238_CORR_Int2SE, Th230_U238_CORR, Th230_U238_CORR_Int2SE, Th232_U238_CORR, Th232_U238_CORR_Int2SE.}
@@ -35,6 +36,8 @@ csUTh(input_data, sample_name = "YP003", nbitchoice = 100,
 \item{print_summary}{Print a summary of the output to the console? Default: TRUE}
 
 \item{with_plots}{Draw plots? Default: TRUE}
+
+\item{save_plots}{Save plots as a png file to the current working directory? Default: TRUE}
 }
 \description{
 csUTh calculates closed-system Th-230/U ages, including detrital correction.
