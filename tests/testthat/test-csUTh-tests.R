@@ -1,9 +1,7 @@
 context("test-uthwigl-csUTh-tests")
 
 data("Pan2018")
- # Only solve for sample MK16
 
-suppressMessages(png(filename = "test-csUTh.png")) # capture the plot
 output_cs <-
   suppressMessages(csUTh(
     Pan2018,
@@ -11,10 +9,11 @@ output_cs <-
     nbitchoice = 10,
     detcorrectionchoice = TRUE,
     keepfiltereddata = FALSE,
-    print_summary = FALSE
+    print_summary = FALSE,
+    with_plots = TRUE,
+    save_plots = TRUE
   ))
-print(output_cs$plots)
-suppressMessages(dev.off()) # finish capturing the plot
+
 
 # here are the tests:
 
@@ -23,7 +22,7 @@ test_that("csUTh() returns a list", {
 })
 
 test_that("csUTh() returns a plot", {
-  expect_true(file.exists("test-csUTh.png"))
+  expect_true(file.exists("output_cs.png"))
 })
 
 # these tests below may fail is the tolerance is set too low:
@@ -40,4 +39,4 @@ test_that("csUTh() returns sensible values for (234U/238U)i", {
 
 
 # delete the plot after testing
-file.remove("test-csUTh.png")
+file.remove("output_cs.png")

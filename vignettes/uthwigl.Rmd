@@ -305,7 +305,8 @@ output_cs <-
     detcorrectionchoice = TRUE,
     keepfiltereddata = FALSE,
     print_summary = TRUE,
-    with_plots = TRUE
+    with_plots = TRUE,
+    save_plots = TRUE
   )
 ```
 
@@ -369,7 +370,8 @@ output_os <- osUTh(data_file,
                    K_max = 1e-11,
                    T_min = 1e3,
                    T_max = 20e3,
-                   with_plots = TRUE)
+                   with_plots = TRUE,
+                   save_plots = TRUE)
 ```
 
 The default setting of `osUTh()` is to produce a panel plot as seen in Figure \@ref(fig:demopanelfig)(Figure \@ref(fig:demopanelfig). The setting `with_plots = FALSE` prevents plots from being generated which is more useful when the function is part of a longer sequence of code. The function runs faster when not producing pots, which is helpful when replicating many runs. 

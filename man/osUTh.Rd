@@ -7,7 +7,7 @@
 osUTh(input_data, nbit = 1, fsum_target = 0.01, U48_0_min = 1.265,
   U48_0_max = 1.275, l = 5.35, U_0 = 25, K_min = 1e-13,
   K_max = 1e-11, T_min = 1000, T_max = 20000, print_summary = TRUE,
-  with_plots = TRUE)
+  with_plots = TRUE, save_plots = TRUE)
 }
 \arguments{
 \item{input_data}{A data frame with the required columns}
@@ -35,6 +35,8 @@ osUTh(input_data, nbit = 1, fsum_target = 0.01, U48_0_min = 1.265,
 \item{print_summary}{Print a summary of the output to the console? Default is TRUE}
 
 \item{with_plots}{Display a panel of plots of the output? Default is TRUE}
+
+\item{save_plots}{Save plots as a png file to the current working directory? Default: TRUE}
 }
 \value{
 A list of results
