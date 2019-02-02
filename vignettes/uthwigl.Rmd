@@ -65,7 +65,7 @@ Closed-system conditions are seldom met in teeth and bones (although enamel can 
 Open-system U-Th dating of teeth and bones, while challenging, has provided quantitative ages for human and faunal remains [@Eggins2005; @Gruen2014; @Sambridge2012]. Thus, this approach has significantly improved our understanding of human evolution [e.g. @Dirks2017; @Sutikna2016]. 
 
 In this article, we propose a R package which offers functions to perform closed-system, `csUTh()`, and open-system, `osUTh()`, U-Th age calculations. The former implements formulations given in Ludwig [-@RN4370] while the latter applies the Diffusion-Adsorption-Decay (DAD) model of Sambridge et al. [-@Sambridge2012].
-The motivation for providing an R package is to increase the transparency, reproducibility, and flexibility of the analytical workflow for computing U-Th ages. In particular, for open-system Currently it is difficult to include the Java GUI in a fully scripted data analysis so the method for computing the DAD model is not highly transparent. This can obscure steps where key decisions are made that are important for others to see to verify the reliability of the analysis. Enabling a scripted workflow for computational analysis of geoscience data is important for improving the reproducibiltiy of results. Reproducibility refers the ability to recreate the results or retest the hypotheses leading to a scientific claim, either by rerunning the same code used by the original authors, or by writing new code. High rates of irreproducibility of research results have been estimated in several fields and disciplines [@academy2015reproducibility; @freedman2015economics; @global2013case;  @ioannidis2005most; @open2015estimating; @camerer2018evaluating; @Camerer1433]. Consequently, the transparency, openness, and reproducibility of results and methods are receiving increased attention, and the norms of research in many fields are changing [@nosek2015promoting; @miguel2014promoting; @Marwick2016repro].
+The motivation for providing an R package is to increase the transparency, reproducibility, and flexibility of the analytical workflow for computing U-Th ages. For instance, with open-system dating, it is difficult to include the Java GUI in a fully scripted data analysis so the method for computing the DAD model is not highly transparent. This can obscure steps where key decisions are made that are important for others to see to verify the reliability of the analysis. Enabling a scripted workflow for computational analysis of geoscience data is important for improving the reproducibiltiy of results. Reproducibility refers the ability to recreate the results or retest the hypotheses leading to a scientific claim, either by rerunning the same code used by the original authors, or by writing new code. High rates of irreproducibility of research results have been estimated in several fields and disciplines [@academy2015reproducibility; @freedman2015economics; @global2013case;  @ioannidis2005most; @open2015estimating; @camerer2018evaluating; @Camerer1433]. Consequently, the transparency, openness, and reproducibility of results and methods are receiving increased attention, and the norms of research in many fields are changing [@nosek2015promoting; @miguel2014promoting; @Marwick2016repro].
 
 There is strong interest in open, transparent, and reusable research in the geoscience community [@Gil_et_al_2016] and substantial progress toward open data has been made in the geosciences with the widespread use of data services of NASA, USGS, NOAA and community-built data portals such as OneGeology, EarthChem, RRUFF, PANGAEA, PaleoBioDB, and others [@Kattge_Diaz_Wirth_2014; @ma2018data]. However, the use of open source software such as R [@Pebesma_Nust_Bivand_2012], and sharing of scripted data analysis workflows with research publications is not yet widespread [@Hutton_et_al_2016]. With this R package our goal is to make scripted and reproducible data analysis easy for open-system uranium-thorium dating. This will improve the transparency of geochronology research, and provide a more credible and robust foundation for scientific advancement [@Hutton_et_al_2016].
 
@@ -73,15 +73,20 @@ To enable re-use of our materials and improve reproducibility and transparency, 
 
 # Methods
 
+For U-Th dating, two types of analysis are possible: bulk or in-situ. For bulk analysis, a fraction of the samples is dissolved and the solution processed through ion exchange chromatography to separate U and Th [e.g. @RN2951]. Each element is then analysed separately for their isotope ratios by mass spectrometry.
+For in-situ analysis, laser ablation is commonly used [@Eggins2005]. In this case, a laser with a spot size ranging from a few \(\mu m\) to several hundreds of \(\mu m\) produces an aerosol which is carried using a gas (helium or preferably a mixture of helium and nitrogen; @RN2257).
+While laser ablation offers a better spatial resolution and is less time consuming than bulk analysis, the precision of the data is inferior because of the much smaller amount of material sampled. 
+
+Uranium and thorium isotope ratios are then analysed by multi-collector inductively-coupled plasma mass spectrometry (e.g. @RN2951; although bulk analysis can also be performed by thermal ionisation mass spectrometry). A plasma ionise U and Th atoms, their isotopes are separated through a magnetic field and each collected in a different collector. If using laser ablation, it is best to have two ion counters so ^230^Th and ^234^U can be collected simultaneously.
+
 ## Closed-system dating
 
-Pending closed-system behaviour can be assessed, it is possible to derive an age for each U-Th analysis. The closed-system function `csUTh()` requires that for each analysis to yield an age, (^234^U/^238^U), (^230^Th/^238^U) and (^232^Th/^238^U) activity ratios are measured (parentheses denote activity ratios throughout this article). The (^232^Th/^238^U) activity ratio is required for detrital correction (although it is needed to use `csUTh()` whether the detrital correction is performed or not).
+Pending closed-system behaviour can be assessed, it is possible to derive an age for each U-Th analysis.
+The closed-system function `csUTh()` requires that for each analysis to yield an age, (^234^U/^238^U), (^230^Th/^238^U) and (^232^Th/^238^U) activity ratios are measured (parentheses denote activity ratios throughout this article). The (^232^Th/^238^U) activity ratio is required for detrital correction (note it is needed to use `csUTh()` whether the detrital correction is performed or not).
 
 ## Open-system dating
 
-Data required for the DAD model are (^230^Th/^238^U) and (^234^U/^238^U) activity ratios collected along a transect perpendicular to the surface of the tooth or bone. Sampling for analysis can be done by micro-drilling or laser ablation. If the former, aliquots are then dissolved, followed by separation of U and Th using ion exchange chromatography. This is more time consuming (at least one week of work) than laser ablation, where the material sampled by the laser is directly sent to the mass spectrometer.
-
-While laser ablation also offers a better spatial resolution than micro-drilling, the precision of the data is inferior because of the much smaller amount of material sampled. Uranium and thorium isotope ratios are then analysed by multi-collector inductively-coupled plasma mass spectrometry. A plasma ionise all U and Th atoms, their isotopes are separated through a magnetic field and each collected in a different collector. If using laser ablation, it is best to have two ion counters so ^230^Th and ^234^U can be collected simultaneously.
+Data required for the DAD model are (^230^Th/^238^U) and (^234^U/^238^U) activity ratios collected along a transect perpendicular to the surface of the tooth or bone. Sampling for analysis can be done by micro-drilling or laser ablation. 
 
 The distance of each analysis location from the inner and outer surfaces of the bones, for instance, needs to be recorded. One surface is given a coordinate of 1 and the other one -1, thus coordinates of analyses take values in between (Figure \@ref(fig:femurpic)).
 
@@ -130,9 +135,9 @@ library(UThwigl)
 
 \newpage
 
-# Input data format
+# Closed-system U-Th dating
 
-## Closed-system U-Th dating
+## Input data format
 
 Our package provides the fuction `csUTh()` for closed-system U-Th dating. Data for this function needs to be in a data frame (a form of table in R) with the following column names:
 
@@ -164,7 +169,7 @@ The code chunk below shows how to read one of the CSV files included in the pack
 
 ```{r, eval = TRUE, echo=TRUE}
 # read in one of the example CSV files included in the package
-Pan2018 <-
+input_data_cs <-
   read.csv('data/Pan2018.csv')
 ```
 
@@ -176,7 +181,7 @@ options(xtable.floating = TRUE,
         xtable.comment = FALSE)
 
 Pan2018_tbl <-
-Pan2018 %>%
+input_data_cs %>%
   xtable(
          digits = c(1,3,3,3,3,3,3, 5),
          caption = "\\label{tab:pan}Data contained in the example CSV file Pan2018.csv included in the package")
@@ -203,95 +208,7 @@ Columns `U234_U238_CORR` and `U234_U238_CORR_Int2SE` are the (^234^U/^238^U) act
 
 `R28det` (0.8) and `R28det_err` (0.08) are the values for the (232Th/238U) activity ratio of the detritus and its standard error (default values in parentheses). Similarly, `R08det` (1) and `R08det_err` (0.05) are the values for the (230Th/238U) activity ratio of the detritus and its standard error, and `R48det` (1) and `R48det_err` (0.02) are the corresponding values for (234U/238U) activity ratio of the detritus.
 
-## Open-system U-Th dating
-
-For open-system U-Th dating we provide the function `osUTh()`, which requires a data frame with the following column names:
-
-- `iDAD.position`
-- `U234_U238_CORR`
-- `U234_U238_CORR_Int2SE`
-- `iDAD.position.1`
-- `Th230_U238_CORR`
-- `Th230_U238_CORR_Int2SE`
-- `U_ppm`
-- `U_ppm_Int2SE`        
-
-We have included two examples of input files. After attaching the package, we can access the built-in datasets with the `data()` function, like this:
-
-```{r}
-# access the data included in the UThwigl package
-data("Hobbit_1_1T_for_iDAD")
-data("Hobbit_MH2T_for_iDAD")
-```
-
-As above, these datasets can be downloaded from the package with `write.csv()`:
-
-```{r eval = FALSE}
-# download the data included in the package
-write.csv(Hobbit_1_1T_for_iDAD, "Hobbit_1_1T_for_iDAD.csv")
-write.csv(Hobbit_MH2T_for_iDAD, "HHobbit_MH2T_for_iDADcsv")
-```
-
-The code chunk below shows how to read one of the CSV files included in the package into the R environment. As above, we assume that the user's working directory contains a directory called `data` and the CSV file is in this `data` directory, and so the data can be imported as follows: 
-
-```{r, eval = TRUE, echo=TRUE}
-# read in one of the example CSV files included in the package
-data_file <-
-  read.csv('data/Hobbit_MH2T_for_iDAD.csv')
-```
-
-\newpage
-
-Table \@ref(tab:hobbitone) shows the data contained in the `Hobbit_MH2T_for_iDAD.csv` file included in the package
-
-```{r hobbitone, results="asis", echo = FALSE, eval=TRUE}
-# inspect the data frame produced by importing the CSV file
-options(xtable.floating = TRUE,
-        xtable.comment = FALSE)
-
-Hobbit_MH2T_for_iDAD_tbl <-
-data_file %>%
-  xtable(
-         digits = c(1,3,3,3,3,3,3,1,1),
-         caption = "\\label{tab:hobbitone}Data contained in the example CSV file Hobbit\\_MH2T\\_for\\_iDAD.csv included in the package")
-
-align(Hobbit_MH2T_for_iDAD_tbl) <- rep("c", ncol(Hobbit_MH2T_for_iDAD_tbl) + 1)
-
-print(Hobbit_MH2T_for_iDAD_tbl,
-        method = 'compact',
-        include.rownames = FALSE,
-        rotate.colnames = TRUE)
-```
-
-As for the closed-system function, the columns `iDAD.position`, `U234_U238_CORR`, `U234_U238_CORR_Int2SE`, `Th230_U238_CORR` and `Th230_U238_CORR_Int2SE` must be present in the input data frame with these exact names for the model to function. The `osUTh()` function will check if the input data frame has these columns, and will stop with an error message if it does not find these columns.
-
-The `iDAD.position` column corresponds to the coordinates of the (^234^U/^238^U) analyses, which as indicated above take values between -1 and 1 (Figure \@ref(fig:femurpic)). The second `iDAD.position.1` column is used if the coordinates of the (^230^Th/^238^U) analyses are different from those of the (^234^U/^238^U) analyses.
-
-Columns `U_ppm` and `U_ppm_Int2SE` are the calculated uranium concentrations (in ppm) and their 2$\sigma$ errors. Uranium concentrations are not necessary for the model but needed to display the U concentration profile in a figure.
-
-### Details of the input parameters of open-system analysis 
-
-Our key function, `osUTh()` has several arguments that need to be set before meaningful results can be obtained:
-
-`nbit` is the number of iterations. For the first run, set to 1.
-
-`fsum_target` is the sum of the squared differences between the calculated and observed activity ratios. Give it a low value to start with (e.g. 0.01). If script takes too long, try a higher value for fsum_target.
-
-`U48_0_min` and `U48_0_max` are the minimum and maximum values allowed for the (^234^U/^238^U) activity ratio at the surface of the sample. Since (^234^U/^238^U) does not vary greatly over the time period generally studied, the values measured near the surface of the sample can be used as a guide. These values can be adjusted if the model fit to the data is not optimal. For Hobbit_1-1T they are taken to be 1.360 and 1.375, and for Hobbit_MH2T, 1.265 and 1.270, respectively.
-
-`l` is the thickness of the sample in centimeters. For Hobbit_1-1T it is 3.5 cm, for Hobbit_MH2T it is 5.35 cm
-
-`U_0` is the uranium concentration at the surface in ppm. This value does not significantly affect the model results and values from analyses near either surface of the sample can be used as a guide. For Hobbit_1-1T it is taken to be 15 ppm; for Hobbit_MH2T, 25 ppm.
-
-`K_min` and `K_max` are the minimum and maximum values allowed for the uranium diffusion coefficient (in cm^2^/s). Values between 10^-13^ and 10^-11^ cm^2^/s are generally appropriate.
-
-`T_min` and `T_max` are the minimum and maximum values for the age of the specimen (yr). If there is no estimated knowledge of the sample age, the range of values can be 1,000 to 500,000 yr and adjusted later. For Hobbit_1-1T, in the final model run, they are taken to be 50,000 and 100,000 yr, and for Hobbit_MH2T, 1,000 and 20,000 yr, respectively.
-
-After setting the `U480` maximum and minimum values, run the function and adjust these min and max values by looking at the calculated `U48_0_final`, `K_final`, and `T_final`. Adjust `T_min` and `T_max` using first estimates of the age. As we iterate, increase the `nbit` value to reduce the error.
-
-# How to run the models
-
-## Closed-system dating
+## How to run the models
 
 Assuming that the package is attached with `library(UThwigl)`, as shown above, and the data have been imported to the working environment as noted above, run `csUTh()`, specifying the input data frame and the input parameters as described above. The code block below shows a typical example that will execute in less than five seconds on a typical 2.3 GHz Intel Core i5 laptop:  
 
@@ -299,7 +216,7 @@ Assuming that the package is attached with `library(UThwigl)`, as shown above, a
 # Solve for sample YP003
 output_cs <-
   csUTh(
-    Pan2018,
+    input_data_cs,
     sample_name = 'YP003',
     nbitchoice = 100,
     detcorrectionchoice = TRUE,
@@ -352,14 +269,106 @@ output_cs$plots
 
 \FloatBarrier
 
+## Inspecting the models' output
+
+
+## Visualising the models' output
+
+
+# Open-system U-Th dating
+## Input data format
+
+For open-system U-Th dating we provide the function `osUTh()`, which requires a data frame with the following column names:
+
+- `iDAD.position`
+- `U234_U238_CORR`
+- `U234_U238_CORR_Int2SE`
+- `iDAD.position.1`
+- `Th230_U238_CORR`
+- `Th230_U238_CORR_Int2SE`
+- `U_ppm`
+- `U_ppm_Int2SE`        
+
+We have included two examples of input files. After attaching the package, we can access the built-in datasets with the `data()` function, like this:
+
+```{r}
+# access the data included in the UThwigl package
+data("Hobbit_1_1T_for_iDAD")
+data("Hobbit_MH2T_for_iDAD")
+```
+
+As above, these datasets can be downloaded from the package with `write.csv()`:
+
+```{r eval = FALSE}
+# download the data included in the package
+write.csv(Hobbit_1_1T_for_iDAD, "Hobbit_1_1T_for_iDAD.csv")
+write.csv(Hobbit_MH2T_for_iDAD, "HHobbit_MH2T_for_iDADcsv")
+```
+
+The code chunk below shows how to read one of the CSV files included in the package into the R environment. As above, we assume that the user's working directory contains a directory called `data` and the CSV file is in this `data` directory, and so the data can be imported as follows: 
+
+```{r, eval = TRUE, echo=TRUE}
+# read in one of the example CSV files included in the package
+input_data_os <-
+  read.csv('data/Hobbit_MH2T_for_iDAD.csv')
+```
+
 \newpage
 
-## Open-system dating
+Table \@ref(tab:hobbitone) shows the data contained in the `Hobbit_MH2T_for_iDAD.csv` file included in the package
+
+```{r hobbitone, results="asis", echo = FALSE, eval=TRUE}
+# inspect the data frame produced by importing the CSV file
+options(xtable.floating = TRUE,
+        xtable.comment = FALSE)
+
+Hobbit_MH2T_for_iDAD_tbl <-
+input_data_os %>%
+  xtable(
+         digits = c(1,3,3,3,3,3,3,1,1),
+         caption = "\\label{tab:hobbitone}Data contained in the example CSV file Hobbit\\_MH2T\\_for\\_iDAD.csv included in the package")
+
+align(Hobbit_MH2T_for_iDAD_tbl) <- rep("c", ncol(Hobbit_MH2T_for_iDAD_tbl) + 1)
+
+print(Hobbit_MH2T_for_iDAD_tbl,
+        method = 'compact',
+        include.rownames = FALSE,
+        rotate.colnames = TRUE)
+```
+
+As for the closed-system function, the columns `iDAD.position`, `U234_U238_CORR`, `U234_U238_CORR_Int2SE`, `Th230_U238_CORR` and `Th230_U238_CORR_Int2SE` must be present in the input data frame with these exact names for the model to function. The `osUTh()` function will check if the input data frame has these columns, and will stop with an error message if it does not find these columns.
+
+The `iDAD.position` column corresponds to the coordinates of the (^234^U/^238^U) analyses, which as indicated above take values between -1 and 1 (Figure \@ref(fig:femurpic)). The second `iDAD.position.1` column is used if the coordinates of the (^230^Th/^238^U) analyses are different from those of the (^234^U/^238^U) analyses.
+
+Columns `U_ppm` and `U_ppm_Int2SE` are the calculated uranium concentrations (in ppm) and their 2$\sigma$ errors. Uranium concentrations are not necessary for the model but needed to display the U concentration profile in a figure.
+
+### Details of the input parameters of open-system analysis 
+
+Our key function, `osUTh()` has several arguments that need to be set before meaningful results can be obtained:
+
+`nbit` is the number of iterations. For the first run, set to 1.
+
+`fsum_target` is the sum of the squared differences between the calculated and observed activity ratios. Give it a low value to start with (e.g. 0.01). If script takes too long, try a higher value for fsum_target.
+
+`U48_0_min` and `U48_0_max` are the minimum and maximum values allowed for the (^234^U/^238^U) activity ratio at the surface of the sample. Since (^234^U/^238^U) does not vary greatly over the time period generally studied, the values measured near the surface of the sample can be used as a guide. These values can be adjusted if the model fit to the data is not optimal. For Hobbit_1-1T they are taken to be 1.360 and 1.375, and for Hobbit_MH2T, 1.265 and 1.270, respectively.
+
+`l` is the thickness of the sample in centimeters. For Hobbit_1-1T it is 3.5 cm, for Hobbit_MH2T it is 5.35 cm
+
+`U_0` is the uranium concentration at the surface in ppm. This value does not significantly affect the model results and values from analyses near either surface of the sample can be used as a guide. For Hobbit_1-1T it is taken to be 15 ppm; for Hobbit_MH2T, 25 ppm.
+
+`K_min` and `K_max` are the minimum and maximum values allowed for the uranium diffusion coefficient (in cm^2^/s). Values between 10^-13^ and 10^-11^ cm^2^/s are generally appropriate.
+
+`T_min` and `T_max` are the minimum and maximum values for the age of the specimen (yr). If there is no estimated knowledge of the sample age, the range of values can be 1,000 to 500,000 yr and adjusted later. For Hobbit_1-1T, in the final model run, they are taken to be 50,000 and 100,000 yr, and for Hobbit_MH2T, 1,000 and 20,000 yr, respectively.
+
+After setting the `U480` maximum and minimum values, run the function and adjust these min and max values by looking at the calculated `U48_0_final`, `K_final`, and `T_final`. Adjust `T_min` and `T_max` using first estimates of the age. As we iterate, increase the `nbit` value to reduce the error.
+
+
+## How to run the models
 
 Attach the package as shown above and then run `osUTh()`, specifying the input data frame and the input parameters as described above. The code block below shows a quick example that will execute in less than five seconds on a typical 2.3 GHz Intel Core i5 laptop:  
 
 ```{r model-output, results='hide'}
-output_os <- osUTh(data_file,
+output_os <- osUTh(input_data_os,
                    nbit = 1000,
                    fsum_target = 0.01,
                    U48_0_min = 1.265,
@@ -389,13 +398,8 @@ The final calculated age `T_final` (in yr), U diffusion coefficient `K_final` (i
 
 In a typical analysis the user will explore the model fit by first running the model with a single iteration `nbit` and a small value for `fsum_target`, and then changing the range of allowed values for the (^234^U/^238^U) ratio at the surface and the age of the sample. Once the user has obtained a satisfying fit (by visual inspection of the produced figures), they would increase `nbit` to a higher value (e.g. 1000) and run the model one last time. We provide an example of a typical analysis analysis below.
 
-\newpage
 
-# Inspecting the models' output
-
-## Closed-system dating
-
-## Open-system dating
+## Inspecting the models' output
 
 `T_final`, `K_final` and `U48_0_final` are included in the model's output, along with their uncertainties. The function also includes a one-row data frame summarising the age:  
 
@@ -437,13 +441,8 @@ print(output_data_table,
       rotate.colnames = TRUE)
 ```
 
-\newpage
 
-# Visualising the models' output
-
-## Closed-system dating
-
-## Open-system dating
+## Visualising the models' output
 
 `osUTh()` returns several figures useful for visualisation of the model results along with the data:
 

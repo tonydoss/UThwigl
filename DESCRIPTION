@@ -1,19 +1,19 @@
 Package: UThwigl
 Type: Package
-Title: Closed- and Open-System Uranium-Thorium Dating
+Title: Closed- and Open-System uranium-thorium Dating
 Version: 0.1.0
 Authors@R:
     c(person(given = "Anthony", 
     family = "Dosseto", 
     role = c("aut", "cre"), 
-    email = "benmarwick@gmail.com",
+    email = "tonyd@uow.edu.au",
     comment = c(ORCID = "0000-0002-3575-0106")),
     person(given = "Ben", 
     family = "Marwick", 
     role = c("aut"), 
     email = "benmarwick@gmail.com", 
     comment = c(ORCID = "0000-0001-7879-4531")))
-Maintainer: Anthony Dosseto <benmarwick@gmail.com>
+Maintainer: Anthony Dosseto <tonyd@uow.edu.au>
 Description: Calculates closed- and open-system U-Th ages.
 License: MIT + file LICENSE
 Encoding: UTF-8
