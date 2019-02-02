@@ -43,13 +43,16 @@ csUTh(input_data, sample_name = "YP003", nbitchoice = 100,
 csUTh calculates closed-system Th-230/U ages, including detrital correction.
 }
 \examples{
-data("Pan2018")
-# Solve for sample YP003
-output <- csUTh(Pan2018,
+# Import a csv file with the data
+input_data <- read.csv("your_data.csv")
+  
+output <- csUTh(input_data,
 sample_name = 'YP003',
 nbitchoice = 100,
 detcorrectionchoice = TRUE,
 keepfiltereddata = FALSE,
-print_summary = TRUE)
+print_summary = TRUE,
+with_plots = TRUE,
+save_plots = TRUE)
 
 }
