@@ -620,7 +620,7 @@ age_plus <- round(output_hobbit$results$`Age 67% quantile (ka)`,1)
 age_minus <- round(output_hobbit$results$`Age 33% quantile (ka)`,1)
 ```
 
-For transect 1 of LB1/52, Sutikna et al. [-@Sutikna2016] reported an age of 79.0 $\pm$ 3.7 ka. With osUth, using data in the file `Hobbit_1-1T_for_iDAD.csv` provided in the package, and following the same method as above, we obtain an age of 75.4 +1/-0.9 ka (Figure \@ref(fig:plot-panel-hobbit-fig)). 
+For transect 1 of LB1/52, Sutikna et al. [-@Sutikna2016] reported an age of 79.0 $\pm$ 3.7 ka. With osUth, using data in the file `Hobbit_1-1T_for_iDAD.csv` provided in the package, and following the same method as above, we obtain an age of 75.4 +1.0/-0.9 ka (Figure \@ref(fig:plot-panel-hobbit-fig)). 
 
 Note that results and errors will vary slightly for each run since populations are solution sets are randomly generated.
 
