@@ -69,9 +69,10 @@ its version number. Find it with 'help(package=UThwigl)'.
 #' @export
 #'
 #' @examples
-#' # Import a csv file with the data
-#' input_data <- read.csv("your_data.csv")
+#' # Import data
+#' input_data <- data("Hobbit_1_1T_for_iDAD")
 #' 
+#' # Use the function
 #' output <- osUTh(input_data,
 #' nbit = 1,
 #' fsum_target = 0.01,
@@ -625,9 +626,10 @@ th230_u238_ratio_plot <-  function(output,
 #' @importFrom grDevices dev.off png
 #' 
 #' @examples 
-#' # Import a csv file with the data
-#' input_data <- read.csv("your_data.csv")
-#'   
+#' # Import data
+#' input_data <- data("Pan2018")
+#'
+#' # Use the function   
 #' output <- csUTh(input_data,
 #' sample_name = 'YP003',
 #' nbitchoice = 100,

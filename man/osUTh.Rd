@@ -46,7 +46,7 @@ osUTh
 }
 \examples{
 # Import a csv file with the data
-input_data <- read.csv("your_data.csv")
+input_data <- data("Hobbit_1_1T_for_iDAD")
 
 output <- osUTh(input_data,
 nbit = 1,
