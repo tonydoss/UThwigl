@@ -1,6 +1,6 @@
 Package: UThwigl
 Type: Package
-Title: Closed- and Open-System uranium-thorium Dating
+Title: Closed- and Open-System Uranium-Thorium Dating
 Version: 0.1.0
 Authors@R:
     c(person(given = "Anthony", 
