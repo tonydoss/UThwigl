@@ -200,20 +200,19 @@ Columns `U234_U238_CORR` and `U234_U238_CORR_Int2SE` are the (^234^U/^238^U) act
 
 ### Details of the input parameters of closed-system analysis 
 
-`sample_name` is the name of the sample to calculate closed-system ages for. The function will partially match by sample prefix.  For example in Table \@ref(tab:pan) one sample is indicated by the Sample ID 'YP003'. If the user inputs 'YP003' for the `sample_name`, then this will match rows where the Sample ID is 
- 'YP003-1', 'YP003-2', 'YP003-3', and so on.   
+`sample_name` is the name of the sample to calculate closed-system ages for. The function will partially match by sample prefix.  For example in Table \@ref(tab:pan) one sample is indicated by the Sample ID 'YP003'. If the user inputs 'YP003' for the `sample_name`, then this will match rows where the Sample ID is 'YP003-1', 'YP003-2', 'YP003-3', and so on.   
  
 `nbitchoice` is the number of iterations in the model. Recommended to have at least 100.
 `detcorrectionchoice` is a parameter for chosing whether or not to apply a detrital correction to the calculation. 
 
-`R28det` (0.8) and `R28det_err` (0.08) are the values for the (232Th/238U) activity ratio of the detritus and its standard error (default values in parentheses). Similarly, `R08det` (1) and `R08det_err` (0.05) are the values for the (230Th/238U) activity ratio of the detritus and its standard error, and `R48det` (1) and `R48det_err` (0.02) are the corresponding values for (234U/238U) activity ratio of the detritus.
+`R28det` (0.8) and `R28det_err` (0.08) are the values for the (^232^Th/^238^U) activity ratio of the detritus and its standard error (default values in parentheses). Similarly, `R08det` (1) and `R08det_err` (0.05) are the values for the (^230^Th/^238^U) activity ratio of the detritus and its standard error, and `R48det` (1) and `R48det_err` (0.02) are the corresponding values for (^234^U/^238^U) activity ratio of the detritus.
 
 ## How to run the models
 
 Assuming that the package is attached with `library(UThwigl)`, as shown above, and the data have been imported to the working environment as noted above, run `csUTh()`, specifying the input data frame and the input parameters as described above. The code block below shows a typical example that will execute in less than five seconds on a typical 2.3 GHz Intel Core i5 laptop:  
 
 ```{r cs-model-output, results='hide'}
-# Solve for sample YP003
+# Solve for sample YP003 in-situ analyses
 output_cs <-
   csUTh(
     input_data_cs,
@@ -466,6 +465,61 @@ output_os$plots
 # Case studies
 
 ## Closed-system dating - Case study from Pan et al. 2018
+
+The package includes sample data from Marine Isotope Stage 5 corals from @RN5108. Two *Plesiastrea versipora* coral samples were analysed: YP002 and YP003. The first two rows are bulk analyses while the rest are in-situ analyses produced by laser ablation (hence the lower precision compared to the first two rows).
+In @RN5108, closed-system ages were calculated using IsoPlot 4.15 [@RN2163]. For bulk analyses, @RN5108 reported detrital-corrected ages of 121.4 \(\pm\) 2.4 ka and 127.3 \(\pm\) 2.1 ka for YP002A and YP002B, respectively. For in-situ analyses, @RN5108 reported mean detrital-corrected ages of five analyses for each sample: 117.5 \(\pm\) 4.5 ka for YP002 and 115.0 \(\pm\) 5.4 ka for YP003.
+
+Here we solve the closed-system model for all samples by simply entering 'YP' against `sample name` since all analyses in the table contain these two characters in their `Sample_ID` column. `print_summary` is set to `FALSE` since we are solving for different samples and a mean age would have no significance.
+
+```{r csUTh all samples, results='hide'}
+# Solve for all samples
+output_cs_all <-
+  csUTh(
+    input_data_cs,
+    sample_name = 'YP',
+    nbitchoice = 100,
+    detcorrectionchoice = TRUE,
+    keepfiltereddata = FALSE,
+    print_summary = FALSE,
+    with_plots = TRUE,
+    save_plots = TRUE
+  )
+```
+
+```{r results bulk, echo=FALSE}
+age_YP002bulk <- round(output_cs_all$results$`Age (ka)`[1],1)
+err_YP002bulk <- round(output_cs_all$results$`Age 2se`[1],1)
+age_YP003bulk <- round(output_cs_all$results$`Age (ka)`[2],1)
+err_YP003bulk <- round(output_cs_all$results$`Age 2se`[2],1)
+```
+
+We obtain detrital-corrected ages of `r age_YP002bulk` \(\pm\) `r err_YP002bulk` ka and `r age_YP003bulk` \(\pm\) `r err_YP003bulk` ka for bulk analyses of YP002 and YP003, respectively. This is within error of values reported in @RN5108.
+
+In-situ analyses for YP003-1 were solved above and yielded a mean detrital-corrected age for the five analyses of 117.1 \(\pm\) 3.7  ka, within error of the value reported in @RN5108.
+We can solve also for in-situ analyses of YP002-1 by setting `sample_name` to 'YP002-1' and `print_summary` to `TRUE`:
+
+```{r csUTh YP002 in-situ, results='hide'}
+# Solve for YP002 in-situ analyses
+output_cs_YP002insitu <-
+  csUTh(
+    input_data_cs,
+    sample_name = 'YP002-1',
+    nbitchoice = 100,
+    detcorrectionchoice = TRUE,
+    keepfiltereddata = FALSE,
+    print_summary = TRUE,
+    with_plots = TRUE,
+    save_plots = TRUE
+  )
+```
+
+```{r mean age YP002 in-situ, echo=FALSE}
+meanage <- round(mean(output_cs_YP002insitu$results$`Age (ka)`, na.rm = TRUE),1)
+err <- round(2*sd(output_cs_YP002insitu$results$`Age (ka)`, na.rm = TRUE)/
+                               sqrt(length(output_cs_YP002insitu$results$`Age (ka)`)), 1)
+```
+
+We obtain a mean detrital-corrected age for the five analyses of `r meanage` \(\pm\) `r err` ka, also within error of the value reported in @RN5108.
 
 ## Open-system dating - Case study of two ages from Sutikna et al. 2016
 
