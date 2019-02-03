@@ -69,11 +69,8 @@ its version number. Find it with 'help(package=UThwigl)'.
 #' @export
 #'
 #' @examples
-#' # Import data
-#' input_data <- data("Hobbit_1_1T_for_iDAD")
-#' 
-#' # Use the function
-#' output <- osUTh(input_data,
+#' data("Hobbit_MH2T_for_iDAD")
+#' output <- osUTh(Hobbit_MH2T_for_iDAD,
 #' nbit = 1,
 #' fsum_target = 0.01,
 #' U48_0_min = 1.265,
@@ -626,11 +623,9 @@ th230_u238_ratio_plot <-  function(output,
 #' @importFrom grDevices dev.off png
 #' 
 #' @examples 
-#' # Import data
-#' input_data <- data("Pan2018")
-#'
-#' # Use the function   
-#' output <- csUTh(input_data,
+#' data("Pan2018")
+#' # Solve for sample YP003
+#' output <- csUTh(Pan2018,
 #' sample_name = 'YP003',
 #' nbitchoice = 100,
 #' detcorrectionchoice = TRUE,

@@ -45,10 +45,8 @@ A list of results
 osUTh
 }
 \examples{
-# Import a csv file with the data
-input_data <- data("Hobbit_1_1T_for_iDAD")
-
-output <- osUTh(input_data,
+data("Hobbit_MH2T_for_iDAD")
+output <- osUTh(Hobbit_MH2T_for_iDAD,
 nbit = 1,
 fsum_target = 0.01,
 U48_0_min = 1.265,
