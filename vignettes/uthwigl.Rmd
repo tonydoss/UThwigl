@@ -207,7 +207,7 @@ Columns `U234_U238_CORR` and `U234_U238_CORR_Int2SE` are the (^234^U/^238^U) act
 
 `R28det` (0.8) and `R28det_err` (0.08) are the values for the (^232^Th/^238^U) activity ratio of the detritus and its standard error (default values in parentheses). Similarly, `R08det` (1) and `R08det_err` (0.05) are the values for the (^230^Th/^238^U) activity ratio of the detritus and its standard error, and `R48det` (1) and `R48det_err` (0.02) are the corresponding values for (^234^U/^238^U) activity ratio of the detritus.
 
-## How to run the models
+## How to run the model
 
 Assuming that the package is attached with `library(UThwigl)`, as shown above, and the data have been imported to the working environment as noted above, run `csUTh()`, specifying the input data frame and the input parameters as described above. The code block below shows a typical example that will execute in less than five seconds on a typical 2.3 GHz Intel Core i5 laptop:  
 
@@ -228,7 +228,7 @@ output_cs <-
 
 For efficient interactive use of this package, the default setting of `csUTh()` is to produce a panel plot as seen in Figure \@ref(fig:csuthvizfig). The setting `with_plots = FALSE` prevents plots from being generated which is more useful when the function is part of a longer sequence of code. The function runs faster when not producing pots, which is helpful when replicating many runs. 
 
-When run on the R console, this function will print a confirmation that the input data frame has the required columns, and print the resulting mean age value of several analyses on a single sample, with an error reported as 2 Standard Error, for example:
+When run on the R console, this function will print a confirmation that the input data frame has the required columns. If `print_summary` is set to `TRUE`, it will also the resulting mean age value of several analyses on a single sample, with an error reported as 2 Standard Error, for example:
 
 ```
 All required columns are present in the input data
@@ -237,7 +237,10 @@ All required columns are present in the input data
 
 `print_summary` should be set to `FALSE` if ages computed are not for analyses of the same sample, since this mean age would be meaningless. 
 
-The function returns a data frame with the age, error and summary output for each measurement, as shown in Table \@ref(tab:panoutput)
+## Inspecting and visualizing the models' output
+
+The function returns a data frame with the age, error and summary output for each measurement, as shown in Table \@ref(tab:panoutput). This includes calculated ages (with or without detrital correction, depending how `detcorrectionchoice` was set), initial (^234^U/^238^U) activity ratios, along with their uncertainties.
+
 
 ```{r panoutput, results="asis", echo = FALSE, eval=TRUE}
 # inspect the data frame produced by importing the CSV file
@@ -268,11 +271,7 @@ output_cs$plots
 
 \FloatBarrier
 
-## Inspecting the models' output
-
-
-## Visualising the models' output
-
+\newpage
 
 # Open-system U-Th dating
 ## Input data format
@@ -362,7 +361,7 @@ Our key function, `osUTh()` has several arguments that need to be set before mea
 After setting the `U480` maximum and minimum values, run the function and adjust these min and max values by looking at the calculated `U48_0_final`, `K_final`, and `T_final`. Adjust `T_min` and `T_max` using first estimates of the age. As we iterate, increase the `nbit` value to reduce the error.
 
 
-## How to run the models
+## How to run the model
 
 Attach the package as shown above and then run `osUTh()`, specifying the input data frame and the input parameters as described above. The code block below shows a quick example that will execute in less than five seconds on a typical 2.3 GHz Intel Core i5 laptop:  
 
@@ -466,7 +465,7 @@ output_os$plots
 
 ## Closed-system dating - Case study from Pan et al. 2018
 
-The package includes sample data from Marine Isotope Stage 5 corals from @RN5108. Two *Plesiastrea versipora* coral samples were analysed: YP002 and YP003. The first two rows are bulk analyses while the rest are in-situ analyses produced by laser ablation (hence the lower precision compared to the first two rows).
+The package includes sample data from Marine Isotope Stage 5 corals from @RN5108 (Table \@ref(tab:pan)). Two *Plesiastrea versipora* coral samples were analysed: YP002 and YP003. The first two rows in Table \@ref(tab:pan) are bulk analyses while the rest are in-situ analyses produced by laser ablation (hence the lower precision compared to the first two row).
 In @RN5108, closed-system ages were calculated using IsoPlot 4.15 [@RN2163]. For bulk analyses, @RN5108 reported detrital-corrected ages of 121.4 \(\pm\) 2.4 ka and 127.3 \(\pm\) 2.1 ka for YP002A and YP002B, respectively. For in-situ analyses, @RN5108 reported mean detrital-corrected ages of five analyses for each sample: 117.5 \(\pm\) 4.5 ka for YP002 and 115.0 \(\pm\) 5.4 ka for YP003.
 
 Here we solve the closed-system model for all samples by simply entering 'YP' against `sample name` since all analyses in the table contain these two characters in their `Sample_ID` column. `print_summary` is set to `FALSE` since we are solving for different samples and a mean age would have no significance.
