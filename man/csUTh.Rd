@@ -50,6 +50,8 @@ sample_name = 'YP003',
 nbitchoice = 100,
 detcorrectionchoice = TRUE,
 keepfiltereddata = FALSE,
-print_summary = TRUE)
+print_summary = TRUE,
+with_plots = TRUE,
+save_plots = TRUE)
 
 }
