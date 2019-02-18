@@ -16,7 +16,7 @@ require(cowplot)
 ui <- bootstrapPage(
   mainPanel(
     # Application title
-    titlePanel("UThwigl::csUTh : compute open-system uranium-thorium ages using the diffusion-adsorption-decay (DAD) model"),
+    titlePanel("UThwigl::osUTh : compute open-system uranium-thorium ages using the diffusion-adsorption-decay (DAD) model"),
     
     tabsetPanel(
       
@@ -121,7 +121,7 @@ server <- function(input, output) {
       input_data <- read.csv(inFile$datapath)
       
       output <- 
-        csUTh(input_data,
+        osUTh(input_data,
                  nbit = input$nbit,
                  fsum_target = input$fsumtarget,
                  U48_0_min = input$U48_0_min,
