@@ -649,7 +649,8 @@ csUTh <- function(input_data,
                   keepfiltereddata = FALSE,
                   print_summary = TRUE,
                   with_plots = TRUE,
-                  save_plots = TRUE
+                  save_plots = TRUE,
+                  save_output = TRUE
 ){
   
   # check that the input data frame has the columns with the right names
@@ -830,9 +831,12 @@ csUTh <- function(input_data,
   
   output$plots <-  p3
   
+  # for unique file names
+  st <- format(Sys.time(), "%Y-%m-%d_%H%M%S")
+  
   if(save_plots){
     
-    plot_file_name <- "output_cs.png"
+    plot_file_name <- paste0("output_cs_", st, ".png")
     message(paste0("Saving plots to ", getwd(), ", look for '", plot_file_name, "'"))
     png(plot_file_name, width = 15, height = 10, units = "cm", res = 300 )
     print(output$plots)
@@ -856,6 +860,17 @@ csUTh <- function(input_data,
     
   } else {
     # don't print anything
+  }
+  
+  if(save_output){
+    
+    filename <-  paste0("csUTh-output-", st, ".csv")
+    write.csv(output$results, filename)
+    message(paste0("Saving output to ", getwd(), ", look for '", filename, "'"))
+              
+    
+  } else {
+    # don't save anything
   }
   
   # return results
