@@ -227,7 +227,7 @@ output_cs <-
   )
 ```
 
-For efficient interactive use of this package, the default setting of `csUTh()` is to produce a panel plot as seen in Figure \@ref(fig:csuthvizfig). The setting `with_plots = FALSE` prevents plots from being generated which is more useful when the function is part of a longer sequence of code. The function runs faster when not producing pots, which is helpful when replicating many runs. The setting `save_output = TRUE` will save a csv file to the current working directory so the output data can be used in other contexts. The csv file will be named with a date and time stamp so that the output of each time the fucntion is run can be saved to a unique file. 
+For efficient interactive use of this package, the default setting of `csUTh()` is to produce a panel plot as seen in Figure \@ref(fig:csuthvizfig). The setting `with_plots = FALSE` prevents plots from being generated which is more useful when the function is part of a longer sequence of code. The function runs faster when not producing pots, which is helpful when replicating many runs. The setting `save_output = TRUE` will save a csv file to the current working directory so the output data can be used in other contexts. The csv file that is created when `save_output = TRUE` will be given a name that includes a date and time stamp so that the output of each time the function is run can be saved to a unique file. 
 
 When run on the R console, this function will print a confirmation that the input data frame has the required columns. If `print_summary` is set to `TRUE`, it will also the resulting mean age value of several analyses on a single sample, with an error reported as 2 Standard Error, for example:
 
@@ -379,7 +379,8 @@ output_os <- osUTh(input_data_os,
                    T_min = 1e3,
                    T_max = 20e3,
                    with_plots = TRUE,
-                   save_plots = TRUE)
+                   save_plots = TRUE,
+                   save_output = TRUE)
 ```
 
 The default setting of `osUTh()` is to produce a panel plot as seen in Figure \@ref(fig:demopanelfig)(Figure \@ref(fig:demopanelfig). The setting `with_plots = FALSE` prevents plots from being generated which is more useful when the function is part of a longer sequence of code. The function runs faster when not producing pots, which is helpful when replicating many runs. 
@@ -396,7 +397,6 @@ The model computes a Monte Carlo simulation where age of the sample, U diffusion
 The final calculated age `T_final` (in yr), U diffusion coefficient `K_final` (in cm^2^/s) and (^234^U/^238^U) ratio at the surface of the sample `U48_0_final` are the set of solutions where the solution age is the closest to the median age of the population of solutions. The uncertainty on each output paramter is calculated as the 67% and 33% quantiles of the population of solution sets.
 
 In a typical analysis the user will explore the model fit by first running the model with a single iteration `nbit` and a small value for `fsum_target`, and then changing the range of allowed values for the (^234^U/^238^U) ratio at the surface and the age of the sample. Once the user has obtained a satisfying fit (by visual inspection of the produced figures), they would increase `nbit` to a higher value (e.g. 1000) and run the model one last time. We provide an example of a typical analysis analysis below.
-
 
 ## Inspecting the models' output
 

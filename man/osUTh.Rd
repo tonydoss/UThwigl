@@ -7,7 +7,7 @@
 osUTh(input_data, nbit = 1, fsum_target = 0.01, U48_0_min = 1.265,
   U48_0_max = 1.275, l = 5.35, U_0 = 25, K_min = 1e-13,
   K_max = 1e-11, T_min = 1000, T_max = 20000, print_summary = TRUE,
-  with_plots = TRUE, save_plots = TRUE)
+  with_plots = TRUE, save_plots = TRUE, save_output = TRUE)
 }
 \arguments{
 \item{input_data}{A data frame with the required columns}

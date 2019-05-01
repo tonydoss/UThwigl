@@ -58,11 +58,12 @@ its version number. Find it with 'help(package=UThwigl)'.
 #' @param print_summary Print a summary of the output to the console? Default is TRUE
 #' @param with_plots Display a panel of plots of the output? Default is TRUE
 #' @param save_plots Save plots as a png file to the current working directory? Default: TRUE
+#' @param save_output Save output data as a CSV file to the current working directory? Default: TRUE
 #' 
 #' 
 #' @importFrom cowplot plot_grid
 #' @importFrom stats median quantile runif 
-#' @importFrom utils ? 
+#' @importFrom utils ? write.csv
 #' @importFrom grDevices dev.off png
 #'
 #' @return A list of results
@@ -99,12 +100,9 @@ osUTh <- function(input_data,
                      T_max = 20e3, # Hobbit_1-1T: 100e3; Hobbit_MH2T: 20e3
                      print_summary = TRUE,
                      with_plots = TRUE,
-                     save_plots = TRUE
-                     
-                            
-                     
-                     
-){
+                     save_plots = TRUE,
+                     save_output = TRUE
+                  ){
   
   
   # check that the input data frame has the columns with the right names
@@ -362,6 +360,10 @@ if(print_summary) {
                   output_data = output_data,
                   plots = NULL))
   
+  
+  # for unique file names
+  st <- format(Sys.time(), "%Y-%m-%d_%H%M%S")
+  
 # plot or not? ------------------------------------
 if(with_plots){
   message("Drawing plots...")
@@ -384,7 +386,7 @@ if(with_plots){
   
   if(save_plots){
     
-    plot_file_name <- "output_os.png"
+    plot_file_name <- paste0("osUTh-plots-", st, ".png")
     message(paste0("Saving plots to ", getwd(), ", look for '", plot_file_name, "'" ))
     png(plot_file_name, width = 15, height = 15, units = "cm", res = 300 )
     print(output$plots)
@@ -397,6 +399,17 @@ if(with_plots){
 }else {
   # don't plot anything
 }
+  
+  if(save_output){
+    
+    filename <-  paste0("osUTh-output-", st, ".csv")
+    write.csv(output$results, filename)
+    message(paste0("Saving output to ", getwd(), ", look for '", filename, "'"))
+    
+    
+  } else {
+    # don't save anything
+  }
   
   
 return(output)
@@ -617,10 +630,12 @@ th230_u238_ratio_plot <-  function(output,
 #' @param print_summary Print a summary of the output to the console? Default: TRUE
 #' @param with_plots Draw plots? Default: TRUE
 #' @param save_plots Save plots as a png file to the current working directory? Default: TRUE
+#' @param save_output Save output data as a CSV file to the current working directory? Default: TRUE
 #' 
 #' @import deSolve ggplot2
 #' @importFrom stats IQR optim sd
 #' @importFrom grDevices dev.off png
+#' @importFrom utils write.csv
 #' 
 #' @examples 
 #' data("Pan2018")
@@ -836,7 +851,7 @@ csUTh <- function(input_data,
   
   if(save_plots){
     
-    plot_file_name <- paste0("output_cs_", st, ".png")
+    plot_file_name <- paste0("csUTh-plots-", st, ".png")
     message(paste0("Saving plots to ", getwd(), ", look for '", plot_file_name, "'"))
     png(plot_file_name, width = 15, height = 10, units = "cm", res = 300 )
     print(output$plots)

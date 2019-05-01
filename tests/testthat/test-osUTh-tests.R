@@ -17,6 +17,8 @@ output_os <- suppressMessages(osUTh(Hobbit_MH2T_for_iDAD,
                    with_plots = TRUE,
                    save_plots = TRUE))
 
+files <- list.files( pattern = "csv|png|pdf")
+
 # here are the tests:
 
 test_that("osUTh() returns a list", {
@@ -24,7 +26,7 @@ test_that("osUTh() returns a list", {
 })
 
 test_that("osUTh() returns a plot", {
-  expect_true(file.exists("output_os.png"))
+  expect_true(any(grepl("osUTh-plots", files)))
 })
 
 # these tests below may fail is the tolerance is set too low:
@@ -41,4 +43,4 @@ test_that("osUTh() returns sensible values for T_final", {
 
 
 # delete the plot after testing
-file.remove("output_os.png")
+file.remove(files)
