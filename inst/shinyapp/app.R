@@ -23,14 +23,14 @@ ui <- bootstrapPage(
       tabPanel("Load the data", 
                p("Before uploading, check that your CSV file contains columns with these names:"),
                HTML("
-               <li> <b>iDAD.position</b>: column corresponds to the coordinates of the (<sup>234</sup>U/<sup>238</sup>U) analyses, which take values between -1 and 1
+               <li> <b>iDAD.position</b>: coordinates of the (<sup>234</sup>U/<sup>238</sup>U) analyses, which take values between -1 and 1 (0: center of the bone; -1 and 1: inner and outer surfaces of the bone, respectively)
                <li> <b>U234_U238_CORR</b>: activity ratios 
                <li> <b>U234_U238_CORR_Int2SE</b>: the 2 sigma errors of the activity ratios
-               <li> <b>iDAD.position.1</b>: only needed if the if the coordinates of the (<sup>230</sup>Th/<sup>238</sup>U) analyses are different from those of the (<sup>234</sup>U/<sup>238</sup>U) analyses.
+               <li> <b>iDAD.position.1</b>: coordinates of the (<sup>230</sup>Th/<sup>238</sup>U) analyses, which take values between -1 and 1 (can be the same or different values from those of the (<sup>234</sup>U/<sup>238</sup>U) analyses)
                <li> <b>Th230_U238_CORR</b>: activity ratios 
                <li> <b>Th230_U238_CORR_Int2SE</b>: the 2 sigma errors of the activity ratios
                <li> <b>U_ppm</b>: calculated uranium concentrations (in ppm)
-               <li> <b>U_ppm_Int2SE</b>:   the 2 sigma errors of the auranium concentrations
+               <li> <b>U_ppm_Int2SE</b>:   the 2 sigma errors of the uranium concentrations
               "),
                tags$hr(),
                fileInput("file1", 
