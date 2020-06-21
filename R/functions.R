@@ -114,7 +114,12 @@ osUTh <- function(input_data,
     message("All required columns are present in the input data. \n");
   } else {
     ?UThwigl::osUTh
-    stop("\nThe input data frame does not contain the necessary columns, or the columns are not named correctly. Please check the documentation for details of the required column names, update the column names using the `names()` function, and try again.\n")
+    stop(paste0("\nThe input data frame does not contain the necessary columns, or the columns are not named correctly. 
+         Please check the documentation for details of the required column names, 
+         update the column names using the `names()` function, and try again.\n
+         Your data has these column names: ", colnames(input_data), "\n
+         This function requires data with these column names: ", col_names_we_need,
+         "\n"))
   }
   
 
