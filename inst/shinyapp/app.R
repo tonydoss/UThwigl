@@ -5,6 +5,7 @@ if (!require("DT")) install.packages("DT")
 if (!require("devtools")) install.packages("devtools")
 if (!require("UThwigl")) devtools::install_github("tonydoss/UThwigl")
 if (!require("waiter")) install.packages("waiter")
+if (!require("rhandsontable")) install.packages("rhandsontable")
 
 require(devtools)
 require(shiny)
@@ -13,6 +14,7 @@ require(UThwigl)
 require(DT)
 require(cowplot)
 require(waiter)
+require(rhandsontable)
 
 waiting_screen <- tagList(
   spin_solar(),
@@ -29,24 +31,77 @@ ui <- bootstrapPage(
     tabsetPanel(id = "osUTh",
                 
                 tabPanel("Load the data", value = "load",
-                         p("Before uploading, check that your CSV file contains columns with these names:"),
-                         HTML("
-               <li> <b>iDAD.position</b>: column corresponds to the coordinates of the (<sup>234</sup>U/<sup>238</sup>U) analyses, which take values between -1 and 1
-               <li> <b>U234_U238_CORR</b>: activity ratios 
-               <li> <b>U234_U238_CORR_Int2SE</b>: the 2 sigma errors of the activity ratios
-               <li> <b>iDAD.position.1</b>: only needed if the if the coordinates of the (<sup>230</sup>Th/<sup>238</sup>U) analyses are different from those of the (<sup>234</sup>U/<sup>238</sup>U) analyses.
-               <li> <b>Th230_U238_CORR</b>: activity ratios 
-               <li> <b>Th230_U238_CORR_Int2SE</b>: the 2 sigma errors of the activity ratios
-               <li> <b>U_ppm</b>: calculated uranium concentrations (in ppm)
-               <li> <b>U_ppm_Int2SE</b>:   the 2 sigma errors of the auranium concentrations
-              "),
+                         p("There are two options for inputting your data: 
+                         (1) Upload a CSV file. Before uploading, check that your CSV file contains columns with the names exactly as you see them in the table below. 
+                         (2) Paste your data into the spreadsheet below. Before pasting, check that your columns are in the exact same order as you see them in the example data"),
+                         HTML('
+             <style type="text/css">
+.tg  {border-collapse:collapse;border-spacing:0;}
+.tg td{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
+  overflow:hidden;padding:10px 5px;word-break:normal;}
+.tg th{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
+  font-weight:normal;overflow:hidden;padding:10px 5px;word-break:normal;}
+.tg .tg-0lax{text-align:left;vertical-align:top}
+</style>
+<table class="tg">
+<thead>
+  <tr>
+    <th class="tg-0lax"><span style="font-weight:bold">Column name</span></th>
+    <th class="tg-0lax"><span style="font-weight:bold">Description</span></th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td class="tg-0lax">iDAD.position</td>
+    <td class="tg-0lax">column corresponds to the coordinates of the (234U/238U) analyses, which take values between -1 and 1</td>
+  </tr>
+  <tr>
+    <td class="tg-0lax">U234_U238_CORR</td>
+    <td class="tg-0lax"><span style="font-weight:400;font-style:normal">activity ratios</span></td>
+  </tr>
+  <tr>
+    <td class="tg-0lax">U234_U238_CORR_Int2SE </td>
+    <td class="tg-0lax"><span style="font-weight:400;font-style:normal">the 2 sigma errors of the activity ratios</span></td>
+  </tr>
+  <tr>
+    <td class="tg-0lax">iDAD.position.1</td>
+    <td class="tg-0lax"><span style="font-weight:400;font-style:normal">only needed if the if the coordinates of the (230Th/238U) analyses are different from those of the (234U/238U) analyses.</span></td>
+  </tr>
+  <tr>
+    <td class="tg-0lax">Th230_U238_CORR </td>
+    <td class="tg-0lax"><span style="font-weight:400;font-style:normal">activity ratios</span></td>
+  </tr>
+  <tr>
+    <td class="tg-0lax">Th230_U238_CORR_Int2SE</td>
+    <td class="tg-0lax"><span style="font-weight:400;font-style:normal">the 2 sigma errors of the activity ratios</span></td>
+  </tr>
+  <tr>
+    <td class="tg-0lax">U_ppm</td>
+    <td class="tg-0lax"><span style="font-weight:400;font-style:normal">calculated uranium concentrations (in ppm)</span></td>
+  </tr>
+  <tr>
+    <td class="tg-0lax">U_ppm_Int2SE</td>
+    <td class="tg-0lax"><span style="font-weight:400;font-style:normal">the 2 sigma errors of the uranium concentrations</span></td>
+  </tr>
+</tbody>
+</table>'),
                          tags$hr(),
                          fileInput("file1", 
-                                   "Choose CSV file", 
+                                   "Choose your CSV file to upload, or", 
                                    accept = c("text/csv", 
                                               "text/comma-separated-values,text/plain", 
                                               ".csv")
-                         )), # end of tab
+                         ),
+                         # paste in table
+                         tags$b("Paste your data in the table below, then click 'save'"),
+                         # uncomment line below to use action button to commit changes
+                         actionButton("saveBtn", "Save"),
+                         rHandsontableOutput("hot")
+                         ), 
+                
+                
+                
+                # end of tab
                 
                 tabPanel("Inspect the data", value = "inspect",
                          p("Here is the raw data from the CSV file"),
@@ -111,6 +166,31 @@ ui <- bootstrapPage(
 
 
 server <- function(input, output, session) {
+  
+  fname = tempfile(fileext = ".csv")
+  
+  observe({
+    # remove button and isolate to update file automatically
+    # after each table change
+    input$saveBtn
+    hot = isolate(input$hot)
+    if (!is.null(hot)) {
+      write.csv(hot_to_r(input$hot), fname)
+      print(fname)
+    }
+  })
+  
+  output$hot = renderRHandsontable({
+    if (!is.null(input$hot)) {
+      DF <<-  hot_to_r(input$hot)
+    } else {
+      DF <<-  read.csv(system.file("extdata/input", "Hobbit_MH2T_for_iDAD.csv", package = "UThwigl"), stringsAsFactors = FALSE) 
+    }
+    
+    rhandsontable(DF) %>%
+      hot_table(highlightCol = TRUE, highlightRow = TRUE)
+  })
+
 
   
   output$contents <- DT::renderDataTable({
@@ -118,7 +198,7 @@ server <- function(input, output, session) {
     inFile <- input$file1
     
     if (is.null(inFile))
-      return(NULL)
+      return(DF)
     
     read.csv(inFile$datapath)
   })
@@ -141,10 +221,12 @@ server <- function(input, output, session) {
       showNotification("Starting model run...")
 
       inFile <- input$file1
-      if (is.null(inFile)) return(NULL)
-      
-      input_data <- read.csv(inFile$datapath)
-      
+      if (is.null(inFile)) {
+        input_data <- DF
+        } else { 
+        input_data <- read.csv(inFile$datapath)
+          }
+
       output <- 
         osUTh(input_data,
               nbit = input$nbit,
