@@ -4,6 +4,7 @@ if (!require("shinycssloaders")) install.packages("shinycssloaders")
 if (!require("DT")) install.packages("DT")
 if (!require("devtools")) install.packages("devtools")
 if (!require("UThwigl")) devtools::install_github("tonydoss/UThwigl")
+if (!require("waiter")) install.packages("waiter")
 
 require(devtools)
 require(shiny)
@@ -11,12 +12,19 @@ require(shinycssloaders)
 require(UThwigl)
 require(DT)
 require(cowplot)
+require(waiter)
+
+waiting_screen <- tagList(
+  spin_solar(),
+  HTML("<br><br><br><br><br>Generating model output...")
+) 
 
 # Define UI 
 ui <- bootstrapPage(
   mainPanel(
+    use_waiter(),
     # Application title
-    titlePanel("UThwigl::csUTh : Compute open-system uranium-thorium ages using the diffusion-adsorption-decay (DAD) model"),
+    titlePanel("UThwigl: Compute open-system uranium-thorium ages using the diffusion-adsorption-decay (DAD) model"),
     
     tabsetPanel(id = "osUTh",
                 
@@ -78,11 +86,12 @@ ui <- bootstrapPage(
                          tags$hr(),
                          # defaults for Hobbit_MH2T
                          # show a spinner while we wait for the plots to draw
-                         withSpinner(plotOutput("plots", width = "100%", height = "600px"),
-                                     color="blue", 
-                                     size = 5)
-                         
-                ), # end of tab
+                       #  withSpinner()
+                       plotOutput("plots", 
+                                  width = "100%", 
+                                  height = "600px"),
+                                  color="blue", 
+                                  size = 5), # end of tab
                 
                 tabPanel("Inspect the model", value = "output",
                          # defaults for Hobbit_MH2T
@@ -102,7 +111,7 @@ ui <- bootstrapPage(
 
 
 server <- function(input, output, session) {
-  
+
   
   output$contents <- DT::renderDataTable({
     
@@ -122,8 +131,15 @@ server <- function(input, output, session) {
   observeEvent(input$run, {
     model_output <-  reactive({
       
-      showNotification("Starting model run...")
+      waiter_show(
+        html = waiting_screen,
+        color = "#333e48",
+        id = 'plots',
+        hide_on_render = TRUE
+      )
       
+      showNotification("Starting model run...")
+
       inFile <- input$file1
       if (is.null(inFile)) return(NULL)
       
@@ -207,4 +223,3 @@ server <- function(input, output, session) {
 
 # Run the application 
 shinyApp(ui = ui, server = server)
-
