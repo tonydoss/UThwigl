@@ -834,6 +834,7 @@ csUTh <- function(input_data,
   # plot initial (234U/238U)
   
   # draw plots
+  st <- format(Sys.time(), "%Y-%m-%d_%H%M%S")
   
   # plot or not? ------------------------------------
   if(with_plots){
@@ -852,7 +853,7 @@ csUTh <- function(input_data,
   output$plots <-  p3
   
   # for unique file names
-  st <- format(Sys.time(), "%Y-%m-%d_%H%M%S")
+  
   
   if(save_plots){
     
