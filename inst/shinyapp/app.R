@@ -26,113 +26,58 @@ ui <- bootstrapPage(
   mainPanel(
     use_waiter(),
     # Application title
-    titlePanel("UThwigl: Compute open-system uranium-thorium ages using the diffusion-adsorption-decay (DAD) model"),
+    titlePanel("UThwigl::osUTh : compute open-system uranium-thorium ages using the diffusion-adsorption-decay (DAD) model"),
     
-    tabsetPanel(id = "osUTh",
-                
-                tabPanel("Load the data", value = "load",
-                         p("There are two options for inputting your data: 
-                         (1) Upload a CSV file. Before uploading, check that your CSV file contains columns with the names exactly as you see them in the table below. 
-                         (2) Paste your data into the spreadsheet below. Before pasting, check that your columns are in the exact same order as you see them in the example data"),
-                         HTML('
-             <style type="text/css">
-.tg  {border-collapse:collapse;border-spacing:0;}
-.tg td{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
-  overflow:hidden;padding:10px 5px;word-break:normal;}
-.tg th{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
-  font-weight:normal;overflow:hidden;padding:10px 5px;word-break:normal;}
-.tg .tg-0lax{text-align:left;vertical-align:top}
-</style>
-<table class="tg">
-<thead>
-  <tr>
-    <th class="tg-0lax"><span style="font-weight:bold">Column name</span></th>
-    <th class="tg-0lax"><span style="font-weight:bold">Description</span></th>
-  </tr>
-</thead>
-<tbody>
-  <tr>
-    <td class="tg-0lax">iDAD.position</td>
-    <td class="tg-0lax">column corresponds to the coordinates of the (234U/238U) analyses, which take values between -1 and 1</td>
-  </tr>
-  <tr>
-    <td class="tg-0lax">U234_U238_CORR</td>
-    <td class="tg-0lax"><span style="font-weight:400;font-style:normal">activity ratios</span></td>
-  </tr>
-  <tr>
-    <td class="tg-0lax">U234_U238_CORR_Int2SE </td>
-    <td class="tg-0lax"><span style="font-weight:400;font-style:normal">the 2 sigma errors of the activity ratios</span></td>
-  </tr>
-  <tr>
-    <td class="tg-0lax">iDAD.position.1</td>
-    <td class="tg-0lax"><span style="font-weight:400;font-style:normal">only needed if the if the coordinates of the (230Th/238U) analyses are different from those of the (234U/238U) analyses.</span></td>
-  </tr>
-  <tr>
-    <td class="tg-0lax">Th230_U238_CORR </td>
-    <td class="tg-0lax"><span style="font-weight:400;font-style:normal">activity ratios</span></td>
-  </tr>
-  <tr>
-    <td class="tg-0lax">Th230_U238_CORR_Int2SE</td>
-    <td class="tg-0lax"><span style="font-weight:400;font-style:normal">the 2 sigma errors of the activity ratios</span></td>
-  </tr>
-  <tr>
-    <td class="tg-0lax">U_ppm</td>
-    <td class="tg-0lax"><span style="font-weight:400;font-style:normal">calculated uranium concentrations (in ppm)</span></td>
-  </tr>
-  <tr>
-    <td class="tg-0lax">U_ppm_Int2SE</td>
-    <td class="tg-0lax"><span style="font-weight:400;font-style:normal">the 2 sigma errors of the uranium concentrations</span></td>
-  </tr>
-</tbody>
-</table>'),
-                         tags$hr(),
-                         fileInput("file1", 
-                                   "Choose your CSV file to upload, or", 
-                                   accept = c("text/csv", 
-                                              "text/comma-separated-values,text/plain", 
-                                              ".csv")
-                         ),
-                         # paste in table
-                         tags$b("Paste your data in the table below, then click 'save'"),
-                         # uncomment line below to use action button to commit changes
-                         actionButton("saveBtn", "Save"),
-                         rHandsontableOutput("hot")
-                         ), 
-                
-                
-                
-                # end of tab
-                
-                tabPanel("Inspect the data", value = "inspect",
-                         p("Here is the raw data from the CSV file"),
-                         DT::dataTableOutput('contents')
-                ), # end of tab
-                
-                tabPanel("Set model parameters", value = "setparams",
-                         fluidRow(
-                           column(4, 
-                                  # defaults for Hobbit_MH2T
-                                  numericInput("nbit", "Number of iterations:", 1000, min = 1, max = 1e6),
-                                  numericInput("fsumtarget", "Value of squared sum", 0.01, min = 0.001, max = 100),
-                                  numericInput("l", "Thickness of sample (cm):", 5.35, min = 0.01, max = 10),
-                                  numericInput("U_0", "Uranium concentration at the sample surface (ppm):", 25, min = 0.01, max = 500)
-                           ),
-                           column(4,
-                                  numericInput("U48_0_min", "Min (234U/238U) at the surface:", 1.265, min = 0.5, max = 50),
-                                  numericInput("U48_0_max", "Max (234U/238U) at the surface:", 1.275, min = 0.5, max = 50),
-                                  numericInput("T_min", "Age min (yr):", 1e3, min = 1e3, max = 500e3),
-                                  numericInput("T_max", "Age max (yr):", 20e3, min = 1e3, max = 500e3),
-                                  numericInput("K_min", "Min U diffusion coefficient:", 1e-13, min = 1e-16, max = 1e-9),
-                                  numericInput("K_max", "Max U diffusion coefficient:", 1e-11, min = 1e-16, max = 1e-9)
-                           )
-                         ),
-                         actionButton("run", label = "Run Simulation")
-                         
-                         
-                ),  # end of tab
-                
-                tabPanel("Visualise the model", value = "vis",
-                         HTML("<p><b>Plot legend</b><p>
+    tabsetPanel(
+      
+      tabPanel("Load the data", 
+               p("Before uploading, check that your CSV file contains columns with these names:"),
+               HTML("
+               <li> <b>iDAD.position</b>: coordinates of the (<sup>234</sup>U/<sup>238</sup>U) analyses, which take values between -1 and 1 (0: center of the bone; -1 and 1: inner and outer surfaces of the bone, respectively)
+               <li> <b>U234_U238_CORR</b>: activity ratios 
+               <li> <b>U234_U238_CORR_Int2SE</b>: the 2 sigma errors of the activity ratios
+               <li> <b>iDAD.position.1</b>: coordinates of the (<sup>230</sup>Th/<sup>238</sup>U) analyses, which take values between -1 and 1 (can be the same or different values from those of the (<sup>234</sup>U/<sup>238</sup>U) analyses)
+               <li> <b>Th230_U238_CORR</b>: activity ratios 
+               <li> <b>Th230_U238_CORR_Int2SE</b>: the 2 sigma errors of the activity ratios
+               <li> <b>U_ppm</b>: calculated uranium concentrations (in ppm)
+               <li> <b>U_ppm_Int2SE</b>:   the 2 sigma errors of the uranium concentrations
+              "),
+               tags$hr(),
+               fileInput("file1", 
+                         "Choose CSV file", 
+                         accept = c("text/csv", 
+                                    "text/comma-separated-values,text/plain", 
+                                    ".csv")
+               )), # end of tab
+      
+      tabPanel("Inspect the data",
+               p("Here is the raw data from the CSV file"),
+               DT::dataTableOutput('contents')
+      ), # end of tab
+      
+      tabPanel("Set model parameters",
+               fluidRow(
+                 column(4, 
+                        # defaults for Hobbit_MH2T
+                        numericInput("nbit", "Number of iterations:", 1, min = 1, max = 1e6),
+                        numericInput("fsumtarget", "Value of squared sum", 0.01, min = 0.001, max = 100),
+                        numericInput("l", "Thickness of sample (cm):", 5.35, min = 0.01, max = 10),
+                        numericInput("U_0", "Uranium concentration at the sample surface (ppm):", 25, min = 0.01, max = 500)
+                 ),
+                 column(4,
+                        numericInput("U48_0_min", "Min (234U/238U) at the surface:", 1.265, min = 0.5, max = 50),
+                        numericInput("U48_0_max", "Max (234U/238U) at the surface:", 1.275, min = 0.5, max = 50),
+                        numericInput("T_min", "Age min (yr):", 1e3, min = 1e3, max = 500e3),
+                        numericInput("T_max", "Age max (yr):", 20e3, min = 1e3, max = 500e3),
+                        numericInput("K_min", "Min U diffusion coefficient:", 1e-13, min = 1e-16, max = 1e-9),
+                        numericInput("K_max", "Max U diffusion coefficient:", 1e-11, min = 1e-16, max = 1e-9)
+                 )
+               ),
+               actionButton("run", label = "Run Simulation")
+      ),  # end of tab
+      
+      tabPanel("Visualise the model",
+               HTML("<p><b>Plot legend</b><p>
                 <b>A.</b> A histogram of the solution ages. <p>
                 <b>B.</b> The U concentrations in the sample as a function of the relative distance from the center. <p>
                 <b>C.</b> The measured (in blue) and modelled (in red) (<sup>234</sup>U/<sup>238</sup>U) activity ratios as a function of the relative distance from the center, and <p>
@@ -229,18 +174,18 @@ server <- function(input, output, session) {
 
       output <- 
         osUTh(input_data,
-              nbit = input$nbit,
-              fsum_target = input$fsumtarget,
-              U48_0_min = input$U48_0_min,
-              U48_0_max = input$U48_0_max,
-              l = input$l,
-              U_0 = input$U_0,
-              K_min = input$K_min,
-              K_max = input$K_max,
-              T_min = input$T_min,
-              T_max = input$T_max,
-              print_summary = FALSE,
-              with_plots = FALSE)
+                 nbit = input$nbit,
+                 fsum_target = input$fsumtarget,
+                 U48_0_min = input$U48_0_min,
+                 U48_0_max = input$U48_0_max,
+                 l = input$l,
+                 U_0 = input$U_0,
+                 K_min = input$K_min,
+                 K_max = input$K_max,
+                 T_min = input$T_min,
+                 T_max = input$T_max,
+                 print_summary = FALSE,
+                 with_plots = FALSE)
       
       showNotification("Model run complete.")
       output
