@@ -28,7 +28,7 @@ ui <- bootstrapPage(
     # Application title
     titlePanel("UThwigl::osUTh : compute open-system uranium-thorium ages using the diffusion-adsorption-decay (DAD) model"),
     
-    tabsetPanel(
+    tabsetPanel(   id = "inTabset",
       
       tabPanel("Load the data", 
                p("Before uploading, check that your CSV file contains columns with these names:"),
@@ -47,19 +47,23 @@ ui <- bootstrapPage(
                          "Choose CSV file", 
                          accept = c("text/csv", 
                                     "text/comma-separated-values,text/plain", 
-                                    ".csv")
-               )), # end of tab
+                                    ".csv")),
+               actionButton('gotoinspect', 'Go to inspect the data')          
+               ), # end of tab
       
       tabPanel("Inspect the data",
+               value = "inspectthedata",
                p("Here is the raw data from the CSV file"),
-               DT::dataTableOutput('contents')
+               DT::dataTableOutput('contents'),
+               actionButton('gotosetmodel', 'Go to set the model parameters')   
       ), # end of tab
       
       tabPanel("Set model parameters",
+               value = "setmodelparameters",
                fluidRow(
                  column(4, 
                         # defaults for Hobbit_MH2T
-                        numericInput("nbit", "Number of iterations:", 1, min = 1, max = 1e6),
+                        numericInput("nbit", "Number of iterations:", 100, min = 1, max = 1e6),
                         numericInput("fsumtarget", "Value of squared sum", 0.01, min = 0.001, max = 100),
                         numericInput("l", "Thickness of sample (cm):", 5.35, min = 0.01, max = 10),
                         numericInput("U_0", "Uranium concentration at the sample surface (ppm):", 25, min = 0.01, max = 500)
@@ -73,10 +77,12 @@ ui <- bootstrapPage(
                         numericInput("K_max", "Max U diffusion coefficient:", 1e-11, min = 1e-16, max = 1e-9)
                  )
                ),
-               actionButton("run", label = "Run Simulation")
+               actionButton("run", label = "Run simulation and visualise the output")
+               
       ),  # end of tab
       
       tabPanel("Visualise the model",
+               value = "visualise",
                HTML("<p><b>Plot legend</b><p>
                 <b>A.</b> A histogram of the solution ages. <p>
                 <b>B.</b> The U concentrations in the sample as a function of the relative distance from the center. <p>
@@ -86,14 +92,17 @@ ui <- bootstrapPage(
                          tags$hr(),
                          # defaults for Hobbit_MH2T
                          # show a spinner while we wait for the plots to draw
-                       #  withSpinner()
+                         #  withSpinner()
                        plotOutput("plots", 
                                   width = "100%", 
                                   height = "600px"),
                                   color="blue", 
-                                  size = 5), # end of tab
+                                  size = 5,
+      actionButton('gotooutput', 'Go to inspect the output')
+      ), # end of tab
                 
-                tabPanel("Inspect the model", value = "output",
+                tabPanel("Inspect the model", 
+                         value = "modeloutput",
                          # defaults for Hobbit_MH2T
                          tableOutput("model_results_table"),
                          tags$hr(),
@@ -111,6 +120,27 @@ ui <- bootstrapPage(
 
 
 server <- function(input, output, session) {
+  
+  # activate the buttons to move between tabs
+  observeEvent(input$gotoinspect, {
+    updateTabsetPanel(session, "inTabset",
+                      selected = "inspectthedata")
+  })
+  
+  observeEvent(input$gotosetmodel, {
+    updateTabsetPanel(session, "inTabset",
+                      selected = "setmodelparameters"  )
+  })
+  
+  observeEvent(input$run, {
+    updateTabsetPanel(session, "inTabset",
+                      selected = "visualise"  )
+  })
+  
+  observeEvent(input$gotooutput, {
+    updateTabsetPanel(session, "inTabset",
+                      selected = "modeloutput"  )
+  })
   
   fname = tempfile(fileext = ".csv")
   
@@ -139,6 +169,7 @@ server <- function(input, output, session) {
 
   
   output$contents <- DT::renderDataTable({
+    
     
     inFile <- input$file1
     
