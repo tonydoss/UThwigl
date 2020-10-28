@@ -56,7 +56,7 @@ library(ggplot2)
 
 # Introduction
 
-Uranium-thoriumg (U-Th) dating has revolutionised Quaternary science and archaeology. Dating uses the decay of ^238^U into ^230^Th, with ^234^U and a few short-lived nuclides as intermediary products. It is based on the principle that the age of formation of a material can be dated as it incorporates U and no or little Th at the time of formation, so all the ^230^Th in the sample comes from decay of ^238^U. If detrital Th is included to the sample, a correction must be included to account for the fraction of ^230^Th which is detrital and not derived from ^238^U decay. Another requirement is that there is no gain or loss of ^230^Th, ^234^U or ^238^U after formation of the material (*closed system*).
+Uranium-thorium (U-Th) dating has revolutionised Quaternary science and archaeology. Dating uses the decay of ^238^U into ^230^Th, with ^234^U and a few short-lived nuclides as intermediary products. It is based on the principle that the age of formation of a material can be dated as it incorporates U and no or little Th at the time of formation, so all the ^230^Th in the sample comes from decay of ^238^U. If detrital Th is included to the sample, a correction must be included to account for the fraction of ^230^Th which is detrital and not derived from ^238^U decay. Another requirement is that there is no gain or loss of ^230^Th, ^234^U or ^238^U after formation of the material (*closed system*).
 
 Closed-system U-Th dating has been successfully applied to a range of carbonates, from corals [@RN4495] to speleothems [@RN4494]. In corals and most speleothems, detrital correction is minimal; however, it can be significant when dating pedogenic carbonates, for instance [@RN801]. In this case, detrital correction can be performed using the measured or assumed composition of the detrital fraction [e.g. @RN4370]. Alternatively, isochron techniques can be applied [@RN2155]; the latter are beyond the scope of this article but IsoPlot is a commonly used software for isochron calculations and other geochronological applications [@RN2163].
 
@@ -101,7 +101,7 @@ include_graphics("figures/bone.png")
 
 # Working with the package
 
-We provide three methods for using this package to suit different levels of familiarity with the R programming language. The simplest way to use the package is our web application (Figure \@ref(fig:shinyfig)). Using the web application requires no familiarity with R. To use the web application we upload a CSV file, then click through a series of tabs to inspect the data, adjust the model parameters, run the model, and inspect the output. The interface is mouse-driven and requires no programming. In the web application we upload the data file on the *Load the data* tab, set parameters from the *Set model parameters* tab, run the model by clicking the button *Run Simulation* on the same tab, and observe the results on the *Visualise the model* and *Inspect the model* tabs. We can change the parameters and re-run the model by click the button *Run Simulation*. Once done, close the window.
+We provide three methods for using this package to suit different levels of familiarity with the R programming language. The simplest way to use the package is our web applications, online at https://ben-marwick.shinyapps.io/csUTh/ and https://ben-marwick.shinyapps.io/osUTh/ (Figure \@ref(fig:shinyfig)). Using the web application requires no familiarity with R. To use the web application we upload a CSV file, then click through a series of tabs to inspect the data, adjust the model parameters, run the model, and inspect the output. The interface is mouse-driven and requires no programming. In the web application we upload the data file on the *Load the data* tab, set parameters from the *Set model parameters* tab, run the model by clicking the button *Run Simulation* on the same tab, and observe the results on the *Visualise the model* and *Inspect the model* tabs. We can change the parameters and re-run the model by click the button *Run Simulation*. Once done, close the window.
 
 (ref:shinyfigcap) Screenshots of the web application for using the UThwigl package. A: Upload a CSV file of the data to model, B: Inspect a table of the uploaded data. C: Set the model parameters and run the model. D: Inspect visualisations of the model's output. E: Inspect and download the numeric output from the model.
 
@@ -109,7 +109,7 @@ We provide three methods for using this package to suit different levels of fami
 include_graphics("figures/shiny-app-screenshots.png")
 ```
 
-The second way to use the package is with Binder, a browser-based instance of R and RStudio that includes our package ready to work with. Binder is a server technology that turns computational material, such as an R package, into interactive computational environments in the cloud. Using Binder requires a novice level of familiarity with R, for example to use the code in this paper and adapt it to work with a different CSV file. Because Binder provides a complete R environment, custom R code can be written during a Binder instance to further explore the model's output in the browser. These two methods, the web application and Binder, do not require any software to be downloaded and installed on the user's computer, all computation occurs in the browser. The web application and Binder are suitable for getting a quick start on working with the package, but they require a connnection to the internet, and they have limited memory and compute time available per instance. 
+The second way to use the package is with Binder, a browser-based instance of R and RStudio that includes our package ready to work with. Binder is a server technology that turns computational material, such as an R package, into interactive computational environments in the cloud. Using Binder requires a novice level of familiarity with R, for example to use the code in this paper and adapt it to work with a different CSV file. Because Binder provides a complete R environment, custom R code can be written during a Binder instance to further explore the model's output in the browser. These two methods, the web application and Binder, do not require any software to be downloaded and installed on the user's computer, all computation occurs in the browser. The web application and Binder are suitable for getting a quick start on working with the package, but they require a connection to the internet, and they have limited memory and compute time available per instance. 
 
 (ref:binderfigcap) Screenshot of Binder running R and RStudio in a web browser window. 
 
@@ -126,7 +126,7 @@ First the user will need to download and install [R](https://www.r-project.org/)
 source("https://install-github.me/tonydoss/UThwigl")
 ```
 
-For routine data analysis, R scripts need to contain the following line to attach the package to the current working environnment. This line needs to be run at the start of each analysis:
+For routine data analysis, R scripts need to contain the following line to attach the package to the current working environment. This line needs to be run at the start of each analysis:
 
 ```{r}
 # attach the package
@@ -203,7 +203,7 @@ Columns `U234_U238_CORR` and `U234_U238_CORR_Int2SE` are the (^234^U/^238^U) act
 `sample_name` is the name of the sample to calculate closed-system ages for. The function will partially match by sample prefix.  For example in Table \@ref(tab:pan) one sample is indicated by the Sample ID 'YP003'. If the user inputs 'YP003' for the `sample_name`, then this will match rows where the Sample ID is 'YP003-1', 'YP003-2', 'YP003-3', and so on.   
  
 `nbitchoice` is the number of iterations in the model. Recommended to have at least 100.
-`detcorrectionchoice` is a parameter for chosing whether or not to apply a detrital correction to the calculation. 
+`detcorrectionchoice` is a parameter for choosing whether or not to apply a detrital correction to the calculation. 
 
 `R28det` (0.8) and `R28det_err` (0.08) are the values for the (^232^Th/^238^U) activity ratio of the detritus and its standard error (default values in parentheses). Similarly, `R08det` (1) and `R08det_err` (0.05) are the values for the (^230^Th/^238^U) activity ratio of the detritus and its standard error, and `R48det` (1) and `R48det_err` (0.02) are the corresponding values for (^234^U/^238^U) activity ratio of the detritus.
 
@@ -222,11 +222,12 @@ output_cs <-
     keepfiltereddata = FALSE,
     print_summary = TRUE,
     with_plots = TRUE,
-    save_plots = TRUE
+    save_plots = FALSE,
+    save_output = FALSE
   )
 ```
 
-For efficient interactive use of this package, the default setting of `csUTh()` is to produce a panel plot as seen in Figure \@ref(fig:csuthvizfig). The setting `with_plots = FALSE` prevents plots from being generated which is more useful when the function is part of a longer sequence of code. The function runs faster when not producing pots, which is helpful when replicating many runs. 
+For efficient interactive use of this package, the default setting of `csUTh()` is to produce a panel plot as seen in Figure \@ref(fig:csuthvizfig). The setting `with_plots = FALSE` prevents plots from being generated which is more useful when the function is part of a longer sequence of code. The function runs faster when not producing pots, which is helpful when replicating many runs. The setting `save_output = TRUE` will save a csv file to the current working directory so the output data can be used in other contexts. The csv file that is created when `save_output = TRUE` will be given a name that includes a date and time stamp so that the output of each time the function is run can be saved to a unique file. 
 
 When run on the R console, this function will print a confirmation that the input data frame has the required columns. If `print_summary` is set to `TRUE`, it will also the resulting mean age value of several analyses on a single sample, with an error reported as 2 Standard Error, for example:
 
@@ -263,7 +264,7 @@ print(cs_output_tbl,
 
 The plots produced by the `csUTh()` function are stored as list objects in the output from the function. We can show the plots by accessing the list like this: 
 
-(ref:csuthvizfigcap) Example of the visualisations produced by the `csUTh()` function, using the demonstration run described above, and five in-situ analyses  by laser ablation of coral sample YP003. A: closed-system ages and B: initial (^234^U/^238^U) activity ratios for each sample analysis
+(ref:csuthvizfigcap) Example of the visualisations produced by the `csUTh()` function, using the demonstration run described above, and five in-situ analyses by laser ablation of coral sample YP003. A: closed-system ages and B: initial (^234^U/^238^U) activity ratios for each sample analysis
 
 ```{r csuthvizfig, out.width = "95%", fig.cap="(ref:csuthvizfigcap)", echo = T, eval = TRUE}
 output_cs$plots
@@ -346,7 +347,7 @@ Our key function, `osUTh()` has several arguments that need to be set before mea
 
 `nbit` is the number of iterations. For the first run, set to 1.
 
-`fsum_target` is the sum of the squared differences between the calculated and observed activity ratios. Give it a low value to start with (e.g. 0.01). If script takes too long, try a higher value for fsum_target.
+`fsum_target` is the sum of the squared differences between the calculated and observed activity ratios. Give it a low value to start with (e.g. 0.01). If script takes too long, try a higher value for `fsum_target`.
 
 `U48_0_min` and `U48_0_max` are the minimum and maximum values allowed for the (^234^U/^238^U) activity ratio at the surface of the sample. Since (^234^U/^238^U) does not vary greatly over the time period generally studied, the values measured near the surface of the sample can be used as a guide. These values can be adjusted if the model fit to the data is not optimal. For Hobbit_1-1T they are taken to be 1.360 and 1.375, and for Hobbit_MH2T, 1.265 and 1.270, respectively.
 
@@ -378,7 +379,8 @@ output_os <- osUTh(input_data_os,
                    T_min = 1e3,
                    T_max = 20e3,
                    with_plots = TRUE,
-                   save_plots = TRUE)
+                   save_plots = FALSE,
+                   save_output = FALSE)
 ```
 
 The default setting of `osUTh()` is to produce a panel plot as seen in Figure \@ref(fig:demopanelfig)(Figure \@ref(fig:demopanelfig). The setting `with_plots = FALSE` prevents plots from being generated which is more useful when the function is part of a longer sequence of code. The function runs faster when not producing pots, which is helpful when replicating many runs. 
@@ -395,7 +397,6 @@ The model computes a Monte Carlo simulation where age of the sample, U diffusion
 The final calculated age `T_final` (in yr), U diffusion coefficient `K_final` (in cm^2^/s) and (^234^U/^238^U) ratio at the surface of the sample `U48_0_final` are the set of solutions where the solution age is the closest to the median age of the population of solutions. The uncertainty on each output paramter is calculated as the 67% and 33% quantiles of the population of solution sets.
 
 In a typical analysis the user will explore the model fit by first running the model with a single iteration `nbit` and a small value for `fsum_target`, and then changing the range of allowed values for the (^234^U/^238^U) ratio at the surface and the age of the sample. Once the user has obtained a satisfying fit (by visual inspection of the produced figures), they would increase `nbit` to a higher value (e.g. 1000) and run the model one last time. We provide an example of a typical analysis analysis below.
-
 
 ## Inspecting the models' output
 
@@ -451,7 +452,7 @@ print(output_data_table,
 
 We can show the plots produced by `osUTh()` by accessing the list like this: 
 
-(ref:demopanelfigcap) Example of the visualisations produced by the `osUTh()` function, using the demonstration run described avove. A: Histogram of the solution ages, B: Uranium concentration profile for transect 2 of modern human femur 132A/LB/27D/03. C: Calculated (red) and observed (blue) (^234^U/^238^U) activity ratios for transect 2 of modern human femur 132A/LB/27D/03. D: Calculated (red) and observed (blue) (^230^Th/^238^U) activity ratios for transect 2 of modern human femur 132A/LB/27D/03.
+(ref:demopanelfigcap) Example of the visualisations produced by the `osUTh()` function, using the demonstration run described above. A: Histogram of the solution ages, B: Uranium concentration profile for transect 2 of modern human femur 132A/LB/27D/03. C: Calculated (red) and observed (blue) (^234^U/^238^U) activity ratios for transect 2 of modern human femur 132A/LB/27D/03. D: Calculated (red) and observed (blue) (^230^Th/^238^U) activity ratios for transect 2 of modern human femur 132A/LB/27D/03.
 
 ```{r demopanelfig, out.width = "95%", fig.cap="(ref:demopanelfigcap)", echo = TRUE, eval = TRUE}
 output_os$plots
@@ -481,7 +482,7 @@ output_cs_all <-
     keepfiltereddata = FALSE,
     print_summary = FALSE,
     with_plots = TRUE,
-    save_plots = TRUE
+    save_plots = FALSE
   )
 ```
 
@@ -508,7 +509,7 @@ output_cs_YP002insitu <-
     keepfiltereddata = FALSE,
     print_summary = TRUE,
     with_plots = TRUE,
-    save_plots = TRUE
+    save_plots = FALSE
   )
 ```
 
@@ -548,18 +549,22 @@ print(Hobbit_1_1T_for_iDAD_tbl,
 For transect 2 of 132A/LB/27D/03, Sutikna et al. [-@Sutikna2016] reported an age of 7.4 $\pm$ 0.5 ka (thousand years before 2014). With UThwigl, we first run the model with `nbit` = 1, `fsum_target` = 0.05, `U48_0_min` and `U48_0_max` = 1.25 and 1.3, respectively, `l` = 5.35 cm, `U_0` = 25 ppm, `K_min` and `K_max` = 10^-13^ and 10^-11^ cm^2^/s, respectively, `T_min` and `T_max` = 10^3^ and 500x10^3^ yr, respectively. `U48_0_min` and `U48_0_max` are determined by considering the measured (^234^U/^238^U) values near the surfaces of the sample. `T_min` and `T_max` values were chosen such that no a priori knowledge of the age biases the results.
 
 ```{r first-run-modern-human, results='hide', eval=FALSE, include=FALSE}
-output_first_run_modern <- osUTh(Hobbit_MH2T_for_iDAD,
-                   nbit = 1,
-                   fsum_target = 0.05,
-                   U48_0_min = 1.25,
-                   U48_0_max = 1.3,
-                   l = 5.35,
-                   U_0 = 25,
-                   K_min = 1e-13,
-                   K_max = 1e-11,
-                   T_min = 1e3,
-                   T_max = 500e3,
-                   with_plots = FALSE)
+output_first_run_modern <-
+  osUTh(
+    Hobbit_MH2T_for_iDAD,
+    nbit = 1,
+    fsum_target = 0.05,
+    U48_0_min = 1.25,
+    U48_0_max = 1.3,
+    l = 5.35,
+    U_0 = 25,
+    K_min = 1e-13,
+    K_max = 1e-11,
+    T_min = 1e3,
+    T_max = 500e3,
+    with_plots = FALSE,
+    save_output = FALSE
+  )
 ```
 
 With this first run, we obtain an age of 11 ka. There is no calculated error on the age since there is only one iteration. In this case, we can see that the calculated (^234^U/^238^U) and (^230^Th/^238^U) ratios are too high (Figure \@ref(fig:plot-panel-second-run-modern-fig)). For the (^234^U/^238^U), it makes sense to thus use a lower value for `U48_0_max`. Calculated (^230^Th/^238^U) ratios are too high compared to observed values suggest that the calculated age is too old (since this ratio increases with age). Thus, we should adjust `T_max` accordingly.
@@ -596,18 +601,22 @@ include_graphics("figures/plot-panel-first-run-modern.png")
 \FloatBarrier
 
 ```{r second-run-modern-human, results='hide', eval=FALSE, include=FALSE}
-output_second_run_modern <- osUTh(Hobbit_MH2T_for_iDAD,
-                   nbit = 1000,
-                   fsum_target = 0.05,
-                   U48_0_min = 1.265,
-                   U48_0_max = 1.270,
-                   l = 5.35,
-                   U_0 = 25,
-                   K_min = 1e-13,
-                   K_max = 1e-11,
-                   T_min = 1e3,
-                   T_max = 10e3,
-                   with_plots = FALSE)
+output_second_run_modern <-
+  osUTh(
+    Hobbit_MH2T_for_iDAD,
+    nbit = 1000,
+    fsum_target = 0.05,
+    U48_0_min = 1.265,
+    U48_0_max = 1.270,
+    l = 5.35,
+    U_0 = 25,
+    K_min = 1e-13,
+    K_max = 1e-11,
+    T_min = 1e3,
+    T_max = 10e3,
+    with_plots = FALSE,
+    save_output = FALSE
+  )
 ```
 
 ```{r U48-second-run-modern-human, eval=FALSE, include=FALSE}
@@ -653,18 +662,22 @@ include_graphics("figures/plot-panel-second-run-modern.png")
 ### Age of the *Homo floresiensis* remains from Sutikna et al. 2016
 
 ```{r model-output-hobbit, results='hide', eval=FALSE, include=FALSE}
-output_hobbit <- osUTh(Hobbit_1_1T_for_iDAD,
-                   nbit = 1000,
-                   fsum_target = 0.01,
-                   U48_0_min = 1.360,
-                   U48_0_max = 1.375,
-                   l = 3.5,
-                   U_0 = 15,
-                   K_min = 1e-13,
-                   K_max = 1e-11,
-                   T_min = 50e3,
-                   T_max = 100e3,
-                   with_plots = FALSE)
+output_hobbit <-
+  osUTh(
+    Hobbit_1_1T_for_iDAD,
+    nbit = 1000,
+    fsum_target = 0.01,
+    U48_0_min = 1.360,
+    U48_0_max = 1.375,
+    l = 3.5,
+    U_0 = 15,
+    K_min = 1e-13,
+    K_max = 1e-11,
+    T_min = 50e3,
+    T_max = 100e3,
+    with_plots = FALSE,
+    save_output = FALSE
+  )
 ```
 
 ```{r create-variables-to-quote-in-text-hobbit, eval=FALSE, include=FALSE}

@@ -4,8 +4,13 @@
 \alias{u_conc_profile_plot}
 \title{Uranium concentration profile for transect}
 \usage{
-u_conc_profile_plot(output, big_size = 10, less_big_size = 8,
-  point_size = 2, digits = 1)
+u_conc_profile_plot(
+  output,
+  big_size = 10,
+  less_big_size = 8,
+  point_size = 2,
+  digits = 1
+)
 }
 \arguments{
 \item{output}{Output from the `osUTh()` function}

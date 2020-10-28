@@ -1,0 +1,13 @@
+name: csUTh
+title: csUTh
+username:
+account: ben-marwick
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 3110498
+bundleId: 3790266
+url: https://ben-marwick.shinyapps.io/csUTh/
+when: 1603854745.39446
+asMultiple: FALSE
+asStatic: FALSE
+ignoredFiles: app-osUTh.R

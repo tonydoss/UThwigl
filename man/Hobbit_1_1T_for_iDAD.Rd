@@ -4,7 +4,8 @@
 \name{Hobbit_1_1T_for_iDAD}
 \alias{Hobbit_1_1T_for_iDAD}
 \title{Data from transect 1 for Homo floresiensis ulna LB1/52}
-\format{A data frame with 6 rows and 8 variables:
+\format{
+A data frame with 6 rows and 8 variables:
 \describe{
   \item{iDAD.position}{...}
   \item{U234_U238_CORR}{...}
@@ -15,7 +16,8 @@
   \item{U_ppm}{...}
   \item{U_ppm_Int2SE}{...}
   ...
-}}
+}
+}
 \source{
 \url{http://dx.doi.org/10.1038/nature17179}
 }

@@ -4,8 +4,12 @@
 \alias{initial_234U_238U_plot}
 \title{Initial (^234^U/^238^U) plot}
 \usage{
-initial_234U_238U_plot(output, big_size = 10, less_big_size = 8,
-  point_size = 5)
+initial_234U_238U_plot(
+  output,
+  big_size = 10,
+  less_big_size = 8,
+  point_size = 5
+)
 }
 \arguments{
 \item{output}{Output from the `csUTh()` function}

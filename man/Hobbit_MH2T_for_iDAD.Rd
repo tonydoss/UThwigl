@@ -4,7 +4,8 @@
 \name{Hobbit_MH2T_for_iDAD}
 \alias{Hobbit_MH2T_for_iDAD}
 \title{Data transect 2 for modern human femur 132A/LB/27D/03}
-\format{A data frame with 6 rows and 8 variables:
+\format{
+A data frame with 6 rows and 8 variables:
 \describe{
   \item{iDAD.position}{...}
   \item{U234_U238_CORR}{...}
@@ -15,7 +16,8 @@
   \item{U_ppm}{...}
   \item{U_ppm_Int2SE}{...}
   ...
-}}
+}
+}
 \source{
 \url{http://dx.doi.org/10.1038/nature17179}
 }

@@ -12,9 +12,9 @@ status](https://ci.appveyor.com/api/projects/status/github/benmarwick/UThwigl?br
 The goal of UThwigl is to compute closed- and open-system
 uranium-thorium (U-Th) ages of geological and archaeological samples.
 Closed-system U-Th dating follows the principles presented in Edwards et
-al. (2003), Richards and Dorale (2003) and Ludwig (2003). Open-system
+al. (2003), Richards and Dorale (2003) and Ludwig (2003). Open-system
 U-Th dating is based on the diffusion-adsorption-decay (DAD) model of
-Sambridge et al. (2012), which allows for advective and diffusive
+Sambridge et al. (2012), which allows for advective and diffusive
 transport of uranium and thorium isotopes, while including synchronous
 radioactive decay.
 
@@ -36,7 +36,7 @@ browser where you can upload your CSV file, set the model parameters,
 run the model, and view the results. Choose this option is you are not
 familiar with R. Here’s a screenshot of the web app:
 
-![](/cloud/project/inst/iDADwigl-shiny-app.gif)
+![](/Users/bmarwick/Desktop/UThwigl/vignettes/figures/shiny-app-screenshots.png)
 
 ## Run code without downloading anything
 
@@ -58,6 +58,7 @@ Please see the [vignette](articles/uthwigl.pdf) for an example of how to
 use this package.
 
 <!--
+git remote add upstream https://github.com/tonydoss/UThwigl.git
 git fetch upstream
 git checkout master
 git merge upstream/master 

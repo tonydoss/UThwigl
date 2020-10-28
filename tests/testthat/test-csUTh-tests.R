@@ -14,6 +14,7 @@ output_cs <-
     save_plots = TRUE
   ))
 
+files <- list.files( pattern = "csv|png|pdf")
 
 # here are the tests:
 
@@ -22,7 +23,7 @@ test_that("csUTh() returns a list", {
 })
 
 test_that("csUTh() returns a plot", {
-  expect_true(file.exists("output_cs.png"))
+  expect_true(any(grepl("csUTh-plots", files)))
 })
 
 # these tests below may fail is the tolerance is set too low:
@@ -39,4 +40,4 @@ test_that("csUTh() returns sensible values for (234U/238U)i", {
 
 
 # delete the plot after testing
-file.remove("output_cs.png")
+file.remove(files)

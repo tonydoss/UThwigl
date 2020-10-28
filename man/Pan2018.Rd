@@ -4,7 +4,9 @@
 \name{Pan2018}
 \alias{Pan2018}
 \title{Data from South Australian corals}
-\format{An object of class \code{data.frame} with 12 rows and 7 columns.}
+\format{
+An object of class \code{data.frame} with 12 rows and 7 columns.
+}
 \source{
 \url{http://dx.doi.org/10.1016/j.margeo.2018.01.012}
 }
