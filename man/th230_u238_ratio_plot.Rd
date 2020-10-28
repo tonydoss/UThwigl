@@ -4,8 +4,13 @@
 \alias{th230_u238_ratio_plot}
 \title{Calculated (red) and observed (blue) (^230^Th/^238^U) activity ratios for transect}
 \usage{
-th230_u238_ratio_plot(output, big_size = 10, less_big_size = 8,
-  point_size = 2, digits = 1)
+th230_u238_ratio_plot(
+  output,
+  big_size = 10,
+  less_big_size = 8,
+  point_size = 2,
+  digits = 1
+)
 }
 \arguments{
 \item{output}{Output from the `osUTh()` function}

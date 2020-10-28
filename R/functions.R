@@ -58,7 +58,7 @@ its version number. Find it with 'help(package=UThwigl)'.
 #' @param print_summary Print a summary of the output to the console? Default is TRUE
 #' @param with_plots Display a panel of plots of the output? Default is TRUE
 #' @param save_plots Save plots as a png file to the current working directory? Default: TRUE
-#' @param save_output Save output data as a CSV file to the current working directory? Default: TRUE
+#' @param save_output Save output data as a CSV file to the current working directory? Default: FALSE
 #' 
 #' 
 #' @importFrom cowplot plot_grid
@@ -83,8 +83,8 @@ its version number. Find it with 'help(package=UThwigl)'.
 #' T_min = 1e3,
 #' T_max = 20e3,
 #' print_summary = TRUE,
-#' with_plots = TRUE,
-#' save_plots = TRUE)
+#' with_plots = FALSE,
+#' save_plots = FALSE)
 #' 
 
 osUTh <- function(input_data,
@@ -101,7 +101,7 @@ osUTh <- function(input_data,
                      print_summary = TRUE,
                      with_plots = TRUE,
                      save_plots = TRUE,
-                     save_output = TRUE
+                     save_output = FALSE
                   ){
   
   
@@ -635,7 +635,7 @@ th230_u238_ratio_plot <-  function(output,
 #' @param print_summary Print a summary of the output to the console? Default: TRUE
 #' @param with_plots Draw plots? Default: TRUE
 #' @param save_plots Save plots as a png file to the current working directory? Default: TRUE
-#' @param save_output Save output data as a CSV file to the current working directory? Default: TRUE
+#' @param save_output Save output data as a CSV file to the current working directory? Default: FALSE
 #' 
 #' @import deSolve ggplot2
 #' @importFrom stats IQR optim sd
@@ -651,8 +651,8 @@ th230_u238_ratio_plot <-  function(output,
 #' detcorrectionchoice = TRUE,
 #' keepfiltereddata = FALSE,
 #' print_summary = TRUE,
-#' with_plots = TRUE,
-#' save_plots = TRUE)
+#' with_plots = FALSE,
+#' save_plots = FALSE)
 #' 
 #' @export
 
@@ -670,7 +670,7 @@ csUTh <- function(input_data,
                   print_summary = TRUE,
                   with_plots = TRUE,
                   save_plots = TRUE,
-                  save_output = TRUE
+                  save_output = FALSE
 ){
   
   # check that the input data frame has the columns with the right names

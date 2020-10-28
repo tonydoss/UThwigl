@@ -4,8 +4,13 @@
 \alias{T_sol_plot}
 \title{Histogram of the solution ages}
 \usage{
-T_sol_plot(output, big_size = 10, less_big_size = 8, point_size = 2,
-  digits = 1)
+T_sol_plot(
+  output,
+  big_size = 10,
+  less_big_size = 8,
+  point_size = 2,
+  digits = 1
+)
 }
 \arguments{
 \item{output}{Output from the `osUTh()` function}
