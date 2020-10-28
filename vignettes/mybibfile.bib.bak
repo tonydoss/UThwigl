@@ -36203,15 +36203,4 @@ https://ac.els-cdn.com/S0016703796003444/1-s2.0-S0016703796003444-main.pdf?_tid=
   publisher = {Nature Publishing Group},
 }
 
-@Article{vermeesch2018isoplotr,
-  author    = {Vermeesch, Pieter},
-  title     = {IsoplotR: A free and open toolbox for geochronology},
-  journal   = {Geoscience Frontiers},
-  year      = {2018},
-  volume    = {9},
-  number    = {5},
-  pages     = {1479--1493},
-  publisher = {Elsevier},
-}
-
 @Comment{jabref-meta: databaseType:bibtex;}
