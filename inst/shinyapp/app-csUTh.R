@@ -26,7 +26,7 @@ ui <- bootstrapPage(
   mainPanel(
     use_waiter(),
     # Application title
-    titlePanel("UThwigl::csUTh : compute closed-system uranium-thorium ages using the diffusion-adsorption-decay (DAD) model"),
+    titlePanel("UThwigl::csUTh : compute closed-system uranium-thorium ages"),
     
     tabsetPanel(   id = "inTabset",
       
@@ -87,7 +87,7 @@ ui <- bootstrapPage(
                value = "visualise",
                HTML("<p><b>Plot legend</b><p>
                 <b>A.</b> Closed-system ages<p>
-                <b>B.</b> Initial (^234^U/^238^U) activity ratios for each sample analysis<p>
+                <b>B.</b> Initial (<sup>234</sup>U/<sup>238</sup>U) activity ratios for each sample analysis<p>
                 <p>"),
                          tags$hr(),
                          # defaults for Pan2018
@@ -105,12 +105,7 @@ ui <- bootstrapPage(
                          value = "modeloutput",
                          # defaults for Pan2018
                          tableOutput("model_results_table"),
-                         tags$hr(),
-                         tableOutput("model_results_items"),
-                         tags$hr(),
-                         tableOutput("U48_0_final"),
-                         tags$hr(),
-                         tableOutput("output_data")
+                         tags$hr()
                          
                 ) # end of tab
                 

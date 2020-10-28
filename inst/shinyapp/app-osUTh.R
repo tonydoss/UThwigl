@@ -26,7 +26,7 @@ ui <- bootstrapPage(
   mainPanel(
     use_waiter(),
     # Application title
-    titlePanel("UThwigl::osUTh : compute open-system uranium-thorium ages using the diffusion-adsorption-decay (DAD) model"),
+    titlePanel("UThwigl::osUTh : compute open-system Uranium-Thorium ages using the diffusion-adsorption-decay (DAD) model"),
     
     tabsetPanel(   id = "inTabset",
       
