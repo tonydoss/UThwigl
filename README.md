@@ -31,12 +31,13 @@ of the tooth or bone and return an age in thousands of years ago.
 
 ## Web application
 
-The package includes a web application that runs `osUTh()` in your
-browser where you can upload your CSV file, set the model parameters,
-run the model, and view the results. Choose this option is you are not
-familiar with R. Here’s a screenshot of the web app:
+The package includes two web applications: one that runs `osUTh()` in
+your browser where you can upload your CSV file, set the model
+parameters, run the model, and view the results, and a second app that
+does the same for `csUTh()`. Choose this option is you are not familiar
+with R. Here’s a screenshot of the web app:
 
-![](/Users/bmarwick/Desktop/UThwigl/vignettes/figures/shiny-app-screenshots.png)
+![](vignettes/figures/shiny-app-screenshots.png)
 
 ## Run code without downloading anything
 
@@ -51,15 +52,20 @@ To install the development version of UThwigl from GitHub on your
 computer, run:
 
 ``` r
-source("https://install-github.me/tonydoss/UThwigl")
+if(!require("remotes")) install.packages("remotes")
+remotes::install_github("tonydoss/UThwigl")
 ```
 
-Please see the [vignette](articles/uthwigl.pdf) for an example of how to
-use this package.
+Please see the [vignette](docs/articles/uthwigl.pdf) for an example of
+how to use this package.
 
 <!--
+# get Tony's changes
 git remote add upstream https://github.com/tonydoss/UThwigl.git
 git fetch upstream
 git checkout master
 git merge upstream/master 
+
+# update pkgdown
+pkgdown::build_site()
 -->

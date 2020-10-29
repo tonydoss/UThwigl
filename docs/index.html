@@ -88,8 +88,8 @@
 <div id="web-application" class="section level2">
 <h2 class="hasAnchor">
 <a href="#web-application" class="anchor"></a>Web application</h2>
-<p>The package includes a web application that runs <code><a href="reference/osUTh.html">osUTh()</a></code> in your browser where you can upload your CSV file, set the model parameters, run the model, and view the results. Choose this option is you are not familiar with R. Here’s a screenshot of the web app:</p>
-<p><img src="/Users/bmarwick/Desktop/UThwigl/vignettes/figures/shiny-app-screenshots.png"></p>
+<p>The package includes two web applications: one that runs <code><a href="reference/osUTh.html">osUTh()</a></code> in your browser where you can upload your CSV file, set the model parameters, run the model, and view the results, and a second app that does the same for <code><a href="reference/csUTh.html">csUTh()</a></code>. Choose this option is you are not familiar with R. Here’s a screenshot of the web app:</p>
+<p><img src="articles/figures/shiny-app-screenshots.png"></p>
 </div>
 <div id="run-code-without-downloading-anything" class="section level2">
 <h2 class="hasAnchor">
@@ -101,13 +101,18 @@
 <a href="#installing-the-uthwigl-package-on-your-computer" class="anchor"></a>Installing the UThwigl package on your computer</h2>
 <p>To install the development version of UThwigl from GitHub on your computer, run:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit">
-<span class="kw"><a href="https://rdrr.io/r/base/source.html">source</a></span><span class="op">(</span><span class="st">"https://install-github.me/tonydoss/UThwigl"</span><span class="op">)</span></pre></div>
-<p>Please see the <a href="articles/uthwigl.pdf">vignette</a> for an example of how to use this package.</p>
+<span class="kw">if</span><span class="op">(</span><span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/library.html">require</a></span><span class="op">(</span><span class="st"><a href="https://remotes.r-lib.org">"remotes"</a></span><span class="op">)</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"remotes"</span><span class="op">)</span>
+<span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span><span class="op">(</span><span class="st">"tonydoss/UThwigl"</span><span class="op">)</span></pre></div>
+<p>Please see the <a href="docs/articles/uthwigl.pdf">vignette</a> for an example of how to use this package.</p>
 <!--
+# get Tony's changes
 git remote add upstream https://github.com/tonydoss/UThwigl.git
 git fetch upstream
 git checkout master
 git merge upstream/master 
+
+# update pkgdown
+pkgdown::build_site()
 -->
 </div>
 </div>

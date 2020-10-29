@@ -1,5 +1,7 @@
 ---
 output: github_document
+resource_files:
+  - vignettes/figures/shiny-app-screenshots.png
 ---
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
@@ -25,9 +27,9 @@ The function, `osUTh()`, calculates open-system ages and take the (<sup>230</sup
 
 ## Web application
 
-The package includes a web application that runs `osUTh()` in your browser where you can upload your CSV file, set the model parameters, run the model, and view the results. Choose this option is you are not familiar with R. Here's a screenshot of the web app:
+The package includes two web applications: one that runs `osUTh()` in your browser where you can upload your CSV file, set the model parameters, run the model, and view the results, and a second app that does the same for `csUTh()`. Choose this option is you are not familiar with R. Here's a screenshot of the web app:
 
-![](`r here::here("vignettes/figures/shiny-app-screenshots.png")`)
+![](vignettes/figures/shiny-app-screenshots.png)
 
 ## Run code without downloading anything 
 
@@ -38,16 +40,21 @@ You can run the package functions in your browser by [starting a binder instance
 To  install the development version of UThwigl from GitHub on your computer, run:
 
 ```{r eval = FALSE}
-source("https://install-github.me/tonydoss/UThwigl")
+if(!require("remotes")) install.packages("remotes")
+remotes::install_github("tonydoss/UThwigl")
 ```
 
-Please see the [vignette](articles/uthwigl.pdf) for an example of how to use this package.
+Please see the [vignette](docs/articles/uthwigl.pdf) for an example of how to use this package.
 
 <!--
+# get Tony's changes
 git remote add upstream https://github.com/tonydoss/UThwigl.git
 git fetch upstream
 git checkout master
 git merge upstream/master 
+
+# update pkgdown
+pkgdown::build_site()
 -->
 
 
