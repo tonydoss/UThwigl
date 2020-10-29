@@ -364,11 +364,11 @@ The function returns a data frame with the age, error and summary output for eac
   \hline
 \begin{sideways} Sample ID \end{sideways} & \begin{sideways} Age (ka) \end{sideways} & \begin{sideways} Age 2se \end{sideways} & \begin{sideways} (234U/238U)i \end{sideways} & \begin{sideways} Ratio 2se \end{sideways} \\ 
   \hline
-YP003-1\_1 & 116.883 & 0.3590 & 1.1730 & 0.0010 \\ 
-  YP003-1\_2 & 122.847 & 0.4290 & 1.1590 & 0.0010 \\ 
-  YP003-1\_3 & 116.679 & 0.2620 & 1.1700 & 0.0010 \\ 
-  YP003-1\_4 & 110.876 & 0.2180 & 1.1660 & 0.0010 \\ 
-  YP003-1\_5 & 119.451 & 0.2590 & 1.1670 & 0.0010 \\ 
+YP003-1\_1 & 116.712 & 0.3560 & 1.1740 & 0.0010 \\ 
+  YP003-1\_2 & 122.024 & 0.4300 & 1.1590 & 0.0010 \\ 
+  YP003-1\_3 & 116.018 & 0.2660 & 1.1700 & 0.0010 \\ 
+  YP003-1\_4 & 110.825 & 0.2420 & 1.1670 & 0.0010 \\ 
+  YP003-1\_5 & 119.542 & 0.2660 & 1.1660 & 0.0010 \\ 
    \hline
 \end{tabular}
 \caption{\label{tab:panoutput}Output produced by the csUTh function used with data from Pan et al. 2018} 
@@ -562,7 +562,7 @@ In a typical analysis the user will explore the model fit by first running the m
   \hline
 \begin{sideways} Age (ka) \end{sideways} & \begin{sideways} Age 67\% quantile (ka) \end{sideways} & \begin{sideways} Age 33\% quantile (ka) \end{sideways} & \begin{sideways} U234\_U238\_0 \end{sideways} & \begin{sideways} U234\_U238\_0 67\% quantile \end{sideways} & \begin{sideways} U234\_U238\_0 33\% quantile \end{sideways} \\ 
   \hline
-7.01 & 0.57 & 0.65 & 1.2699 & 0.0001 & 0.0049 \\ 
+7.06 & 0.61 & 0.67 & 1.2692 & 0.0008 & 0.0042 \\ 
    \hline
 \end{tabular}
 \caption{\label{tab:outputresults}Summary table of the computed age and error values} 
@@ -576,26 +576,26 @@ The last item in the output is a copy of the input data with two additional colu
   \hline
 \begin{sideways} iDAD.position \end{sideways} & \begin{sideways} U234\_U238\_CORR \end{sideways} & \begin{sideways} U234\_U238\_CORR\_Int2SE \end{sideways} & \begin{sideways} iDAD.position.1 \end{sideways} & \begin{sideways} Th230\_U238\_CORR \end{sideways} & \begin{sideways} Th230\_U238\_CORR\_Int2SE \end{sideways} & \begin{sideways} U\_ppm \end{sideways} & \begin{sideways} U\_ppm\_Int2SE \end{sideways} & \begin{sideways} U234\_U238\_CALC \end{sideways} & \begin{sideways} Th230\_U238\_CALC \end{sideways} \\ 
   \hline
--0.956 & 1.270 & 0.004 & -0.956 & 0.073 & 0.002 & 12.3 & 0.6 & 1.276 & 0.081 \\ 
-  -0.857 & 1.273 & 0.004 & -0.857 & 0.073 & 0.002 & 12.7 & 0.6 & 1.275 & 0.080 \\ 
-  -0.758 & 1.265 & 0.004 & -0.758 & 0.076 & 0.002 & 12.5 & 0.6 & 1.274 & 0.078 \\ 
-  -0.659 & 1.267 & 0.005 & -0.659 & 0.077 & 0.002 & 14.2 & 0.7 & 1.273 & 0.077 \\ 
-  -0.560 & 1.269 & 0.003 & -0.560 & 0.072 & 0.002 & 19.8 & 1.0 & 1.272 & 0.077 \\ 
-  -0.461 & 1.266 & 0.003 & -0.461 & 0.077 & 0.002 & 18.0 & 0.9 & 1.271 & 0.077 \\ 
-  -0.361 & 1.267 & 0.003 & -0.361 & 0.082 & 0.002 & 20.0 & 1.0 & 1.271 & 0.078 \\ 
-  -0.262 & 1.276 & 0.002 & -0.262 & 0.079 & 0.001 & 27.2 & 1.4 & 1.270 & 0.079 \\ 
-  -0.163 & 1.266 & 0.002 & -0.163 & 0.075 & 0.001 & 26.7 & 1.3 & 1.270 & 0.080 \\ 
-  -0.064 & 1.277 & 0.002 & -0.064 & 0.073 & 0.001 & 0.3 & 0.0 & 1.270 & 0.080 \\ 
-  0.035 & 1.271 & 0.002 & 0.035 & 0.078 & 0.002 & 33.9 & 1.7 & 1.270 & 0.080 \\ 
-  0.134 & 1.264 & 0.002 & 0.134 & 0.067 & 0.001 & 37.7 & 1.9 & 1.270 & 0.080 \\ 
-  0.233 & 1.266 & 0.003 & 0.233 & 0.071 & 0.001 & 30.7 & 1.5 & 1.270 & 0.079 \\ 
-  0.332 & 1.265 & 0.002 & 0.332 & 0.077 & 0.002 & 25.2 & 1.3 & 1.271 & 0.078 \\ 
-  0.431 & 1.266 & 0.003 & 0.431 & 0.083 & 0.001 & 28.9 & 1.4 & 1.271 & 0.077 \\ 
-  0.530 & 1.268 & 0.003 & 0.530 & 0.086 & 0.002 & 29.0 & 1.4 & 1.272 & 0.077 \\ 
-  0.629 & 1.264 & 0.003 & 0.629 & 0.082 & 0.002 & 27.5 & 1.4 & 1.273 & 0.077 \\ 
-  0.728 & 1.263 & 0.002 & 0.728 & 0.070 & 0.001 & 30.1 & 1.5 & 1.273 & 0.078 \\ 
-  0.827 & 1.266 & 0.005 & 0.827 & 0.095 & 0.002 & 19.6 & 1.0 & 1.274 & 0.079 \\ 
-  0.926 & 1.263 & 0.003 & 0.926 & 0.096 & 0.002 & 14.8 & 0.7 & 1.276 & 0.080 \\ 
+-0.956 & 1.270 & 0.004 & -0.956 & 0.073 & 0.002 & 12.3 & 0.6 & 1.271 & 0.080 \\ 
+  -0.857 & 1.273 & 0.004 & -0.857 & 0.073 & 0.002 & 12.7 & 0.6 & 1.271 & 0.080 \\ 
+  -0.758 & 1.265 & 0.004 & -0.758 & 0.076 & 0.002 & 12.5 & 0.6 & 1.270 & 0.079 \\ 
+  -0.659 & 1.267 & 0.005 & -0.659 & 0.077 & 0.002 & 14.2 & 0.7 & 1.270 & 0.079 \\ 
+  -0.560 & 1.269 & 0.003 & -0.560 & 0.072 & 0.002 & 19.8 & 1.0 & 1.270 & 0.079 \\ 
+  -0.461 & 1.266 & 0.003 & -0.461 & 0.077 & 0.002 & 18.0 & 0.9 & 1.270 & 0.079 \\ 
+  -0.361 & 1.267 & 0.003 & -0.361 & 0.082 & 0.002 & 20.0 & 1.0 & 1.269 & 0.079 \\ 
+  -0.262 & 1.276 & 0.002 & -0.262 & 0.079 & 0.001 & 27.2 & 1.4 & 1.269 & 0.079 \\ 
+  -0.163 & 1.266 & 0.002 & -0.163 & 0.075 & 0.001 & 26.7 & 1.3 & 1.269 & 0.080 \\ 
+  -0.064 & 1.277 & 0.002 & -0.064 & 0.073 & 0.001 & 0.3 & 0.0 & 1.269 & 0.080 \\ 
+  0.035 & 1.271 & 0.002 & 0.035 & 0.078 & 0.002 & 33.9 & 1.7 & 1.269 & 0.080 \\ 
+  0.134 & 1.264 & 0.002 & 0.134 & 0.067 & 0.001 & 37.7 & 1.9 & 1.269 & 0.080 \\ 
+  0.233 & 1.266 & 0.003 & 0.233 & 0.071 & 0.001 & 30.7 & 1.5 & 1.269 & 0.079 \\ 
+  0.332 & 1.265 & 0.002 & 0.332 & 0.077 & 0.002 & 25.2 & 1.3 & 1.269 & 0.079 \\ 
+  0.431 & 1.266 & 0.003 & 0.431 & 0.083 & 0.001 & 28.9 & 1.4 & 1.270 & 0.079 \\ 
+  0.530 & 1.268 & 0.003 & 0.530 & 0.086 & 0.002 & 29.0 & 1.4 & 1.270 & 0.079 \\ 
+  0.629 & 1.264 & 0.003 & 0.629 & 0.082 & 0.002 & 27.5 & 1.4 & 1.270 & 0.079 \\ 
+  0.728 & 1.263 & 0.002 & 0.728 & 0.070 & 0.001 & 30.1 & 1.5 & 1.270 & 0.079 \\ 
+  0.827 & 1.266 & 0.005 & 0.827 & 0.095 & 0.002 & 19.6 & 1.0 & 1.271 & 0.080 \\ 
+  0.926 & 1.263 & 0.003 & 0.926 & 0.096 & 0.002 & 14.8 & 0.7 & 1.271 & 0.080 \\ 
    \hline
 \end{tabular}
 \caption{\label{tab:outputdata}Example of output table including the input data described above, and two new columns} 
@@ -665,7 +665,7 @@ Here we solve the closed-system model for all samples by simply entering `YP' ag
 \end{Highlighting}
 \end{Shaded}
 
-We obtain detrital-corrected ages of 123.1 \(\pm\) 0.2 ka and 128.3 \(\pm\) 0.2 ka for bulk analyses of YP002 and YP003, respectively. This is within error of values reported in Pan et al. (2018).
+We obtain detrital-corrected ages of 122.7 \(\pm\) 0.3 ka and 128.2 \(\pm\) 0.2 ka for bulk analyses of YP002 and YP003, respectively. This is within error of values reported in Pan et al. (2018).
 
 In-situ analyses for YP003-1 were solved above and yielded a mean detrital-corrected age for the five analyses of 117.1 \(\pm\) 3.7 ka, within error of the value reported in Pan et al. (2018).
 We can solve also for in-situ analyses of YP002-1 by setting \texttt{sample\_name} to `YP002-1' and \texttt{print\_summary} to \texttt{TRUE}:
@@ -687,7 +687,7 @@ We can solve also for in-situ analyses of YP002-1 by setting \texttt{sample\_nam
 \end{Highlighting}
 \end{Shaded}
 
-We obtain a mean detrital-corrected age for the five analyses of 117 \(\pm\) 5.3 ka, also within error of the value reported in Pan et al. (2018).
+We obtain a mean detrital-corrected age for the five analyses of 117 \(\pm\) 5.5 ka, also within error of the value reported in Pan et al. (2018).
 
 \hypertarget{open-system-dating---case-study-of-two-ages-from-sutikna-et-al.-2016}{%
 \subsection{Open-system dating - Case study of two ages from Sutikna et al.~2016}\label{open-system-dating---case-study-of-two-ages-from-sutikna-et-al.-2016}}
@@ -864,7 +864,7 @@ Wickham, Hadley, and Jennifer Bryan. 2018. \emph{Readxl: Read Excel Files}. \url
 \hypertarget{colophon}{%
 \subsubsection{Colophon}\label{colophon}}
 
-This report was generated on 2020-10-28 23:37:49 using the following computational environment and dependencies:
+This report was generated on 2020-10-28 23:49:56 using the following computational environment and dependencies:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -946,7 +946,7 @@ This report was generated on 2020-10-28 23:37:49 using the following computation
 ##  xtable      * 1.8-4   2019-04-21 [2] CRAN (R 4.0.2)                    
 ##  yaml          2.2.1   2020-02-01 [2] CRAN (R 4.0.0)                    
 ## 
-## [1] /private/var/folders/mz/6nn330m17_37ck5hhz2p24100000gn/T/RtmpxOh6qO/temp_libpathfd1743047c49
+## [1] /private/var/folders/mz/6nn330m17_37ck5hhz2p24100000gn/T/RtmpxOh6qO/temp_libpathfd17d4f86c7
 ## [2] /Library/Frameworks/R.framework/Versions/4.0/Resources/library
 \end{verbatim}
 
