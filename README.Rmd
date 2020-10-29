@@ -1,5 +1,7 @@
 ---
 output: github_document
+resource_files:
+  - vignettes/figures/shiny-app-screenshots.png
 ---
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
