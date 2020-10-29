@@ -123,7 +123,8 @@ The third method is to download and install the package locally to the user's co
 First the user will need to download and install [R](https://www.r-project.org/), and we also recommend downloading and installing [RStudio](https://www.rstudio.com/). To run the model, start `RStudio` and install the package from GitHub. There are many ways to do this, one simple method is shown in the line below. This only needs to be done once per computer.
 
 ```{r eval = FALSE}
-source("https://install-github.me/tonydoss/UThwigl")
+if(!require("remotes")) install.packages("remotes")
+remotes::install_github("tonydoss/UThwigl")
 ```
 
 For routine data analysis, R scripts need to contain the following line to attach the package to the current working environment. This line needs to be run at the start of each analysis:

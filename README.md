@@ -51,15 +51,20 @@ To install the development version of UThwigl from GitHub on your
 computer, run:
 
 ``` r
-source("https://install-github.me/tonydoss/UThwigl")
+if(!require("remotes")) install.packages("remotes")
+remotes::install_github("tonydoss/UThwigl")
 ```
 
-Please see the [vignette](articles/uthwigl.pdf) for an example of how to
-use this package.
+Please see the [vignette](docs/articles/uthwigl.pdf) for an example of
+how to use this package.
 
 <!--
+# get Tony's changes
 git remote add upstream https://github.com/tonydoss/UThwigl.git
 git fetch upstream
 git checkout master
 git merge upstream/master 
+
+# update pkgdown
+pkgdown::build_site()
 -->
