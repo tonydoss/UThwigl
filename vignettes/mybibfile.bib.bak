@@ -19404,16 +19404,16 @@ http://www.nature.com.ezproxy.uow.edu.au/nature/journal/v457/n7230/pdf/nature076
    type = {Journal Article}
 }
 
-@Article{RN4370,
-  author  = {Ludwig, K.R.},
-  title   = {Mathematical–statistical treatment of data and errors for 230Th/U geochronology},
-  journal = {Reviews in Mineralogy and Geochemistry},
-  year    = {2003},
-  volume  = {52},
-  number  = {1},
-  pages   = {631-656},
-  issn    = {1529-6466},
-  type    = {Journal Article},
+@article{RN4370,
+   author = {Ludwig, KR},
+   title = {Mathematical–statistical treatment of data and errors for 230Th/U geochronology},
+   journal = {Reviews in Mineralogy and Geochemistry},
+   volume = {52},
+   number = {1},
+   pages = {631-656},
+   ISSN = {1529-6466},
+   year = {2003},
+   type = {Journal Article}
 }
 
 @book{RN2163,
@@ -36212,17 +36212,6 @@ https://ac.els-cdn.com/S0016703796003444/1-s2.0-S0016703796003444-main.pdf?_tid=
   number    = {5},
   pages     = {1479--1493},
   publisher = {Elsevier},
-}
-
-@Article{hoffmann2018u,
-  author    = {Hoffmann, Dirk L and Standish, Chris D and Garc{\'\i}a-Diez, Marcos and Pettitt, Paul B and Milton, James A and Zilh{\~a}o, Jo{\~a}o and Alcolea-Gonz{\'a}lez, Jos{\'e} Javier and Cantalejo-Duarte, Pedro and Collado, Hip{\'o}lito and De Balb{\'\i}n, Rodrigo and others},
-  title     = {U-Th dating of carbonate crusts reveals Neandertal origin of Iberian cave art},
-  journal   = {Science},
-  year      = {2018},
-  volume    = {359},
-  number    = {6378},
-  pages     = {912--915},
-  publisher = {American Association for the Advancement of Science},
 }
 
 @Comment{jabref-meta: databaseType:bibtex;}
