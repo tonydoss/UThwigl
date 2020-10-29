@@ -31,12 +31,13 @@ of the tooth or bone and return an age in thousands of years ago.
 
 ## Web application
 
-The package includes a web application that runs `osUTh()` in your
-browser where you can upload your CSV file, set the model parameters,
-run the model, and view the results. Choose this option is you are not
-familiar with R. Here’s a screenshot of the web app:
+The package includes two web applications: one that runs `osUTh()` in
+your browser where you can upload your CSV file, set the model
+parameters, run the model, and view the results, and a second app that
+does the same for `csUTh()`. Choose this option is you are not familiar
+with R. Here’s a screenshot of the web app:
 
-![](/Users/bmarwick/Desktop/UThwigl/vignettes/figures/shiny-app-screenshots.png)
+![](/Users/bmarwick/Desktop/UThwigl/docs/articles/figures/shiny-app-screenshots.png)
 
 ## Run code without downloading anything
 
