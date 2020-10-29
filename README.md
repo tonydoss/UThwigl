@@ -37,7 +37,7 @@ parameters, run the model, and view the results, and a second app that
 does the same for `csUTh()`. Choose this option is you are not familiar
 with R. Here’s a screenshot of the web app:
 
-![](/Users/bmarwick/Desktop/UThwigl/vignettes/figures/shiny-app-screenshots.png)
+![](vignettes/figures/shiny-app-screenshots.png)
 
 ## Run code without downloading anything
 
