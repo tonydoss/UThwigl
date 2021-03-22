@@ -1,0 +1,11 @@
+\BOOKMARK [1][-]{section*.1}{Introduction}{}% 1
+\BOOKMARK [1][-]{section*.2}{Methods}{}% 2
+\BOOKMARK [2][-]{section*.3}{Closed-system\040dating}{section*.2}% 3
+\BOOKMARK [2][-]{section*.4}{Open-system\040dating}{section*.2}% 4
+\BOOKMARK [1][-]{section*.5}{Working\040with\040the\040package}{}% 5
+\BOOKMARK [1][-]{section*.6}{Installing\040and\040attaching\040the\040package}{}% 6
+\BOOKMARK [1][-]{section*.7}{Closed-system\040U-Th\040dating}{}% 7
+\BOOKMARK [2][-]{section*.8}{Input\040data\040format}{section*.7}% 8
+\BOOKMARK [3][-]{section*.9}{Details\040of\040the\040input\040parameters\040of\040closed-system\040analysis}{section*.8}% 9
+\BOOKMARK [2][-]{section*.10}{How\040to\040run\040the\040model}{section*.7}% 10
+\BOOKMARK [2][-]{section*.11}{Inspecting\040and\040visualizing\040the\040models'\040output}{section*.7}% 11

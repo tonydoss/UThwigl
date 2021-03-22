@@ -95,18 +95,11 @@
 % Pandoc toggle for numbering sections (defaults to be off)
 \setcounter{secnumdepth}{0}
 
-\newlength{\cslhangindent}
-\setlength{\cslhangindent}{1.5em}
-\newenvironment{cslreferences}%
-  {\setlength{\parindent}{0pt}%
-  \everypar{\setlength{\hangindent}{\cslhangindent}}\ignorespaces}%
-  {\par}
 
 % Pandoc header
 
 \usepackage{rotating} % rotate table column headers
-\usepackage{placeins} % so we can use \FloatBarrier 
-
+\usepackage{placeins} % so we can use \FloatBarrier
 
 
 
@@ -123,7 +116,7 @@
     
   \begin{abstract}
   For several decades, uranium-thorium (U-Th) dating has allowed geochronologists to precisely date geological materials, providing unvaluable geochronological constraints on Quaternary processes. Open-system dating of bones and teeth has also provided ages of human and faunal remains of archaeological significance.
-
+  
   To facilitate access to closed- and open-system U-Th dating to the broad scientific community, here we provide an R package, named \emph{UThwigl}. Description of input and output parameters is given, as well as a guide for running the model. The package can be used three different ways: (i) as a web application, (ii) through a web browser with an internet connection, or (iii) in R (most efficiently with RStudio). Examples of application of the model are also provided, showing that it yields ages within error of previously published values.
   \end{abstract}
   
@@ -170,12 +163,12 @@ The closed-system function \texttt{csUTh()} requires that for each analysis to y
 
 Data required for the DAD model are (\textsuperscript{230}Th/\textsuperscript{238}U) and (\textsuperscript{234}U/\textsuperscript{238}U) activity ratios collected along a transect perpendicular to the surface of the tooth or bone. Sampling for analysis can be done by micro-drilling or laser ablation.
 
-The distance of each analysis location from the inner and outer surfaces of the sample needs to be recorded. One surface is given a coordinate of 1 and the other one -1, thus coordinates of analyses take values in between (Figure \ref{fig:femurpic}).
+The distance of each analysis location from the inner and outer surfaces of the sample needs to be recorded. One surface is given a coordinate of 1 and the other one -1, thus coordinates of analyses take values in between (Figure @ref(fig:femurpic)).
 
-
+(ref:femurpiccap) Modern human femur (132A/LB/27D/03) from Liang Bua, Flores, Indonesia. Two analysis transects can be seen. For a given transect, the outer and inner surface of the bone are given 1 and -1 reference coordinates, and the position of each analysis is calculated accordingly. Modified from Sutikna et al.~(2016).
 
 \begin{figure}
-\includegraphics[width=0.95\linewidth]{figures/bone} \caption{Modern human femur (132A/LB/27D/03) from Liang Bua, Flores, Indonesia. Two analysis transects can be seen. For a given transect, the outer and inner surface of the bone are given 1 and -1 reference coordinates, and the position of each analysis is calculated accordingly. Modified from Sutikna et al.~(2016).}\label{fig:femurpic}
+\includegraphics[width=0.95\linewidth]{figures/bone} \caption{(ref:femurpiccap)}(\#fig:femurpic)
 \end{figure}
 
 \FloatBarrier
@@ -183,20 +176,20 @@ The distance of each analysis location from the inner and outer surfaces of the 
 \hypertarget{working-with-the-package}{%
 \section{Working with the package}\label{working-with-the-package}}
 
-We provide three methods for using this package to suit different levels of familiarity with the R programming language. The simplest way to use the package is our web applications, online at https://ben-marwick.shinyapps.io/csUTh/ and https://ben-marwick.shinyapps.io/osUTh/ (Figure \ref{fig:shinyfig}). Using the web application requires no familiarity with R. To use the web application we upload a CSV file, then click through a series of tabs to inspect the data, adjust the model parameters, run the model, and inspect the output. The interface is mouse-driven and requires no programming. In the web application we upload the data file on the \emph{Load the data} tab, set parameters from the \emph{Set model parameters} tab, run the model by clicking the button \emph{Run Simulation} on the same tab, and observe the results on the \emph{Visualise the model} and \emph{Inspect the model} tabs. We can change the parameters and re-run the model by click the button \emph{Run Simulation}. Once done, close the window.
+We provide three methods for using this package to suit different levels of familiarity with the R programming language. The simplest way to use the package is our web applications, online at https://ben-marwick.shinyapps.io/csUTh/ and https://ben-marwick.shinyapps.io/osUTh/ (Figure @ref(fig:shinyfig)). Using the web application requires no familiarity with R. To use the web application we upload a CSV file, then click through a series of tabs to inspect the data, adjust the model parameters, run the model, and inspect the output. The interface is mouse-driven and requires no programming. In the web application we upload the data file on the \emph{Load the data} tab, set parameters from the \emph{Set model parameters} tab, run the model by clicking the button \emph{Run Simulation} on the same tab, and observe the results on the \emph{Visualise the model} and \emph{Inspect the model} tabs. We can change the parameters and re-run the model by click the button \emph{Run Simulation}. Once done, close the window.
 
-
+(ref:shinyfigcap) Screenshots of the web application for using the UThwigl package. A: Upload a CSV file of the data to model, B: Inspect a table of the uploaded data. C: Set the model parameters and run the model. D: Inspect visualisations of the model's output. E: Inspect and download the numeric output from the model.
 
 \begin{figure}
-\includegraphics[width=0.95\linewidth]{figures/shiny-app-screenshots} \caption{Screenshots of the web application for using the UThwigl package. A: Upload a CSV file of the data to model, B: Inspect a table of the uploaded data. C: Set the model parameters and run the model. D: Inspect visualisations of the model's output. E: Inspect and download the numeric output from the model.}\label{fig:shinyfig}
+\includegraphics[width=0.95\linewidth]{figures/shiny-app-screenshots} \caption{(ref:shinyfigcap)}(\#fig:shinyfig)
 \end{figure}
 
 The second way to use the package is with Binder, a browser-based instance of R and RStudio that includes our package ready to work with. Binder is a server technology that turns computational material, such as an R package, into interactive computational environments in the cloud. Using Binder requires a novice level of familiarity with R, for example to use the code in this paper and adapt it to work with a different CSV file. Because Binder provides a complete R environment, custom R code can be written during a Binder instance to further explore the model's output in the browser. These two methods, the web application and Binder, do not require any software to be downloaded and installed on the user's computer, all computation occurs in the browser. The web application and Binder are suitable for getting a quick start on working with the package, but they require a connection to the internet, and they have limited memory and compute time available per instance.
 
-
+(ref:binderfigcap) Screenshot of Binder running R and RStudio in a web browser window.
 
 \begin{figure}
-\includegraphics[width=0.95\linewidth]{figures/binder} \caption{Screenshot of Binder running R and RStudio in a web browser window.}\label{fig:binderfig}
+\includegraphics[width=0.95\linewidth]{figures/binder} \caption{(ref:binderfigcap)}(\#fig:binderfig)
 \end{figure}
 
 The third method is to download and install the package locally to the user's computer, and work with it in the user's local installation of R and RStudio. This method requires some familiarity with R, but gives the most flexibility when working with the model because we are not limited by the memory and compute time of the cloud services. Our recommendation is to use Binder or a local installation of UThwigl because then the user can save an R script file that includes the name of the input file, the specific parameters used to generate the model output, and any downstream processing and visualisation. This script file and the CSV file can then be archived in a data repository to ensure long-term accessibility for other researchers. In the following sections we demonstrate the use of UThwigl with a local installation of R and RStudio.
@@ -209,7 +202,7 @@ First the user will need to download and install \href{https://www.r-project.org
 \begin{Shaded}
 \begin{Highlighting}[]
 \ControlFlowTok{if}\NormalTok{(}\OperatorTok{!}\KeywordTok{require}\NormalTok{(}\StringTok{"remotes"}\NormalTok{)) }\KeywordTok{install.packages}\NormalTok{(}\StringTok{"remotes"}\NormalTok{)}
-\NormalTok{remotes}\OperatorTok{::}\KeywordTok{install\_github}\NormalTok{(}\StringTok{"tonydoss/UThwigl"}\NormalTok{)}
+\NormalTok{remotes}\OperatorTok{::}\KeywordTok{install_github}\NormalTok{(}\StringTok{"tonydoss/UThwigl"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -217,7 +210,7 @@ For routine data analysis, R scripts need to contain the following line to attac
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{\# attach the package}
+\CommentTok{# attach the package}
 \KeywordTok{library}\NormalTok{(UThwigl)}
 \end{Highlighting}
 \end{Shaded}
@@ -254,7 +247,7 @@ To help with preparing data for input into our function, we have included an exa
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{\# access the data included in the UThwigl package}
+\CommentTok{# access the data included in the UThwigl package}
 \KeywordTok{data}\NormalTok{(}\StringTok{"Pan2018"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
@@ -265,7 +258,7 @@ To download the built-in data to the user's computer so it can be inspected and 
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{\# download the data included in the package}
+\CommentTok{# download the data included in the package}
 \KeywordTok{write.csv}\NormalTok{(Pan2018, }\StringTok{"Pan2018.csv"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
@@ -274,13 +267,13 @@ The code chunk below shows how to read one of the CSV files included in the pack
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{\# read in one of the example CSV files included in the package}
-\NormalTok{input\_data\_cs \textless{}{-}}
-\StringTok{  }\KeywordTok{read.csv}\NormalTok{(}\StringTok{\textquotesingle{}data/Pan2018.csv\textquotesingle{}}\NormalTok{)}
+\CommentTok{# read in one of the example CSV files included in the package}
+\NormalTok{input_data_cs <-}
+\StringTok{  }\KeywordTok{read.csv}\NormalTok{(}\StringTok{'data/Pan2018.csv'}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
-Table \ref{tab:pan} shows the data contained in the \texttt{Pan2018.csv} file included in the package.
+Table @ref(tab:pan) shows the data contained in the \texttt{Pan2018.csv} file included in the package.
 
 \begin{table}[ht]
 \centering
@@ -312,7 +305,7 @@ Columns \texttt{U234\_U238\_CORR} and \texttt{U234\_U238\_CORR\_Int2SE} are the 
 \hypertarget{details-of-the-input-parameters-of-closed-system-analysis}{%
 \subsubsection{Details of the input parameters of closed-system analysis}\label{details-of-the-input-parameters-of-closed-system-analysis}}
 
-\texttt{sample\_name} is the name of the sample to calculate closed-system ages for. The function will partially match by sample prefix. For example in Table \ref{tab:pan} one sample is indicated by the Sample ID `YP003'. If the user inputs `YP003' for the \texttt{sample\_name}, then this will match rows where the Sample ID is `YP003-1', `YP003-2', `YP003-3', and so on.
+\texttt{sample\_name} is the name of the sample to calculate closed-system ages for. The function will partially match by sample prefix. For example in Table @ref(tab:pan) one sample is indicated by the Sample ID `YP003'. If the user inputs `YP003' for the \texttt{sample\_name}, then this will match rows where the Sample ID is `YP003-1', `YP003-2', `YP003-3', and so on.
 
 \texttt{nbitchoice} is the number of iterations in the model (it is recommended to have at least 100).
 \texttt{detcorrectionchoice} is a parameter for choosing whether or not to apply a detrital correction to the calculation.
@@ -326,29 +319,29 @@ Assuming that the package is attached with \texttt{library(UThwigl)}, as shown a
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{\# Solve for sample YP003}
-\NormalTok{output\_cs \textless{}{-}}
+\CommentTok{# Solve for sample YP003}
+\NormalTok{output_cs <-}
 \StringTok{  }\KeywordTok{csUTh}\NormalTok{(}
-\NormalTok{    input\_data\_cs,}
-    \DataTypeTok{sample\_name =} \StringTok{\textquotesingle{}YP003\textquotesingle{}}\NormalTok{,}
+\NormalTok{    input_data_cs,}
+    \DataTypeTok{sample_name =} \StringTok{'YP003'}\NormalTok{,}
     \DataTypeTok{nbitchoice =} \DecValTok{100}\NormalTok{,}
     \DataTypeTok{detcorrectionchoice =} \OtherTok{TRUE}\NormalTok{,}
     \DataTypeTok{R28det =} \FloatTok{0.8}\NormalTok{,}
-    \DataTypeTok{R28det\_err =} \FloatTok{0.08}\NormalTok{,}
+    \DataTypeTok{R28det_err =} \FloatTok{0.08}\NormalTok{,}
     \DataTypeTok{R08det =} \DecValTok{1}\NormalTok{,}
-    \DataTypeTok{R08det\_err =} \FloatTok{0.05}\NormalTok{,}
+    \DataTypeTok{R08det_err =} \FloatTok{0.05}\NormalTok{,}
     \DataTypeTok{R48det =} \DecValTok{1}\NormalTok{,}
-    \DataTypeTok{R48det\_err =} \FloatTok{0.02}\NormalTok{,}
+    \DataTypeTok{R48det_err =} \FloatTok{0.02}\NormalTok{,}
     \DataTypeTok{keepfiltereddata =} \OtherTok{FALSE}\NormalTok{,}
-    \DataTypeTok{print\_summary =} \OtherTok{TRUE}\NormalTok{,}
-    \DataTypeTok{with\_plots =} \OtherTok{TRUE}\NormalTok{,}
-    \DataTypeTok{save\_plots =} \OtherTok{FALSE}\NormalTok{,}
-    \DataTypeTok{save\_output =} \OtherTok{FALSE}
+    \DataTypeTok{print_summary =} \OtherTok{TRUE}\NormalTok{,}
+    \DataTypeTok{with_plots =} \OtherTok{TRUE}\NormalTok{,}
+    \DataTypeTok{save_plots =} \OtherTok{FALSE}\NormalTok{,}
+    \DataTypeTok{save_output =} \OtherTok{FALSE}
 \NormalTok{  )}
 \end{Highlighting}
 \end{Shaded}
 
-For efficient interactive use of this package, the default setting of \texttt{csUTh()} is to produce a panel plot as seen in Figure \ref{fig:csuthvizfig}. The setting \texttt{with\_plots\ =\ FALSE} prevents plots from being generated which is more useful when the function is part of a longer sequence of code. The function runs faster when not producing plots, which is helpful when replicating many runs. The setting \texttt{save\_output\ =\ TRUE} will save a csv file to the current working directory so the output data can be used in other contexts. The csv file that is created when \texttt{save\_output\ =\ TRUE} will be given a name that includes a date and time stamp so that the output of each time the function is run can be saved to a unique file.
+For efficient interactive use of this package, the default setting of \texttt{csUTh()} is to produce a panel plot as seen in Figure @ref(fig:csuthvizfig). The setting \texttt{with\_plots\ =\ FALSE} prevents plots from being generated which is more useful when the function is part of a longer sequence of code. The function runs faster when not producing plots, which is helpful when replicating many runs. The setting \texttt{save\_output\ =\ TRUE} will save a csv file to the current working directory so the output data can be used in other contexts. The csv file that is created when \texttt{save\_output\ =\ TRUE} will be given a name that includes a date and time stamp so that the output of each time the function is run can be saved to a unique file.
 
 When run on the R console, this function will print a confirmation that the input data frame has the required columns. If \texttt{print\_summary} is set to \texttt{TRUE}, it will also the resulting mean age value of several analyses on a single sample, with an error reported as 2 Standard Error, for example:
 
@@ -362,7 +355,7 @@ All required columns are present in the input data
 \hypertarget{inspecting-and-visualizing-the-models-output}{%
 \subsection{Inspecting and visualizing the models' output}\label{inspecting-and-visualizing-the-models-output}}
 
-The function returns a data frame with the age, error and summary output for each measurement, as shown in Table \ref{tab:panoutput}. This includes calculated ages (with or without detrital correction, depending how \texttt{detcorrectionchoice} was set), initial (\textsuperscript{234}U/\textsuperscript{238}U) activity ratios, along with their uncertainties.
+The function returns a data frame with the age, error and summary output for each measurement, as shown in Table @ref(tab:panoutput). This includes calculated ages (with or without detrital correction, depending how \texttt{detcorrectionchoice} was set), initial (\textsuperscript{234}U/\textsuperscript{238}U) activity ratios, along with their uncertainties.
 
 \begin{table}[ht]
 \centering
@@ -370,11 +363,11 @@ The function returns a data frame with the age, error and summary output for eac
   \hline
 \begin{sideways} Sample ID \end{sideways} & \begin{sideways} Age (ka) \end{sideways} & \begin{sideways} Age 2se \end{sideways} & \begin{sideways} (234U/238U)i \end{sideways} & \begin{sideways} Ratio 2se \end{sideways} \\ 
   \hline
-YP003-1\_1 & 117.317 & 0.3480 & 1.1730 & 0.0010 \\ 
-  YP003-1\_2 & 122.424 & 0.4120 & 1.1590 & 0.0010 \\ 
-  YP003-1\_3 & 116.081 & 0.2630 & 1.1710 & 0.0010 \\ 
-  YP003-1\_4 & 111.187 & 0.2410 & 1.1660 & 0.0010 \\ 
-  YP003-1\_5 & 119.658 & 0.2610 & 1.1670 & 0.0010 \\ 
+YP003-1\_1 & 117.038 & 0.3330 & 1.1720 & 0.0010 \\ 
+  YP003-1\_2 & 121.885 & 0.4080 & 1.1590 & 0.0010 \\ 
+  YP003-1\_3 & 116.316 & 0.2920 & 1.1710 & 0.0010 \\ 
+  YP003-1\_4 & 110.580 & 0.2330 & 1.1670 & 0.0010 \\ 
+  YP003-1\_5 & 119.471 & 0.2860 & 1.1680 & 0.0010 \\ 
    \hline
 \end{tabular}
 \caption{\label{tab:panoutput}Output produced by the csUTh function used with data from Pan et al. 2018} 
@@ -382,16 +375,16 @@ YP003-1\_1 & 117.317 & 0.3480 & 1.1730 & 0.0010 \\
 
 The plots produced by the \texttt{csUTh()} function are stored as list objects in the output from the function. We can show the plots by accessing the list like this:
 
-
+(ref:csuthvizfigcap) Example of the visualisations produced by the \texttt{csUTh()} function, using the demonstration run described above, and five in-situ analyses by laser ablation of coral sample YP003. A: closed-system ages and B: initial (\textsuperscript{234}U/\textsuperscript{238}U) activity ratios for each sample analysis
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{output\_cs}\OperatorTok{$}\NormalTok{plots}
+\NormalTok{output_cs}\OperatorTok{$}\NormalTok{plots}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{figure}
-\includegraphics[width=0.95\linewidth]{/Users/bmarwick/Desktop/UThwigl/docs/articles/uthwigl_files/figure-latex/csuthvizfig-1} \caption{Example of the visualisations produced by the \texttt{csUTh()} function, using the demonstration run described above, and five in-situ analyses by laser ablation of coral sample YP003. A: closed-system ages and B: initial (\textsuperscript{234}U/\textsuperscript{238}U) activity ratios for each sample analysis}\label{fig:csuthvizfig}
+\includegraphics[width=0.95\linewidth]{C:\Users\tonyd\ONEDRI~1\R\U-THWI~1\docs\articles\UTHWIG~1/figure-latex/csuthvizfig-1} \caption{(ref:csuthvizfigcap)}(\#fig:csuthvizfig)
 \end{figure}
 
 \FloatBarrier
@@ -430,9 +423,9 @@ We have included two examples of input files. After attaching the package, we ca
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{\# access the data included in the UThwigl package}
-\KeywordTok{data}\NormalTok{(}\StringTok{"Hobbit\_1\_1T\_for\_iDAD"}\NormalTok{)}
-\KeywordTok{data}\NormalTok{(}\StringTok{"Hobbit\_MH2T\_for\_iDAD"}\NormalTok{)}
+\CommentTok{# access the data included in the UThwigl package}
+\KeywordTok{data}\NormalTok{(}\StringTok{"Hobbit_1_1T_for_iDAD"}\NormalTok{)}
+\KeywordTok{data}\NormalTok{(}\StringTok{"Hobbit_MH2T_for_iDAD"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -440,19 +433,19 @@ As above, these datasets can be downloaded from the package with \texttt{write.c
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{\# download the data included in the package}
-\KeywordTok{write.csv}\NormalTok{(Hobbit\_}\DecValTok{1}\NormalTok{\_1T\_for\_iDAD, }\StringTok{"Hobbit\_1\_1T\_for\_iDAD.csv"}\NormalTok{)}
-\KeywordTok{write.csv}\NormalTok{(Hobbit\_MH2T\_for\_iDAD, }\StringTok{"HHobbit\_MH2T\_for\_iDADcsv"}\NormalTok{)}
+\CommentTok{# download the data included in the package}
+\KeywordTok{write.csv}\NormalTok{(Hobbit_}\DecValTok{1}\NormalTok{_1T_for_iDAD, }\StringTok{"Hobbit_1_1T_for_iDAD.csv"}\NormalTok{)}
+\KeywordTok{write.csv}\NormalTok{(Hobbit_MH2T_for_iDAD, }\StringTok{"HHobbit_MH2T_for_iDADcsv"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
-The code chunk below shows how to read one of the CSV files included in the package into the R environment. As above, we assume that the user's working directory contains a directory called \texttt{data} and the CSV file is in this \texttt{data} directory, and so the data can be imported as follows (Table \ref{tab:hobbitone}):
+The code chunk below shows how to read one of the CSV files included in the package into the R environment. As above, we assume that the user's working directory contains a directory called \texttt{data} and the CSV file is in this \texttt{data} directory, and so the data can be imported as follows (Table @ref(tab:hobbitone)):
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{\# read in one of the example CSV files included in the package}
-\NormalTok{input\_data\_os \textless{}{-}}
-\StringTok{  }\KeywordTok{read.csv}\NormalTok{(}\StringTok{\textquotesingle{}data/Hobbit\_MH2T\_for\_iDAD.csv\textquotesingle{}}\NormalTok{)}
+\CommentTok{# read in one of the example CSV files included in the package}
+\NormalTok{input_data_os <-}
+\StringTok{  }\KeywordTok{read.csv}\NormalTok{(}\StringTok{'data/Hobbit_MH2T_for_iDAD.csv'}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -491,7 +484,7 @@ The code chunk below shows how to read one of the CSV files included in the pack
 
 As for the closed-system function, the columns \texttt{iDAD.position}, \texttt{U234\_U238\_CORR}, \texttt{U234\_U238\_CORR\_Int2SE}, \texttt{Th230\_U238\_CORR} and \texttt{Th230\_U238\_CORR\_Int2SE} must be present in the input data frame with these exact names for the model to function. The \texttt{osUTh()} function will check if the input data frame has these columns, and will stop with an error message if it does not find these columns.
 
-The \texttt{iDAD.position} column corresponds to the coordinates of the (\textsuperscript{234}U/\textsuperscript{238}U) analyses, which as indicated above take values between -1 and 1 (Figure \ref{fig:femurpic}). The second \texttt{iDAD.position.1} column is used if the coordinates of the (\textsuperscript{230}Th/\textsuperscript{238}U) analyses are different from those of the (\textsuperscript{234}U/\textsuperscript{238}U) analyses.
+The \texttt{iDAD.position} column corresponds to the coordinates of the (\textsuperscript{234}U/\textsuperscript{238}U) analyses, which as indicated above take values between -1 and 1 (Figure @ref(fig:femurpic)). The second \texttt{iDAD.position.1} column is used if the coordinates of the (\textsuperscript{230}Th/\textsuperscript{238}U) analyses are different from those of the (\textsuperscript{234}U/\textsuperscript{238}U) analyses.
 
 Columns \texttt{U\_ppm} and \texttt{U\_ppm\_Int2SE} are the calculated uranium concentrations (in ppm) and their 2\(\sigma\) errors. Uranium concentrations are not necessary for the model calculations but needed to display the U concentration profile in a figure.
 
@@ -521,24 +514,24 @@ Attach the package as shown above and then run \texttt{osUTh()}, specifying the 
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{output\_os \textless{}{-}}\StringTok{ }\KeywordTok{osUTh}\NormalTok{(input\_data\_os,}
+\NormalTok{output_os <-}\StringTok{ }\KeywordTok{osUTh}\NormalTok{(input_data_os,}
                    \DataTypeTok{nbit =} \DecValTok{1000}\NormalTok{,}
-                   \DataTypeTok{fsum\_target =} \FloatTok{0.01}\NormalTok{,}
-                   \DataTypeTok{U48\_0\_min =} \FloatTok{1.265}\NormalTok{,}
-                   \DataTypeTok{U48\_0\_max =} \FloatTok{1.270}\NormalTok{,}
+                   \DataTypeTok{fsum_target =} \FloatTok{0.01}\NormalTok{,}
+                   \DataTypeTok{U48_0_min =} \FloatTok{1.265}\NormalTok{,}
+                   \DataTypeTok{U48_0_max =} \FloatTok{1.270}\NormalTok{,}
                    \DataTypeTok{l =} \FloatTok{5.35}\NormalTok{,}
-                   \DataTypeTok{U\_0 =} \DecValTok{25}\NormalTok{,}
-                   \DataTypeTok{K\_min =} \FloatTok{1e{-}13}\NormalTok{,}
-                   \DataTypeTok{K\_max =} \FloatTok{1e{-}11}\NormalTok{,}
-                   \DataTypeTok{T\_min =} \FloatTok{1e3}\NormalTok{,}
-                   \DataTypeTok{T\_max =} \FloatTok{20e3}\NormalTok{,}
-                   \DataTypeTok{with\_plots =} \OtherTok{TRUE}\NormalTok{,}
-                   \DataTypeTok{save\_plots =} \OtherTok{FALSE}\NormalTok{,}
-                   \DataTypeTok{save\_output =} \OtherTok{FALSE}\NormalTok{)}
+                   \DataTypeTok{U_0 =} \DecValTok{25}\NormalTok{,}
+                   \DataTypeTok{K_min =} \FloatTok{1e-13}\NormalTok{,}
+                   \DataTypeTok{K_max =} \FloatTok{1e-11}\NormalTok{,}
+                   \DataTypeTok{T_min =} \FloatTok{1e3}\NormalTok{,}
+                   \DataTypeTok{T_max =} \FloatTok{20e3}\NormalTok{,}
+                   \DataTypeTok{with_plots =} \OtherTok{TRUE}\NormalTok{,}
+                   \DataTypeTok{save_plots =} \OtherTok{FALSE}\NormalTok{,}
+                   \DataTypeTok{save_output =} \OtherTok{FALSE}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
-The default setting of \texttt{osUTh()} is to produce a panel plot as seen in Figure \ref{fig:demopanelfig}. The setting \texttt{with\_plots\ =\ FALSE} prevents plots from being generated which is more useful when the function is part of a longer sequence of code. The function runs faster when not producing pots, which is helpful when replicating many runs.
+The default setting of \texttt{osUTh()} is to produce a panel plot as seen in Figure @ref(fig:demopanelfig). The setting \texttt{with\_plots\ =\ FALSE} prevents plots from being generated which is more useful when the function is part of a longer sequence of code. The function runs faster when not producing pots, which is helpful when replicating many runs.
 
 Similar to the \texttt{csUTh()} function, when \texttt{osUTh()} is run on the R console, it will print a confirmation that the input data frame has the required columns, and print the resulting age value with an error reported as the 67\% and 33\% quantiles, for example:
 
@@ -564,7 +557,7 @@ In a typical analysis, the user explores the model fit by first running the mode
   \hline
 \begin{sideways} Age (ka) \end{sideways} & \begin{sideways} Age 67\% quantile (ka) \end{sideways} & \begin{sideways} Age 33\% quantile (ka) \end{sideways} & \begin{sideways} U234\_U238\_0 \end{sideways} & \begin{sideways} U234\_U238\_0 67\% quantile \end{sideways} & \begin{sideways} U234\_U238\_0 33\% quantile \end{sideways} \\ 
   \hline
-6.92 & 0.67 & 0.64 & 1.2672 & 0.0028 & 0.0022 \\ 
+6.98 & 0.57 & 0.73 & 1.2698 & 0.0002 & 0.0048 \\ 
    \hline
 \end{tabular}
 \caption{\label{tab:outputresults}Summary table of the computed age and error values} 
@@ -578,26 +571,26 @@ The last item in the output is a copy of the input data with two additional colu
   \hline
 \begin{sideways} iDAD.position \end{sideways} & \begin{sideways} U234\_U238\_CORR \end{sideways} & \begin{sideways} U234\_U238\_CORR\_Int2SE \end{sideways} & \begin{sideways} iDAD.position.1 \end{sideways} & \begin{sideways} Th230\_U238\_CORR \end{sideways} & \begin{sideways} Th230\_U238\_CORR\_Int2SE \end{sideways} & \begin{sideways} U\_ppm \end{sideways} & \begin{sideways} U\_ppm\_Int2SE \end{sideways} & \begin{sideways} U234\_U238\_CALC \end{sideways} & \begin{sideways} Th230\_U238\_CALC \end{sideways} \\ 
   \hline
--0.956 & 1.270 & 0.004 & -0.956 & 0.073 & 0.002 & 12.3 & 0.6 & 1.269 & 0.079 \\ 
-  -0.857 & 1.273 & 0.004 & -0.857 & 0.073 & 0.002 & 12.7 & 0.6 & 1.269 & 0.078 \\ 
-  -0.758 & 1.265 & 0.004 & -0.758 & 0.076 & 0.002 & 12.5 & 0.6 & 1.268 & 0.078 \\ 
-  -0.659 & 1.267 & 0.005 & -0.659 & 0.077 & 0.002 & 14.2 & 0.7 & 1.268 & 0.078 \\ 
-  -0.560 & 1.269 & 0.003 & -0.560 & 0.072 & 0.002 & 19.8 & 1.0 & 1.268 & 0.077 \\ 
-  -0.461 & 1.266 & 0.003 & -0.461 & 0.077 & 0.002 & 18.0 & 0.9 & 1.268 & 0.077 \\ 
-  -0.361 & 1.267 & 0.003 & -0.361 & 0.082 & 0.002 & 20.0 & 1.0 & 1.267 & 0.078 \\ 
-  -0.262 & 1.276 & 0.002 & -0.262 & 0.079 & 0.001 & 27.2 & 1.4 & 1.267 & 0.078 \\ 
-  -0.163 & 1.266 & 0.002 & -0.163 & 0.075 & 0.001 & 26.7 & 1.3 & 1.267 & 0.078 \\ 
-  -0.064 & 1.277 & 0.002 & -0.064 & 0.073 & 0.001 & 0.3 & 0.0 & 1.267 & 0.078 \\ 
-  0.035 & 1.271 & 0.002 & 0.035 & 0.078 & 0.002 & 33.9 & 1.7 & 1.267 & 0.078 \\ 
-  0.134 & 1.264 & 0.002 & 0.134 & 0.067 & 0.001 & 37.7 & 1.9 & 1.267 & 0.078 \\ 
-  0.233 & 1.266 & 0.003 & 0.233 & 0.071 & 0.001 & 30.7 & 1.5 & 1.267 & 0.078 \\ 
-  0.332 & 1.265 & 0.002 & 0.332 & 0.077 & 0.002 & 25.2 & 1.3 & 1.267 & 0.078 \\ 
-  0.431 & 1.266 & 0.003 & 0.431 & 0.083 & 0.001 & 28.9 & 1.4 & 1.268 & 0.077 \\ 
-  0.530 & 1.268 & 0.003 & 0.530 & 0.086 & 0.002 & 29.0 & 1.4 & 1.268 & 0.077 \\ 
-  0.629 & 1.264 & 0.003 & 0.629 & 0.082 & 0.002 & 27.5 & 1.4 & 1.268 & 0.077 \\ 
-  0.728 & 1.263 & 0.002 & 0.728 & 0.070 & 0.001 & 30.1 & 1.5 & 1.268 & 0.078 \\ 
-  0.827 & 1.266 & 0.005 & 0.827 & 0.095 & 0.002 & 19.6 & 1.0 & 1.269 & 0.078 \\ 
-  0.926 & 1.263 & 0.003 & 0.926 & 0.096 & 0.002 & 14.8 & 0.7 & 1.269 & 0.078 \\ 
+-0.956 & 1.270 & 0.004 & -0.956 & 0.073 & 0.002 & 12.3 & 0.6 & 1.274 & 0.080 \\ 
+  -0.857 & 1.273 & 0.004 & -0.857 & 0.073 & 0.002 & 12.7 & 0.6 & 1.273 & 0.079 \\ 
+  -0.758 & 1.265 & 0.004 & -0.758 & 0.076 & 0.002 & 12.5 & 0.6 & 1.273 & 0.078 \\ 
+  -0.659 & 1.267 & 0.005 & -0.659 & 0.077 & 0.002 & 14.2 & 0.7 & 1.272 & 0.077 \\ 
+  -0.560 & 1.269 & 0.003 & -0.560 & 0.072 & 0.002 & 19.8 & 1.0 & 1.271 & 0.077 \\ 
+  -0.461 & 1.266 & 0.003 & -0.461 & 0.077 & 0.002 & 18.0 & 0.9 & 1.271 & 0.077 \\ 
+  -0.361 & 1.267 & 0.003 & -0.361 & 0.082 & 0.002 & 20.0 & 1.0 & 1.270 & 0.078 \\ 
+  -0.262 & 1.276 & 0.002 & -0.262 & 0.079 & 0.001 & 27.2 & 1.4 & 1.270 & 0.078 \\ 
+  -0.163 & 1.266 & 0.002 & -0.163 & 0.075 & 0.001 & 26.7 & 1.3 & 1.270 & 0.079 \\ 
+  -0.064 & 1.277 & 0.002 & -0.064 & 0.073 & 0.001 & 0.3 & 0.0 & 1.270 & 0.080 \\ 
+  0.035 & 1.271 & 0.002 & 0.035 & 0.078 & 0.002 & 33.9 & 1.7 & 1.270 & 0.080 \\ 
+  0.134 & 1.264 & 0.002 & 0.134 & 0.067 & 0.001 & 37.7 & 1.9 & 1.270 & 0.079 \\ 
+  0.233 & 1.266 & 0.003 & 0.233 & 0.071 & 0.001 & 30.7 & 1.5 & 1.270 & 0.079 \\ 
+  0.332 & 1.265 & 0.002 & 0.332 & 0.077 & 0.002 & 25.2 & 1.3 & 1.270 & 0.078 \\ 
+  0.431 & 1.266 & 0.003 & 0.431 & 0.083 & 0.001 & 28.9 & 1.4 & 1.271 & 0.077 \\ 
+  0.530 & 1.268 & 0.003 & 0.530 & 0.086 & 0.002 & 29.0 & 1.4 & 1.271 & 0.077 \\ 
+  0.629 & 1.264 & 0.003 & 0.629 & 0.082 & 0.002 & 27.5 & 1.4 & 1.272 & 0.077 \\ 
+  0.728 & 1.263 & 0.002 & 0.728 & 0.070 & 0.001 & 30.1 & 1.5 & 1.272 & 0.078 \\ 
+  0.827 & 1.266 & 0.005 & 0.827 & 0.095 & 0.002 & 19.6 & 1.0 & 1.273 & 0.079 \\ 
+  0.926 & 1.263 & 0.003 & 0.926 & 0.096 & 0.002 & 14.8 & 0.7 & 1.274 & 0.079 \\ 
    \hline
 \end{tabular}
 \caption{\label{tab:outputdata}Example of output table including the input data described above, and two new columns showing the modelled activity ratios} 
@@ -612,27 +605,27 @@ The last item in the output is a copy of the input data with two additional colu
 \def\labelenumi{\arabic{enumi}.}
 \tightlist
 \item
-  a histogram of the solution ages (Figure \ref{fig:demopanelfig} A)
+  a histogram of the solution ages (Figure @ref(fig:demopanelfig) A)
 \item
-  the measured U concentrations in the sample as a function of the relative distance from the center (Figure \ref{fig:demopanelfig} B)
+  the measured U concentrations in the sample as a function of the relative distance from the center (Figure @ref(fig:demopanelfig) B)
 \item
-  the measured and modelled (\textsuperscript{234}U/\textsuperscript{238}U) activity ratios as a function of the relative distance from the center (Figure \ref{fig:demopanelfig} C), and
+  the measured and modelled (\textsuperscript{234}U/\textsuperscript{238}U) activity ratios as a function of the relative distance from the center (Figure @ref(fig:demopanelfig) C), and
 \item
-  the measured and modelled (\textsuperscript{230}Th/\textsuperscript{238}U) activity ratios as a function of the relative distance from the center (Figure \ref{fig:demopanelfig} D).
+  the measured and modelled (\textsuperscript{230}Th/\textsuperscript{238}U) activity ratios as a function of the relative distance from the center (Figure @ref(fig:demopanelfig) D).
 \end{enumerate}
 
 We can show the plots produced by \texttt{osUTh()} by accessing the list as follows:
 
-
+(ref:demopanelfigcap) Example of the visualisations produced by the \texttt{osUTh()} function, using the demonstration run described above. A: Histogram of the solution ages, B: measured uranium concentration profile for transect 2 of modern human femur 132A/LB/27D/03. C: Measured (blue) and modelled (red) (\textsuperscript{234}U/\textsuperscript{238}U) activity ratios for transect 2 of modern human femur 132A/LB/27D/03. D: Measured (blue) and modelled (red) (\textsuperscript{230}Th/\textsuperscript{238}U) activity ratios for transect 2 of modern human femur 132A/LB/27D/03.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{output\_os}\OperatorTok{$}\NormalTok{plots}
+\NormalTok{output_os}\OperatorTok{$}\NormalTok{plots}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{figure}
-\includegraphics[width=0.95\linewidth]{/Users/bmarwick/Desktop/UThwigl/docs/articles/uthwigl_files/figure-latex/demopanelfig-1} \caption{Example of the visualisations produced by the \texttt{osUTh()} function, using the demonstration run described above. A: Histogram of the solution ages, B: measured uranium concentration profile for transect 2 of modern human femur 132A/LB/27D/03. C: Measured (blue) and modelled (red) (\textsuperscript{234}U/\textsuperscript{238}U) activity ratios for transect 2 of modern human femur 132A/LB/27D/03. D: Measured (blue) and modelled (red) (\textsuperscript{230}Th/\textsuperscript{238}U) activity ratios for transect 2 of modern human femur 132A/LB/27D/03.}\label{fig:demopanelfig}
+\includegraphics[width=0.95\linewidth]{C:\Users\tonyd\ONEDRI~1\R\U-THWI~1\docs\articles\UTHWIG~1/figure-latex/demopanelfig-1} \caption{(ref:demopanelfigcap)}(\#fig:demopanelfig)
 \end{figure}
 
 \FloatBarrier
@@ -645,56 +638,56 @@ We can show the plots produced by \texttt{osUTh()} by accessing the list as foll
 \hypertarget{closed-system-dating---case-study-from-pan-et-al.-2018}{%
 \subsection{Closed-system dating - Case study from Pan et al.~2018}\label{closed-system-dating---case-study-from-pan-et-al.-2018}}
 
-The package includes sample data from Marine Isotope Stage 5 corals from Pan et al. (2018) (Table \ref{tab:pan}). Two \emph{Plesiastrea versipora} coral samples were analysed: YP002 and YP003. The first two rows in Table \ref{tab:pan} are bulk analyses while the rest are in-situ analyses produced by laser ablation (hence the lower precision compared to the first two rows).
+The package includes sample data from Marine Isotope Stage 5 corals from Pan et al. (2018) (Table @ref(tab:pan)). Two \emph{Plesiastrea versipora} coral samples were analysed: YP002 and YP003. The first two rows in Table @ref(tab:pan) are bulk analyses while the rest are in-situ analyses produced by laser ablation (hence the lower precision compared to the first two rows).
 In Pan et al. (2018), closed-system ages were calculated using IsoPlot 4.15 (Ludwig 2003b). For bulk analyses, Pan et al. (2018) reported detrital-corrected ages of 121.4 \(\pm\) 2.4 ka and 127.3 \(\pm\) 2.1 ka for YP002A and YP002B, respectively. For in-situ analyses, Pan et al. (2018) reported mean detrital-corrected ages of five analyses for each sample: 117.5 \(\pm\) 4.5 ka for YP002 and 115.0 \(\pm\) 5.4 ka for YP003.
 
 Here we solve the closed-system model for all samples by simply entering `YP' against \texttt{sample\ name} since all analyses in the table contain these two characters in their \texttt{Sample\_ID} column. \texttt{print\_summary} is set to \texttt{FALSE} since we are solving for different samples and a mean age would have no significance.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{\# Solve for all samples}
-\NormalTok{output\_cs\_all \textless{}{-}}
+\CommentTok{# Solve for all samples}
+\NormalTok{output_cs_all <-}
 \StringTok{  }\KeywordTok{csUTh}\NormalTok{(}
-\NormalTok{    input\_data\_cs,}
-    \DataTypeTok{sample\_name =} \StringTok{\textquotesingle{}YP\textquotesingle{}}\NormalTok{,}
+\NormalTok{    input_data_cs,}
+    \DataTypeTok{sample_name =} \StringTok{'YP'}\NormalTok{,}
     \DataTypeTok{nbitchoice =} \DecValTok{100}\NormalTok{,}
     \DataTypeTok{detcorrectionchoice =} \OtherTok{TRUE}\NormalTok{,}
     \DataTypeTok{keepfiltereddata =} \OtherTok{FALSE}\NormalTok{,}
-    \DataTypeTok{print\_summary =} \OtherTok{FALSE}\NormalTok{,}
-    \DataTypeTok{with\_plots =} \OtherTok{TRUE}\NormalTok{,}
-    \DataTypeTok{save\_plots =} \OtherTok{FALSE}
+    \DataTypeTok{print_summary =} \OtherTok{FALSE}\NormalTok{,}
+    \DataTypeTok{with_plots =} \OtherTok{TRUE}\NormalTok{,}
+    \DataTypeTok{save_plots =} \OtherTok{FALSE}
 \NormalTok{  )}
 \end{Highlighting}
 \end{Shaded}
 
-We obtain detrital-corrected ages of 122.9 \(\pm\) 0.2 ka and 128.5 \(\pm\) 0.2 ka for bulk analyses of YP002 and YP003, respectively. This is within error of values reported in Pan et al. (2018).
+We obtain detrital-corrected ages of 123.3 \(\pm\) 0.2 ka and 128.3 \(\pm\) 0.2 ka for bulk analyses of YP002 and YP003, respectively. This is within error of values reported in Pan et al. (2018).
 
 Solving in-situ analyses of YP002-1 is done by setting \texttt{sample\_name} to `YP002-1' and \texttt{print\_summary} to \texttt{TRUE}:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{\# Solve for YP002 in{-}situ analyses}
-\NormalTok{output\_cs\_YP002insitu \textless{}{-}}
+\CommentTok{# Solve for YP002 in-situ analyses}
+\NormalTok{output_cs_YP002insitu <-}
 \StringTok{  }\KeywordTok{csUTh}\NormalTok{(}
-\NormalTok{    input\_data\_cs,}
-    \DataTypeTok{sample\_name =} \StringTok{\textquotesingle{}YP002{-}1\textquotesingle{}}\NormalTok{,}
+\NormalTok{    input_data_cs,}
+    \DataTypeTok{sample_name =} \StringTok{'YP002-1'}\NormalTok{,}
     \DataTypeTok{nbitchoice =} \DecValTok{100}\NormalTok{,}
     \DataTypeTok{detcorrectionchoice =} \OtherTok{TRUE}\NormalTok{,}
     \DataTypeTok{keepfiltereddata =} \OtherTok{FALSE}\NormalTok{,}
-    \DataTypeTok{print\_summary =} \OtherTok{TRUE}\NormalTok{,}
-    \DataTypeTok{with\_plots =} \OtherTok{TRUE}\NormalTok{,}
-    \DataTypeTok{save\_plots =} \OtherTok{FALSE}
+    \DataTypeTok{print_summary =} \OtherTok{TRUE}\NormalTok{,}
+    \DataTypeTok{with_plots =} \OtherTok{TRUE}\NormalTok{,}
+    \DataTypeTok{save_plots =} \OtherTok{FALSE}
 \NormalTok{  )}
 \end{Highlighting}
 \end{Shaded}
 
-We obtain a mean detrital-corrected age for the five analyses of 117.1 \(\pm\) 5.3 ka, within error of the value reported in Pan et al. (2018).
+We obtain a mean detrital-corrected age for the five analyses of 117.1 \(\pm\) 5.4 ka, within error of the value reported in Pan et al. (2018).
 Similarly, solving in-situ analyses for YP003-1 yields a mean detrital-corrected age for the five analyses of 117.1 \(\pm\) 3.7 ka, also within error of the value reported in Pan et al. (2018).
 
 \hypertarget{open-system-dating---case-study-of-two-ages-from-sutikna-et-al.-2016}{%
 \subsection{Open-system dating - Case study of two ages from Sutikna et al.~2016}\label{open-system-dating---case-study-of-two-ages-from-sutikna-et-al.-2016}}
 
-The package includes two sample datasets derived from Sutikna et al. (2016) : ``Hobbit\_MH2T\_for\_iDAD.csv'' is the dataset for transect 2 from modern human femur 132A/LB/27D/03 (shown above in Table \ref{tab:hobbitone}). ``Hobbit\_1-1T\_for\_iDAD.csv'' is the dataset for transect 1 from \emph{Homo floresiensis} ulna LB1/52 (Table \ref{tab:table-human}). For the latter, six analyses were removed from the set as in Sutikna et al. (2016).
+The package includes two sample datasets derived from Sutikna et al. (2016) : ``Hobbit\_MH2T\_for\_iDAD.csv'' is the dataset for transect 2 from modern human femur 132A/LB/27D/03 (shown above in Table @ref(tab:hobbitone)). ``Hobbit\_1-1T\_for\_iDAD.csv'' is the dataset for transect 1 from \emph{Homo floresiensis} ulna LB1/52 (Table @ref(tab:table-human)). For the latter, six analyses were removed from the set as in Sutikna et al. (2016).
 
 \begin{table}[ht]
 \centering
@@ -718,22 +711,22 @@ The package includes two sample datasets derived from Sutikna et al. (2016) : ``
 
 For transect 2 of 132A/LB/27D/03, Sutikna et al.~(2016) reported an age of 7.4 \(\pm\) 0.5 ka (thousand years before 2014). With osUTh, we first run the model with \texttt{nbit} = 1, \texttt{fsum\_target} = 0.05, \texttt{U48\_0\_min} and \texttt{U48\_0\_max} = 1.25 and 1.3, respectively, \texttt{l} = 5.35 cm, \texttt{U\_0} = 25 ppm, \texttt{K\_min} and \texttt{K\_max} = 10\textsuperscript{-13} and 10\textsuperscript{-11} cm\textsuperscript{2}/s, respectively, \texttt{T\_min} and \texttt{T\_max} = 10\textsuperscript{3} and 500x10\textsuperscript{3} yr, respectively. \texttt{U48\_0\_min} and \texttt{U48\_0\_max} are determined by considering the measured (\textsuperscript{234}U/\textsuperscript{238}U) values near the surfaces of the sample. \texttt{T\_min} and \texttt{T\_max} values were chosen such that no a priori knowledge of the age biases the results.
 
-With this first run, we obtain an age of 11 ka. There is no calculated error on the age since there is only one iteration. In this case, we can see that the calculated (\textsuperscript{234}U/\textsuperscript{238}U) and (\textsuperscript{230}Th/\textsuperscript{238}U) ratios are too high (Figure \ref{fig:plot-panel-second-run-modern-fig}). For the (\textsuperscript{234}U/\textsuperscript{238}U), it makes sense to thus use a lower value for \texttt{U48\_0\_max}. Calculated (\textsuperscript{230}Th/\textsuperscript{238}U) ratios are too high compared to observed values suggest that the calculated age is too old (since this ratio increases with age). Thus, we should adjust \texttt{T\_max} accordingly.
+With this first run, we obtain an age of 11 ka. There is no calculated error on the age since there is only one iteration. In this case, we can see that the calculated (\textsuperscript{234}U/\textsuperscript{238}U) and (\textsuperscript{230}Th/\textsuperscript{238}U) ratios are too high (Figure @ref(fig:plot-panel-second-run-modern-fig)). For the (\textsuperscript{234}U/\textsuperscript{238}U), it makes sense to thus use a lower value for \texttt{U48\_0\_max}. Calculated (\textsuperscript{230}Th/\textsuperscript{238}U) ratios are too high compared to observed values suggest that the calculated age is too old (since this ratio increases with age). Thus, we should adjust \texttt{T\_max} accordingly.
 
-
+(ref:plot-panel-first-run-modern-cap) Results from the model's first run for the modern human femur. A: Measured (blue) and modelled (red) (\textsuperscript{234}U/\textsuperscript{238}U) activity ratios for transect 2 of modern human femur 132A/LB/27D/03. B: Measured (blue) and modelled (red) (\textsuperscript{230}Th/\textsuperscript{238}U) activity ratios for transect 2 of modern human femur 132A/LB/27D/03.
 
 \begin{figure}
-\includegraphics[width=0.95\linewidth]{figures/plot-panel-first-run-modern} \caption{Results from the model's first run for the modern human femur. A: Measured (blue) and modelled (red) (\textsuperscript{234}U/\textsuperscript{238}U) activity ratios for transect 2 of modern human femur 132A/LB/27D/03. B: Measured (blue) and modelled (red) (\textsuperscript{230}Th/\textsuperscript{238}U) activity ratios for transect 2 of modern human femur 132A/LB/27D/03.}\label{fig:plot-panel-first-run-modern-fig}
+\includegraphics[width=0.95\linewidth]{figures/plot-panel-first-run-modern} \caption{(ref:plot-panel-first-run-modern-cap)}(\#fig:plot-panel-first-run-modern-fig)
 \end{figure}
 
 \FloatBarrier
 
-Since the first run suggests a Holocene age for the sample, the measured (\textsuperscript{234}U/\textsuperscript{238}U) at the surfaces must be similar to the calculated values, thus the chosen values for the range above. Once \texttt{U48\_0\_min}, \texttt{U48\_0\_min}, \texttt{T\_min} and \texttt{T\_max} parameters have been adjusted, the model is run again. \texttt{fsum\_target} can also be decreased to 0.01 in order to get a better fit and error, but it is at the expense of computing time. This operation is repeated until a satisfying fit is obtained (by visual inspection of the figures). Finally, the model is run once more, increasing the number of iterations to 1000 (or more). Following this method, we obtain an age of 6.2 +1.2/-1.3 ka (Figure \ref{fig:plot-panel-second-run-modern-fig}). Note (\textsuperscript{234}U/\textsuperscript{238}U) and (\textsuperscript{230}Th/\textsuperscript{238}U) are still too high and low, respectively, so \texttt{U48\_0\_min}, \texttt{U48\_0\_min}, \texttt{T\_min} and \texttt{T\_max} parameters should be adjusted and the model run again.
+Since the first run suggests a Holocene age for the sample, the measured (\textsuperscript{234}U/\textsuperscript{238}U) at the surfaces must be similar to the calculated values, thus the chosen values for the range above. Once \texttt{U48\_0\_min}, \texttt{U48\_0\_min}, \texttt{T\_min} and \texttt{T\_max} parameters have been adjusted, the model is run again. \texttt{fsum\_target} can also be decreased to 0.01 in order to get a better fit and error, but it is at the expense of computing time. This operation is repeated until a satisfying fit is obtained (by visual inspection of the figures). Finally, the model is run once more, increasing the number of iterations to 1000 (or more). Following this method, we obtain an age of 6.2 +1.2/-1.3 ka (Figure @ref(fig:plot-panel-second-run-modern-fig)). Note (\textsuperscript{234}U/\textsuperscript{238}U) and (\textsuperscript{230}Th/\textsuperscript{238}U) are still too high and low, respectively, so \texttt{U48\_0\_min}, \texttt{U48\_0\_min}, \texttt{T\_min} and \texttt{T\_max} parameters should be adjusted and the model run again.
 
-
+(ref:plot-panel-second-run-modern-cap) Results from the model's second run for the modern human femur. A: Measured (blue) and modelled (red) (\textsuperscript{234}U/\textsuperscript{238}U) activity ratios for transect 2 of modern human femur 132A/LB/27D/03. B: Measured (blue) and modelled (red) (\textsuperscript{230}Th/\textsuperscript{238}U) activity ratios for transect 2 of modern human femur 132A/LB/27D/03.
 
 \begin{figure}
-\includegraphics[width=1\linewidth]{figures/plot-panel-second-run-modern} \caption{Results from the model's second run for the modern human femur. A: Measured (blue) and modelled (red) (\textsuperscript{234}U/\textsuperscript{238}U) activity ratios for transect 2 of modern human femur 132A/LB/27D/03. B: Measured (blue) and modelled (red) (\textsuperscript{230}Th/\textsuperscript{238}U) activity ratios for transect 2 of modern human femur 132A/LB/27D/03.}\label{fig:plot-panel-second-run-modern-fig}
+\includegraphics[width=1\linewidth]{figures/plot-panel-second-run-modern} \caption{(ref:plot-panel-second-run-modern-cap)}(\#fig:plot-panel-second-run-modern-fig)
 \end{figure}
 
 \FloatBarrier
@@ -741,14 +734,14 @@ Since the first run suggests a Holocene age for the sample, the measured (\texts
 \hypertarget{age-of-the-homo-floresiensis-remains-from-sutikna-et-al.-2016}{%
 \subsubsection{\texorpdfstring{Age of the \emph{Homo floresiensis} remains from Sutikna et al.~2016}{Age of the Homo floresiensis remains from Sutikna et al.~2016}}\label{age-of-the-homo-floresiensis-remains-from-sutikna-et-al.-2016}}
 
-For transect 1 of LB1/52, Sutikna et al.~(2016) reported an age of 79.0 \(\pm\) 3.7 ka. With osUTh, using data in the file \texttt{Hobbit\_1-1T\_for\_iDAD.csv} provided in the package, and following the same method as above, we obtain an age of 75.4 +1.0/-0.9 ka (Figure \ref{fig:plot-panel-hobbit-fig}). Note that results and errors vary slightly for each run since populations of solution sets are randomly generated.
+For transect 1 of LB1/52, Sutikna et al.~(2016) reported an age of 79.0 \(\pm\) 3.7 ka. With osUTh, using data in the file \texttt{Hobbit\_1-1T\_for\_iDAD.csv} provided in the package, and following the same method as above, we obtain an age of 75.4 +1.0/-0.9 ka (Figure @ref(fig:plot-panel-hobbit-fig)). Note that results and errors vary slightly for each run since populations of solution sets are randomly generated.
 
 \newpage
 
-
+(ref:plot-panel-hobbit-cap) Results from running the model with \emph{Homo floresiensis} ulna LB1/52 data from Sutikna et al. (2016). A: Histogram of the solution ages, B: Uranium concentration profile for transect 1 of \emph{Homo floresiensis} ulna LB1/52. C: Measured (blue) and modelled (red) (\textsuperscript{234}U/\textsuperscript{238}U) activity ratios for transect 1 of \emph{Homo floresiensis} ulna LB1/52. D: Measured (blue) and modelled (red) (\textsuperscript{230}Th/\textsuperscript{238}U) activity ratios for transect 1 of \emph{Homo floresiensis} ulna LB1/52.
 
 \begin{figure}
-\includegraphics[width=0.95\linewidth]{figures/plot-panel-hobbit} \caption{Results from running the model with \emph{Homo floresiensis} ulna LB1/52 data from Sutikna et al. (2016). A: Histogram of the solution ages, B: Uranium concentration profile for transect 1 of \emph{Homo floresiensis} ulna LB1/52. C: Measured (blue) and modelled (red) (\textsuperscript{234}U/\textsuperscript{238}U) activity ratios for transect 1 of \emph{Homo floresiensis} ulna LB1/52. D: Measured (blue) and modelled (red) (\textsuperscript{230}Th/\textsuperscript{238}U) activity ratios for transect 1 of \emph{Homo floresiensis} ulna LB1/52.}\label{fig:plot-panel-hobbit-fig}
+\includegraphics[width=0.95\linewidth]{figures/plot-panel-hobbit} \caption{(ref:plot-panel-hobbit-cap)}(\#fig:plot-panel-hobbit-fig)
 \end{figure}
 
 \FloatBarrier
@@ -767,7 +760,6 @@ In this paper we have described \texttt{UThwigl}, an open source R package for c
 \addcontentsline{toc}{section}{References}
 
 \hypertarget{refs}{}
-\begin{cslreferences}
 \leavevmode\hypertarget{ref-Camerer1433}{}%
 Camerer, Colin F., Anna Dreber, Eskil Forsell, Teck-Hua Ho, Jürgen Huber, Magnus Johannesson, Michael Kirchler, et al. 2016. ``Evaluating Replicability of Laboratory Experiments in Economics.'' \emph{Science} 351 (6280): 1433--6. \url{https://doi.org/10.1126/science.aaf0918}.
 
@@ -866,19 +858,18 @@ Vermeesch, Pieter. 2018. ``IsoplotR: A Free and Open Toolbox for Geochronology.'
 
 \leavevmode\hypertarget{ref-Wickham_readxl}{}%
 Wickham, Hadley, and Jennifer Bryan. 2018. \emph{Readxl: Read Excel Files}. \url{https://CRAN.R-project.org/package=readxl}.
-\end{cslreferences}
 
 \newpage
 
 \hypertarget{colophon}{%
 \subsubsection{Colophon}\label{colophon}}
 
-This report was generated on 2020-10-29 00:15:32 using the following computational environment and dependencies:
+This report was generated on 2020-10-30 10:48:34 using the following computational environment and dependencies:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{\# which R packages and versions?}
-\NormalTok{devtools}\OperatorTok{::}\KeywordTok{session\_info}\NormalTok{()}
+\CommentTok{# which R packages and versions?}
+\NormalTok{devtools}\OperatorTok{::}\KeywordTok{session_info}\NormalTok{()}
 \end{Highlighting}
 \end{Shaded}
 
@@ -886,88 +877,89 @@ This report was generated on 2020-10-29 00:15:32 using the following computation
 ## - Session info ---------------------------------------------------------------
 ##  setting  value                       
 ##  version  R version 4.0.2 (2020-06-22)
-##  os       macOS Catalina 10.15.6      
-##  system   x86_64, darwin17.0          
-##  ui       X11                         
+##  os       Windows 10 x64              
+##  system   x86_64, mingw32             
+##  ui       RTerm                       
 ##  language (EN)                        
-##  collate  en_US.UTF-8                 
-##  ctype    en_US.UTF-8                 
-##  tz       America/Los_Angeles         
-##  date     2020-10-29                  
+##  collate  English_Australia.1252      
+##  ctype    English_Australia.1252      
+##  tz       Australia/Sydney            
+##  date     2020-10-30                  
 ## 
 ## - Packages -------------------------------------------------------------------
-##  package     * version date       lib source                            
-##  assertthat    0.2.1   2019-03-21 [2] CRAN (R 4.0.0)                    
-##  backports     1.1.10  2020-09-15 [2] CRAN (R 4.0.2)                    
-##  bookdown      0.21    2020-10-13 [2] CRAN (R 4.0.2)                    
-##  callr         3.5.1   2020-10-13 [2] CRAN (R 4.0.2)                    
-##  cli           2.1.0   2020-10-12 [2] CRAN (R 4.0.2)                    
-##  colorspace    1.4-1   2019-03-18 [2] CRAN (R 4.0.0)                    
-##  cowplot       1.1.0   2020-09-08 [2] CRAN (R 4.0.2)                    
-##  crayon        1.3.4   2017-09-16 [2] CRAN (R 4.0.0)                    
-##  desc          1.2.0   2018-05-01 [2] CRAN (R 4.0.0)                    
-##  deSolve       1.28    2020-03-08 [2] CRAN (R 4.0.0)                    
-##  devtools      2.3.2   2020-09-18 [2] CRAN (R 4.0.2)                    
-##  digest        0.6.27  2020-10-24 [2] CRAN (R 4.0.2)                    
-##  dplyr       * 1.0.2   2020-08-18 [2] CRAN (R 4.0.2)                    
-##  ellipsis      0.3.1   2020-05-15 [2] CRAN (R 4.0.0)                    
-##  evaluate      0.14    2019-05-28 [2] CRAN (R 4.0.0)                    
-##  fansi         0.4.1   2020-01-08 [2] CRAN (R 4.0.0)                    
-##  farver        2.0.3   2020-01-16 [2] CRAN (R 4.0.0)                    
-##  fs            1.5.0   2020-07-31 [2] CRAN (R 4.0.2)                    
-##  generics      0.0.2   2018-11-29 [2] CRAN (R 4.0.0)                    
-##  ggplot2     * 3.3.2   2020-06-19 [2] CRAN (R 4.0.0)                    
-##  glue          1.4.2   2020-08-27 [2] CRAN (R 4.0.2)                    
-##  gtable        0.3.0   2019-03-25 [2] CRAN (R 4.0.0)                    
-##  htmltools     0.5.0   2020-06-16 [2] CRAN (R 4.0.0)                    
-##  knitr       * 1.30    2020-09-22 [2] CRAN (R 4.0.2)                    
-##  labeling      0.4.2   2020-10-20 [2] CRAN (R 4.0.2)                    
-##  lifecycle     0.2.0   2020-03-06 [2] CRAN (R 4.0.0)                    
-##  magrittr      1.5     2014-11-22 [2] CRAN (R 4.0.0)                    
-##  memoise       1.1.0   2017-04-21 [2] CRAN (R 4.0.0)                    
-##  munsell       0.5.0   2018-06-12 [2] CRAN (R 4.0.0)                    
-##  pillar        1.4.6   2020-07-10 [2] CRAN (R 4.0.0)                    
-##  pkgbuild      1.1.0   2020-07-13 [2] CRAN (R 4.0.0)                    
-##  pkgconfig     2.0.3   2019-09-22 [2] CRAN (R 4.0.0)                    
-##  pkgload       1.1.0   2020-05-29 [2] CRAN (R 4.0.0)                    
-##  prettyunits   1.1.1   2020-01-24 [2] CRAN (R 4.0.0)                    
-##  processx      3.4.4   2020-09-03 [2] CRAN (R 4.0.2)                    
-##  ps            1.4.0   2020-10-07 [2] CRAN (R 4.0.2)                    
-##  purrr         0.3.4   2020-04-17 [2] CRAN (R 4.0.0)                    
-##  R6            2.5.0   2020-10-28 [2] CRAN (R 4.0.2)                    
-##  remotes       2.2.0   2020-07-21 [2] CRAN (R 4.0.2)                    
-##  rlang         0.4.8   2020-10-08 [2] CRAN (R 4.0.2)                    
-##  rmarkdown     2.4.6   2020-10-19 [2] Github (rstudio/rmarkdown@7239cea)
-##  rprojroot     1.3-2   2018-01-03 [2] CRAN (R 4.0.0)                    
-##  rticles       0.16    2020-09-22 [2] CRAN (R 4.0.2)                    
-##  scales        1.1.1   2020-05-11 [2] CRAN (R 4.0.0)                    
-##  sessioninfo   1.1.1   2018-11-05 [2] CRAN (R 4.0.0)                    
-##  stringi       1.5.3   2020-09-09 [2] CRAN (R 4.0.2)                    
-##  stringr       1.4.0   2019-02-10 [2] CRAN (R 4.0.0)                    
-##  testthat      2.3.2   2020-03-02 [2] CRAN (R 4.0.0)                    
-##  tibble        3.0.4   2020-10-12 [2] CRAN (R 4.0.2)                    
-##  tidyselect    1.1.0   2020-05-11 [2] CRAN (R 4.0.0)                    
-##  usethis       1.6.3   2020-09-17 [2] CRAN (R 4.0.2)                    
-##  UThwigl     * 0.1.0   2020-10-29 [1] local                             
-##  vctrs         0.3.4   2020-08-29 [2] CRAN (R 4.0.2)                    
-##  withr         2.3.0   2020-09-22 [2] CRAN (R 4.0.2)                    
-##  xfun          0.18    2020-09-29 [2] CRAN (R 4.0.2)                    
-##  xtable      * 1.8-4   2019-04-21 [2] CRAN (R 4.0.2)                    
-##  yaml          2.2.1   2020-02-01 [2] CRAN (R 4.0.0)                    
+##  package     * version date       lib source        
+##  assertthat    0.2.1   2019-03-21 [2] CRAN (R 4.0.2)
+##  backports     1.1.7   2020-05-13 [2] CRAN (R 4.0.0)
+##  bookdown      0.21    2020-10-13 [2] CRAN (R 4.0.3)
+##  callr         3.4.4   2020-09-07 [2] CRAN (R 4.0.2)
+##  cli           2.0.2   2020-02-28 [2] CRAN (R 4.0.2)
+##  colorspace    1.4-1   2019-03-18 [2] CRAN (R 4.0.2)
+##  cowplot       1.1.0   2020-09-08 [2] CRAN (R 4.0.3)
+##  crayon        1.3.4   2017-09-16 [2] CRAN (R 4.0.2)
+##  desc          1.2.0   2018-05-01 [2] CRAN (R 4.0.2)
+##  deSolve       1.28    2020-03-08 [2] CRAN (R 4.0.3)
+##  devtools      2.3.2   2020-09-18 [2] CRAN (R 4.0.3)
+##  digest        0.6.25  2020-02-23 [2] CRAN (R 4.0.2)
+##  dplyr       * 1.0.2   2020-08-18 [2] CRAN (R 4.0.3)
+##  ellipsis      0.3.1   2020-05-15 [2] CRAN (R 4.0.2)
+##  evaluate      0.14    2019-05-28 [2] CRAN (R 4.0.2)
+##  fansi         0.4.1   2020-01-08 [2] CRAN (R 4.0.2)
+##  farver        2.0.3   2020-01-16 [2] CRAN (R 4.0.2)
+##  fs            1.5.0   2020-07-31 [2] CRAN (R 4.0.2)
+##  generics      0.0.2   2018-11-29 [2] CRAN (R 4.0.2)
+##  ggplot2     * 3.3.2   2020-06-19 [2] CRAN (R 4.0.3)
+##  glue          1.4.1   2020-05-13 [2] CRAN (R 4.0.2)
+##  gtable        0.3.0   2019-03-25 [2] CRAN (R 4.0.2)
+##  htmltools     0.5.0   2020-06-16 [2] CRAN (R 4.0.2)
+##  knitr       * 1.30    2020-09-22 [2] CRAN (R 4.0.3)
+##  labeling      0.3     2014-08-23 [2] CRAN (R 4.0.0)
+##  lifecycle     0.2.0   2020-03-06 [2] CRAN (R 4.0.2)
+##  magrittr      1.5     2014-11-22 [2] CRAN (R 4.0.2)
+##  memoise       1.1.0   2017-04-21 [2] CRAN (R 4.0.2)
+##  munsell       0.5.0   2018-06-12 [2] CRAN (R 4.0.2)
+##  pillar        1.4.6   2020-07-10 [2] CRAN (R 4.0.2)
+##  pkgbuild      1.1.0   2020-07-13 [2] CRAN (R 4.0.2)
+##  pkgconfig     2.0.3   2019-09-22 [2] CRAN (R 4.0.2)
+##  pkgload       1.1.0   2020-05-29 [2] CRAN (R 4.0.2)
+##  prettyunits   1.1.1   2020-01-24 [2] CRAN (R 4.0.2)
+##  processx      3.4.4   2020-09-03 [2] CRAN (R 4.0.2)
+##  ps            1.4.0   2020-10-07 [2] CRAN (R 4.0.2)
+##  purrr         0.3.4   2020-04-17 [2] CRAN (R 4.0.2)
+##  R6            2.4.1   2019-11-12 [2] CRAN (R 4.0.2)
+##  remotes       2.2.0   2020-07-21 [2] CRAN (R 4.0.2)
+##  rlang         0.4.7   2020-07-09 [2] CRAN (R 4.0.2)
+##  rmarkdown     2.5     2020-10-21 [2] CRAN (R 4.0.3)
+##  rprojroot     1.3-2   2018-01-03 [2] CRAN (R 4.0.2)
+##  rticles       0.16    2020-09-22 [2] CRAN (R 4.0.3)
+##  scales        1.1.1   2020-05-11 [2] CRAN (R 4.0.2)
+##  sessioninfo   1.1.1   2018-11-05 [2] CRAN (R 4.0.2)
+##  stringi       1.4.6   2020-02-17 [2] CRAN (R 4.0.0)
+##  stringr       1.4.0   2019-02-10 [2] CRAN (R 4.0.2)
+##  testthat      2.3.2   2020-03-02 [2] CRAN (R 4.0.2)
+##  tibble        3.0.3   2020-07-10 [2] CRAN (R 4.0.2)
+##  tidyselect    1.1.0   2020-05-11 [2] CRAN (R 4.0.2)
+##  usethis       1.6.3   2020-09-17 [2] CRAN (R 4.0.2)
+##  UThwigl     * 0.1.0   2020-10-29 [1] local         
+##  vctrs         0.3.2   2020-07-15 [2] CRAN (R 4.0.2)
+##  withr         2.2.0   2020-04-20 [2] CRAN (R 4.0.2)
+##  xfun          0.16    2020-07-24 [2] CRAN (R 4.0.2)
+##  xtable      * 1.8-4   2019-04-21 [2] CRAN (R 4.0.3)
+##  yaml          2.2.1   2020-02-01 [2] CRAN (R 4.0.2)
 ## 
-## [1] /private/var/folders/mz/6nn330m17_37ck5hhz2p24100000gn/T/RtmpxOh6qO/temp_libpathfd17a6ef6c6
-## [2] /Library/Frameworks/R.framework/Versions/4.0/Resources/library
+## [1] C:/Users/tonyd/AppData/Local/Temp/RtmpUhqX6R/temp_libpath78987ddd1748
+## [2] C:/Users/tonyd/Documents/R/win-library/4.0
+## [3] C:/Program Files/R/R-4.0.2/library
 \end{verbatim}
 
 The current Git commit details are:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{\# git2r::repository(here::here())}
+\CommentTok{# git2r::repository(here::here())}
 \end{Highlighting}
 \end{Shaded}
 
 
-
 \end{document}
+
 
