@@ -12,9 +12,9 @@ globalVariables(c("iDAD.position",
                   "U_ppm_Int2SE",
                   "ID",
                   "Age (ka)", 
-                  "Age 2se", 
+                  "Age 2sd", 
                   "(234U/238U)i", 
-                  "Ratio 2se",
+                  "Ratio 2sd",
                   "Sample ID"
 ))
 
@@ -727,8 +727,8 @@ csUTh <- function(input_data,
   err_time_results <- vector(mode="numeric", length=number_sampletosolve)
   R48i_results <- vector(mode="numeric", length=number_sampletosolve)
   err_R48i_results <- vector(mode="numeric", length=number_sampletosolve)
-  time2se_results <- vector(mode="numeric", length=number_sampletosolve)
-  R48i2se_results <- vector(mode="numeric", length=number_sampletosolve)
+  time2sd_results <- vector(mode="numeric", length=number_sampletosolve)
+  R48i2sd_results <- vector(mode="numeric", length=number_sampletosolve)
   
   # repeat loop for each sample
   for (count in 1:number_sampletosolve){
@@ -750,8 +750,8 @@ csUTh <- function(input_data,
     Th0U8calc <- vector(mode="numeric", length=nbit)
     time <- vector(mode="numeric", length=nbit)
     R48i <- vector(mode="numeric", length=nbit)
-    time_2se <- vector(mode="numeric", length=nbit)
-    R48i_2se <- vector(mode="numeric", length=nbit)
+    time_2sd <- vector(mode="numeric", length=nbit)
+    R48i_2sd <- vector(mode="numeric", length=nbit)
     
     # repeat optimisation 'nbit' number of times for a given sample
     for (i in 1:nbit){
@@ -789,24 +789,24 @@ csUTh <- function(input_data,
     results <- as.data.frame(cbind(time, R48i, U48calc, Th0U8calc))
     # take the median of all ages and initial (234U/23U)
     time_median <- median(results$time)
-    time_2se <- 2*sd(results$time)/sqrt(nbit)
+    time_2sd <- 2*sd(results$time)
     R48i_median <- median(results$R48i)
-    R48i_2se <- 2*sd(results$R48i)/sqrt(nbit)
-    
+    R48i_2sd <- 2*sd(results$R48i)
+
     # store age, error on age and initial (234U/23U) for each sample
     time_results[count] <- time_median
-    time2se_results[count] <- time_2se
+    time2sd_results[count] <- time_2sd
     R48i_results[count] <- R48i_median
-    R48i2se_results[count] <- R48i_2se
+    R48i2sd_results[count] <- R48i_2sd
   }
   
   final_results <- as.data.frame(cbind(
                                        data,
-                                       round(time_results/1000,3), round(time2se_results/1000,3),
-                                       round(R48i_results,3), round(R48i2se_results,3)))
+                                       round(time_results/1000,3), round(time2sd_results/1000,3),
+                                       round(R48i_results,3), round(R48i2sd_results,3)))
   final_results$Sample_ID <- data$Sample_ID
   colnames(final_results)[1] <- "Sample ID"
-  colnames(final_results)[(ncol(final_results)-3):ncol(final_results)] <- c("Age (ka)", "Age 2se", "(234U/238U)i", "Ratio 2se")
+  colnames(final_results)[(ncol(final_results)-3):ncol(final_results)] <- c("Age (ka)", "Age 2sd", "(234U/238U)i", "Ratio 2sd")
   
   remove_outliers <- function(x, na.rm = TRUE, ...) {
     qnt <- quantile(x, probs=c(.25, .75), na.rm = na.rm, ...)
@@ -928,8 +928,8 @@ initial_234U_238U_plot <- function(output,
           panel.grid.minor = element_blank())
   
   ggplot(output$results, aes(`Sample ID`, `(234U/238U)i`)) + # plot ages
-  geom_errorbar(aes(ymin = (`(234U/238U)i` - `Ratio 2se`),
-                    ymax = (`(234U/238U)i` + `Ratio 2se`)), 
+  geom_errorbar(aes(ymin = (`(234U/238U)i` - `Ratio 2sd`),
+                    ymax = (`(234U/238U)i` + `Ratio 2sd`)), 
                 width=0.1) + # plot error bars
   geom_point(size=point_size) + # plot points
   xlab("Sample ID") + # x axis label
@@ -966,8 +966,8 @@ ages_plot <- function(output,
           panel.grid.minor = element_blank())
   
   ggplot(output$results, aes(`Sample ID`, `Age (ka)`)) + # plot ages
-  geom_errorbar(aes(ymin = (`Age (ka)` - `Age 2se`),
-                    ymax = (`Age (ka)` + `Age 2se`)), 
+  geom_errorbar(aes(ymin = (`Age (ka)` - `Age 2sd`),
+                    ymax = (`Age (ka)` + `Age 2sd`)), 
                 width=0.1) + # plot error bars
   geom_point(size=point_size) + # plot points
   xlab("Sample ID") + # x axis label

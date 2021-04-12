@@ -14,7 +14,7 @@ address:
   - code: University of Washington
     address: Department of Anthropology, University of Washington, Seattle, WA, USA
 abstract: |
-  For several decades, uranium-thorium (U-Th) dating has allowed geochronologists to precisely date geological materials, providing unvaluable geochronological constraints on Quaternary processes. Open-system dating of bones and teeth has also provided ages of human and faunal remains of archaeological significance.
+  For several decades, uranium-thorium (U-Th) dating has allowed geochronologists to precisely date geological materials, providing invaluable geochronological constraints on Quaternary processes. Open-system dating of bones and teeth has also provided ages of human and faunal remains of archaeological significance.
   
   To facilitate access to closed- and open-system U-Th dating to the broad scientific community, here we provide an R package, named *UThwigl*. Description of input and output parameters is given, as well as a guide for running the model. The package can be used three different ways: (i) as a web application, (ii) through a web browser with an internet connection, or (iii) in R (most efficiently with RStudio). Examples of application of the model are also provided, showing that it yields ages within error of previously published values.   
 
@@ -60,14 +60,14 @@ Uranium-thorium (U-Th) dating has revolutionised Quaternary science and archaeol
 
 Closed-system U-Th dating has been successfully applied to a range of carbonates, from corals [@RN4495] to speleothems [@RN4494]. In corals and most speleothems, detrital correction is minimal; however, it can be significant when dating pedogenic carbonates, for instance [@RN801]. In this case, detrital correction can be performed using the measured or assumed composition of the detrital fraction [e.g. @RN4370]. Alternatively, isochron techniques can be applied [@RN2155]; the latter are beyond the scope of this article but IsoPlot is a commonly used software for isochron calculations and other geochronological applications [@RN2163], now also available as a R package [@vermeesch2018isoplotr].
 
-Closed-system conditions are seldom met in teeth and bones (although enamel can sometimes be quite impervious to isotope gain or loss). Thus, U-Th dating requires to take into account open system behaviour. The diffusion-adsorption model of Pike and Hedges [-@RN2996] and the diffusion-adsorption-decay (DAD) model of Sambridge et al. [-@Sambridge2012] were instrumental to implement successfully open-system U-Th dating. They allow for advective and diffusive transport of uranium and thorium isotopes, while include synchronous radioactive decay. Software implementation for the DAD model was written in Fortran and is available as a Java GUI (<http://www.iearth.org.au/codes/iDaD/>).  
+Closed-system conditions are seldom met in teeth and bones (although enamel can sometimes be quite impervious to isotope gain or loss). Thus, U-Th dating requires to take into account open system behaviour. The diffusion-adsorption model of Pike and Hedges [-@RN2996] and the diffusion-adsorption-decay (DAD) model of Sambridge et al. [-@Sambridge2012] were instrumental to implement successfully open-system U-Th dating. They allow for advective and diffusive transport of uranium and thorium isotopes, while including synchronous radioactive decay. Software implementation for the DAD model was written in Fortran and is available as a Java GUI (<http://www.iearth.org.au/codes/iDaD/>).  
 
 Open-system U-Th dating of teeth and bones, while challenging, has provided quantitative ages for human and faunal remains [@Eggins2005; @Gruen2014; @Sambridge2012; @RN2996; @hoffmann2018u]. Thus, this approach has significantly improved our understanding of human evolution [e.g. @Dirks2017; @Sutikna2016; @hoffmann2018u]. 
 
-In this article, we propose a R package, *UThwigl*, which offers functions to perform closed-system, `csUTh()`, and open-system, `osUTh()`, U-Th age calculations. The former implements formulations given in Ludwig [-@RN4370] while the latter applies the DAD model of Sambridge et al. [-@Sambridge2012]. The R package *IsoPlotR* provides a more extensive tool for closed-system U-Th dating [@vermeesch2018isoplotr], and *UThwigl* only includes closed-system U-Th age calculations for the sake of offering both closed- and open-system calculations.  
+In this article, we present a R package, *UThwigl*, which offers functions to perform closed-system, `csUTh()`, and open-system, `osUTh()`, U-Th age calculations. The former implements formulations given in Ludwig [-@RN4370] while the latter applies the DAD model of Sambridge et al. [-@Sambridge2012]. The R package *IsoPlotR* provides a more extensive tool for closed-system U-Th dating [@vermeesch2018isoplotr], and *UThwigl* only includes closed-system U-Th age calculations for the sake of offering both closed- and open-system calculations.  
 The motivation for providing an R package is to increase the transparency, reproducibility, and flexibility of the analytical workflow for computing U-Th ages. For instance, with open-system dating, it is difficult to include the Java GUI in a fully scripted data analysis so the method for computing the DAD model is not highly transparent. This can obscure steps where key decisions are made that are important for others to see to verify the reliability of the analysis. Enabling a scripted workflow for computational analysis of geoscience data is important for improving the reproducibiltiy of results. Reproducibility refers the ability to recreate the results or retest the hypotheses leading to a scientific claim, either by rerunning the same code used by the original authors, or by writing new code. High rates of irreproducibility of research results have been estimated in several fields and disciplines [@academy2015reproducibility; @freedman2015economics; @global2013case;  @ioannidis2005most; @open2015estimating; @camerer2018evaluating; @Camerer1433]. Consequently, the transparency, openness, and reproducibility of results and methods are receiving increased attention, and the norms of research in many fields are changing [@nosek2015promoting; @miguel2014promoting; @Marwick2016repro].
 
-There is strong interest in open, transparent, and reusable research in the geoscience community [@Gil_et_al_2016] and substantial progress toward open data has been made in the geosciences with the widespread use of data services of NASA, USGS, NOAA and community-built data portals such as OneGeology, EarthChem, RRUFF, PANGAEA, PaleoBioDB, and others [@Kattge_Diaz_Wirth_2014; @ma2018data]. However, the use of open source software such as R [@Pebesma_Nust_Bivand_2012], and sharing of scripted data analysis workflows with research publications is not yet widespread [@Hutton_et_al_2016]. With this R package our goal is to make scripted and reproducible data analysis easy for open-system uranium-thorium dating. This will improve the transparency of geochronology research, and provide a more credible and robust foundation for scientific advancement [@Hutton_et_al_2016].
+There is strong interest in open, transparent, and reusable research in the geoscience community [@Gil_et_al_2016] and substantial progress toward open data has been made in the geosciences with the widespread use of data services of NASA, USGS, NOAA and community-built data portals such as OneGeology, EarthChem, RRUFF, PANGAEA, PaleoBioDB, SISAL and others [@Kattge_Diaz_Wirth_2014; @ma2018data; @ComasBru2020SISALv2AC]. However, the use of open source software such as R [@Pebesma_Nust_Bivand_2012], and sharing of scripted data analysis workflows with research publications is not yet widespread [@Hutton_et_al_2016]. With this R package our goal is to make scripted and reproducible data analysis easy for open-system uranium-thorium dating. This will improve the transparency of geochronology research, and provide a more credible and robust foundation for scientific advancement [@Hutton_et_al_2016].
 
 To enable re-use of our materials and improve reproducibility and transparency, all the results and visualisations in this paper can be reproduced using the RMarkdown vignette document included with the UThwigl package. We have archived these files at <http://doi.org/10.17605/OSF.IO/D5P7S> to ensure long-term accessibility. Our code is released under the MIT licence, our data as CC-0, and our figures as CC-BY, to enable maximum re-use [for more details, see @Marwick2016repro].
 
@@ -203,7 +203,7 @@ Columns `U234_U238_CORR` and `U234_U238_CORR_Int2SE` are the (^234^U/^238^U) act
 
 `sample_name` is the name of the sample to calculate closed-system ages for. The function will partially match by sample prefix.  For example in Table \@ref(tab:pan) one sample is indicated by the Sample ID 'YP003'. If the user inputs 'YP003' for the `sample_name`, then this will match rows where the Sample ID is 'YP003-1', 'YP003-2', 'YP003-3', and so on.   
  
-`nbitchoice` is the number of iterations in the model (it is recommended to have at least 100).
+`nbitchoice` is the number of iterations in the model (it is recommended to have at least 1,000).
 `detcorrectionchoice` is a parameter for choosing whether or not to apply a detrital correction to the calculation. 
 
 `R28det` (0.8) and `R28det_err` (0.08) are the values for the (^232^Th/^238^U) activity ratio of the detritus and its standard error (default values in parentheses). Similarly, `R08det` (1) and `R08det_err` (0.05) are the values for the (^230^Th/^238^U) activity ratio of the detritus and its standard error, and `R48det` (1) and `R48det_err` (0.02) are the corresponding values for (^234^U/^238^U) activity ratio of the detritus.
@@ -218,7 +218,7 @@ output_cs <-
   csUTh(
     input_data_cs,
     sample_name = 'YP003',
-    nbitchoice = 100,
+    nbitchoice = 1000,
     detcorrectionchoice = TRUE,
     R28det = 0.8,
     R28det_err = 0.08,
@@ -269,7 +269,7 @@ print(cs_output_tbl,
         rotate.colnames = TRUE)
 ```
 
-The plots produced by the `csUTh()` function are stored as list objects in the output from the function. We can show the plots by accessing the list like this: 
+The plots produced by the `csUTh()` function are stored as list objects in the output of the function. We can show the plots by accessing the list like this: 
 
 (ref:csuthvizfigcap) Example of the visualisations produced by the `csUTh()` function, using the demonstration run described above, and five in-situ analyses by laser ablation of coral sample YP003. A: closed-system ages and B: initial (^234^U/^238^U) activity ratios for each sample analysis
 
@@ -358,7 +358,7 @@ Our key function, `osUTh()` has several arguments that need to be set before mea
 
 `l` is the thickness of the sample in centimeters. For Hobbit_1-1T it is 3.5 cm, for Hobbit_MH2T it is 5.35 cm
 
-`U_0` is the uranium concentration at the surface in ppm. This value does not significantly affect the model results and values from analyses near either surface of the sample can be used as a guide. For Hobbit_1-1T it is taken to be 15 ppm; for Hobbit_MH2T, 25 ppm.
+`U_0` is the uranium concentration at the surface in ppm. This value does not significantly affect the model results and values from analyses near either surface of the sample can be used as a guide. For Hobbit_1-1T it is taken to be 25 ppm; for Hobbit_MH2T, 15 ppm.
 
 `K_min` and `K_max` are the minimum and maximum values allowed for the uranium diffusion coefficient (in cm^2^/s). Values between 10^-13^ and 10^-11^ cm^2^/s are generally appropriate.
 
@@ -375,7 +375,7 @@ output_os <- osUTh(input_data_os,
                    U48_0_min = 1.265,
                    U48_0_max = 1.270,
                    l = 5.35,
-                   U_0 = 25,
+                   U_0 = 15,
                    K_min = 1e-13,
                    K_max = 1e-11,
                    T_min = 1e3,
@@ -398,7 +398,7 @@ The model computes a Monte Carlo simulation where age of the sample, U diffusion
 
 The final calculated age `T_final` (in yr), U diffusion coefficient `K_final` (in cm^2^/s) and (^234^U/^238^U) ratio at the surface of the sample `U48_0_final` are the set of solutions where the solution age is the closest to the median age of the population of solutions. The uncertainty on each output parameter is calculated as the 67% and 33% quantiles of the population of solution sets.
 
-In a typical analysis, the user explores the model fit by first running the model with a single iteration `nbit` and a value for `fsum_target` low enough to allow for an acceptable fit, but large enough such that computing time is not too long. Once this is done, the user should adjust `T_min` and `T_max` using first estimates of the age, as well as `U48_0_min` and `U48_0_max` to obtain the best fit of the calculated (^234^U/^238^U) to the observed values. Then, `fsum_target` should be adjusted again to find the lowest value with an acceptable computing time. Finally, the model should be run one last time with `nbit` set to a larger value (at least 100) to reduce the uncertainty of the calculated age and initial (^234^U/^238^U) activity ratios.
+In a typical analysis, the user explores the model fit by first running the model with a single iteration `nbit` and a value for `fsum_target` low enough to allow for an acceptable fit, but large enough such that computing time is not too long. Once this is done, the user should adjust `T_min` and `T_max` using first estimates of the age, as well as `U48_0_min` and `U48_0_max` to obtain the best fit of the calculated (^234^U/^238^U) to the observed values. Then, `fsum_target` should be adjusted again to find the lowest value with an acceptable computing time. Finally, the model should be run one last time with `nbit` set to a larger value (at least 1,000) to reduce the uncertainty of the calculated age and initial (^234^U/^238^U) activity ratios.
 
 
 ## Inspecting the model's output
@@ -470,7 +470,7 @@ output_os$plots
 ## Closed-system dating - Case study from Pan et al. 2018
 
 The package includes sample data from Marine Isotope Stage 5 corals from @RN5108 (Table \@ref(tab:pan)). Two *Plesiastrea versipora* coral samples were analysed: YP002 and YP003. The first two rows in Table \@ref(tab:pan) are bulk analyses while the rest are in-situ analyses produced by laser ablation (hence the lower precision compared to the first two rows).
-In @RN5108, closed-system ages were calculated using IsoPlot 4.15 [@RN2163]. For bulk analyses, @RN5108 reported detrital-corrected ages of 121.4 \(\pm\) 2.4 ka and 127.3 \(\pm\) 2.1 ka for YP002A and YP002B, respectively. For in-situ analyses, @RN5108 reported mean detrital-corrected ages of five analyses for each sample: 117.5 \(\pm\) 4.5 ka for YP002 and 115.0 \(\pm\) 5.4 ka for YP003.
+In @RN5108, closed-system ages were calculated using IsoPlot 4.15 [@RN2163]. For bulk analyses, @RN5108 reported detrital-corrected ages of 121.4 \(\pm\) 2.4 ka and 127.3 \(\pm\) 2.1 ka for YP002 and YP003, respectively. For in-situ analyses, @RN5108 reported mean detrital-corrected ages of five analyses for each sample: 117.5 \(\pm\) 4.5 ka for YP002 and 115.0 \(\pm\) 5.4 ka for YP003.
 
 Here we solve the closed-system model for all samples by simply entering 'YP' against `sample name` since all analyses in the table contain these two characters in their `Sample_ID` column. `print_summary` is set to `FALSE` since we are solving for different samples and a mean age would have no significance.
 
@@ -480,7 +480,7 @@ output_cs_all <-
   csUTh(
     input_data_cs,
     sample_name = 'YP',
-    nbitchoice = 100,
+    nbitchoice = 1000,
     detcorrectionchoice = TRUE,
     keepfiltereddata = FALSE,
     print_summary = FALSE,
@@ -491,9 +491,9 @@ output_cs_all <-
 
 ```{r results bulk, echo=FALSE}
 age_YP002bulk <- round(output_cs_all$results$`Age (ka)`[1],1)
-err_YP002bulk <- round(output_cs_all$results$`Age 2se`[1],1)
+err_YP002bulk <- round(output_cs_all$results$`Age 2sd`[1],1)
 age_YP003bulk <- round(output_cs_all$results$`Age (ka)`[2],1)
-err_YP003bulk <- round(output_cs_all$results$`Age 2se`[2],1)
+err_YP003bulk <- round(output_cs_all$results$`Age 2sd`[2],1)
 ```
 
 We obtain detrital-corrected ages of `r age_YP002bulk` \(\pm\) `r err_YP002bulk` ka and `r age_YP003bulk` \(\pm\) `r err_YP003bulk` ka for bulk analyses of YP002 and YP003, respectively. This is within error of values reported in @RN5108.
@@ -506,7 +506,7 @@ output_cs_YP002insitu <-
   csUTh(
     input_data_cs,
     sample_name = 'YP002-1',
-    nbitchoice = 100,
+    nbitchoice = 1000,
     detcorrectionchoice = TRUE,
     keepfiltereddata = FALSE,
     print_summary = TRUE,
@@ -560,7 +560,7 @@ output_first_run_modern <-
     U48_0_min = 1.25,
     U48_0_max = 1.3,
     l = 5.35,
-    U_0 = 25,
+    U_0 = 15,
     K_min = 1e-13,
     K_max = 1e-11,
     T_min = 1e3,
@@ -612,7 +612,7 @@ output_second_run_modern <-
     U48_0_min = 1.265,
     U48_0_max = 1.270,
     l = 5.35,
-    U_0 = 25,
+    U_0 = 15,
     K_min = 1e-13,
     K_max = 1e-11,
     T_min = 1e3,
@@ -640,7 +640,7 @@ age_plus <- round(output_second_run_modern$results$`Age 67% quantile (ka)`,1)
 age_minus <- round(output_second_run_modern$results$`Age 33% quantile (ka)`,1)
 ```
 
-Since the first run suggests a Holocene age for the sample, the measured (^234^U/^238^U) at the surfaces must be similar to the calculated values, thus the chosen values for the range above. Once `U48_0_min`, `U48_0_min`, `T_min` and `T_max` parameters have been adjusted, the model is run again. `fsum_target` can also be decreased to 0.01 in order to get a better fit and error, but it is at the expense of computing time. This operation is repeated until a satisfying fit is obtained (by visual inspection of the figures). Finally, the model is run once more, increasing the number of iterations to 1000 (or more). Following this method, we obtain an age of 6.2 +1.2/-1.3 ka (Figure \@ref(fig:plot-panel-second-run-modern-fig)). Note (^234^U/^238^U) and (^230^Th/^238^U) are still too high and low, respectively, so `U48_0_min`, `U48_0_min`, `T_min` and `T_max` parameters should be adjusted and the model run again.
+Since the first run suggests a Holocene age for the sample, the measured (^234^U/^238^U) at the surfaces must be similar to the calculated values, thus the chosen values for the range above. Once `U48_0_min`, `U48_0_max`, `T_min` and `T_max` parameters have been adjusted, the model is run again. `fsum_target` can also be decreased to 0.01 in order to get a better fit and error, but it is at the expense of computing time. This operation is repeated until a satisfying fit is obtained (by visual inspection of the figures). Finally, the model is run once more, increasing the number of iterations to 1,000 (or more). Following this method, we obtain an age of 6.4 +1.3/-1.2 ka (Figure \@ref(fig:plot-panel-second-run-modern-fig)). Note (^234^U/^238^U) and (^230^Th/^238^U) are still too high and low, respectively, so `U48_0_min`, `U48_0_min`, `T_min` and `T_max` parameters should be adjusted and the model run again.
 
 
 ```{r plot-panel-second-run-modern, eval=FALSE, include=FALSE}
@@ -673,7 +673,7 @@ output_hobbit <-
     U48_0_min = 1.360,
     U48_0_max = 1.375,
     l = 3.5,
-    U_0 = 15,
+    U_0 = 25,
     K_min = 1e-13,
     K_max = 1e-11,
     T_min = 50e3,
@@ -689,7 +689,7 @@ age_plus <- round(output_hobbit$results$`Age 67% quantile (ka)`,1)
 age_minus <- round(output_hobbit$results$`Age 33% quantile (ka)`,1)
 ```
 
-For transect 1 of LB1/52, Sutikna et al. [-@Sutikna2016] reported an age of 79.0 $\pm$ 3.7 ka. With osUTh, using data in the file `Hobbit_1-1T_for_iDAD.csv` provided in the package, and following the same method as above, we obtain an age of 75.4 +1.0/-0.9 ka (Figure \@ref(fig:plot-panel-hobbit-fig)). Note that results and errors vary slightly for each run since populations of solution sets are randomly generated.
+For transect 1 of LB1/52, Sutikna et al. [-@Sutikna2016] reported an age of 79.0 $\pm$ 3.7 ka. With osUTh, using data in the file `Hobbit_1-1T_for_iDAD.csv` provided in the package, and following the same method as above, we obtain an age of 75.2 +1.0/-0.8 ka (Figure \@ref(fig:plot-panel-hobbit-fig)). Note that results and errors vary slightly for each run since populations of solution sets are randomly generated.
 
 ```{r tsol-hobbit, eval=FALSE, include=FALSE}
 library(ggplot2)

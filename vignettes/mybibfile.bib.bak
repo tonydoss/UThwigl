@@ -1327,17 +1327,17 @@ http://www.nature.com/nature/journal/v514/n7521/abs/nature13422.html#supplementa
    type = {Journal Article}
 }
 
-@article{RN4410,
-   author = {Axelsson, J},
-   title = {Catecholamine Functions},
-   journal = {Annual Review of Physiology},
-   volume = {33},
-   number = {1},
-   pages = {1-30},
-   DOI = {doi:10.1146/annurev.ph.33.030171.000245},
-   url = {http://www.annualreviews.org/doi/abs/10.1146/annurev.ph.33.030171.000245 },
-   year = {1971},
-   type = {Journal Article}
+@Article{RN4410,
+  author  = {Axelsson, J},
+  journal = {Annual Review of Physiology},
+  title   = {Catecholamine Functions},
+  year    = {1971},
+  number  = {1},
+  pages   = {1-30},
+  volume  = {33},
+  doi     = {doi:10.1146/annurev.ph.33.030171.000245},
+  type    = {Journal Article},
+  url     = {http://www.annualreviews.org/doi/abs/10.1146/annurev.ph.33.030171.000245},
 }
 
 @article{RN3152,
@@ -1916,15 +1916,15 @@ http://www.nature.com/nature/journal/v514/n7521/abs/nature13422.html#supplementa
    type = {Journal Article}
 }
 
-@inbook{RN2860,
-   author = {Bartley, R. and Olley, J. and Henderson, A.},
-   title = {A sediment budget for the Herbert River Catchment, North Queensland, Australia},
-   booktitle = {Sediment transfer through fluvial systems},
-   editor = {Golosov, V.  and Walling, D.E.},
-   series = { IAHS Publ. },
-   pages = {147-154},
-   year = {2004},
-   type = {Book Section}
+@InBook{RN2860,
+  author    = {Bartley, R. and Olley, J. and Henderson, A.},
+  editor    = {Golosov, V. and Walling, D.E.},
+  pages     = {147-154},
+  title     = {A sediment budget for the Herbert River Catchment, North Queensland, Australia},
+  year      = {2004},
+  series    = {IAHS Publ.},
+  type      = {Book Section},
+  booktitle = {Sediment transfer through fluvial systems},
 }
 
 @article{RN4958,
@@ -3562,16 +3562,16 @@ https://ac-els-cdn-com.ezproxy.uow.edu.au/S1878522014001258/1-s2.0-S187852201400
    type = {Journal Article}
 }
 
-@article{RN2769,
-   author = {Bourdon, B. and Turner, S. and Dosseto, A.},
-   title = {Dehydration and partial melting in subduction zones: Constraints from U-series disequilibria},
-   journal = {Journal of Geophysical Research B: Solid Earth},
-   volume = {108},
-   number = {6},
-   pages = {ECV 3-1 - 3-19},
-   url = {http://www.scopus.com/scopus/inward/record.url?eid=2-s2.0-18244422849&partnerID=40&rel=R8.0.0 },
-   year = {2003},
-   type = {Journal Article}
+@Article{RN2769,
+  author  = {Bourdon, B. and Turner, S. and Dosseto, A.},
+  journal = {Journal of Geophysical Research B: Solid Earth},
+  title   = {Dehydration and partial melting in subduction zones: Constraints from U-series disequilibria},
+  year    = {2003},
+  number  = {6},
+  pages   = {ECV 3-1 - 3-19},
+  volume  = {108},
+  type    = {Journal Article},
+  url     = {http://www.scopus.com/scopus/inward/record.url?eid=2-s2.0-18244422849&partnerID=40&rel=R8.0.0},
 }
 
 @article{RN955,
@@ -4619,18 +4619,18 @@ IN WEST GERMANY},
    type = {Book Section}
 }
 
-@article{RN4398,
-   author = {Bush, Ashley I.},
-   title = {The metallobiology of Alzheimer's disease},
-   journal = {Trends in Neurosciences},
-   volume = {26},
-   number = {4},
-   pages = {207-214},
-   ISSN = {0166-2236},
-   DOI = {http://dx.doi.org/10.1016/S0166-2236(03)00067-5},
-   url = {http://www.sciencedirect.com/science/article/pii/S0166223603000675 },
-   year = {2003},
-   type = {Journal Article}
+@Article{RN4398,
+  author  = {Bush, Ashley I.},
+  journal = {Trends in Neurosciences},
+  title   = {The metallobiology of Alzheimer's disease},
+  year    = {2003},
+  issn    = {0166-2236},
+  number  = {4},
+  pages   = {207-214},
+  volume  = {26},
+  doi     = {http://dx.doi.org/10.1016/S0166-2236(03)00067-5},
+  type    = {Journal Article},
+  url     = {http://www.sciencedirect.com/science/article/pii/S0166223603000675},
 }
 
 @article{RN4268,
@@ -6454,11 +6454,11 @@ http://ac.els-cdn.com/S0012825214000051/1-s2.0-S0012825214000051-main.pdf?_tid=a
    type = {Journal Article}
 }
 
-@techreport{RN4244,
-   author = {Committee, State of the Environment 2011},
-   title = { Australia state of the environment 2011},
-   year = {2011},
-   type = {Report}
+@TechReport{RN4244,
+  author = {Committee, State of the Environment 2011},
+  title  = {Australia state of the environment 2011},
+  year   = {2011},
+  type   = {Report},
 }
 
 @inproceedings{RN1941,
@@ -8540,18 +8540,18 @@ http://ac.els-cdn.com/S0012821X08004901/1-s2.0-S0012821X08004901-main.pdf?_tid=b
    type = {Journal Article}
 }
 
-@article{RN4273,
-   author = {Duce, James A. and Bush, Ashley I.},
-   title = {Biological metals and Alzheimer's disease: Implications for therapeutics and diagnostics},
-   journal = {Progress in Neurobiology},
-   volume = {92},
-   number = {1},
-   pages = {1-18},
-   ISSN = {0301-0082},
-   DOI = {http://dx.doi.org/10.1016/j.pneurobio.2010.04.003},
-   url = {http://www.sciencedirect.com/science/article/pii/S0301008210000936 },
-   year = {2010},
-   type = {Journal Article}
+@Article{RN4273,
+  author  = {Duce, James A. and Bush, Ashley I.},
+  journal = {Progress in Neurobiology},
+  title   = {Biological metals and Alzheimer's disease: Implications for therapeutics and diagnostics},
+  year    = {2010},
+  issn    = {0301-0082},
+  number  = {1},
+  pages   = {1-18},
+  volume  = {92},
+  doi     = {http://dx.doi.org/10.1016/j.pneurobio.2010.04.003},
+  type    = {Journal Article},
+  url     = {http://www.sciencedirect.com/science/article/pii/S0301008210000936},
 }
 
 @article{RN4791,
@@ -16379,17 +16379,17 @@ http://www.pnas.org/content/94/13/6600.full.pdf},
    type = {Journal Article}
 }
 
-@article{RN4885,
-   author = {Kerr, Richard A.},
-   title = {The Story of O<sub>2</sub>},
-   journal = {Science},
-   volume = {308},
-   number = {5729},
-   pages = {1730-1732},
-   DOI = {10.1126/science.308.5729.1730},
-   url = {http://science.sciencemag.org/content/sci/308/5729/1730.full.pdf },
-   year = {2005},
-   type = {Journal Article}
+@Article{RN4885,
+  author  = {Kerr, Richard A.},
+  journal = {Science},
+  title   = {The Story of O<sub>2</sub>},
+  year    = {2005},
+  number  = {5729},
+  pages   = {1730-1732},
+  volume  = {308},
+  doi     = {10.1126/science.308.5729.1730},
+  type    = {Journal Article},
+  url     = {http://science.sciencemag.org/content/sci/308/5729/1730.full.pdf},
 }
 
 @article{RN4641,
@@ -16756,17 +16756,17 @@ https://ac-els-cdn-com.ezproxy.uow.edu.au/S0031018204005905/1-s2.0-S003101820400
    type = {Journal Article}
 }
 
-@article{RN4424,
-   author = {Knoll, Andrew H.},
-   title = {The Multiple Origins of Complex Multicellularity},
-   journal = {Annual Review of Earth and Planetary Sciences},
-   volume = {39},
-   number = {1},
-   pages = {217-239},
-   DOI = {doi:10.1146/annurev.earth.031208.100209},
-   url = {http://www.annualreviews.org/doi/abs/10.1146/annurev.earth.031208.100209 },
-   year = {2011},
-   type = {Journal Article}
+@Article{RN4424,
+  author  = {Knoll, Andrew H.},
+  journal = {Annual Review of Earth and Planetary Sciences},
+  title   = {The Multiple Origins of Complex Multicellularity},
+  year    = {2011},
+  number  = {1},
+  pages   = {217-239},
+  volume  = {39},
+  doi     = {doi:10.1146/annurev.earth.031208.100209},
+  type    = {Journal Article},
+  url     = {http://www.annualreviews.org/doi/abs/10.1146/annurev.earth.031208.100209},
 }
 
 @article{RN4979,
@@ -17404,18 +17404,18 @@ http://ac.els-cdn.com/S0012825215300489/1-s2.0-S0012825215300489-main.pdf?_tid=2
    type = {Journal Article}
 }
 
-@article{RN4361,
-   author = {Kump, Lee R. and Arthur, Michael A.},
-   title = {Interpreting carbon-isotope excursions: carbonates and organic matter},
-   journal = {Chemical Geology},
-   volume = {161},
-   number = {1–3},
-   pages = {181-198},
-   ISSN = {0009-2541},
-   DOI = {http://dx.doi.org/10.1016/S0009-2541(99)00086-8},
-   url = {http://www.sciencedirect.com/science/article/pii/S0009254199000868 },
-   year = {1999},
-   type = {Journal Article}
+@Article{RN4361,
+  author  = {Kump, Lee R. and Arthur, Michael A.},
+  journal = {Chemical Geology},
+  title   = {Interpreting carbon-isotope excursions: carbonates and organic matter},
+  year    = {1999},
+  issn    = {0009-2541},
+  number  = {1–3},
+  pages   = {181-198},
+  volume  = {161},
+  doi     = {http://dx.doi.org/10.1016/S0009-2541(99)00086-8},
+  type    = {Journal Article},
+  url     = {http://www.sciencedirect.com/science/article/pii/S0009254199000868},
 }
 
 @article{RN4227,
@@ -19404,16 +19404,16 @@ http://www.nature.com.ezproxy.uow.edu.au/nature/journal/v457/n7230/pdf/nature076
    type = {Journal Article}
 }
 
-@article{RN4370,
-   author = {Ludwig, KR},
-   title = {Mathematical–statistical treatment of data and errors for 230Th/U geochronology},
-   journal = {Reviews in Mineralogy and Geochemistry},
-   volume = {52},
-   number = {1},
-   pages = {631-656},
-   ISSN = {1529-6466},
-   year = {2003},
-   type = {Journal Article}
+@Article{RN4370,
+  author  = {Ludwig, K.R.},
+  title   = {Mathematical–statistical treatment of data and errors for 230Th/U geochronology},
+  journal = {Reviews in Mineralogy and Geochemistry},
+  year    = {2003},
+  volume  = {52},
+  number  = {1},
+  pages   = {631-656},
+  issn    = {1529-6466},
+  type    = {Journal Article},
 }
 
 @book{RN2163,
@@ -21385,17 +21385,17 @@ Chichester ; New York :},
    type = {Journal Article}
 }
 
-@article{RN4773,
-   author = {Miller, Austin J. and Strauss, Justin V. and Halverson, Galen P. and Macdonald, Francis A. and Johnston, David T. and Sperling, Erik A.},
-   title = {Tracking the onset of Phanerozoic-style redox-sensitive trace metal enrichments: New results from basal Ediacaran post-glacial strata in NW Canada},
-   journal = {Chemical Geology},
-   volume = {457},
-   pages = {24-37},
-   ISSN = {0009-2541},
-   DOI = {https://doi.org/10.1016/j.chemgeo.2017.03.010},
-   url = {http://www.sciencedirect.com/science/article/pii/S0009254117301249 },
-   year = {2017},
-   type = {Journal Article}
+@Article{RN4773,
+  author  = {Miller, Austin J. and Strauss, Justin V. and Halverson, Galen P. and Macdonald, Francis A. and Johnston, David T. and Sperling, Erik A.},
+  journal = {Chemical Geology},
+  title   = {Tracking the onset of Phanerozoic-style redox-sensitive trace metal enrichments: New results from basal Ediacaran post-glacial strata in NW Canada},
+  year    = {2017},
+  issn    = {0009-2541},
+  pages   = {24-37},
+  volume  = {457},
+  doi     = {https://doi.org/10.1016/j.chemgeo.2017.03.010},
+  type    = {Journal Article},
+  url     = {http://www.sciencedirect.com/science/article/pii/S0009254117301249},
 }
 
 @article{RN2270,
@@ -25313,17 +25313,17 @@ http://www.nature.com/ngeo/journal/v6/n8/abs/ngeo1875.html#supplementary-informa
    type = {Journal Article}
 }
 
-@article{RN4416,
-   author = {Polyak, Victor J. and Asmerom, Yemane},
-   title = {Late Holocene Climate and Cultural Changes in the Southwestern United States},
-   journal = {Science},
-   volume = {294},
-   number = {5540},
-   pages = {148-151},
-   DOI = {10.1126/science.1062771},
-   url = {http://science.sciencemag.org/content/sci/294/5540/148.full.pdf },
-   year = {2001},
-   type = {Journal Article}
+@Article{RN4416,
+  author  = {Polyak, Victor J. and Asmerom, Yemane},
+  journal = {Science},
+  title   = {Late Holocene Climate and Cultural Changes in the Southwestern United States},
+  year    = {2001},
+  number  = {5540},
+  pages   = {148-151},
+  volume  = {294},
+  doi     = {10.1126/science.1062771},
+  type    = {Journal Article},
+  url     = {http://science.sciencemag.org/content/sci/294/5540/148.full.pdf},
 }
 
 @book{RN4777,
@@ -25732,18 +25732,18 @@ http://www.nature.com/ngeo/journal/v6/n8/abs/ngeo1875.html#supplementary-informa
    type = {Journal Article}
 }
 
-@article{RN4389,
-   author = {Prokoph, A. and Shields, G. A. and Veizer, J.},
-   title = {Compilation and time-series analysis of a marine carbonate δ18O, δ13C, 87Sr/86Sr and δ34S database through Earth history},
-   journal = {Earth-Science Reviews},
-   volume = {87},
-   number = {3–4},
-   pages = {113-133},
-   ISSN = {0012-8252},
-   DOI = {http://dx.doi.org/10.1016/j.earscirev.2007.12.003},
-   url = {http://www.sciencedirect.com/science/article/pii/S0012825208000032 },
-   year = {2008},
-   type = {Journal Article}
+@Article{RN4389,
+  author  = {Prokoph, A. and Shields, G. A. and Veizer, J.},
+  journal = {Earth-Science Reviews},
+  title   = {Compilation and time-series analysis of a marine carbonate δ18O, δ13C, 87Sr/86Sr and δ34S database through Earth history},
+  year    = {2008},
+  issn    = {0012-8252},
+  number  = {3–4},
+  pages   = {113-133},
+  volume  = {87},
+  doi     = {http://dx.doi.org/10.1016/j.earscirev.2007.12.003},
+  type    = {Journal Article},
+  url     = {http://www.sciencedirect.com/science/article/pii/S0012825208000032},
 }
 
 @article{RN4643,
@@ -26319,16 +26319,16 @@ http://www.ncbi.nlm.nih.gov/pmc/articles/PMC4063504/pdf/cn500058v.pdf},
    type = {Thesis}
 }
 
-@article{RN4386,
-   author = {Raup, D M and Sepkoski, J J},
-   title = {Periodicity of extinctions in the geologic past},
-   journal = {Proceedings of the National Academy of Sciences},
-   volume = {81},
-   number = {3},
-   pages = {801-805},
-   url = {http://www.pnas.org/content/81/3/801.abstract },
-   year = {1984},
-   type = {Journal Article}
+@Article{RN4386,
+  author  = {Raup, D M and Sepkoski, J J},
+  journal = {Proceedings of the National Academy of Sciences},
+  title   = {Periodicity of extinctions in the geologic past},
+  year    = {1984},
+  number  = {3},
+  pages   = {801-805},
+  volume  = {81},
+  type    = {Journal Article},
+  url     = {http://www.pnas.org/content/81/3/801.abstract},
 }
 
 @article{RN1843,
@@ -28864,17 +28864,17 @@ https://www-sciencedirect-com.ezproxy.uow.edu.au/science/article/pii/S0009254101
    type = {Journal Article}
 }
 
-@article{RN4637,
-   author = {Shen, Yanan and Zhang, Tonggang and Hoffman, Paul F.},
-   title = {On the coevolution of Ediacaran oceans and animals},
-   journal = {Proceedings of the National Academy of Sciences},
-   volume = {105},
-   number = {21},
-   pages = {7376-7381},
-   DOI = {10.1073/pnas.0802168105},
-   url = {http://www.pnas.org/content/105/21/7376.abstract },
-   year = {2008},
-   type = {Journal Article}
+@Article{RN4637,
+  author  = {Shen, Yanan and Zhang, Tonggang and Hoffman, Paul F.},
+  journal = {Proceedings of the National Academy of Sciences},
+  title   = {On the coevolution of Ediacaran oceans and animals},
+  year    = {2008},
+  number  = {21},
+  pages   = {7376-7381},
+  volume  = {105},
+  doi     = {10.1073/pnas.0802168105},
+  type    = {Journal Article},
+  url     = {http://www.pnas.org/content/105/21/7376.abstract},
 }
 
 @article{RN1633,
@@ -30415,14 +30415,14 @@ http://science.sciencemag.org/content/sci/335/6076/1585.full.pdf},
    type = {Journal Article}
 }
 
-@book{RN2638,
-   author = {Summerfield, Michael A. },
-   title = {Geomorphology and global tectonics},
-   publisher = {Wiley},
-   address = {Chichester ; New York :},
-   ISBN = {0471971936},
-   year = {2000},
-   type = {Book}
+@Book{RN2638,
+  author    = {Summerfield, Michael A.},
+  publisher = {Wiley},
+  title     = {Geomorphology and global tectonics},
+  year      = {2000},
+  address   = {Chichester ; New York :},
+  isbn      = {0471971936},
+  type      = {Book},
 }
 
 @article{RN3209,
@@ -30930,18 +30930,18 @@ https://www-sciencedirect-com.ezproxy.uow.edu.au/science/article/pii/00167037889
    type = {Journal Article}
 }
 
-@article{RN4274,
-   author = {Takahashi, S. and Takahashi, I. and Sato, H. and Kubota, Y. and Yoshida, S. and Muramatsu, Y.},
-   title = {Age-related changes in the concentrations of major and trace elements in the brain of rats and mice},
-   journal = {Biological Trace Element Research},
-   volume = {80},
-   number = {2},
-   pages = {145-158},
-   ISSN = {1559-0720},
-   DOI = {10.1385/bter:80:2:145},
-   url = {http://dx.doi.org/10.1385/BTER:80:2:145 },
-   year = {2001},
-   type = {Journal Article}
+@Article{RN4274,
+  author  = {Takahashi, S. and Takahashi, I. and Sato, H. and Kubota, Y. and Yoshida, S. and Muramatsu, Y.},
+  journal = {Biological Trace Element Research},
+  title   = {Age-related changes in the concentrations of major and trace elements in the brain of rats and mice},
+  year    = {2001},
+  issn    = {1559-0720},
+  number  = {2},
+  pages   = {145-158},
+  volume  = {80},
+  doi     = {10.1385/bter:80:2:145},
+  type    = {Journal Article},
+  url     = {http://dx.doi.org/10.1385/BTER:80:2:145},
 }
 
 @article{RN4302,
@@ -32049,16 +32049,16 @@ http://www.ncbi.nlm.nih.gov/pmc/articles/PMC4063499/pdf/cn5001149.pdf},
    type = {Journal Article}
 }
 
-@article{RN3196,
-   author = {Turner, Simon and Sims, Kenneth W. W. and Reagan, Mark and Cook, Craig},
-   title = {A 210Pb-226Ra-230Th-238U study of Klyuchevskoy and Bezymianny volcanoes, Kamchatka},
-   journal = {Geochimica et Cosmochimica Acta},
-   volume = {71},
-   number = {19},
-   pages = {4771-4785},
-   url = {http://www.sciencedirect.com/science/article/B6V66-4PKXBV9-9/2/b9b2c306b5afa0d4d831f342e600f327 },
-   year = {2007},
-   type = {Journal Article}
+@Article{RN3196,
+  author  = {Turner, Simon and Sims, Kenneth W. W. and Reagan, Mark and Cook, Craig},
+  journal = {Geochimica et Cosmochimica Acta},
+  title   = {A 210Pb-226Ra-230Th-238U study of Klyuchevskoy and Bezymianny volcanoes, Kamchatka},
+  year    = {2007},
+  number  = {19},
+  pages   = {4771-4785},
+  volume  = {71},
+  type    = {Journal Article},
+  url     = {http://www.sciencedirect.com/science/article/B6V66-4PKXBV9-9/2/b9b2c306b5afa0d4d831f342e600f327},
 }
 
 @article{RN5096,
@@ -33092,16 +33092,16 @@ https://www-sciencedirect-com.ezproxy.uow.edu.au/science/article/pii/S0016703713
    type = {Journal Article}
 }
 
-@article{RN3192,
-   author = {Volpe, Alan M. and Hammond, Paul E.},
-   title = {238U---230Th---226Ra disequilibria in young Mount St. Helens rocks: time constraint for magma formation and crystallization},
-   journal = {Earth and Planetary Science Letters},
-   volume = {107},
-   number = {3-4},
-   pages = {475-486},
-   url = {http://www.sciencedirect.com/science/article/B6V61-4728Y7M-3W/2/908a97af6be5f3feeb32831cf6b1f629 },
-   year = {1991},
-   type = {Journal Article}
+@Article{RN3192,
+  author  = {Volpe, Alan M. and Hammond, Paul E.},
+  journal = {Earth and Planetary Science Letters},
+  title   = {238U---230Th---226Ra disequilibria in young Mount St. Helens rocks: time constraint for magma formation and crystallization},
+  year    = {1991},
+  number  = {3-4},
+  pages   = {475-486},
+  volume  = {107},
+  type    = {Journal Article},
+  url     = {http://www.sciencedirect.com/science/article/B6V61-4728Y7M-3W/2/908a97af6be5f3feeb32831cf6b1f629},
 }
 
 @book{RN5104,
@@ -33474,16 +33474,16 @@ http://www.nature.com/ngeo/journal/v8/n7/abs/ngeo2452.html#supplementary-informa
    type = {Book Section}
 }
 
-@inbook{RN2834,
-   author = {Walling, D.E. and Woodward, J.C},
-   title = {The use of caesium-137 measurements in soil erosion surveys },
-   booktitle = {Erosion and Sediment Transport Monitoring Programmes in River Basins},
-   editor = {Bogen, J. and Walling, D.E. and Day, T.},
-   publisher = {IAHS Publ.},
-   volume = {210},
-   pages = {153-164},
-   year = {1992},
-   type = {Book Section}
+@InBook{RN2834,
+  author    = {Walling, D.E. and Woodward, J.C},
+  editor    = {Bogen, J. and Walling, D.E. and Day, T.},
+  pages     = {153-164},
+  publisher = {IAHS Publ.},
+  title     = {The use of caesium-137 measurements in soil erosion surveys},
+  year      = {1992},
+  type      = {Book Section},
+  volume    = {210},
+  booktitle = {Erosion and Sediment Transport Monitoring Programmes in River Basins},
 }
 
 @article{RN1928,
@@ -33962,17 +33962,17 @@ http://www.sciencedirect.com/science/article/pii/S0016703716307074},
    type = {Journal Article}
 }
 
-@article{RN4571,
-   author = {West, A. Joshua},
-   title = {Thickness of the chemical weathering zone and implications for erosional and climatic drivers of weathering and for carbon-cycle feedbacks},
-   journal = {Geology},
-   volume = {40},
-   number = {9},
-   pages = {811-814},
-   DOI = {10.1130/g33041.1},
-   url = {http://geology.gsapubs.org/content/40/9/811.abstract },
-   year = {2012},
-   type = {Journal Article}
+@Article{RN4571,
+  author  = {West, A. Joshua},
+  journal = {Geology},
+  title   = {Thickness of the chemical weathering zone and implications for erosional and climatic drivers of weathering and for carbon-cycle feedbacks},
+  year    = {2012},
+  number  = {9},
+  pages   = {811-814},
+  volume  = {40},
+  doi     = {10.1130/g33041.1},
+  type    = {Journal Article},
+  url     = {http://geology.gsapubs.org/content/40/9/811.abstract},
 }
 
 @article{RN2005,
@@ -36043,17 +36043,17 @@ https://ac.els-cdn.com/S0016703796003444/1-s2.0-S0016703796003444-main.pdf?_tid=
 �
 
 @Article{Reheis1990,
-  author        = {Reheis, Marith C.},
-  title         = {Influence of climate and eolian dust on the major-element chemistry and clay mineralogy of soils in the northern Bighorn basin, USA},
-  journal       = {Catena},
-  year          = {1990},
-  volume        = {17},
-  number        = {3},
-  pages         = {219-248},
-  issn          = {0341-8162},
-  __markedentry = {[tonyd:6]},
-  type          = {Journal Article},
-  url           = {https://www-sciencedirect-com.ezproxy.uow.edu.au/science/article/pii/0341816290900189},
+  author  = {Reheis, Marith C.},
+  journal = {Catena},
+  title   = {Influence of climate and eolian dust on the major-element chemistry and clay mineralogy of soils in the northern Bighorn basin, USA},
+  year    = {1990},
+  issn    = {0341-8162},
+  number  = {3},
+  pages   = {219-248},
+  volume  = {17},
+  groups  = {tonyd:6},
+  type    = {Journal Article},
+  url     = {https://www-sciencedirect-com.ezproxy.uow.edu.au/science/article/pii/0341816290900189},
 }
 
 @Article{Deniel1990,
@@ -36214,4 +36214,30 @@ https://ac.els-cdn.com/S0016703796003444/1-s2.0-S0016703796003444-main.pdf?_tid=
   publisher = {Elsevier},
 }
 
+@Article{hoffmann2018u,
+  author    = {Hoffmann, Dirk L and Standish, Chris D and Garc{\'\i}a-Diez, Marcos and Pettitt, Paul B and Milton, James A and Zilh{\~a}o, Jo{\~a}o and Alcolea-Gonz{\'a}lez, Jos{\'e} Javier and Cantalejo-Duarte, Pedro and Collado, Hip{\'o}lito and De Balb{\'\i}n, Rodrigo and others},
+  title     = {U-Th dating of carbonate crusts reveals Neandertal origin of Iberian cave art},
+  journal   = {Science},
+  year      = {2018},
+  volume    = {359},
+  number    = {6378},
+  pages     = {912--915},
+  publisher = {American Association for the Advancement of Science},
+}
+
+@Article{ComasBru2020SISALv2AC,
+  author  = {L. Comas-Bru and Kira Rehfeld and C. Roesch and Sahar Amirnezhad-Mozhdehi and S. Harrison and Kamolphat Atsawawaranunt and S. Ahmad and Y. A. Brahim and A. Baker and M. Bosomworth and S. Breitenbach and Yuval Burstyn and A. Columbu and M. Deininger and A. Dem{\'e}ny and Bronwyn C. Dixon and J. Fohlmeister and I. G. Hatvani and Jun Hu and Nikita Kaushal and Z. Kern and Inga Labuhn and F. A. Lechleitner and A. Lorrey and B. Martrat and V. Novello and J. Oster and Carlos P{\'e}rez-Mej{\'i}as and D. Scholz and N. Scroxton and N. Sinha and B. Ward and Sophie F. Warken and H. Zhang},
+  journal = {Earth System Science Data},
+  title   = {SISALv2: a comprehensive speleothem isotope database with multiple age–depth models},
+  year    = {2020},
+  pages   = {1-47},
+  volume  = {12},
+}
+
 @Comment{jabref-meta: databaseType:bibtex;}
+
+@Comment{jabref-meta: grouping:
+0 AllEntriesGroup:;
+1 StaticGroup:Markings\;2\;1\;\;\;\;;
+2 StaticGroup:tonyd:6\;2\;1\;\;\;\;;
+}
