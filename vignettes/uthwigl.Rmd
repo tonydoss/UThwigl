@@ -109,7 +109,7 @@ We provide three methods for using this package to suit different levels of fami
 include_graphics("figures/shiny-app-screenshots.png")
 ```
 
-The second way to use the package is with Binder, a browser-based instance of R and RStudio that includes our package ready to work with. Binder is a server technology that turns computational material, such as an R package, into interactive computational environments in the cloud. Using Binder requires a novice level of familiarity with R, for example to use the code in this paper and adapt it to work with a different CSV file. Because Binder provides a complete R environment, custom R code can be written during a Binder instance to further explore the model's output in the browser. These two methods, the web application and Binder, do not require any software to be downloaded and installed on the user's computer, all computation occurs in the browser. The web application and Binder are suitable for getting a quick start on working with the package, but they require a connection to the internet, and they have limited memory and compute time available per instance. 
+The second way to use the package is with Binder, a browser-based instance of R and RStudio that includes our package ready to work with (Figure \@ref(fig:binderfig)). Binder is a server technology that turns computational material, such as an R package, into interactive computational environments in the cloud. Using Binder requires a novice level of familiarity with R, for example to use the code in this paper and adapt it to work with a different CSV file. Because Binder provides a complete R environment, custom R code can be written during a Binder instance to further explore the model's output in the browser. These two methods, the web application and Binder, do not require any software to be downloaded and installed on the user's computer, all computation occurs in the browser. The web application and Binder are suitable for getting a quick start on working with the package, but they require a connection to the internet, and they have limited memory and compute time available per instance. 
 
 (ref:binderfigcap) Screenshot of Binder running R and RStudio in a web browser window. 
 
@@ -143,12 +143,12 @@ library(UThwigl)
 Our package provides the fuction `csUTh()` for closed-system U-Th dating. Data for this function needs to be in a data frame (a form of table in R) with the following column names:
 
 - `Sample_ID`
-- `U234_U238_CORR`
-- `U234_U238_CORR_Int2SE`
-- `Th230_U238_CORR`
-- `Th230_U238_CORR_Int2SE`
-- `Th232_U238_CORR`
-- `Th232_U238_CORR_Int2SE`
+- `U234_U238`
+- `U234_U238_2SE`
+- `Th230_U238`
+- `Th230_U238_2SE`
+- `Th232_U238`
+- `Th232_U238_2SE`
 
  To help with preparing data for input into our function, we have included an example of an input file, taken from Pan et al. [-@RN5108]. Inspecting the included data sets will be helpful for understanding how to prepare new data to prepare for use with this package. After attaching the package, we can access the built-in datasets with the `data()` function, like this:
 
@@ -195,9 +195,9 @@ print(Pan2018_tbl,
         rotate.colnames = TRUE)
 ```
 
-The columns `Sample_ID`, `U234_U238_CORR`, `U234_U238_CORR_Int2SE`, `Th230_U238_CORR`,  `Th230_U238_CORR_Int2SE`, `Th232_U238_CORR` and `Th232_U238_CORR_Int2SE` must be present in the input data frame with these exact names for the model to function. The `csUTh()` function will check if the input data frame has these columns, and will stop with an error message if it does not find these columns. The `names()` function can be used to update column names of a data frame to ensure they match the names that the model function requires. Alteratively the user can edit the column names in a spreadsheet program such as Microsoft Excel. The order of the columns in the data frame is not important.
+The columns `Sample_ID`, `U234_U238`, `U234_U238_2SE`, `Th230_U238`,  `Th230_U238_2SE`, `Th232_U238` and `Th232_U238_2SE` must be present in the input data frame with these exact names for the model to function. The `csUTh()` function will check if the input data frame has these columns, and will stop with an error message if it does not find these columns. The `names()` function can be used to update column names of a data frame to ensure they match the names that the model function requires. Alteratively the user can edit the column names in a spreadsheet program such as Microsoft Excel. The order of the columns in the data frame is not important.
 
-Columns `U234_U238_CORR` and `U234_U238_CORR_Int2SE` are the (^234^U/^238^U) activity ratios and their 2$\sigma$ errors. Columns `Th230_U238_CORR` and `Th230_U238_CORR_Int2SE` are the (^230^Th/^238^U) activity ratios and their 2$\sigma$ errors. Columns `Th232_U238_CORR` and `Th232_U238_CORR_Int2SE` are the (^232^Th/^238^U) activity ratios and their 2$\sigma$ errors.
+Columns `U234_U238` and `U234_U238_2SE` are the (^234^U/^238^U) activity ratios and their 2$\sigma$ errors. Columns `Th230_U238` and `Th230_U238_2SE` are the (^230^Th/^238^U) activity ratios and their 2$\sigma$ errors. Columns `Th232_U238` and `Th232_U238_2SE` are the (^232^Th/^238^U) activity ratios and their 2$\sigma$ errors.
 
 ### Details of the input parameters of closed-system analysis 
 
@@ -206,7 +206,7 @@ Columns `U234_U238_CORR` and `U234_U238_CORR_Int2SE` are the (^234^U/^238^U) act
 `nbitchoice` is the number of iterations in the model (it is recommended to have at least 1,000).
 `detcorrectionchoice` is a parameter for choosing whether or not to apply a detrital correction to the calculation. 
 
-`R28det` (0.8) and `R28det_err` (0.08) are the values for the (^232^Th/^238^U) activity ratio of the detritus and its standard error (default values in parentheses). Similarly, `R08det` (1) and `R08det_err` (0.05) are the values for the (^230^Th/^238^U) activity ratio of the detritus and its standard error, and `R48det` (1) and `R48det_err` (0.02) are the corresponding values for (^234^U/^238^U) activity ratio of the detritus.
+`R28det` (0.8) and `R28det_err` (0.4) are the values for the (^232^Th/^238^U) activity ratio of the detritus and its standard error (default values in parentheses). Similarly, `R08det` (1) and `R08det_err` (0.05) are the values for the (^230^Th/^238^U) activity ratio of the detritus and its standard error, and `R48det` (1) and `R48det_err` (0.02) are the corresponding values for (^234^U/^238^U) activity ratio of the detritus.
 
 ## How to run the model
 
@@ -221,7 +221,7 @@ output_cs <-
     nbitchoice = 1000,
     detcorrectionchoice = TRUE,
     R28det = 0.8,
-    R28det_err = 0.08,
+    R28det_err = 0.4,
     R08det = 1,
     R08det_err = 0.05,
     R48det = 1,
@@ -247,7 +247,7 @@ All required columns are present in the input data
 
 ## Inspecting and visualizing the models' output
 
-The function returns a data frame with the age, error and summary output for each measurement, as shown in Table \@ref(tab:panoutput). This includes calculated ages (with or without detrital correction, depending how `detcorrectionchoice` was set), initial (^234^U/^238^U) activity ratios, along with their uncertainties.
+The function returns a data frame with the age, error and summary output for each measurement, as shown in Table \@ref(tab:panoutput). This includes calculated ages (with or without detrital correction, depending how `detcorrectionchoice` was set), initial (^234^U/^238^U) activity ratios, along with their uncertainties, calculated as 2 Standard Deviations of the population of solutions determined with the Monte Carlo simulation.
 
 
 ```{r panoutput, results="asis", echo = FALSE, eval=TRUE}
@@ -287,11 +287,11 @@ output_cs$plots
 For open-system U-Th dating we provide the function `osUTh()`, which requires a data frame with the following column names:
 
 - `iDAD.position`
-- `U234_U238_CORR`
-- `U234_U238_CORR_Int2SE`
+- `U234_U238`
+- `U234_U238_2SE`
 - `iDAD.position.1`
-- `Th230_U238_CORR`
-- `Th230_U238_CORR_Int2SE`
+- `Th230_U238`
+- `Th230_U238_2SE`
 - `U_ppm`
 - `U_ppm_Int2SE`        
 
@@ -340,7 +340,7 @@ print(Hobbit_MH2T_for_iDAD_tbl,
         rotate.colnames = TRUE)
 ```
 
-As for the closed-system function, the columns `iDAD.position`, `U234_U238_CORR`, `U234_U238_CORR_Int2SE`, `Th230_U238_CORR` and `Th230_U238_CORR_Int2SE` must be present in the input data frame with these exact names for the model to function. The `osUTh()` function will check if the input data frame has these columns, and will stop with an error message if it does not find these columns.
+As for the closed-system function, the columns `iDAD.position`, `U234_U238`, `U234_U238_2SE`, `Th230_U238` and `Th230_U238_2SE` must be present in the input data frame with these exact names for the model to function. The `osUTh()` function will check if the input data frame has these columns, and will stop with an error message if it does not find these columns.
 
 The `iDAD.position` column corresponds to the coordinates of the (^234^U/^238^U) analyses, which as indicated above take values between -1 and 1 (Figure \@ref(fig:femurpic)). The second `iDAD.position.1` column is used if the coordinates of the (^230^Th/^238^U) analyses are different from those of the (^234^U/^238^U) analyses.
 

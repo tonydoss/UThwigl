@@ -1,15 +1,15 @@
 
 globalVariables(c("iDAD.position",
-                  "Th230_U238_CORR",
-                  "Th230_U238_CORR_Int2SE",
+                  "Th230_U238",
+                  "Th230_U238_2SE",
                   "Th230_U238_CALC",
-                  "U_ppm_Int2SE",
-                  "U234_U238_CORR",
-                  "U234_U238_CORR_Int2SE",
+                  "U_ppm_2SE",
+                  "U234_U238",
+                  "U234_U238_2SE",
                   "U234_U238_CALC",
                   "T_sol",
                   "U_ppm",
-                  "U_ppm_Int2SE",
+                  "U_ppm_2SE",
                   "ID",
                   "Age (ka)", 
                   "Age 2sd", 
@@ -28,7 +28,7 @@ globalVariables(c("iDAD.position",
   
   packageStartupMessage("To cite the UThwigl package use:
 
-  Dosseto, A. and B. Marwick, (2019) UThwigl: An R package
+  Dosseto, A. and B. Marwick, (2021) UThwigl: An R package
   for closed- and open-system Uranium-Thorium dating Quaternary
   Geochronology 0:000--000, http://doi.org/10.17605/OSF.IO/D5P7S
 
@@ -107,7 +107,7 @@ osUTh <- function(input_data,
   
   # check that the input data frame has the columns with the right names
   
-  col_names_we_need <-  c("iDAD.position", "U234_U238_CORR", "U234_U238_CORR_Int2SE", "Th230_U238_CORR", "Th230_U238_CORR_Int2SE")
+  col_names_we_need <-  c("iDAD.position", "U234_U238", "U234_U238_2SE", "Th230_U238", "Th230_U238_2SE")
   
   if(all(col_names_we_need %in% colnames(input_data)))
   {
@@ -168,10 +168,10 @@ osUTh <- function(input_data,
   U48obs <- vector(mode="numeric", length=length(x_vec))
   Th0U8obs <- vector(mode="numeric", length=length(x_vec))
   
-  R48_min <- input_data$U234_U238_CORR -  input_data$U234_U238_CORR_Int2SE
-  R48_max <- input_data$U234_U238_CORR +  input_data$U234_U238_CORR_Int2SE
-  R08_min <- input_data$Th230_U238_CORR - input_data$Th230_U238_CORR_Int2SE
-  R08_max <- input_data$Th230_U238_CORR + input_data$Th230_U238_CORR_Int2SE
+  R48_min <- input_data$U234_U238 -  input_data$U234_U238_2SE
+  R48_max <- input_data$U234_U238 +  input_data$U234_U238_2SE
+  R08_min <- input_data$Th230_U238 - input_data$Th230_U238_2SE
+  R08_max <- input_data$Th230_U238 + input_data$Th230_U238_2SE
   
   counter <- 0
   
@@ -505,8 +505,8 @@ u_conc_profile_plot <- function(output,
     
   ggplot(output$output_data) +
   geom_errorbar(aes(x = iDAD.position,
-                    ymax = U_ppm + U_ppm_Int2SE,
-                    ymin = U_ppm - U_ppm_Int2SE, width = 0.02)) + # plot error bars
+                    ymax = U_ppm + U_ppm_2SE,
+                    ymin = U_ppm - U_ppm_2SE, width = 0.02)) + # plot error bars
   geom_point(aes(iDAD.position, U_ppm),
              color = "blue",
              size = point_size) +
@@ -547,11 +547,11 @@ u234_u238_ratio_plot <- function(output,
   
   ggplot(output$output_data) +
   geom_errorbar(aes(x = iDAD.position,
-                    ymax = U234_U238_CORR + U234_U238_CORR_Int2SE,
-                    ymin = U234_U238_CORR - U234_U238_CORR_Int2SE,
+                    ymax = U234_U238 + U234_U238_2SE,
+                    ymin = U234_U238 - U234_U238_2SE,
                     width = 0.02)) + # plot error bars
   geom_point(aes(iDAD.position,
-                 U234_U238_CORR),
+                 U234_U238),
              color = "blue",
              size = point_size) +
   geom_point(aes(iDAD.position,
@@ -597,12 +597,12 @@ th230_u238_ratio_plot <-  function(output,
   geom_errorbar(
     aes(
       x = iDAD.position,
-      ymax = Th230_U238_CORR + Th230_U238_CORR_Int2SE,
-      ymin = Th230_U238_CORR - Th230_U238_CORR_Int2SE,
+      ymax = Th230_U238 + Th230_U238_2SE,
+      ymin = Th230_U238 - Th230_U238_2SE,
       width = 0.02
     )
   ) + # plot error bars
-  geom_point(aes(iDAD.position, Th230_U238_CORR),
+  geom_point(aes(iDAD.position, Th230_U238),
              color = 'blue',
              size = point_size) +
   geom_point(aes(iDAD.position, Th230_U238_CALC),
@@ -621,12 +621,12 @@ th230_u238_ratio_plot <-  function(output,
 #' csUTh calculates closed-system Th-230/U ages, including detrital correction.
 #'
 #'
-#' @param input_data Input data frame. The following columns need to be present in this data frame, with these exact names: Sample_ID, U234_U238_CORR, U234_U238_CORR_Int2SE, Th230_U238_CORR, Th230_U238_CORR_Int2SE, Th232_U238_CORR, Th232_U238_CORR_Int2SE.
+#' @param input_data Input data frame. The following columns need to be present in this data frame, with these exact names: Sample_ID, U234_U238, U234_U238_2SE, Th230_U238, Th230_U238_2SE, Th232_U238, Th232_U238_2SE.
 #' @param sample_name Name of the sample to calculate closed-system ages for. The string entered must match characters for the chosen sample in the column 'Sample_ID' of the data file. Default: 'MK16'.
 #' @param nbitchoice Number of iterations in the model. Recommended to have at least 100. Default: 100.
 #' @param detcorrectionchoice Do a detrital correction? Enter TRUE for yes, or FALSE for no. Default: TRUE
 #' @param R28det (232Th/238U) activity ratio of the detritus. Default: 0.8
-#' @param R28det_err Error on the (232Th/238U) activity ratio of the detritus. Default: 0.08
+#' @param R28det_err Error on the (232Th/238U) activity ratio of the detritus. Default: 0.4
 #' @param R08det (230Th/238U) activity ratio of the detritus. Default: 1
 #' @param R08det_err Error on the (230Th/238U) activity ratio of the detritus. Default: 0.05
 #' @param R48det (234U/238U) activity ratio of the detritus. Default: 1
@@ -661,7 +661,7 @@ csUTh <- function(input_data,
                   nbitchoice = 100,
                   detcorrectionchoice = TRUE,
                   R28det = 0.8,
-                  R28det_err = 0.08,
+                  R28det_err = 0.4,
                   R08det = 1,
                   R08det_err = 0.05,
                   R48det = 1,
@@ -675,7 +675,7 @@ csUTh <- function(input_data,
   
   # check that the input data frame has the columns with the right names
   
-  col_names_we_need <-  c("Sample_ID", "U234_U238_CORR", "U234_U238_CORR_Int2SE", "Th230_U238_CORR", "Th230_U238_CORR_Int2SE", "Th232_U238_CORR", "Th232_U238_CORR_Int2SE")
+  col_names_we_need <-  c("Sample_ID", "U234_U238", "U234_U238_2SE", "Th230_U238", "Th230_U238_2SE", "Th232_U238", "Th232_U238_2SE")
   
   if(all(col_names_we_need %in% colnames(input_data)))
   {
@@ -705,21 +705,21 @@ csUTh <- function(input_data,
   number_sampletosolve <- nrow(data)
   
   # parameters for detrial correction
-  data$B <- (R08det - data$Th230_U238_CORR)/(R28det - data$Th232_U238_CORR)
-  data$b <- (R48det - data$U234_U238_CORR)/(R28det - data$Th232_U238_CORR)
-  data$r1 <- data$Th232_U238_CORR/(R28det - data$Th232_U238_CORR)
-  data$r2 <- R28det/(R28det - data$Th232_U238_CORR)
+  data$B <- (R08det - data$Th230_U238)/(R28det - data$Th232_U238)
+  data$b <- (R48det - data$U234_U238)/(R28det - data$Th232_U238)
+  data$r1 <- data$Th232_U238/(R28det - data$Th232_U238)
+  data$r2 <- R28det/(R28det - data$Th232_U238)
   
   # detrital-corrected ratios
-  data$U234_U238_DET_CORR <- data$U234_U238_CORR - data$b*data$Th232_U238_CORR
-  data$U234_U238_DET_CORR_ERR <- sqrt(data$b^2*(data$r2^2*data$Th232_U238_CORR_Int2SE^2 +
+  data$U234_U238_DET <- data$U234_U238 - data$b*data$Th232_U238
+  data$U234_U238_DET_ERR <- sqrt(data$b^2*(data$r2^2*data$Th232_U238_2SE^2 +
                                                   data$r1^2*R28det_err^2) +
-                                        data$r2^2*data$U234_U238_CORR_Int2SE +
+                                        data$r2^2*data$U234_U238_2SE +
                                         data$r1^2*R48det_err^2)
-  data$Th230_U238_DET_CORR <- data$Th230_U238_CORR - data$B*data$Th232_U238_CORR
-  data$Th230_U238_DET_CORR_ERR <- sqrt(data$B^2*(data$r2^2*data$Th232_U238_CORR_Int2SE^2 +
+  data$Th230_U238_DET <- data$Th230_U238 - data$B*data$Th232_U238
+  data$Th230_U238_DET_ERR <- sqrt(data$B^2*(data$r2^2*data$Th232_U238_2SE^2 +
                                                    data$r1^2*R28det_err^2) +
-                                         data$r2^2*data$Th230_U238_CORR_Int2SE +
+                                         data$r2^2*data$Th230_U238_2SE +
                                          data$r1^2*R08det_err^2)
   
   # create vectors
@@ -733,15 +733,15 @@ csUTh <- function(input_data,
   # repeat loop for each sample
   for (count in 1:number_sampletosolve){
     if (detcorrection == 'Y'){
-      U48meas <- data$U234_U238_DET_CORR[count]
-      Th0U8meas <- data$Th230_U238_DET_CORR[count]
-      err_R08 <- data$Th230_U238_DET_CORR_ERR[count]
-      err_R48 <- data$U234_U238_DET_CORR_ERR[count]
+      U48meas <- data$U234_U238_DET[count]
+      Th0U8meas <- data$Th230_U238_DET[count]
+      err_R08 <- data$Th230_U238_DET_ERR[count]
+      err_R48 <- data$U234_U238_DET_ERR[count]
     } else {
-      U48meas <- data$U234_U238_CORR[count]
-      Th0U8meas <- data$Th230_U238_CORR[count]
-      err_R08 <- data$Th230_U238_CORR_Int2SE[count]
-      err_R48 <- data$U234_U238_CORR_Int2SE[count]
+      U48meas <- data$U234_U238[count]
+      Th0U8meas <- data$Th230_U238[count]
+      err_R08 <- data$Th230_U238_2SE[count]
+      err_R48 <- data$U234_U238_2SE[count]
     }
     # create list for optimisation results
     sol=list()
