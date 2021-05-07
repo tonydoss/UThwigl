@@ -873,11 +873,14 @@ csUTh <- function(input_data,
     # don't draw plots
   }
   
+  output$print_summary <- paste('Mean age: ',round(mean(output$results$`Age (ka)`, na.rm = TRUE),1),
+                         '+/-', round(2*sd(output$results$`Age (ka)`, na.rm = TRUE)/
+                                        sqrt(length(output$results$`Age (ka)`)), 1), ' ka')
+
+  
   if(print_summary){
     
-  print(paste('Mean age: ',round(mean(output$results$`Age (ka)`, na.rm = TRUE),1),
-                '+/-', round(2*sd(output$results$`Age (ka)`, na.rm = TRUE)/
-                               sqrt(length(output$results$`Age (ka)`)), 1), ' ka'))
+  print(output$print_summary)
     
   } else {
     # don't print anything

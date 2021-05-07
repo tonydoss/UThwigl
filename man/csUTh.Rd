@@ -10,7 +10,7 @@ csUTh(
   nbitchoice = 100,
   detcorrectionchoice = TRUE,
   R28det = 0.8,
-  R28det_err = 0.08,
+  R28det_err = 0.4,
   R08det = 1,
   R08det_err = 0.05,
   R48det = 1,
@@ -23,7 +23,7 @@ csUTh(
 )
 }
 \arguments{
-\item{input_data}{Input data frame. The following columns need to be present in this data frame, with these exact names: Sample_ID, U234_U238_CORR, U234_U238_CORR_Int2SE, Th230_U238_CORR, Th230_U238_CORR_Int2SE, Th232_U238_CORR, Th232_U238_CORR_Int2SE.}
+\item{input_data}{Input data frame. The following columns need to be present in this data frame, with these exact names: Sample_ID, U234_U238, U234_U238_2SE, Th230_U238, Th230_U238_2SE, Th232_U238, Th232_U238_2SE.}
 
 \item{sample_name}{Name of the sample to calculate closed-system ages for. The string entered must match characters for the chosen sample in the column 'Sample_ID' of the data file. Default: 'MK16'.}
 
@@ -33,7 +33,7 @@ csUTh(
 
 \item{R28det}{(232Th/238U) activity ratio of the detritus. Default: 0.8}
 
-\item{R28det_err}{Error on the (232Th/238U) activity ratio of the detritus. Default: 0.08}
+\item{R28det_err}{Error on the (232Th/238U) activity ratio of the detritus. Default: 0.4}
 
 \item{R08det}{(230Th/238U) activity ratio of the detritus. Default: 1}
 

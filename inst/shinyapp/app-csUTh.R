@@ -104,6 +104,8 @@ ui <- bootstrapPage(
                 tabPanel("Inspect the model", 
                          value = "modeloutput",
                          # defaults for Pan2018
+                         tableOutput("print_summary"),
+                         tags$hr(),
                          tableOutput("model_results_table"),
                          tags$hr()
                          
