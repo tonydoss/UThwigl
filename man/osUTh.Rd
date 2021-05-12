@@ -6,7 +6,7 @@
 \usage{
 osUTh(
   input_data,
-  nbit = 1,
+  nbit = 1000,
   fsum_target = 0.01,
   U48_0_min = 1.265,
   U48_0_max = 1.275,

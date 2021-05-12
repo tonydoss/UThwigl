@@ -1,0 +1,13 @@
+name: osUTh
+title: osUTh
+username:
+account: ben-marwick
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 3110683
+bundleId: 4591869
+url: https://ben-marwick.shinyapps.io/osUTh/
+when: 1620856676.88356
+lastSyncTime: 1620856676.88357
+asMultiple: FALSE
+asStatic: FALSE

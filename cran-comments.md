@@ -13,3 +13,4 @@
 
 * This is a new release.
 * On OSX To deal with a W about ' PDF files under ‘inst/doc’', I did tools::compactPDF('vignettes/uthwigl.pdf', gs_quality = "ebook") but it makes no difference... in RStudio setting --compact-vignettes=both in build options doesn't help, but this W is not on travis
+* Note that before updating the shiny apps, install the pkg with devtools::install_github, not local build and install
