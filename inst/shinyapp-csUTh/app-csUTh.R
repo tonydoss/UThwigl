@@ -221,6 +221,7 @@ server <- function(input, output, session) {
     # get some of the output from the function to display
     
     output$model_results_table <- renderTable({ model_output()$results })
+    output$print_summary <- renderText({ model_output()$print_summary })
     
     # draw the plots
     

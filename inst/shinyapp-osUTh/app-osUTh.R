@@ -3,7 +3,7 @@ if (!require("shiny")) install.packages("shiny")
 if (!require("shinycssloaders")) install.packages("shinycssloaders")
 if (!require("DT")) install.packages("DT")
 if (!require("devtools")) install.packages("devtools")
-if (!require("UThwigl")) devtools::install_github("tonydoss/UThwigl")
+if (!require("UThwigl")) devtools::install_github("benmarwick/UThwigl")
 if (!require("waiter")) install.packages("waiter")
 if (!require("rhandsontable")) install.packages("rhandsontable")
 

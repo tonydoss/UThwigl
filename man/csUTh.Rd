@@ -7,7 +7,7 @@
 csUTh(
   input_data,
   sample_name = "YP003",
-  nbitchoice = 100,
+  nbitchoice = 1000,
   detcorrectionchoice = TRUE,
   R28det = 0.8,
   R28det_err = 0.4,

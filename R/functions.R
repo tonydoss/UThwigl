@@ -88,7 +88,7 @@ its version number. Find it with 'help(package=UThwigl)'.
 #' 
 
 osUTh <- function(input_data,
-                     nbit = 1,
+                     nbit = 1000,
                      fsum_target = 0.01,
                      U48_0_min = 1.265, # Hobbit_1-1T: 1.3; Hobbit_MH2T: 1.265
                      U48_0_max = 1.275, # Hobbit_1-1T: 1.4; Hobbit_MH2T: 1.275
@@ -658,7 +658,7 @@ th230_u238_ratio_plot <-  function(output,
 
 csUTh <- function(input_data, 
                   sample_name = 'YP003',
-                  nbitchoice = 100,
+                  nbitchoice = 1000,
                   detcorrectionchoice = TRUE,
                   R28det = 0.8,
                   R28det_err = 0.4,
