@@ -10,3 +10,4 @@ UThwigl.Rcheck/
 UThwigl*.tar.gz
 UThwigl*.tgz
 .DS_Store
+vignettes/peer-review/
