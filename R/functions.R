@@ -320,22 +320,22 @@ osUTh <- function(input_data,
     as.data.frame(
       cbind(
         T_final / 1000,
-        (quantile(T_sol, .67) - T_final) / 1000,
-        (T_final - quantile(T_sol, .33)) / 1000,
+        (quantile(T_sol, .841) - T_final) / 1000,
+        (T_final - quantile(T_sol, .159)) / 1000,
         U48_0_final,
-        U48_0_max - U48_0_final,
-        U48_0_final - U48_0_min
+        quantile(U48_0_sol, .841) - U48_0_final,
+        U48_0_final - quantile(U48_0_sol, .159)
       )
     )
   
   colnames(results) <-
     c(
       "Age (ka)",
-      "Age 67% quantile (ka)" ,
-      "Age 33% quantile (ka)",
+      "Age +1SD (ka)" ,
+      "Age -1SD (ka)",
       "U234_U238_0",
-      "U234_U238_0 67% quantile" ,
-      "U234_U238_0 33% quantile"
+      "U234_U238_0 +1SD" ,
+      "U234_U238_0 -1SD"
     )
   rownames(results) <- c("Results")
   
@@ -345,9 +345,9 @@ if(print_summary) {
     "Age: ",
     round(T_final / 1000, digits = 1),
     " +",
-    round((quantile(T_sol, .67) - T_final) / 1000, digits = 1),
+    round((quantile(T_sol, .841) - T_final) / 1000, digits = 1),
     "/-",
-    round((T_final - quantile(T_sol, .33)) / 1000, digits = 1),
+    round((T_final - quantile(T_sol, .159)) / 1000, digits = 1),
     " ka",
     sep = ""
   ))
@@ -463,9 +463,9 @@ T_sol_plot <- function(output,
     "Age: ",
     round(output$T_final / 1000, digits = digits),
     " +",
-    round((quantile(output$T_sol$T_sol, .67) - output$T_final) / 1000, digits = digits),
+    round((quantile(output$T_sol$T_sol, .841) - output$T_final) / 1000, digits = digits),
     "/-",
-    round((output$T_final - quantile(output$T_sol$T_sol, .33)) / 1000, digits = digits),
+    round((output$T_final - quantile(output$T_sol$T_sol, .159)) / 1000, digits = digits),
     " ka",
     sep = ""
   )) +  theme_plots 
@@ -675,9 +675,14 @@ csUTh <- function(input_data,
   
   # check that the input data frame has the columns with the right names
   
-  col_names_we_need <-  c("Sample_ID", "U234_U238", "U234_U238_2SE", "Th230_U238", "Th230_U238_2SE", "Th232_U238", "Th232_U238_2SE")
   
-  if(all(col_names_we_need %in% colnames(input_data)))
+  col_names_we_absolutely_need <-  c("Sample_ID", "U234_U238", "U234_U238_2SE", "Th230_U238", "Th230_U238_2SE")
+  col_names_we_need_either <- c("Th232_U238", "Th232_U238_2SE")
+  col_names_we_need_or <- c("Th230_Th232", "Th230_Th232_2SE")
+  
+  if(all(col_names_we_absolutely_need %in% colnames(input_data)) & 
+     (all(col_names_we_need_either %in% colnames(input_data)) | 
+      all(col_names_we_need_or %in% colnames(input_data))))
   {
     message("All required columns are present in the input data. \n");
   } else {
@@ -685,7 +690,12 @@ csUTh <- function(input_data,
     stop("\nThe input data frame does not contain the necessary columns, or the columns are not named correctly. Please check the documentation for details of the required column names, update the column names using the `names()` function, and try again.\n")
   }
   
-  
+  # calculate (232Th/238U) activity ratios and their error, if needed
+  if("Th230_Th232" %in% colnames(input_data)){
+    input_data$Th232_U238 <- input_data$Th230_U238/input_data$Th230_Th232
+    input_data$Th232_U238_2SE <- input_data$Th232_U238*
+      sqrt((input_data$Th230_U238_2SE/input_data$Th230_U238)^2)
+  } 
   
   l234 <- 2.8262e-6 # 234U decay constant (a-1)
   l230 <- 9.1577e-6 # 230Th decay constant (a-1)
@@ -829,7 +839,10 @@ csUTh <- function(input_data,
   
   # simplify output
   output <- list(results = NULL, plots = NULL)
-  output$results <- plotdata[,c(1, 16:19)]
+  if("Th230_Th232" %in% colnames(input_data)){
+    output$results <- plotdata[,c(1, 18:21)]}else{
+      output$results <- plotdata[,c(1, 16:19)]
+    }
   
   # plot initial (234U/238U)
   

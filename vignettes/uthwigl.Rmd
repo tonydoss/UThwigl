@@ -61,7 +61,7 @@ Uranium-thorium (U-Th) dating has revolutionised Quaternary science and archaeol
 
 Closed-system U-Th dating can be used to date materials as young as a few years up to samples over 600,000 years old [@RN4495]. It has been successfully applied to a range of marine and lacustrine carbonates. For instance, dating of corals (coralline aragonite) has had a pivotal role in reconstructing past sea levels [@RN510]. Closed-system U-Th dating has also been applied to speleothems (cave carbonates) which are commonly used as continental palaeo-climate archives [@RN4494]. In corals and most speleothems, detrital correction is minimal; however, it can be significant when dating pedogenic carbonates, for instance [@RN801]. In this case, detrital correction can be performed using the measured or assumed composition of the detrital fraction [e.g. @RN4370]. Alternatively, isochron techniques can be applied [@RN2155]; the latter are beyond the scope of this article but IsoPlot is a commonly used software for isochron calculations and other geochronological applications [@RN2163], now also available as a R package [@vermeesch2018isoplotr].
 
-Closed-system conditions are seldom met in shells, teeth and bones (although enamel can sometimes be quite impervious to isotope gain or loss). Thus, U-Th dating requires to take into account open system behaviour. The diffusion-adsorption model of Pike and Hedges [-@RN2996] and the diffusion-adsorption-decay (DAD) model of Sambridge et al. [-@Sambridge2012] were instrumental to implement successfully open-system U-Th dating. They allow for advective and diffusive transport of uranium and thorium isotopes, while including synchronous radioactive decay. Software implementation for the DAD model was written in Fortran and is available as a Java GUI (<http://www.iearth.org.au/codes/iDaD/>).  
+Closed-system conditions are seldom met in shells, teeth and bones (although enamel can sometimes be quite impervious to isotope gain or loss). Thus, U-Th dating requires to take into account open system behaviour. The diffusion-adsorption model of Pike and Hedges [-@RN2996] and the Diffusion-Adsorption-Decay (DAD) model of Sambridge et al. [-@Sambridge2012] were instrumental to implement successfully open-system U-Th dating. They allow for advective and diffusive transport of uranium and thorium isotopes, while including synchronous radioactive decay. Software implementation for the DAD model was written in Fortran and is available as a Java GUI (<http://www.iearth.org.au/codes/iDaD/>).  
 
 Open-system U-Th dating of teeth and bones, while challenging, has provided quantitative ages for human and faunal remains [@Eggins2005; @Gruen2014; @Sambridge2012; @RN2996; @hoffmann2018u]. Thus, this approach has significantly improved our understanding of human evolution [e.g. @Dirks2017; @Sutikna2016; @hoffmann2018u]. 
 
@@ -84,7 +84,7 @@ where $\lambda_{230}$ and $\lambda_{234}$ are ^230^Th and ^234^U decay constants
 
 This approach assumes that (i) all the ^230^Th measured is produced by decay of ^238^U and (ii) the system is closed at t=0, i.e. there is no loss or gain of any nuclides after the time of formation.
 In corals, the second assumption can be tested using the mineralogy of the sample: corals precipitate as aragonite. Open system behaviour exemplified as diagenetic alteration generally involves the replacement of aragonite by calcite. Thus, prior to ^230^Th dating, coral mineralogy should be quantified. Samples exhibiting calcite are deemed unsuitable for dating. The initial $[\frac{^{234}U}{^{238}U}]$ activity ratio, calculated along the age, should also be similar to the seawater value [1.145; @RN35], which has not changed significantly over the past 800,000 yr.  In speleothems, the closed system assumption can be tested by looking for any age inversions. In pedogenic carbonates, there is no straightforward way to test this assumption.
-The first assumption (^230^Th measured in only produced by decay of ^238^U) is tested using ^232^Th as an index of detrital Th. Any significant amount of ^232^Th in the sample implies a detrital contribution of Th to the sample, and thus that a fraction of the ^230^Th measured does not result from decay of ^238^U, but from detrital input of Th. The $[\frac{^{230}Th}{^{232}Th}]$ or $[\frac{^{232}Th}{^{238}U}]$ activity ratios are used as indices of the quantity of detrital Th present in the sample. Arbitrary values are set to define whether the presence of detrital ^232^Th ratios greater than 20 or $[\frac{^{232}Th}{^{238}U}]$ less than 0.01 are usually recommended. If significant detrital Th is present, correction is necessary (in fact, even if the contribution of detrital Th is minimal, correction should still be applied). Ideally, one would measure the $[\frac{^{230}Th}{^{238}U}]$, $[\frac{^{234}U}{^{238}U}]$ and $[\frac{^{230}Th}{^{232}Th}]$ activity ratios of the detrital component; however it is rarely possible to isolate this fraction, let alone measure its U-series isotope composition. Often, correction is undertaken assuming a $[\frac{^{230}Th}{^{232}Th}]$ of 0.8 ± 0.4  for the detrital component, which is the average value for the continental crust. Alternatively, detrital correction can be undertaken by measuring several samples assumed to have the same ^230^Th age, but variable amounts of detrital Th. In this case, it is possible to define an isochron or derive a single age for the same of isochronous samples.
+The first assumption (^230^Th measured in only produced by decay of ^238^U) is tested for any sample type using ^232^Th as an index of detrital Th. Any significant amount of ^232^Th in the sample implies a detrital contribution of Th to the sample, and thus that a fraction of the ^230^Th measured does not result from decay of ^238^U, but from detrital input of Th. The $[\frac{^{230}Th}{^{232}Th}]$ or $[\frac{^{232}Th}{^{238}U}]$ activity ratios are used as indices of the quantity of detrital Th present in the sample. Arbitrary values are set to define whether the presence of detrital ^232^Th ratios greater than 20 or $[\frac{^{232}Th}{^{238}U}]$ less than 0.01 are usually recommended. If significant detrital Th is present, correction is necessary (in fact, even if the contribution of detrital Th is minimal, correction should still be applied). Ideally, one would measure the $[\frac{^{230}Th}{^{238}U}]$, $[\frac{^{234}U}{^{238}U}]$ and $[\frac{^{230}Th}{^{232}Th}]$ activity ratios of the detrital component; however it is rarely possible to isolate this fraction, let alone measure its U-series isotope composition. Often, correction is undertaken assuming a $[\frac{^{230}Th}{^{232}Th}]$ of 0.8 ± 0.4  for the detrital component, which is the average value for the continental crust. Alternatively, detrital correction can be undertaken by measuring several samples assumed to have the same ^230^Th age, but variable amounts of detrital Th. In this case, it is possible to define an isochron or derive a single age for the same of isochronous samples.
 
 Open-system U-Th dating operates on the principles that little U (and Th) are incorporated at the time of the material formation (shell, tooth or bone), and it is only after death and burial of the material in soil or sediments, that U (and Th to a lesser extent) are taken up and diffuse into the material. When dating teeth, enamel is often preferred over dentine, as the former is denser and thus less prone to complex nuclide movement.
 For samples exhibiting open system behaviour, the analytical strategy generally involves measuring ^238^U, ^234^U, ^230^Th and ^232^Th in several aliquots along a transect perpendicular to the surface of the sample (Figure \@ref(fig:femurpic)). Then, U concentrations and $[\frac{^{230}Th}{^{238}U}]$, $[\frac{^{234}U}{^{238}U}]$ activity ratios can be modelled to derive a single open-system age. Aliquots can be collected by micro-drilling or using laser ablation.
@@ -168,7 +168,7 @@ Our package provides the fuction `csUTh()` for closed-system U-Th dating. Data f
 - `Th232_U238`
 - `Th232_U238_2SE`
 
- To help with preparing data for input into our function, we have included an example of an input file, taken from Pan et al. [-@RN5108]. Inspecting the included data sets will be helpful for understanding how to prepare new data to prepare for use with this package. After attaching the package, we can access the built-in datasets with the `data()` function, like this:
+ To help with preparing data for input into our function, we have included an example of an input file, taken from Pan et al. [-@RN5108]. Inspecting the included data sets will be helpful for understanding how to prepare new data for use with this package. After attaching the package, we can access the built-in datasets with the `data()` function, like this:
 
 ```{r}
 # access the data included in the UThwigl package
@@ -370,7 +370,7 @@ Our key function, `osUTh()` has several arguments that need to be set before mea
 
 `nbit` is the number of iterations. For the first run, set to 1.
 
-`fsum_target` is the sum of the squared differences between the calculated and observed activity ratios. We recommend starting with a low value (e.g. 0.01). If script takes too long, try a higher value for `fsum_target`.
+`fsum_target` is the sum of the squared differences between the calculated and observed activity ratios. We recommend starting with a low value (e.g. 0.01). If script takes too long, try a higher value for `fsum_target`. Higher computing power should allow using a lower value for `fsum_target` and thus achieving a better fit of the observed activity ratios. However, `fsum_target` should not take a value lower than the sum of squared errors of all measured ratios, as this would result in constraining calculated ages more than analytical errors allow. 
 
 `U48_0_min` and `U48_0_max` are the minimum and maximum values allowed for the (^234^U/^238^U) activity ratio at the surface of the sample. Since (^234^U/^238^U) does not vary greatly over the time period generally studied, the values measured near the surface of the sample can be used as a guide. These values can be adjusted if the model fit to the data is not optimal. For Hobbit_1-1T they are taken to be 1.360 and 1.375, and for Hobbit_MH2T, 1.265 and 1.270, respectively.
 
@@ -569,7 +569,7 @@ print(Hobbit_1_1T_for_iDAD_tbl,
 
 For transect 2 of 132A/LB/27D/03, Sutikna et al. [-@Sutikna2016] reported an age of 7.4 $\pm$ 0.5 ka (thousand years before 2014). With osUTh, we first run the model with `nbit` = 1, `fsum_target` = 0.05, `U48_0_min` and `U48_0_max` = 1.25 and 1.3, respectively, `l` = 5.35 cm, `U_0` = 25 ppm, `K_min` and `K_max` = 10^-13^ and 10^-11^ cm^2^/s, respectively, `T_min` and `T_max` = 10^3^ and 500x10^3^ yr, respectively. `U48_0_min` and `U48_0_max` are determined by considering the measured (^234^U/^238^U) values near the surfaces of the sample. `T_min` and `T_max` values were chosen such that no a priori knowledge of the age biases the results.
 
-```{r first-run-modern-human, results='hide', eval=FALSE, include=FALSE}
+```{r first-run-modern-human, results='hide', eval=T, include=FALSE}
 output_first_run_modern <-
   osUTh(
     Hobbit_MH2T_for_iDAD,
@@ -588,20 +588,21 @@ output_first_run_modern <-
   )
 ```
 
-With this first run, we obtain an age of 11 ka. There is no calculated error on the age since there is only one iteration. In this case, we can see that the calculated (^234^U/^238^U) and (^230^Th/^238^U) ratios are too high (Figure \@ref(fig:plot-panel-first-run-modern-fig)). For the (^234^U/^238^U), it makes sense to thus use a lower value for `U48_0_max`. Calculated (^230^Th/^238^U) ratios are too high compared to observed values suggest that the calculated age is too old (since this ratio increases with age). Thus, we should adjust `T_max` accordingly.
+With this first run, we obtain an age of `r round(output_first_run_modern$T_final/1000,1)` ka. There is no calculated error on the age since there is only one iteration. In this case, we can see that the calculated (^234^U/^238^U) and (^230^Th/^238^U) ratios are not fitting well observed ratios (Figure \@ref(fig:plot-panel-first-run-modern-fig)). For the (^234^U/^238^U), since the age obtained is young, it is likely that the (^234^U/^238^U) at the surface is similar to observed values so `U48_0_min` and `U48_0_max` should be adjusted accordingly to the range of observed (^234^U/^238^U) values. If calculated (^230^Th/^238^U) ratios are too high compared to observed values, this suggests that the calculated age is too old (since this ratio increases with age); and conversely if calculated (^230^Th/^238^U) ratios are too low, the calculated age is too young. 
 
-```{r U48-first-run-modern-human, eval=FALSE, include=FALSE}
+
+```{r U48-first-run-modern-human, eval=T, include=FALSE}
 # "Measured (blue) and modelled (red) (^234^U/^238^U) activity ratios for transect 2 of modern human femur 132A/LB/27D/03"
 u234_u238_ratio_first_run_modern_human <- u234_u238_ratio_plot(output_first_run_modern)
 ```
 
 
-```{r Th0U8-first-run-modern-human, eval=FALSE, include=FALSE}
+```{r Th0U8-first-run-modern-human, eval=T, include=FALSE}
 # Measured (blue) and modelled (red) (^230^Th/^238^U) activity ratios for transect 2 of modern human femur 132A/LB/27D/03"
 th230_u238_ratio_first_run_modern_human <- th230_u238_ratio_plot(output_first_run_modern)
 ```
 
-```{r plot-panel-first-run-modern, eval=FALSE, include=FALSE}
+```{r plot-panel-first-run-modern, eval=T, include=FALSE}
 library(cowplot)
 # combine plots
 p1 <-
@@ -615,18 +616,18 @@ ggplot2::ggsave("figures/plot-panel-first-run-modern.png")
 
 (ref:plot-panel-first-run-modern-cap) Results from the model's first run for the modern human femur. A: Measured (blue) and modelled (red) (^234^U/^238^U) activity ratios for transect 2 of modern human femur 132A/LB/27D/03. B: Measured (blue) and modelled (red) (^230^Th/^238^U) activity ratios for transect 2 of modern human femur 132A/LB/27D/03.
 
-```{r plot-panel-first-run-modern-fig, echo=FALSE, out.width = "95%", fig.cap="(ref:plot-panel-first-run-modern-cap)"}
+```{r plot-panel-first-run-modern-fig, echo=F, out.width = "95%", fig.cap="(ref:plot-panel-first-run-modern-cap)"}
 include_graphics("figures/plot-panel-first-run-modern.png")
 ```
 
 \FloatBarrier
 
-```{r second-run-modern-human, results='hide', eval=FALSE, include=FALSE}
+```{r second-run-modern-human, results='hide', eval=T, include=FALSE}
 output_second_run_modern <-
   osUTh(
     Hobbit_MH2T_for_iDAD,
     nbit = 1000,
-    fsum_target = 0.05,
+    fsum_target = 0.01,
     U48_0_min = 1.265,
     U48_0_max = 1.270,
     l = 5.35,
@@ -640,28 +641,29 @@ output_second_run_modern <-
   )
 ```
 
-```{r U48-second-run-modern-human, eval=FALSE, include=FALSE}
+```{r U48-second-run-modern-human, eval=T, include=FALSE}
 # "Measured (blue) and modelled (red) (^234^U/^238^U) activity ratios for transect 2 of modern human femur 132A/LB/27D/03"
 
 u234_u238_ratio_second_run_modern_human <- u234_u238_ratio_plot(output_second_run_modern)   
 ```
 
-```{r Th0U8-second-run-modern-human, eval=FALSE, include=FALSE}
+```{r Th0U8-second-run-modern-human, eval=T, include=FALSE}
 # Measured (blue) and modelled (red) (^230^Th/^238^U) activity ratios for transect 2 of modern human femur 132A/LB/27D/03"
 
 th230_u238_ratio_second_run_modern_human <- th230_u238_ratio_plot(output_second_run_modern)   
 ```
 
-```{r create-variables-to-quote-in-text-modern-human, eval=FALSE, include=FALSE}
+```{r create-variables-to-quote-in-text-modern-human, eval=T, include=FALSE}
 age <- round(output_second_run_modern$results$`Age (ka)`,1)
-age_plus <- round(output_second_run_modern$results$`Age 67% quantile (ka)`,1)
-age_minus <- round(output_second_run_modern$results$`Age 33% quantile (ka)`,1)
+age_plus <- round(output_second_run_modern$results$`Age +1SD (ka)`,1)
+age_minus <- round(output_second_run_modern$results$`Age -1SD (ka)`,1)
 ```
 
-Since the first run suggests a Holocene age for the sample, the measured (^234^U/^238^U) at the surfaces must be similar to the calculated values, thus the chosen values for the range above. Once `U48_0_min`, `U48_0_max`, `T_min` and `T_max` parameters have been adjusted, the model is run again. `fsum_target` can also be decreased to 0.01 in order to get a better fit and error, but it is at the expense of computing time. This operation is repeated until a satisfying fit is obtained (by visual inspection of the figures). Finally, the model is run once more, increasing the number of iterations to 1,000 (or more). Following this method, we obtain an age of 6.4 +1.3/-1.2 ka (Figure \@ref(fig:plot-panel-second-run-modern-fig)). Note (^234^U/^238^U) and (^230^Th/^238^U) are still too high and low, respectively, so `U48_0_min`, `U48_0_min`, `T_min` and `T_max` parameters should be adjusted and the model run again.
+The model is then run a second time, adjusting `U48_0_min`, `U48_0_max`, `T_min` and `T_max` parameters. In this case, as explained above, `U48_0_min` and `U48_0_max` are changed to cover the range of observed values (1.265 and 1.270, respectively). `T_min` is kept at 1 ka but `T_max` set to cover a narrower range: since the calculated age in the first run was <10 ka, there is no point setting `T_max` to 500 ka as in the first run, so it is set to 10 ka. `fsum_target` can also be decreased to 0.01 in order to get a better fit and error, but it is at the expense of computing time. Here, in the second run, we have adjusted `fsum_target` to 0.01.
+Adjusting parameters and re-running the model is repeated until a satisfying fit is obtained (by visual inspection of the figures). Once this is achieved, the model is run once more, increasing the number of iterations to 1,000 (or more). Results shown in Figure \@ref(fig:plot-panel-second-run-modern-fig) were generated running the model only twice in total (with the parameters above and `nbit` set to 1000, for the second run). We obtained an age of `r age` +`r age_plus`/-`r age_minus` ka, within error of the age reported by Sutikna et al. [-@Sutikna2016].
 
 
-```{r plot-panel-second-run-modern, eval=FALSE, include=FALSE}
+```{r plot-panel-second-run-modern, eval=T, include=FALSE}
 # combine plots
 p1 <-
 plot_grid(u234_u238_ratio_second_run_modern_human,
@@ -682,7 +684,26 @@ include_graphics("figures/plot-panel-second-run-modern.png")
 
 ### Age of the *Homo floresiensis* remains from Sutikna et al. 2016
 
-```{r model-output-hobbit, results='hide', eval=FALSE, include=FALSE}
+```{r model-output-hobbit-first-run, results='hide', eval=F, include=FALSE}
+output_hobbit_first_run <-
+  osUTh(
+    Hobbit_1_1T_for_iDAD,
+    nbit = 1,
+    fsum_target = 0.05,
+    U48_0_min = 1.3,
+    U48_0_max = 1.4,
+    l = 3.5,
+    U_0 = 35,
+    K_min = 1e-13,
+    K_max = 1e-11,
+    T_min = 1e3,
+    T_max = 500e3,
+    with_plots = FALSE,
+    save_output = FALSE
+  )
+```
+
+```{r model-output-hobbit, results='hide', eval=T, include=FALSE}
 output_hobbit <-
   osUTh(
     Hobbit_1_1T_for_iDAD,
@@ -691,7 +712,7 @@ output_hobbit <-
     U48_0_min = 1.360,
     U48_0_max = 1.375,
     l = 3.5,
-    U_0 = 25,
+    U_0 = 35,
     K_min = 1e-13,
     K_max = 1e-11,
     T_min = 50e3,
@@ -701,35 +722,35 @@ output_hobbit <-
   )
 ```
 
-```{r create-variables-to-quote-in-text-hobbit, eval=FALSE, include=FALSE}
+```{r create-variables-to-quote-in-text-hobbit, eval=T, include=FALSE}
 age <- round(output_hobbit$results$`Age (ka)`,1)
-age_plus <- round(output_hobbit$results$`Age 67% quantile (ka)`,1)
-age_minus <- round(output_hobbit$results$`Age 33% quantile (ka)`,1)
+age_plus <- round(output_hobbit$results$`Age +1SD (ka)`,1)
+age_minus <- round(output_hobbit$results$`Age -1SD (ka)`,1)
 ```
 
-For transect 1 of LB1/52, Sutikna et al. [-@Sutikna2016] reported an age of 79.0 $\pm$ 3.7 ka. With osUTh, using data in the file `Hobbit_1-1T_for_iDAD.csv` provided in the package, and following the same method as above, we obtain an age of 75.2 +1.0/-0.8 ka (Figure \@ref(fig:plot-panel-hobbit-fig)). Note that results and errors vary slightly for each run since populations of solution sets are randomly generated.
+For transect 1 of LB1/52, Sutikna et al. [-@Sutikna2016] reported an age of 79.0 $\pm$ 3.7 ka. With osUTh, using data in the file `Hobbit_1-1T_for_iDAD.csv` provided in the package, we first run the model with `nbit` = 1, `fsum_target` = 0.05, `l` = 3.5 cm, `U_0` = 35 ppm, `U48_0_min` = 1.3, `U48_0_max` = 1.4, `K_min` and `K_max` = 10^-13^ and 10^-11^ cm^2^/s, respectively, `T_min` and `T_max` = 10^3^ and 500x10^3^ yr, respectively. Results from this first run were used to adjust `U48_0_min`, `U48_0_max` = 1.4, `T_min` and `T_max`, and the model was run again with `nbit` = 100, `fsum_target` = 0.01, `U48_0_min` = 1.360, `U48_0_max` = 1.375, `T_min` and `T_max` = 50x10^3^ and 100x10^3^ yr, respectively. We obtained an age of `r age` +`r age_plus`/-`r age_minus` ka (Figure \@ref(fig:plot-panel-hobbit-fig)). Note that results and errors vary slightly for each run since populations of solution sets are randomly generated.
 
-```{r tsol-hobbit, eval=FALSE, include=FALSE}
+```{r tsol-hobbit, eval=T, include=FALSE}
 library(ggplot2)
 T_sol_plot_hobbit <-  T_sol_plot(output_hobbit)
 ```
 
-```{r Uconc-hobbit, eval=FALSE, include=FALSE}
+```{r Uconc-hobbit, eval=T, include=FALSE}
 # Uranium concentration profile for transect 1 of *Homo floresiensis* ulna LB1/52"
 u_conc_hobbit <- u_conc_profile_plot(output_hobbit)
 ```
 
-```{r U48-hobbit, eval=FALSE, include=FALSE}
+```{r U48-hobbit, eval=T, include=FALSE}
 # "Measured (blue) and modelled (red) (^234^U/^238^U) activity ratios for transect 1 of *Homo floresiensis* ulna LB1/52"
 u234_u238_ratio_hobbit <-  u234_u238_ratio_plot(output_hobbit)
 ```
 
-```{r Th0U8-hobbit, eval=FALSE, include=FALSE}
+```{r Th0U8-hobbit, eval=T, include=FALSE}
 # Measured (blue) and modelled (red) (^230^Th/^238^U) activity ratios for transect 1 of *Homo floresiensis* ulna LB1/52"
 th230_u238_ratio_hobbit <- th230_u238_ratio_plot(output_hobbit)
 ```
 
-```{r plot-panel-hobbit-code, eval=FALSE, include=FALSE}
+```{r plot-panel-hobbit-code, eval=T, include=FALSE}
 # combine plots
 library(cowplot)
 p2 <-
