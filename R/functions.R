@@ -107,7 +107,7 @@ osUTh <- function(input_data,
   
   # check that the input data frame has the columns with the right names
   
-  col_names_we_need <-  c("iDAD.position", "U234_U238", "U234_U238_2SE", "Th230_U238", "Th230_U238_2SE")
+  col_names_we_need <-  c("x", "y", "Comments", "U234_U238", "U234_U238_2SE", "Th230_U238", "Th230_U238_2SE")
   
   if(all(col_names_we_need %in% colnames(input_data)))
   {
@@ -123,6 +123,26 @@ osUTh <- function(input_data,
   }
   
 
+
+# calculate iDAD positions and sample thickness ---------------------------
+
+  # Coordinates of outer and inner surfaces
+  x_s1 <- input_data$x[grepl("outer surface", input_data$Comments)]
+  y_s1 <- input_data$y[grepl("outer surface", input_data$Comments)]
+  x_s2 <- input_data$x[grepl("inner surface", input_data$Comments)]
+  y_s2 <- input_data$y[grepl("inner surface", input_data$Comments)]
+  
+  if (abs(x_s2 - x_s1) > abs(y_s2 - y_s1)) {
+    input_data$`iDAD position` <- as.data.frame(2/(x_s2 - x_s1)*(input_data$x - x_s2) + 1)
+  } else {
+    input_data$`iDAD position` <- as.data.frame(2/(y_s2 - y_s1)*(input_data$y - y_s2) + 1)
+  }
+  
+  # Calculate sample thickness
+  l <- sqrt((x_s2 - x_s1)^2 + (y_s2 - y_s1)^2)/10
+  
+  input_data <- input_data[!is.na(input_data$U234_U238),]
+  
 # from iDAD Monte Carlo.R -------------------------------------------------
 
 
