@@ -100,15 +100,15 @@ Uranium and thorium isotope ratios are then analysed by multi-collector inductiv
 ## Closed-system dating
 
 Pending closed-system behaviour can be assessed, it is possible to derive an age for each U-Th analysis.
-The closed-system function `csUTh()` requires that for each analysis to yield an age, (^234^U/^238^U), (^230^Th/^238^U) and (^232^Th/^238^U) activity ratios are measured (parentheses denote activity ratios throughout this article). The (^232^Th/^238^U) activity ratio is required for detrital correction (note it is needed to use `csUTh()` whether the detrital correction is performed or not).
+The closed-system function `csUTh()` requires that for each analysis to yield an age, $[\frac{^{234}U}{^{238}U}]$, $[\frac{^{230}Th}{^{238}U}]$ are measured, as well as $[\frac{^{232}Th}{^{238}U}]$ or $[\frac{^{230}Th}{^{232}Th}]$. The $[\frac{^{232}Th}{^{238}U}]$ activity ratio is required for detrital correction (note it is needed to use `csUTh()` whether the detrital correction is performed or not). If $[\frac{^{230}Th}{^{232}Th}]$ is provided instead of $[\frac{^{232}Th}{^{238}U}]$, the latter is calculated with `csUth()`.
 
 ## Open-system dating
 
 Data required for the DAD model are (^230^Th/^238^U) and (^234^U/^238^U) activity ratios collected along a transect perpendicular to the surface of the tooth or bone. Sampling for analysis can be done by micro-drilling or laser ablation. 
 
-The distance of each analysis location from the inner and outer surfaces of the sample needs to be recorded. One surface is given a coordinate of 1 and the other one -1, thus coordinates of analyses take values in between (Figure \@ref(fig:femurpic)).
+The x-y coordinates of each analysis location, the  inner and outer surfaces of the sample need to be recorded. One surface is given a coordinate of 1 and the other one -1, thus coordinates of analyses take values in between (Figure \@ref(fig:femurpic)).
 
-(ref:femurpiccap) Modern human femur (132A/LB/27D/03) from Liang Bua, Flores, Indonesia. Two analysis transects can be seen. For a given transect, the outer and inner surface of the bone are given 1 and -1 reference coordinates, and the position of each analysis is calculated accordingly. Modified from Sutikna et al. [-@Sutikna2016].
+(ref:femurpiccap) Modern human femur (132A/LB/27D/03) from Liang Bua, Flores, Indonesia. Two analysis transects can be seen. For a given transect, the x and y coordinates of the outer and inner surfaces, and of the analyses, are used by `osUTh()` to calculate normalised positions where the outer surface is given 1 as reference coordinate, the inner surface  -1, and normalised positions of the analyses take values in between. Modified from Sutikna et al. [-@Sutikna2016].
 
 
 ```{r femurpic, out.width = "95%", fig.cap="(ref:femurpiccap)", echo = FALSE, eval = TRUE}
@@ -165,8 +165,13 @@ Our package provides the fuction `csUTh()` for closed-system U-Th dating. Data f
 - `U234_U238_2SE`
 - `Th230_U238`
 - `Th230_U238_2SE`
+
+and
 - `Th232_U238`
 - `Th232_U238_2SE`
+or
+- `Th230_Th232`
+- `Th230_Th232_2SE`
 
  To help with preparing data for input into our function, we have included an example of an input file, taken from Pan et al. [-@RN5108]. Inspecting the included data sets will be helpful for understanding how to prepare new data for use with this package. After attaching the package, we can access the built-in datasets with the `data()` function, like this:
 
@@ -213,9 +218,11 @@ print(Pan2018_tbl,
         rotate.colnames = TRUE)
 ```
 
-The columns `Sample_ID`, `U234_U238`, `U234_U238_2SE`, `Th230_U238`,  `Th230_U238_2SE`, `Th232_U238` and `Th232_U238_2SE` must be present in the input data frame with these exact names for the model to function. The `csUTh()` function will check if the input data frame has these columns, and will stop with an error message if it does not find these columns. The `names()` function can be used to update column names of a data frame to ensure they match the names that the model function requires. Alteratively the user can edit the column names in a spreadsheet program such as Microsoft Excel. The order of the columns in the data frame is not important.
+The columns `Sample_ID`, `U234_U238`, `U234_U238_2SE`, `Th230_U238`,  `Th230_U238_2SE` and either `Th232_U238` and `Th232_U238_2SE` or  `Th230_Th232` and `Th230_Th232_2SE` must be present in the input data frame with these exact names for the model to function. The `csUTh()` function will check if the input data frame has these columns, and will stop with an error message if it does not find these columns. The `names()` function can be used to update column names of a data frame to ensure they match the names that the model function requires. Alternatively the user can edit the column names in a spreadsheet program such as Microsoft Excel. The order of the columns in the data frame is not important.
 
-Columns `U234_U238` and `U234_U238_2SE` are the (^234^U/^238^U) activity ratios and their 2$\sigma$ errors. Columns `Th230_U238` and `Th230_U238_2SE` are the (^230^Th/^238^U) activity ratios and their 2$\sigma$ errors. Columns `Th232_U238` and `Th232_U238_2SE` are the (^232^Th/^238^U) activity ratios and their 2$\sigma$ errors.
+Columns `U234_U238` and `U234_U238_2SE` are the $[\frac{^{234}U}{^{238}U}]$ activity ratios and their 2$\sigma$ errors. Columns `Th230_U238` and `Th230_U238_2SE` are the $[\frac{^{230}Th}{^{238}U}]$ activity ratios and their 2$\sigma$ errors. Columns `Th232_U238` and `Th232_U238_2SE` are the $[\frac{^{232}Th}{^{238}U}]$ activity ratios and their 2$\sigma$ errors. Columns `Th230_Th232` and `Th230_Th232_2SE` are the $[\frac{^{230}Th}{^{232}Th}]$ activity ratios and their 2$\sigma$ errors.
+
+If `Th230_Th232` and `Th230_Th232_2SE` are provided instead of `Th232_U238` and `Th232_U238_2SE`, columns `Th232_U238` and `Th232_U238_2SE` are calculated by `csUTh()`.
 
 ### Details of the input parameters of closed-system analysis 
 
@@ -224,7 +231,7 @@ Columns `U234_U238` and `U234_U238_2SE` are the (^234^U/^238^U) activity ratios 
 `nbitchoice` is the number of iterations in the model (it is recommended to have at least 1,000).
 `detcorrectionchoice` is a parameter for choosing whether or not to apply a detrital correction to the calculation. 
 
-`R28det` (0.8) and `R28det_err` (0.4) are the values for the (^232^Th/^238^U) activity ratio of the detritus and its standard error (default values in parentheses). Similarly, `R08det` (1) and `R08det_err` (0.05) are the values for the (^230^Th/^238^U) activity ratio of the detritus and its standard error, and `R48det` (1) and `R48det_err` (0.02) are the corresponding values for (^234^U/^238^U) activity ratio of the detritus.
+`R28det` (0.8) and `R28det_err` (0.4) are the values for the $[\frac{^{232}Th}{^{238}U}]$ activity ratio of the detritus and its standard error (default values in parentheses). Similarly, `R08det` (1) and `R08det_err` (0.05) are the values for the $[\frac{^{230}Th}{^{238}U}]$ activity ratio of the detritus and its standard error, and `R48det` (1) and `R48det_err` (0.02) are the corresponding values for $[\frac{^{234}U}{^{238}U}]$ activity ratio of the detritus.
 
 ## How to run the model
 
@@ -265,7 +272,7 @@ All required columns are present in the input data
 
 ## Inspecting and visualizing the models' output
 
-The function returns a data frame with the age, error and summary output for each measurement, as shown in Table \@ref(tab:panoutput). This includes calculated ages (with or without detrital correction, depending how `detcorrectionchoice` was set), initial (^234^U/^238^U) activity ratios, along with their uncertainties, calculated as 2 Standard Deviations of the population of solutions determined with the Monte Carlo simulation.
+The function returns a data frame with the age, error and summary output for each measurement, as shown in Table \@ref(tab:panoutput). This includes calculated ages (with or without detrital correction, depending how `detcorrectionchoice` was set), initial $[\frac{^{234}U}{^{238}U}]$ activity ratios, along with their uncertainties, calculated as 2 Standard Deviations of the population of solutions determined with the Monte Carlo simulation.
 
 
 ```{r panoutput, results="asis", echo = FALSE, eval=TRUE}
@@ -289,7 +296,7 @@ print(cs_output_tbl,
 
 The plots produced by the `csUTh()` function are stored as list objects in the output of the function. We can show the plots by accessing the list like this: 
 
-(ref:csuthvizfigcap) Example of the visualisations produced by the `csUTh()` function, using the demonstration run described above, and five in-situ analyses by laser ablation of coral sample YP003. A: closed-system ages and B: initial (^234^U/^238^U) activity ratios for each sample analysis
+(ref:csuthvizfigcap) Example of the visualisations produced by the `csUTh()` function, using the demonstration run described above, and five in-situ analyses by laser ablation of coral sample YP003. A: closed-system ages and B: initial $[\frac{^{234}U}{^{238}U}]$ activity ratios for each sample analysis
 
 ```{r csuthvizfig, out.width = "95%", fig.cap="(ref:csuthvizfigcap)", echo = T, eval = TRUE}
 output_cs$plots
@@ -304,14 +311,15 @@ output_cs$plots
 
 For open-system U-Th dating we provide the function `osUTh()`, which requires a data frame with the following column names:
 
-- `iDAD.position`
 - `U234_U238`
 - `U234_U238_2SE`
-- `iDAD.position.1`
 - `Th230_U238`
 - `Th230_U238_2SE`
 - `U_ppm`
-- `U_ppm_Int2SE`        
+- `U_ppm_2SE`        
+- `x`
+- `y`
+- `Comments`
 
 We have included two examples of input files. After attaching the package, we can access the built-in datasets with the `data()` function, like this:
 
@@ -358,11 +366,12 @@ print(Hobbit_MH2T_for_iDAD_tbl,
         rotate.colnames = TRUE)
 ```
 
-As for the closed-system function, the columns `iDAD.position`, `U234_U238`, `U234_U238_2SE`, `Th230_U238` and `Th230_U238_2SE` must be present in the input data frame with these exact names for the model to function. The `osUTh()` function will check if the input data frame has these columns, and will stop with an error message if it does not find these columns.
+As for the closed-system function, the columns `U234_U238`, `U234_U238_2SE`, `Th230_U238`, `Th230_U238_2SE`, `x`, `y` and `Comments` must be present in the input data frame with these exact names for the model to function. The `osUTh()` function will check if the input data frame has these columns, and will stop with an error message if it does not find these columns.
 
-The `iDAD.position` column corresponds to the coordinates of the (^234^U/^238^U) analyses, which as indicated above take values between -1 and 1 (Figure \@ref(fig:femurpic)). The second `iDAD.position.1` column is used if the coordinates of the (^230^Th/^238^U) analyses are different from those of the (^234^U/^238^U) analyses.
+The `x` and `y` columns corresponds to the coordinates of the inner, outer surfaces and the analyses (Figure \@ref(fig:femurpic)). 
 
-Columns `U_ppm` and `U_ppm_Int2SE` are the calculated uranium concentrations (in ppm) and their 2$\sigma$ errors. Uranium concentrations are not necessary for the model calculations but needed to display the U concentration profile in a figure.
+Columns `U234_U238`, `U234_U238_2SE`, `Th230_U238`, `Th230_U238_2SE`are the 
+Columns `U_ppm` and `U_ppm_2SE` are the calculated uranium concentrations (in ppm) and their 2$\sigma$ errors. Uranium concentrations are not necessary for the model calculations but needed to display the U concentration profile in a figure.
 
 ### Details of the input parameters of open-system analysis 
 
@@ -372,7 +381,7 @@ Our key function, `osUTh()` has several arguments that need to be set before mea
 
 `fsum_target` is the sum of the squared differences between the calculated and observed activity ratios. We recommend starting with a low value (e.g. 0.01). If script takes too long, try a higher value for `fsum_target`. Higher computing power should allow using a lower value for `fsum_target` and thus achieving a better fit of the observed activity ratios. However, `fsum_target` should not take a value lower than the sum of squared errors of all measured ratios, as this would result in constraining calculated ages more than analytical errors allow. 
 
-`U48_0_min` and `U48_0_max` are the minimum and maximum values allowed for the (^234^U/^238^U) activity ratio at the surface of the sample. Since (^234^U/^238^U) does not vary greatly over the time period generally studied, the values measured near the surface of the sample can be used as a guide. These values can be adjusted if the model fit to the data is not optimal. For Hobbit_1-1T they are taken to be 1.360 and 1.375, and for Hobbit_MH2T, 1.265 and 1.270, respectively.
+`U48_0_min` and `U48_0_max` are the minimum and maximum values allowed for the $[\frac{^{234}U}{^{238}U}]$ activity ratio at the surface of the sample. Since $[\frac{^{234}U}{^{238}U}]$ does not vary greatly over the time period generally studied, the values measured near the surface of the sample can be used as a guide. These values can be adjusted if the model fit to the data is not optimal. For Hobbit_1-1T they are taken to be 1.360 and 1.375, and for Hobbit_MH2T, 1.265 and 1.270, respectively.
 
 `l` is the thickness of the sample in centimeters. For Hobbit_1-1T it is 3.5 cm, for Hobbit_MH2T it is 5.35 cm
 
@@ -392,7 +401,6 @@ output_os <- osUTh(input_data_os,
                    fsum_target = 0.01,
                    U48_0_min = 1.265,
                    U48_0_max = 1.270,
-                   l = 5.35,
                    U_0 = 15,
                    K_min = 1e-13,
                    K_max = 1e-11,
@@ -412,11 +420,11 @@ All required columns are present in the input data
 [1] "Age: 7 +0.6/-0.7 ka"
 ```
 
-The model computes a Monte Carlo simulation where age of the sample, U diffusion coefficient and (^234^U/^238^U) ratio at the surface of the sample are taken randomly within the range of values allowed. Results are only kept if the calculated sum of the squared differences between the calculated and observed activity ratios is less than the value set in `fsum_target`. If this is the case, the calculated ratios and the set of solutions for age of the sample, U diffusion coefficient and (^234^U/^238^U) ratio at the surface of the sample are saved. The model stops once the number of sets of solutions reaches `nbit`.
+The model computes a Monte Carlo simulation where age of the sample, U diffusion coefficient and $[\frac{^{234}U}{^{238}U}]$ ratio at the surface of the sample are taken randomly within the range of values allowed. Results are only kept if the calculated sum of the squared differences between the calculated and observed activity ratios is less than the value set in `fsum_target`. If this is the case, the calculated ratios and the set of solutions for age of the sample, U diffusion coefficient and (^234^U/^238^U) ratio at the surface of the sample are saved. The model stops once the number of sets of solutions reaches `nbit`.
 
-The final calculated age `T_final` (in yr), U diffusion coefficient `K_final` (in cm^2^/s) and (^234^U/^238^U) ratio at the surface of the sample `U48_0_final` are the set of solutions where the solution age is the closest to the median age of the population of solutions. The uncertainty on each output parameter is calculated as the 67% and 33% quantiles of the population of solution sets.
+The final calculated age `T_final` (in yr), U diffusion coefficient `K_final` (in cm^2^/s) and $[\frac{^{234}U}{^{238}U}]$ ratio at the surface of the sample `U48_0_final` are the set of solutions where the solution age is the closest to the median age of the population of solutions. The uncertainty on each output parameter is calculated as the 67% and 33% quantiles of the population of solution sets.
 
-In a typical analysis, the user explores the model fit by first running the model with a single iteration `nbit` and a value for `fsum_target` low enough to allow for an acceptable fit, but large enough such that computing time is not too long. Once this is done, the user should adjust `T_min` and `T_max` using first estimates of the age, as well as `U48_0_min` and `U48_0_max` to obtain the best fit of the calculated (^234^U/^238^U) to the observed values. Then, `fsum_target` should be adjusted again to find the lowest value with an acceptable computing time. Finally, the model should be run one last time with `nbit` set to a larger value (at least 1,000) to reduce the uncertainty of the calculated age and initial (^234^U/^238^U) activity ratios.
+In a typical analysis, the user explores the model fit by first running the model with a single iteration `nbit` and a value for `fsum_target` low enough to allow for an acceptable fit, but large enough such that computing time is not too long. Once this is done, the user should adjust `T_min` and `T_max` using first estimates of the age, as well as `U48_0_min` and `U48_0_max` to obtain the best fit of the calculated $[\frac{^{234}U}{^{238}U}]$ to the observed values. Then, `fsum_target` should be adjusted again to find the lowest value with an acceptable computing time. Finally, the model should be run one last time with `nbit` set to a larger value (at least 1,000) to reduce the uncertainty of the calculated age and initial $[\frac{^{234}U}{^{238}U}]$ activity ratios.
 
 
 ## Inspecting the model's output
@@ -577,7 +585,6 @@ output_first_run_modern <-
     fsum_target = 0.05,
     U48_0_min = 1.25,
     U48_0_max = 1.3,
-    l = 5.35,
     U_0 = 15,
     K_min = 1e-13,
     K_max = 1e-11,
@@ -630,7 +637,6 @@ output_second_run_modern <-
     fsum_target = 0.01,
     U48_0_min = 1.265,
     U48_0_max = 1.270,
-    l = 5.35,
     U_0 = 15,
     K_min = 1e-13,
     K_max = 1e-11,
@@ -692,7 +698,6 @@ output_hobbit_first_run <-
     fsum_target = 0.05,
     U48_0_min = 1.3,
     U48_0_max = 1.4,
-    l = 3.5,
     U_0 = 35,
     K_min = 1e-13,
     K_max = 1e-11,
@@ -711,7 +716,6 @@ output_hobbit <-
     fsum_target = 0.01,
     U48_0_min = 1.360,
     U48_0_max = 1.375,
-    l = 3.5,
     U_0 = 35,
     K_min = 1e-13,
     K_max = 1e-11,

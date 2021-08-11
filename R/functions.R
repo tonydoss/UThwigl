@@ -13,7 +13,7 @@ globalVariables(c("iDAD.position",
                   "ID",
                   "Age (ka)", 
                   "Age 2sd", 
-                  "(234U/238U)i", 
+                  "[234U/238U]i", 
                   "Ratio 2sd",
                   "Sample ID"
 ))
@@ -578,7 +578,7 @@ u234_u238_ratio_plot <- function(output,
                  U234_U238_CALC),
              color = "red",
              size = point_size) +
-  ylab(expression("("^234 * "U/"^238 * "U)")) +
+  ylab(expression("["^234 * "U/"^238 * "U]")) +
   xlab("Relative distance from center") +
   theme_plots
 }
@@ -628,7 +628,7 @@ th230_u238_ratio_plot <-  function(output,
   geom_point(aes(iDAD.position, Th230_U238_CALC),
              color = 'red',
              size = point_size) +
-  ylab(expression("(" ^ 230 * "Th/" ^ 238 * "U)")) + xlab("Relative distance from center") +
+  ylab(expression("[" ^ 230 * "Th/" ^ 238 * "U]")) + xlab("Relative distance from center") +
   theme_plots
 }
 
@@ -836,7 +836,7 @@ csUTh <- function(input_data,
                                        round(R48i_results,3), round(R48i2sd_results,3)))
   final_results$Sample_ID <- data$Sample_ID
   colnames(final_results)[1] <- "Sample ID"
-  colnames(final_results)[(ncol(final_results)-3):ncol(final_results)] <- c("Age (ka)", "Age 2sd", "(234U/238U)i", "Ratio 2sd")
+  colnames(final_results)[(ncol(final_results)-3):ncol(final_results)] <- c("Age (ka)", "Age 2sd", "[234U/238U]i", "Ratio 2sd")
   
   remove_outliers <- function(x, na.rm = TRUE, ...) {
     qnt <- quantile(x, probs=c(.25, .75), na.rm = na.rm, ...)
@@ -963,13 +963,13 @@ initial_234U_238U_plot <- function(output,
     theme(panel.grid.major = element_blank(),
           panel.grid.minor = element_blank())
   
-  ggplot(output$results, aes(`Sample ID`, `(234U/238U)i`)) + # plot ages
-  geom_errorbar(aes(ymin = (`(234U/238U)i` - `Ratio 2sd`),
-                    ymax = (`(234U/238U)i` + `Ratio 2sd`)), 
+  ggplot(output$results, aes(`Sample ID`, `[234U/238U]i`)) + # plot ages
+  geom_errorbar(aes(ymin = (`[234U/238U]i` - `Ratio 2sd`),
+                    ymax = (`[234U/238U]i` + `Ratio 2sd`)), 
                 width=0.1) + # plot error bars
   geom_point(size=point_size) + # plot points
   xlab("Sample ID") + # x axis label
-  ylab(expression("Initial ("^234*"U/"^238*"U)")) + # y axis label
+  ylab(expression("Initial ["^234*"U/"^238*"U]")) + # y axis label
     theme_plots
 }
 
