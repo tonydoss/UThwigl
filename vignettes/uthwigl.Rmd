@@ -343,7 +343,7 @@ The code chunk below shows how to read one of the CSV files included in the pack
 # read in one of the example CSV files included in the package
 # input_data_os <-
 #   read.csv('data/Hobbit_MH2T_for_iDAD.csv')
-input_data_os <- read.csv('/inst/extdata/input/Hobbit_MH2T_for_iDAD.csv')
+input_data_os <- read.csv('inst/extdata/input/Hobbit_MH2T_for_iDAD.csv')
 ```
 
 \newpage
@@ -421,7 +421,7 @@ All required columns are present in the input data
 [1] "Age: 7 +0.6/-0.7 ka"
 ```
 
-The model computes a Monte Carlo simulation where age of the sample, U diffusion coefficient and $[\frac{^{234}U}{^{238}U}]$ ratio at the surface of the sample are taken randomly within the range of values allowed. Results are only kept if the calculated sum of the squared differences between the calculated and observed activity ratios is less than the value set in `fsum_target`. If this is the case, the calculated ratios and the set of solutions for age of the sample, U diffusion coefficient and (^234^U/^238^U) ratio at the surface of the sample are saved. The model stops once the number of sets of solutions reaches `nbit`.
+The model computes a Monte Carlo simulation where age of the sample, U diffusion coefficient and $[\frac{^{234}U}{^{238}U}]$ ratio at the surface of the sample are taken randomly within the range of values allowed. Results are only kept if the calculated sum of the squared differences between the calculated and observed activity ratios is less than the value set in `fsum_target`. If this is the case, the calculated ratios and the set of solutions for age of the sample, U diffusion coefficient and $[\frac{^{234}U}{^{238}U}]$ ratio at the surface of the sample are saved. The model stops once the number of sets of solutions reaches `nbit`.
 
 The final calculated age `T_final` (in yr), U diffusion coefficient `K_final` (in cm^2^/s) and $[\frac{^{234}U}{^{238}U}]$ ratio at the surface of the sample `U48_0_final` are the set of solutions where the solution age is the closest to the median age of the population of solutions. The uncertainty on each output parameter is calculated as the 67% and 33% quantiles of the population of solution sets.
 
@@ -477,12 +477,12 @@ print(output_data_table,
 
 1.  a histogram of the solution ages (Figure \@ref(fig:demopanelfig) A)
 2.  the measured U concentrations in the sample as a function of the relative distance from the center (Figure \@ref(fig:demopanelfig) B)
-3.  the measured and modelled (^234^U/^238^U) activity ratios as a function of the relative distance from the center (Figure \@ref(fig:demopanelfig) C), and
-4. the measured and modelled (^230^Th/^238^U) activity ratios as a function of the relative distance from the center (Figure \@ref(fig:demopanelfig) D).   
+3.  the measured and modelled $[\frac{^{234}U}{^{238}U}]$ activity ratios as a function of the relative distance from the center (Figure \@ref(fig:demopanelfig) C), and
+4. the measured and modelled $[\frac{^{230}Th}{^{238}U}]$ activity ratios as a function of the relative distance from the center (Figure \@ref(fig:demopanelfig) D).   
 
 We can show the plots produced by `osUTh()` by accessing the list as follows: 
 
-(ref:demopanelfigcap) Example of the visualisations produced by the `osUTh()` function, using the demonstration run described above. A: Histogram of the solution ages, B: measured uranium concentration profile for transect 2 of modern human femur 132A/LB/27D/03. C: Measured (blue) and modelled (red) (^234^U/^238^U) activity ratios for transect 2 of modern human femur 132A/LB/27D/03. D: Measured (blue) and modelled (red) (^230^Th/^238^U) activity ratios for transect 2 of modern human femur 132A/LB/27D/03.
+(ref:demopanelfigcap) Example of the visualisations produced by the `osUTh()` function, using the demonstration run described above. A: Histogram of the solution ages, B: measured uranium concentration profile for transect 2 of modern human femur 132A/LB/27D/03. C: Measured (blue) and modelled (red) $[\frac{^{234}U}{^{238}U}]$ activity ratios for transect 2 of modern human femur 132A/LB/27D/03. D: Measured (blue) and modelled (red) $[\frac{^{230}Th}{^{238}U}]$ activity ratios for transect 2 of modern human femur 132A/LB/27D/03.
 
 ```{r demopanelfig, out.width = "95%", fig.cap="(ref:demopanelfigcap)", echo = TRUE, eval = TRUE}
 output_os$plots
