@@ -10,7 +10,7 @@ author:
     affiliation: University of Washington
 address:
   - code: University of Wollongong
-    address: Wollongong Isotope Geochronology Laboratory, School of Earth, Atmosphere & Life Sciences, University of Wollongong, Wollongong NSW Australia
+    address: Wollongong Isotope Geochronology Laboratory, School of Earth, Atmospheric & Life Sciences, University of Wollongong, Wollongong NSW Australia
   - code: University of Washington
     address: Department of Anthropology, University of Washington, Seattle, WA, USA
 abstract: |
@@ -104,7 +104,7 @@ The closed-system function `csUTh()` requires that for each analysis to yield an
 
 ## Open-system dating
 
-Data required for the DAD model are (^230^Th/^238^U) and (^234^U/^238^U) activity ratios collected along a transect perpendicular to the surface of the tooth or bone. Sampling for analysis can be done by micro-drilling or laser ablation. 
+Data required for the DAD model are $[\frac{^{230}Th}{^{238}U}]$ and $[\frac{^{234}U}{^{238}U}]$ activity ratios collected along a transect perpendicular to the surface of the tooth or bone. Sampling for analysis can be done by micro-drilling or laser ablation. 
 
 The x-y coordinates of each analysis location, the  inner and outer surfaces of the sample need to be recorded. One surface is given a coordinate of 1 and the other one -1, thus coordinates of analyses take values in between (Figure \@ref(fig:femurpic)).
 
@@ -167,9 +167,12 @@ Our package provides the fuction `csUTh()` for closed-system U-Th dating. Data f
 - `Th230_U238_2SE`
 
 and
+
 - `Th232_U238`
 - `Th232_U238_2SE`
+
 or
+
 - `Th230_Th232`
 - `Th230_Th232_2SE`
 
@@ -218,7 +221,7 @@ print(Pan2018_tbl,
         rotate.colnames = TRUE)
 ```
 
-The columns `Sample_ID`, `U234_U238`, `U234_U238_2SE`, `Th230_U238`,  `Th230_U238_2SE` and either `Th232_U238` and `Th232_U238_2SE` or  `Th230_Th232` and `Th230_Th232_2SE` must be present in the input data frame with these exact names for the model to function. The `csUTh()` function will check if the input data frame has these columns, and will stop with an error message if it does not find these columns. The `names()` function can be used to update column names of a data frame to ensure they match the names that the model function requires. Alternatively the user can edit the column names in a spreadsheet program such as Microsoft Excel. The order of the columns in the data frame is not important.
+The columns `Sample_ID`, `U234_U238`, `U234_U238_2SE`, `Th230_U238`,  `Th230_U238_2SE` and either `Th232_U238` and `Th232_U238_2SE`, or  `Th230_Th232` and `Th230_Th232_2SE` must be present in the input data frame with these exact names for the model to function. The `csUTh()` function will check if the input data frame has these columns, and will stop with an error message if it does not find these columns. The `names()` function can be used to update column names of a data frame to ensure they match the names that the model function requires. Alternatively the user can edit the column names in a spreadsheet program such as Microsoft Excel. The order of the columns in the data frame is not important.
 
 Columns `U234_U238` and `U234_U238_2SE` are the $[\frac{^{234}U}{^{238}U}]$ activity ratios and their 2$\sigma$ errors. Columns `Th230_U238` and `Th230_U238_2SE` are the $[\frac{^{230}Th}{^{238}U}]$ activity ratios and their 2$\sigma$ errors. Columns `Th232_U238` and `Th232_U238_2SE` are the $[\frac{^{232}Th}{^{238}U}]$ activity ratios and their 2$\sigma$ errors. Columns `Th230_Th232` and `Th230_Th232_2SE` are the $[\frac{^{230}Th}{^{232}Th}]$ activity ratios and their 2$\sigma$ errors.
 
@@ -316,7 +319,7 @@ For open-system U-Th dating we provide the function `osUTh()`, which requires a 
 - `Th230_U238`
 - `Th230_U238_2SE`
 - `U_ppm`
-- `U_ppm_2SE`        
+- `U_ppm_2SE`
 - `x`
 - `y`
 - `Comments`
@@ -333,17 +336,16 @@ As above, these datasets can be downloaded from the package with `write.csv()`:
 
 ```{r eval = FALSE}
 # download the data included in the package
-write.csv(Hobbit_1_1T_for_iDAD, "Hobbit_1_1T_for_iDAD.csv")
-write.csv(Hobbit_MH2T_for_iDAD, "Hobbit_MH2T_for_iDAD.csv")
+write.csv(Hobbit_1_1T_for_iDAD, "Hobbit_1_1T_for_iDAD.csv", row.names = F)
+write.csv(Hobbit_MH2T_for_iDAD, "Hobbit_MH2T_for_iDAD.csv", row.names = F)
 ```
 
 The code chunk below shows how to read one of the CSV files included in the package into the R environment. As above, we assume that the user's working directory contains a directory called `data` and the CSV file is in this `data` directory, and so the data can be imported as follows (Table \@ref(tab:hobbitone)): 
 
 ```{r, eval = TRUE, echo=TRUE}
 # read in one of the example CSV files included in the package
-# input_data_os <-
-#   read.csv('data/Hobbit_MH2T_for_iDAD.csv')
-input_data_os <- read.csv('inst/extdata/input/Hobbit_MH2T_for_iDAD.csv')
+input_data_os <-
+  read.csv('data/Hobbit_MH2T_for_iDAD.csv')
 ```
 
 \newpage
@@ -369,7 +371,7 @@ print(Hobbit_MH2T_for_iDAD_tbl,
 
 The columns `U234_U238`, `U234_U238_2SE`, `Th230_U238`, `Th230_U238_2SE`, `x`, `y` and `Comments` must be present in the input data frame with these exact names for the model to function. The `osUTh()` function will check if the input data frame has these columns, and will stop with an error message if it does not find these columns.
 
-The `x` and `y` columns corresponds to the coordinates (in mm) of the inner, outer surfaces and the analyses (Figure \@ref(fig:femurpic)). 
+The `x` and `y` columns corresponds to the coordinates (in mm) of the inner, outer surfaces and the analyses (Figure \@ref(fig:femurpic)). The `Comments` column must have the mentions `outer surface` and `inner surface` where the coordinates of each surface are reported.
 
 Columns `U234_U238`, `U234_U238_2SE`, `Th230_U238` and `Th230_U238_2SE`are the $[\frac{^{234}U}{^{238}U}]$ activity ratios and their 2$\sigma$ errors, and the $[\frac{^{230}Th}{^{238}U}]$ activity ratios and their 2$\sigma$ errors, respectively.
 Columns `U_ppm` and `U_ppm_2SE` are the calculated uranium concentrations (in ppm) and their 2$\sigma$ errors. Uranium concentrations are not necessary for the model calculations but needed to display the U concentration profile in a figure.

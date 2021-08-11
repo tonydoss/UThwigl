@@ -10,7 +10,6 @@ osUTh(
   fsum_target = 0.01,
   U48_0_min = 1.265,
   U48_0_max = 1.275,
-  l = 5.35,
   U_0 = 25,
   K_min = 1e-13,
   K_max = 1e-11,
@@ -18,7 +17,7 @@ osUTh(
   T_max = 20000,
   print_summary = TRUE,
   with_plots = TRUE,
-  save_plots = TRUE,
+  save_plots = FALSE,
   save_output = FALSE
 )
 }
@@ -32,8 +31,6 @@ osUTh(
 \item{U48_0_min}{The minimum value allowed for the (^234^U/^238^U) activity ratio at the surface of the sample}
 
 \item{U48_0_max}{The maximum value allowed for the (^234^U/^238^U) activity ratio at the surface of the sample}
-
-\item{l}{The thickness of the sample in centimeters}
 
 \item{U_0}{The uranium concentration at the surface in ppm}
 
@@ -52,6 +49,8 @@ osUTh(
 \item{save_plots}{Save plots as a png file to the current working directory? Default: TRUE}
 
 \item{save_output}{Save output data as a CSV file to the current working directory? Default: FALSE}
+
+\item{l}{The thickness of the sample in centimeters}
 }
 \value{
 A list of results
