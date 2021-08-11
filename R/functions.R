@@ -92,7 +92,7 @@ osUTh <- function(input_data,
                      fsum_target = 0.01,
                      U48_0_min = 1.265, # Hobbit_1-1T: 1.3; Hobbit_MH2T: 1.265
                      U48_0_max = 1.275, # Hobbit_1-1T: 1.4; Hobbit_MH2T: 1.275
-                     l = 5.35, # Hobbit_1-1T: 3.5 cm; Hobbit_MH2T: 5.35 cm
+                     # l = 5.35, # Hobbit_1-1T: 3.5 cm; Hobbit_MH2T: 5.35 cm
                      U_0 = 25, # Hobbit_1-1T: 15 ppm; Hobbit_MH2T: 25 ppm
                      K_min = 1e-13,
                      K_max = 1e-11,
@@ -100,7 +100,7 @@ osUTh <- function(input_data,
                      T_max = 20e3, # Hobbit_1-1T: 100e3; Hobbit_MH2T: 20e3
                      print_summary = TRUE,
                      with_plots = TRUE,
-                     save_plots = TRUE,
+                     save_plots = FALSE,
                      save_output = FALSE
                   ){
   
@@ -109,7 +109,7 @@ osUTh <- function(input_data,
   
   col_names_we_need <-  c("x", "y", "Comments", "U234_U238", "U234_U238_2SE", "Th230_U238", "Th230_U238_2SE")
   
-  if(all(col_names_we_need %in% colnames(input_data)))
+  if (all(col_names_we_need %in% colnames(input_data)))
   {
     message("All required columns are present in the input data. \n");
   } else {
@@ -133,9 +133,9 @@ osUTh <- function(input_data,
   y_s2 <- input_data$y[grepl("inner surface", input_data$Comments)]
   
   if (abs(x_s2 - x_s1) > abs(y_s2 - y_s1)) {
-    input_data$`iDAD position` <- as.data.frame(2/(x_s2 - x_s1)*(input_data$x - x_s2) + 1)
+    input_data$iDAD.position <- (2/(x_s2 - x_s1)*(input_data$x - x_s2) + 1)
   } else {
-    input_data$`iDAD position` <- as.data.frame(2/(y_s2 - y_s1)*(input_data$y - y_s2) + 1)
+    input_data$iDAD.position <- (2/(y_s2 - y_s1)*(input_data$y - y_s2) + 1)
   }
   
   # Calculate sample thickness

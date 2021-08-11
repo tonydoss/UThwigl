@@ -6,14 +6,15 @@
 #'
 #' @format A data frame with 6 rows and 8 variables:
 #' \describe{
-#'   \item{iDAD.position}{...}
 #'   \item{U234_U238}{...}
 #'   \item{U234_U238_2SE}{...}
-#'   \item{iDAD.position.1}{...}
 #'   \item{Th230_U238}{...}
 #'   \item{Th230_U238_2SE}{...}
 #'   \item{U_ppm}{...}
 #'   \item{U_ppm_2SE}{...}
+#'   \item{x}{...}
+#'   \item{y}{...}
+#'   \item{Comments}{...}
 #'   ...
 #' }
 #' @source \url{http://dx.doi.org/10.1038/nature17179}
@@ -25,14 +26,15 @@
 #'
 #' @format A data frame with 6 rows and 8 variables:
 #' \describe{
-#'   \item{iDAD.position}{...}
 #'   \item{U234_U238}{...}
 #'   \item{U234_U238_2SE}{...}
-#'   \item{iDAD.position.1}{...}
 #'   \item{Th230_U238}{...}
 #'   \item{Th230_U238_2SE}{...}
 #'   \item{U_ppm}{...}
 #'   \item{U_ppm_2SE}{...}
+#'   \item{x}{...}
+#'   \item{y}{...}
+#'   \item{Comments}{...}
 #'   ...
 #' }
 #' @source \url{http://dx.doi.org/10.1038/nature17179}
