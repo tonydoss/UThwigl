@@ -341,8 +341,9 @@ The code chunk below shows how to read one of the CSV files included in the pack
 
 ```{r, eval = TRUE, echo=TRUE}
 # read in one of the example CSV files included in the package
-input_data_os <-
-  read.csv('data/Hobbit_MH2T_for_iDAD.csv')
+# input_data_os <-
+#   read.csv('data/Hobbit_MH2T_for_iDAD.csv')
+input_data_os <- read.csv('/inst/extdata/input/Hobbit_MH2T_for_iDAD.csv')
 ```
 
 \newpage

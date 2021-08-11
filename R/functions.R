@@ -29,7 +29,7 @@ globalVariables(c("iDAD.position",
   packageStartupMessage("To cite the UThwigl package use:
 
   Dosseto, A. and B. Marwick, (2021) UThwigl: An R package
-  for closed- and open-system Uranium-Thorium dating Quaternary
+  for closed- and open-system uranium-thorium dating Quaternary
   Geochronology 0:000--000, http://doi.org/10.17605/OSF.IO/D5P7S
 
 A BibTeX entry for LaTeX users can be obtained with
@@ -138,10 +138,13 @@ osUTh <- function(input_data,
     input_data$iDAD.position <- (2/(y_s2 - y_s1)*(input_data$y - y_s2) + 1)
   }
   
-  # Calculate sample thickness
+  # Calculate sample thickness (in cm)
   l <- sqrt((x_s2 - x_s1)^2 + (y_s2 - y_s1)^2)/10
   
+  # Remove rows that don't have data (rows with coordinates of outer and inner surfaces)
   input_data <- input_data[!is.na(input_data$U234_U238),]
+  # Remove column "Comments" (we don't need it anymore)
+  input_data <-  input_data[ , ! names(input_data) %in% c("Comments")]
   
 # from iDAD Monte Carlo.R -------------------------------------------------
 
