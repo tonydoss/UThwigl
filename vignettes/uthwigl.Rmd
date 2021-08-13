@@ -100,13 +100,13 @@ Uranium and thorium isotope ratios are then analysed by multi-collector inductiv
 ## Closed-system dating
 
 Pending closed-system behaviour can be assessed, it is possible to derive an age for each U-Th analysis.
-The closed-system function `csUTh()` requires that for each analysis to yield an age, $[\frac{^{234}U}{^{238}U}]$, $[\frac{^{230}Th}{^{238}U}]$ are measured, as well as $[\frac{^{232}Th}{^{238}U}]$ or $[\frac{^{230}Th}{^{232}Th}]$. The $[\frac{^{232}Th}{^{238}U}]$ activity ratio is required for detrital correction (note it is needed to use `csUTh()` whether the detrital correction is performed or not). If $[\frac{^{230}Th}{^{232}Th}]$ is provided instead of $[\frac{^{232}Th}{^{238}U}]$, the latter is calculated with `csUth()`.
+The closed-system function `csUTh()` requires that for each analysis to yield an age, $[\frac{^{234}U}{^{238}U}]$, $[\frac{^{230}Th}{^{238}U}]$ are measured, as well as $[\frac{^{232}Th}{^{238}U}]$ or $[\frac{^{230}Th}{^{232}Th}]$. The $[\frac{^{232}Th}{^{238}U}]$ activity ratio is required for detrital correction (note it is needed to use `csUTh()` whether the detrital correction is performed or not). If $[\frac{^{230}Th}{^{232}Th}]$ is provided instead, $[\frac{^{232}Th}{^{238}U}]$ is calculated with `csUth()`.
 
 ## Open-system dating
 
 Data required for the DAD model are $[\frac{^{230}Th}{^{238}U}]$ and $[\frac{^{234}U}{^{238}U}]$ activity ratios collected along a transect perpendicular to the surface of the tooth or bone. Sampling for analysis can be done by micro-drilling or laser ablation. 
 
-The x-y coordinates of each analysis location, the  inner and outer surfaces of the sample need to be recorded. One surface is given a coordinate of 1 and the other one -1, thus coordinates of analyses take values in between (Figure \@ref(fig:femurpic)).
+The x-y coordinates of each analysis location, the  inner and outer surfaces of the sample also need to be recorded and provided as input data. `osUTh()` uses these coordinates to calculate normalised positions, where the outer surface of the sample is given a reference coordinate of 1, the inner surface -1, and analyses take values in between (Figure \@ref(fig:femurpic)).
 
 (ref:femurpiccap) Modern human femur (132A/LB/27D/03) from Liang Bua, Flores, Indonesia. Two analysis transects can be seen. For a given transect, the x and y coordinates of the outer and inner surfaces, and of the analyses, are used by `osUTh()` to calculate normalised positions where the outer surface is given 1 as reference coordinate, the inner surface  -1, and normalised positions of the analyses take values in between. Modified from Sutikna et al. [-@Sutikna2016].
 
