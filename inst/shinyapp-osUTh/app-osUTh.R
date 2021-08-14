@@ -88,8 +88,8 @@ ui <- bootstrapPage(
                HTML("<p><b>Plot legend</b><p>
                 <b>A.</b> A histogram of the solution ages. <p>
                 <b>B.</b> The U concentrations in the sample as a function of the relative distance from the center. <p>
-                <b>C.</b> The measured (in blue) and modelled (in red) (<sup>234</sup>U/<sup>238</sup>U) activity ratios as a function of the relative distance from the center, and <p>
-                <b>D.</b> The measured (in blue) and modelled (in red) (<sup>230</sup>Th/<sup>238</sup>U) activity ratios as a function of the relative distance from the center
+                <b>C.</b> The measured (in blue) and modelled (in red) [<sup>234</sup>U/<sup>238</sup>U] activity ratios as a function of the relative distance from the center, and <p>
+                <b>D.</b> The measured (in blue) and modelled (in red) [<sup>230</sup>Th/<sup>238</sup>U] activity ratios as a function of the relative distance from the center
                 <p>"),
                          tags$hr(),
                          # defaults for Hobbit_MH2T
