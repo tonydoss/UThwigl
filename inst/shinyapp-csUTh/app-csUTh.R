@@ -108,7 +108,7 @@ ui <- bootstrapPage(
                 tabPanel("Inspect the model", 
                          value = "modeloutput",
                          # defaults for Pan2018
-                         tableOutput("pr_age"),
+                         tableOutput("print_age"),
                          tags$hr(),
                          tableOutput("model_results_table"),
                          tags$hr()
@@ -215,7 +215,7 @@ server <- function(input, output, session) {
               R08det = input$R08det,
               R08det_err = input$R08det_err,
               R48det = input$R48det,
-              pr_age = FALSE,
+              print_age = FALSE,
               with_plots = FALSE)
       
       showNotification("Model run complete.")
@@ -225,7 +225,7 @@ server <- function(input, output, session) {
     # get some of the output from the function to display
     
     output$model_results_table <- renderTable({ model_output()$results })
-    output$pr_age <- renderText({ model_output()$pr_age })
+    output$print_age <- renderText({ model_output()$print_age })
     
     # draw the plots
     

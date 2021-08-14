@@ -3,7 +3,7 @@ if (!require("shiny")) install.packages("shiny")
 if (!require("shinycssloaders")) install.packages("shinycssloaders")
 if (!require("DT")) install.packages("DT")
 if (!require("devtools")) install.packages("devtools")
-if (!require("UThwigl")) devtools::install_github("benmarwick/UThwigl")
+if (!require("UThwigl")) devtools::install_github("tonydoss/UThwigl")
 if (!require("waiter")) install.packages("waiter")
 if (!require("rhandsontable")) install.packages("rhandsontable")
 
@@ -28,19 +28,21 @@ ui <- bootstrapPage(
     # Application title
     titlePanel("UThwigl::osUTh : compute open-system Uranium-Thorium ages using the diffusion-adsorption-decay (DAD) model"),
     
-    tabsetPanel(   id = "inTabset",
+    tabsetPanel(   id = "abset",
       
       tabPanel("Load the data", 
                p("Before uploading, check that your CSV file contains columns with these names:"),
                HTML("
-               <li> <b>iDAD.position</b>: coordinates of the (<sup>234</sup>U/<sup>238</sup>U) analyses, which take values between -1 and 1 (0: center of the bone; -1 and 1: inner and outer surfaces of the bone, respectively)
-               <li> <b>U234_U238_CORR</b>: activity ratios 
-               <li> <b>U234_U238_CORR_Int2SE</b>: the 2 sigma errors of the activity ratios
-               <li> <b>iDAD.position.1</b>: coordinates of the (<sup>230</sup>Th/<sup>238</sup>U) analyses, which take values between -1 and 1 (can be the same or different values from those of the (<sup>234</sup>U/<sup>238</sup>U) analyses)
-               <li> <b>Th230_U238_CORR</b>: activity ratios 
-               <li> <b>Th230_U238_CORR_Int2SE</b>: the 2 sigma errors of the activity ratios
-               <li> <b>U_ppm</b>: calculated uranium concentrations (in ppm)
-               <li> <b>U_ppm_Int2SE</b>:   the 2 sigma errors of the uranium concentrations
+               <li> <b>U234_U238</b>: [<sup>234</sup>U/<sup>238</sup>U] activity ratios 
+               <li> <b>U234_U238_2SE</b>: the 2 sigma errors of the activity ratios
+               <li> <b>Th230_U238</b>: [<sup>230</sup>Th/<sup>238</sup>U] activity ratios 
+               <li> <b>Th230_U238_2SE</b>: the 2 sigma errors of the activity ratios
+               <li> <b>U_ppm</b>: uranium concentrations (in ppm)
+               <li> <b>U_ppm_2SE</b>: the 2 sigma errors of the uranium concentrations
+               <li> <b>x</b>: x coordinates of the analyses, and the outer and inner surfaces of the sample 
+               <li> <b>y</b>: x coordinates of the analyses, and the outer and inner surfaces of the sample 
+               <li> <b>Comments</b>: the first two rows must show 'outer surface' and 'inner surface' (with the corresponding x and y coordinates) 
+
               "),
                tags$hr(),
                fileInput("file1", 
@@ -65,12 +67,12 @@ ui <- bootstrapPage(
                         # defaults for Hobbit_MH2T
                         numericInput("nbit", "Number of iterations:", 100, min = 1, max = 1e6),
                         numericInput("fsumtarget", "Value of squared sum", 0.01, min = 0.001, max = 100),
-                        numericInput("l", "Thickness of sample (cm):", 5.35, min = 0.01, max = 10),
-                        numericInput("U_0", "Uranium concentration at the sample surface (ppm):", 25, min = 0.01, max = 500)
+                        # numericInput("l", "Thickness of sample (cm):", 5.35, min = 0.01, max = 10),
+                        numericInput("U_0", "Uranium concentration at the sample surface (ppm):", 25, min = 0.01, max = 500),
+                        numericInput("U48_0_min", "Min (234U/238U) at the surface:", 1.265, min = 0.5, max = 50),
+                        numericInput("U48_0_max", "Max (234U/238U) at the surface:", 1.275, min = 0.5, max = 50)
                  ),
                  column(4,
-                        numericInput("U48_0_min", "Min (234U/238U) at the surface:", 1.265, min = 0.5, max = 50),
-                        numericInput("U48_0_max", "Max (234U/238U) at the surface:", 1.275, min = 0.5, max = 50),
                         numericInput("T_min", "Age min (yr):", 1e3, min = 1e3, max = 500e3),
                         numericInput("T_max", "Age max (yr):", 20e3, min = 1e3, max = 500e3),
                         numericInput("K_min", "Min U diffusion coefficient:", 1e-13, min = 1e-16, max = 1e-9),
@@ -123,22 +125,22 @@ server <- function(input, output, session) {
   
   # activate the buttons to move between tabs
   observeEvent(input$gotoinspect, {
-    updateTabsetPanel(session, "inTabset",
+    updateTabsetPanel(session, "abset",
                       selected = "inspectthedata")
   })
   
   observeEvent(input$gotosetmodel, {
-    updateTabsetPanel(session, "inTabset",
+    updateTabsetPanel(session, "abset",
                       selected = "setmodelparameters"  )
   })
   
   observeEvent(input$run, {
-    updateTabsetPanel(session, "inTabset",
+    updateTabsetPanel(session, "abset",
                       selected = "visualise"  )
   })
   
   observeEvent(input$gotooutput, {
-    updateTabsetPanel(session, "inTabset",
+    updateTabsetPanel(session, "abset",
                       selected = "modeloutput"  )
   })
   
@@ -151,7 +153,7 @@ server <- function(input, output, session) {
     hot = isolate(input$hot)
     if (!is.null(hot)) {
       write.csv(hot_to_r(input$hot), fname)
-      print(fname)
+      pr(fname)
     }
   })
   
@@ -209,13 +211,12 @@ server <- function(input, output, session) {
                  fsum_target = input$fsumtarget,
                  U48_0_min = input$U48_0_min,
                  U48_0_max = input$U48_0_max,
-                 l = input$l,
                  U_0 = input$U_0,
                  K_min = input$K_min,
                  K_max = input$K_max,
                  T_min = input$T_min,
                  T_max = input$T_max,
-                 print_summary = FALSE,
+                 print_age = FALSE,
                  with_plots = FALSE)
       
       showNotification("Model run complete.")
@@ -261,7 +262,7 @@ server <- function(input, output, session) {
                                                          less_big_size = less_big_size,
                                                          point_size = point_size)
       
-      # combine the plots into one panel
+      # combine the plots o one panel
       p1 <-
         cowplot::plot_grid(T_sol_plot,
                            u_conc_t2_plot_out,
@@ -270,7 +271,7 @@ server <- function(input, output, session) {
                            labels = "AUTO",
                            ncol = 2)
       
-      # print the plots
+      # pr the plots
       p1
       
       
