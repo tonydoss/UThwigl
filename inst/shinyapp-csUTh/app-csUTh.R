@@ -28,18 +28,22 @@ ui <- bootstrapPage(
     # Application title
     titlePanel("UThwigl::csUTh : compute closed-system uranium-thorium ages"),
     
-    tabsetPanel(   id = "inTabset",
+    tabsetPanel(   id = "abset",
       
       tabPanel("Load the data", 
                p("Before uploading, check that your CSV file contains columns with these names:"),
                HTML("
                <li> <b>Sample_ID</b>: sample identification code
-               <li> <b>U234_U238_CORR</b>: [<sup>234</sup>U/<sup>238</sup>U] activity ratios 
-               <li> <b>U234_U238_CORR_Int2SE</b>: the 2 sigma errors of the activity ratios
-               <li> <b>Th230_U238_CORR</b>: [<sup>230</sup>Th/<sup>238</sup>U] activity ratios 
-               <li> <b>Th230_U238_CORR_Int2SE</b>: the 2 sigma errors of the activity ratios
-               <li> <b>Th232_U238_CORR</b>: [<sup>232</sup>Th/<sup>238</sup>U] activity ratios 
-               <li> <b>Th232_U238_CORR_Int2SE</b>:   the 2 sigma errors of the activity ratios 
+               <li> <b>U234_U238</b>: [<sup>234</sup>U/<sup>238</sup>U] activity ratios 
+               <li> <b>U234_U238_2SE</b>: the 2 sigma errors of the activity ratios
+               <li> <b>Th230_U238</b>: [<sup>230</sup>Th/<sup>238</sup>U] activity ratios 
+               <li> <b>Th230_U238_2SE</b>: the 2 sigma errors of the activity ratios <br>
+               AND
+               <li> <b>Th232_U238</b>: [<sup>232</sup>Th/<sup>238</sup>U] activity ratios 
+               <li> <b>Th232_U238_2SE</b>:   the 2 sigma errors of the activity ratios <br>
+               OR
+               <li> <b>Th230_Th232</b>: [<sup>230</sup>Th/<sup>230</sup>Th] activity ratios 
+               <li> <b>Th230_Th232_2SE</b>:   the 2 sigma errors of the activity ratios 
               "),
                tags$hr(),
                fileInput("file1", 
@@ -70,12 +74,12 @@ ui <- bootstrapPage(
                         
                  ),
                  column(4,
-                        numericInput("R28det", "(232Th/238U) activity ratio of the detritus:", 0.8, min = 0.01, max = 10),
-                        numericInput("R28det_err", "Error on the (232Th/238U) activity ratio of the detritus:", 0.08, min = 0.01, max = 10),
-                        numericInput("R08det", "(230Th/238U) activity ratio of the detritus:", 1, min = 0.01, max = 10),
-                        numericInput("R08det_err", "Error on the (230Th/238U) activity ratio of the detritus:", 0.05, min = 0.01, max = 10),
-                        numericInput("R48det", "(234U/238U) activity ratio of the detritus:", 1, min = 0.5, max = 50),
-                        numericInput("R48det_err", "Error on the (234U/238U) activity ratio of the detritus:", 0.02, min = 0.01, max = 50)
+                        numericInput("R28det", "[232Th/238U] activity ratio of the detritus:", 0.8, min = 0.01, max = 10),
+                        numericInput("R28det_err", "Error on the [232Th/238U] activity ratio of the detritus:", 0.08, min = 0.01, max = 10),
+                        numericInput("R08det", "[230Th/238U] activity ratio of the detritus:", 1, min = 0.01, max = 10),
+                        numericInput("R08det_err", "Error on the [230Th/238U] activity ratio of the detritus:", 0.05, min = 0.01, max = 10),
+                        numericInput("R48det", "[234U/238U] activity ratio of the detritus:", 1, min = 0.5, max = 50),
+                        numericInput("R48det_err", "Error on the [234U/238U] activity ratio of the detritus:", 0.02, min = 0.01, max = 50)
 
                  )
                ),
@@ -104,7 +108,7 @@ ui <- bootstrapPage(
                 tabPanel("Inspect the model", 
                          value = "modeloutput",
                          # defaults for Pan2018
-                         tableOutput("print_summary"),
+                         tableOutput("pr_age"),
                          tags$hr(),
                          tableOutput("model_results_table"),
                          tags$hr()
@@ -120,22 +124,22 @@ server <- function(input, output, session) {
   
   # activate the buttons to move between tabs
   observeEvent(input$gotoinspect, {
-    updateTabsetPanel(session, "inTabset",
+    updateTabsetPanel(session, "abset",
                       selected = "inspectthedata")
   })
   
   observeEvent(input$gotosetmodel, {
-    updateTabsetPanel(session, "inTabset",
+    updateTabsetPanel(session, "abset",
                       selected = "setmodelparameters"  )
   })
   
   observeEvent(input$run, {
-    updateTabsetPanel(session, "inTabset",
+    updateTabsetPanel(session, "abset",
                       selected = "visualise"  )
   })
   
   observeEvent(input$gotooutput, {
-    updateTabsetPanel(session, "inTabset",
+    updateTabsetPanel(session, "abset",
                       selected = "modeloutput"  )
   })
   
@@ -148,7 +152,7 @@ server <- function(input, output, session) {
     hot = isolate(input$hot)
     if (!is.null(hot)) {
       write.csv(hot_to_r(input$hot), fname)
-      print(fname)
+      pr(fname)
     }
   })
   
@@ -211,7 +215,7 @@ server <- function(input, output, session) {
               R08det = input$R08det,
               R08det_err = input$R08det_err,
               R48det = input$R48det,
-              print_summary = FALSE,
+              pr_age = FALSE,
               with_plots = FALSE)
       
       showNotification("Model run complete.")
@@ -221,7 +225,7 @@ server <- function(input, output, session) {
     # get some of the output from the function to display
     
     output$model_results_table <- renderTable({ model_output()$results })
-    output$print_summary <- renderText({ model_output()$print_summary })
+    output$pr_age <- renderText({ model_output()$pr_age })
     
     # draw the plots
     
