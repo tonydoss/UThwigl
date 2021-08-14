@@ -69,8 +69,8 @@ ui <- bootstrapPage(
                         numericInput("fsumtarget", "Value of squared sum", 0.01, min = 0.001, max = 100),
                         # numericInput("l", "Thickness of sample (cm):", 5.35, min = 0.01, max = 10),
                         numericInput("U_0", "Uranium concentration at the sample surface (ppm):", 25, min = 0.01, max = 500),
-                        numericInput("U48_0_min", "Min (234U/238U) at the surface:", 1.265, min = 0.5, max = 50),
-                        numericInput("U48_0_max", "Max (234U/238U) at the surface:", 1.275, min = 0.5, max = 50)
+                        numericInput("U48_0_min", "Min [234U/238U] at the surface:", 1.265, min = 0.5, max = 50),
+                        numericInput("U48_0_max", "Max [234U/238U] at the surface:", 1.275, min = 0.5, max = 50)
                  ),
                  column(4,
                         numericInput("T_min", "Age min (yr):", 1e3, min = 1e3, max = 500e3),
