@@ -39,9 +39,9 @@ ui <- bootstrapPage(
                <li> <b>Th230_U238_2SE</b>: the 2 sigma errors of the activity ratios
                <li> <b>U_ppm</b>: uranium concentrations (in ppm)
                <li> <b>U_ppm_2SE</b>: the 2 sigma errors of the uranium concentrations
-               <li> <b>x</b>: x coordinates of the analyses, and the outer and inner surfaces of the sample 
-               <li> <b>y</b>: x coordinates of the analyses, and the outer and inner surfaces of the sample 
-               <li> <b>Comments</b>: the first two rows must show 'outer surface' and 'inner surface' (with the corresponding x and y coordinates) 
+               <li> <b>x</b>: x coordinates (in mm) of the analyses, and the outer and inner surfaces of the sample 
+               <li> <b>y</b>: y coordinates (in mm) of the analyses, and the outer and inner surfaces of the sample 
+               <li> <b>Comments</b>: two rows must show 'outer surface' and 'inner surface' (with the corresponding x and y coordinates) 
 
               "),
                tags$hr(),

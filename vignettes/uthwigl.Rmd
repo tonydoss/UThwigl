@@ -246,7 +246,7 @@ output_cs <-
   csUTh(
     input_data_cs,
     sample_name = 'YP003',
-    nbitchoice = 1000,
+    nbitchoice = 10000,
     detcorrectionchoice = TRUE,
     R28det = 0.8,
     R28det_err = 0.4,
@@ -400,7 +400,7 @@ Attach the package as shown above and then run `osUTh()`, specifying the input d
 
 ```{r model-output, results='hide'}
 output_os <- osUTh(input_data_os,
-                   nbit = 1000,
+                   nbit = 10000,
                    fsum_target = 0.01,
                    U48_0_min = 1.265,
                    U48_0_max = 1.270,
@@ -510,7 +510,7 @@ output_cs_all <-
   csUTh(
     input_data_cs,
     sample_name = 'YP',
-    nbitchoice = 1000,
+    nbitchoice = 10000,
     detcorrectionchoice = TRUE,
     keepfiltereddata = FALSE,
     print_age = FALSE,
@@ -536,7 +536,7 @@ output_cs_YP002insitu <-
   csUTh(
     input_data_cs,
     sample_name = 'YP002-1',
-    nbitchoice = 1000,
+    nbitchoice = 10000,
     detcorrectionchoice = TRUE,
     keepfiltereddata = FALSE,
     print_age = TRUE,
@@ -637,7 +637,7 @@ include_graphics("figures/plot-panel-first-run-modern.png")
 output_second_run_modern <-
   osUTh(
     Hobbit_MH2T_for_iDAD,
-    nbit = 1000,
+    nbit = 10000,
     fsum_target = 0.01,
     U48_0_min = 1.265,
     U48_0_max = 1.270,
@@ -670,7 +670,7 @@ age_minus <- round(output_second_run_modern$results$`Age -1SD (ka)`,1)
 ```
 
 The model is then run a second time, adjusting `U48_0_min`, `U48_0_max`, `T_min` and `T_max` parameters. In this case, as explained above, `U48_0_min` and `U48_0_max` are changed to cover the range of observed values (1.265 and 1.270, respectively). `T_min` is kept at 1 ka but `T_max` set to cover a narrower range: since the calculated age in the first run was <10 ka, there is no point setting `T_max` to 500 ka as in the first run, so it is set to 10 ka. `fsum_target` can also be decreased to 0.01 in order to get a better fit and error, but it is at the expense of computing time. Here, in the second run, we have adjusted `fsum_target` to 0.01.
-Adjusting parameters and re-running the model is repeated until a satisfying fit is obtained (by visual inspection of the figures). Once this is achieved, the model is run once more, increasing the number of iterations to 1,000 (or more). Results shown in Figure \@ref(fig:plot-panel-second-run-modern-fig) were generated running the model only twice in total (with the parameters above and `nbit` set to 1000, for the second run). We obtained an age of `r age` +`r age_plus`/-`r age_minus` ka, within error of the age reported by Sutikna et al. [-@Sutikna2016].
+Adjusting parameters and re-running the model is repeated until a satisfying fit is obtained (by visual inspection of the figures). Once this is achieved, the model is run once more, increasing the number of iterations to 1,000 (or more). Results shown in Figure \@ref(fig:plot-panel-second-run-modern-fig) were generated running the model only twice in total (with the parameters above and `nbit` set to 10,000, for the second run). We obtained an age of `r age` +`r age_plus`/-`r age_minus` ka, within error of the age reported by Sutikna et al. [-@Sutikna2016].
 
 
 ```{r plot-panel-second-run-modern, eval=T, include=FALSE}
@@ -716,7 +716,7 @@ output_hobbit_first_run <-
 output_hobbit <-
   osUTh(
     Hobbit_1_1T_for_iDAD,
-    nbit = 1000,
+    nbit = 10000,
     fsum_target = 0.01,
     U48_0_min = 1.360,
     U48_0_max = 1.375,
