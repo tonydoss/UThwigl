@@ -49,13 +49,12 @@ its version number. Find it with 'help(package=UThwigl)'.
 #' @param fsum_target The sum of the squared differences between the calculated and observed activity ratios.
 #' @param U48_0_min The minimum value allowed for the (^234^U/^238^U) activity ratio at the surface of the sample
 #' @param U48_0_max The maximum value allowed for the (^234^U/^238^U) activity ratio at the surface of the sample
-#' @param l The thickness of the sample in centimeters
 #' @param U_0 The uranium concentration at the surface in ppm
 #' @param K_min The minimum value allowed for the uranium diffusion coefficient (in cm^2^/s)
 #' @param K_max The maximum value allowed for the uranium diffusion coefficient (in cm^2^/s)
 #' @param T_min The minimum value for the age of the specimen (yr)
 #' @param T_max The maximum value for the age of the specimen (yr)
-#' @param print_summary Print a summary of the output to the console? Default is TRUE
+#' @param print_age Print a summary of the output to the console? Default is TRUE
 #' @param with_plots Display a panel of plots of the output? Default is TRUE
 #' @param save_plots Save plots as a png file to the current working directory? Default: TRUE
 #' @param save_output Save output data as a CSV file to the current working directory? Default: FALSE
@@ -81,7 +80,7 @@ its version number. Find it with 'help(package=UThwigl)'.
 #' K_max = 1e-11,
 #' T_min = 1e3,
 #' T_max = 20e3,
-#' print_summary = TRUE,
+#' print_age = TRUE,
 #' with_plots = FALSE,
 #' save_plots = FALSE)
 #' 
@@ -96,7 +95,7 @@ osUTh <- function(input_data,
                      K_max = 1e-11,
                      T_min = 1e3, # Hobbit_1-1T: 50e3; Hobbit_MH2T: 1e3
                      T_max = 20e3, # Hobbit_1-1T: 100e3; Hobbit_MH2T: 20e3
-                     print_summary = TRUE,
+                     print_age = TRUE,
                      with_plots = TRUE,
                      save_plots = FALSE,
                      save_output = FALSE
@@ -361,7 +360,7 @@ osUTh <- function(input_data,
   rownames(results) <- c("Results")
   
   
-if(print_summary) { 
+if(print_age) { 
   print(paste(
     "Age: ",
     round(T_final / 1000, digits = 1),
@@ -653,7 +652,7 @@ th230_u238_ratio_plot <-  function(output,
 #' @param R48det (234U/238U) activity ratio of the detritus. Default: 1
 #' @param R48det_err Error on the (234U/238U) activity ratio of the detritus. Default: 0.02
 #' @param keepfiltereddata Save filtered data on which an outlier test was performed? Only recommended if all analyses of a same sample are supposed to give the same age. Enter TRUE for yes, or FALSE for no. Default: FALSE
-#' @param print_summary Print a summary of the output to the console? Default: TRUE
+#' @param print_age Print a summary of the output to the console? Default: TRUE
 #' @param with_plots Draw plots? Default: TRUE
 #' @param save_plots Save plots as a png file to the current working directory? Default: TRUE
 #' @param save_output Save output data as a CSV file to the current working directory? Default: FALSE
@@ -671,7 +670,7 @@ th230_u238_ratio_plot <-  function(output,
 #' nbitchoice = 100,
 #' detcorrectionchoice = TRUE,
 #' keepfiltereddata = FALSE,
-#' print_summary = TRUE,
+#' print_age = TRUE,
 #' with_plots = FALSE,
 #' save_plots = FALSE)
 #' 
@@ -688,7 +687,7 @@ csUTh <- function(input_data,
                   R48det = 1,
                   R48det_err = 0.02,
                   keepfiltereddata = FALSE,
-                  print_summary = TRUE,
+                  print_age = TRUE,
                   with_plots = TRUE,
                   save_plots = TRUE,
                   save_output = FALSE
@@ -907,14 +906,14 @@ csUTh <- function(input_data,
     # don't draw plots
   }
   
-  output$print_summary <- paste('Mean age: ',round(mean(output$results$`Age (ka)`, na.rm = TRUE),1),
+  output$print_age <- paste('Mean age: ',round(mean(output$results$`Age (ka)`, na.rm = TRUE),1),
                          '+/-', round(2*sd(output$results$`Age (ka)`, na.rm = TRUE)/
                                         sqrt(length(output$results$`Age (ka)`)), 1), ' ka')
 
   
-  if(print_summary){
+  if(print_age){
     
-  print(output$print_summary)
+  print(output$print_age)
     
   } else {
     # don't print anything

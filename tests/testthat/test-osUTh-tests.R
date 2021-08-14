@@ -13,7 +13,7 @@ output_os <- suppressMessages(osUTh(Hobbit_MH2T_for_iDAD,
                    K_max = 1e-11,
                    T_min = 1e3,
                    T_max = 20e3,
-                   print_summary = FALSE,
+                   print_age = FALSE,
                    with_plots = TRUE,
                    save_plots = TRUE))
 

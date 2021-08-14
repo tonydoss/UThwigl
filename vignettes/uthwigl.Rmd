@@ -74,7 +74,7 @@ To enable re-use of our materials and improve reproducibility and transparency, 
 
 # Methods
 
-Closed-system U-Th dating is based on the premise that the dated material takes up U during formation, but no Th (and thus no ^230^Th). In this case, the age of material formation (e.g., precipitation of coralline aragonite) is quantified. Carbonates are particularly amenable to ^230^Th dating because, in most cases, they take up U during formation but very little Th.
+Closed-system U-Th dating is based on the premise that the dated material takes up U during formation, but no Th (and thus no ^230^Th). This is because U-Th dating focuses on materials that precipitate from solution (e.g. carbonates) and Th has a very low solubility in most cases. In this case, the age of material formation (e.g., precipitation of coralline aragonite) is quantified. Carbonates are particularly amenable to ^230^Th dating because, in most cases, they take up U during formation but very little Th.
 
 U-Th dating is undertaken by measuring the ^234^U/^238^U and ^230^Th/^238^U of the material. In this case, the measured $[\frac{^{230}Th}{^{238}U}]$ activity ratio in the sample is written as follows (brackets denote activity ratios):
 
@@ -95,7 +95,7 @@ Analytically, two types of measurements are possible: bulk or in-situ. For bulk 
 For in-situ analysis, laser ablation is commonly used [@Eggins2005]. In this case, a laser with a spot size ranging from a few \(\mu m\) to several hundreds of \(\mu m\) produces an aerosol which is carried using a gas (helium or preferably a mixture of helium and nitrogen; @RN2257).
 While laser ablation offers a better spatial resolution and is less time consuming than bulk analysis, the precision of the data is inferior because of the much smaller amount of material sampled. 
 
-Uranium and thorium isotope ratios are then analysed by multi-collector inductively-coupled plasma mass spectrometry (e.g. @RN2951; although bulk analysis can also be performed by thermal ionisation mass spectrometry). A plasma ionise U and Th atoms, their isotopes are separated through a magnetic field and each are collected in a different collector (Faraday cups or ion counters). If using laser ablation, it is best to have two ion counters so ^230^Th and ^234^U can be collected simultaneously.
+Uranium and thorium isotope ratios are then analysed by multi-collector inductively-coupled plasma mass spectrometry (e.g. @RN2951; although bulk analysis can also be performed by thermal ionisation mass spectrometry). A plasma ionises U and Th atoms, their isotopes are separated through a magnetic field and each are collected in a different collector (Faraday cups or ion counters). If using laser ablation, it is best to have two ion counters so ^230^Th and ^234^U can be collected simultaneously.
 
 ## Closed-system dating
 
@@ -255,7 +255,7 @@ output_cs <-
     R48det = 1,
     R48det_err = 0.02,
     keepfiltereddata = FALSE,
-    print_summary = TRUE,
+    print_age = TRUE,
     with_plots = TRUE,
     save_plots = FALSE,
     save_output = FALSE
@@ -264,14 +264,14 @@ output_cs <-
 
 For efficient interactive use of this package, the default setting of `csUTh()` is to produce a panel plot as seen in Figure \@ref(fig:csuthvizfig). The setting `with_plots = FALSE` prevents plots from being generated which is more useful when the function is part of a longer sequence of code. The function runs faster when not producing plots, which is helpful when replicating many runs. The setting `save_output = TRUE` will save a csv file to the current working directory so the output data can be used in other contexts. The csv file that is created when `save_output = TRUE` will be given a name that includes a date and time stamp so that the output of each time the function is run can be saved to a unique file. 
 
-When run on the R console, this function will print a confirmation that the input data frame has the required columns. If `print_summary` is set to `TRUE`, it will also the resulting mean age value of several analyses on a single sample, with an error reported as 2 Standard Error, for example:
+When run on the R console, this function will print a confirmation that the input data frame has the required columns. If `print_age` is set to `TRUE`, it will also print the resulting mean age value of several analyses on a single sample, with an error reported as 2 Standard Deviation, for example:
 
 ```
 All required columns are present in the input data
 [1] "Mean age:  117.1 +/- 3.7  ka"
 ```
 
-`print_summary` should be set to `FALSE` if ages computed are not for analyses of the same sample, since this mean age would be meaningless. 
+`print_age` should be set to `FALSE` if ages computed are not for analyses of the same sample, since this mean age would be meaningless. 
 
 ## Inspecting and visualizing the models' output
 
@@ -409,6 +409,7 @@ output_os <- osUTh(input_data_os,
                    K_max = 1e-11,
                    T_min = 1e3,
                    T_max = 20e3,
+                   print_age = TRUE,
                    with_plots = TRUE,
                    save_plots = FALSE,
                    save_output = FALSE)
@@ -416,7 +417,7 @@ output_os <- osUTh(input_data_os,
 
 The default setting of `osUTh()` is to produce a panel plot as seen in Figure \@ref(fig:demopanelfig). The setting `with_plots = FALSE` prevents plots from being generated which is more useful when the function is part of a longer sequence of code. The function runs faster when not producing pots, which is helpful when replicating many runs. 
 
-Similar to the `csUTh()` function, when `osUTh()` is run on the R console, it will print a confirmation that the input data frame has the required columns, and print the resulting age value with an error reported as the 67% and 33% quantiles, for example:
+Similar to the `csUTh()` function, when `osUTh()` is run on the R console, it will print a confirmation that the input data frame has the required columns. If `print_age` is set to `TRUE`, it will print the resulting age value with an error reported as 1 Standard Deviation, for example:
 
 ```
 All required columns are present in the input data
@@ -501,7 +502,7 @@ output_os$plots
 The package includes sample data from Marine Isotope Stage 5 corals from @RN5108 (Table \@ref(tab:pan)). Two *Plesiastrea versipora* coral samples were analysed: YP002 and YP003. The first two rows in Table \@ref(tab:pan) are bulk analyses while the rest are in-situ analyses produced by laser ablation (hence the lower precision compared to the first two rows).
 In @RN5108, closed-system ages were calculated using IsoPlot 4.15 [@RN2163]. For bulk analyses, @RN5108 reported detrital-corrected ages of 121.4 \(\pm\) 2.4 ka and 127.3 \(\pm\) 2.1 ka for YP002 and YP003, respectively. For in-situ analyses, @RN5108 reported mean detrital-corrected ages of five analyses for each sample: 117.5 \(\pm\) 4.5 ka for YP002 and 115.0 \(\pm\) 5.4 ka for YP003.
 
-Here we solve the closed-system model for all samples by simply entering 'YP' against `sample name` since all analyses in the table contain these two characters in their `Sample_ID` column. `print_summary` is set to `FALSE` since we are solving for different samples and a mean age would have no significance.
+Here we solve the closed-system model for all samples by simply entering 'YP' against `sample name` since all analyses in the table contain these two characters in their `Sample_ID` column. `print_age` is set to `FALSE` since we are solving for different samples and a mean age would have no significance.
 
 ```{r csUTh all samples, results='hide'}
 # Solve for all samples
@@ -512,7 +513,7 @@ output_cs_all <-
     nbitchoice = 1000,
     detcorrectionchoice = TRUE,
     keepfiltereddata = FALSE,
-    print_summary = FALSE,
+    print_age = FALSE,
     with_plots = TRUE,
     save_plots = FALSE
   )
@@ -527,7 +528,7 @@ err_YP003bulk <- round(output_cs_all$results$`Age 2sd`[2],1)
 
 We obtain detrital-corrected ages of `r age_YP002bulk` \(\pm\) `r err_YP002bulk` ka and `r age_YP003bulk` \(\pm\) `r err_YP003bulk` ka for bulk analyses of YP002 and YP003, respectively. This is within error of values reported in @RN5108.
 
-Solving in-situ analyses of YP002-1 is done by setting `sample_name` to 'YP002-1' and `print_summary` to `TRUE`:
+Solving in-situ analyses of YP002-1 is done by setting `sample_name` to 'YP002-1' and `print_age` to `TRUE`:
 
 ```{r csUTh YP002 in-situ, results='hide'}
 # Solve for YP002 in-situ analyses
@@ -538,7 +539,7 @@ output_cs_YP002insitu <-
     nbitchoice = 1000,
     detcorrectionchoice = TRUE,
     keepfiltereddata = FALSE,
-    print_summary = TRUE,
+    print_age = TRUE,
     with_plots = TRUE,
     save_plots = FALSE
   )

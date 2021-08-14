@@ -9,7 +9,7 @@ output_cs <-
     nbitchoice = 10,
     detcorrectionchoice = TRUE,
     keepfiltereddata = FALSE,
-    print_summary = FALSE,
+    print_age = FALSE,
     with_plots = TRUE,
     save_plots = TRUE
   ))

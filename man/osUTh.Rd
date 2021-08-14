@@ -15,7 +15,7 @@ osUTh(
   K_max = 1e-11,
   T_min = 1000,
   T_max = 20000,
-  print_summary = TRUE,
+  print_age = TRUE,
   with_plots = TRUE,
   save_plots = FALSE,
   save_output = FALSE
@@ -42,15 +42,13 @@ osUTh(
 
 \item{T_max}{The maximum value for the age of the specimen (yr)}
 
-\item{print_summary}{Print a summary of the output to the console? Default is TRUE}
+\item{print_age}{Print a summary of the output to the console? Default is TRUE}
 
 \item{with_plots}{Display a panel of plots of the output? Default is TRUE}
 
 \item{save_plots}{Save plots as a png file to the current working directory? Default: TRUE}
 
 \item{save_output}{Save output data as a CSV file to the current working directory? Default: FALSE}
-
-\item{l}{The thickness of the sample in centimeters}
 }
 \value{
 A list of results
@@ -70,7 +68,7 @@ K_min = 1e-13,
 K_max = 1e-11,
 T_min = 1e3,
 T_max = 20e3,
-print_summary = TRUE,
+print_age = TRUE,
 with_plots = FALSE,
 save_plots = FALSE)
 
