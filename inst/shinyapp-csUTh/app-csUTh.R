@@ -34,11 +34,11 @@ ui <- bootstrapPage(
                p("Before uploading, check that your CSV file contains columns with these names:"),
                HTML("
                <li> <b>Sample_ID</b>: sample identification code
-               <li> <b>U234_U238_CORR</b>: (<sup>234</sup>U/<sup>238</sup>U) activity ratios 
+               <li> <b>U234_U238_CORR</b>: [<sup>234</sup>U/<sup>238</sup>U] activity ratios 
                <li> <b>U234_U238_CORR_Int2SE</b>: the 2 sigma errors of the activity ratios
-               <li> <b>Th230_U238_CORR</b>: (<sup>230</sup>Th/<sup>238</sup>U) activity ratios 
+               <li> <b>Th230_U238_CORR</b>: [<sup>230</sup>Th/<sup>238</sup>U] activity ratios 
                <li> <b>Th230_U238_CORR_Int2SE</b>: the 2 sigma errors of the activity ratios
-               <li> <b>Th232_U238_CORR</b>: (<sup>232</sup>Th/<sup>238</sup>U) activity ratios 
+               <li> <b>Th232_U238_CORR</b>: [<sup>232</sup>Th/<sup>238</sup>U] activity ratios 
                <li> <b>Th232_U238_CORR_Int2SE</b>:   the 2 sigma errors of the activity ratios 
               "),
                tags$hr(),
@@ -87,7 +87,7 @@ ui <- bootstrapPage(
                value = "visualise",
                HTML("<p><b>Plot legend</b><p>
                 <b>A.</b> Closed-system ages<p>
-                <b>B.</b> Initial (<sup>234</sup>U/<sup>238</sup>U) activity ratios for each sample analysis<p>
+                <b>B.</b> Initial [<sup>234</sup>U/<sup>238</sup>U] activity ratios for each sample analysis<p>
                 <p>"),
                          tags$hr(),
                          # defaults for Pan2018
