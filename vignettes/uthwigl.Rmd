@@ -246,7 +246,7 @@ output_cs <-
   csUTh(
     input_data_cs,
     sample_name = 'YP003',
-    nbitchoice = 10000,
+    nbitchoice = 100,
     detcorrectionchoice = TRUE,
     R28det = 0.8,
     R28det_err = 0.4,
@@ -400,7 +400,7 @@ Attach the package as shown above and then run `osUTh()`, specifying the input d
 
 ```{r model-output, results='hide'}
 output_os <- osUTh(input_data_os,
-                   nbit = 10000,
+                   nbit = 100,
                    fsum_target = 0.01,
                    U48_0_min = 1.265,
                    U48_0_max = 1.270,
@@ -510,7 +510,7 @@ output_cs_all <-
   csUTh(
     input_data_cs,
     sample_name = 'YP',
-    nbitchoice = 10000,
+    nbitchoice = 100,
     detcorrectionchoice = TRUE,
     keepfiltereddata = FALSE,
     print_age = FALSE,
@@ -536,7 +536,7 @@ output_cs_YP002insitu <-
   csUTh(
     input_data_cs,
     sample_name = 'YP002-1',
-    nbitchoice = 10000,
+    nbitchoice = 100,
     detcorrectionchoice = TRUE,
     keepfiltereddata = FALSE,
     print_age = TRUE,
@@ -637,7 +637,7 @@ include_graphics("figures/plot-panel-first-run-modern.png")
 output_second_run_modern <-
   osUTh(
     Hobbit_MH2T_for_iDAD,
-    nbit = 10000,
+    nbit = 100,
     fsum_target = 0.01,
     U48_0_min = 1.265,
     U48_0_max = 1.270,
@@ -716,7 +716,7 @@ output_hobbit_first_run <-
 output_hobbit <-
   osUTh(
     Hobbit_1_1T_for_iDAD,
-    nbit = 10000,
+    nbit = 100,
     fsum_target = 0.01,
     U48_0_min = 1.360,
     U48_0_max = 1.375,
