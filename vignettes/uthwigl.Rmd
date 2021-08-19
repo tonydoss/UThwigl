@@ -248,7 +248,7 @@ output_cs <-
   csUTh(
     input_data_cs,
     sample_name = 'YP003',
-    nbitchoice = 100,
+    nbitchoice = 10000,
     detcorrectionchoice = TRUE,
     R28det = 0.8,
     R28det_err = 0.4,
@@ -407,7 +407,7 @@ Assuming that the package is attached with `library(UThwigl)`, and the data have
 
 ```{r model-output, results='hide'}
 output_os <- osUTh(input_data_os,
-                   nbit = 100,
+                   nbit = 10000,
                    fsum_target = 0.01,
                    U48_0_min = 1.265,
                    U48_0_max = 1.270,
@@ -517,7 +517,7 @@ output_cs_all <-
   csUTh(
     input_data_cs,
     sample_name = 'YP',
-    nbitchoice = 100,
+    nbitchoice = 10000,
     detcorrectionchoice = TRUE,
     keepfiltereddata = FALSE,
     print_age = FALSE,
@@ -543,7 +543,7 @@ output_cs_YP002insitu <-
   csUTh(
     input_data_cs,
     sample_name = 'YP002-1',
-    nbitchoice = 100,
+    nbitchoice = 10000,
     detcorrectionchoice = TRUE,
     keepfiltereddata = FALSE,
     print_age = TRUE,
@@ -644,7 +644,7 @@ include_graphics("figures/plot-panel-first-run-modern.png")
 output_second_run_modern <-
   osUTh(
     Hobbit_MH2T_for_iDAD,
-    nbit = 100,
+    nbit = 10000,
     fsum_target = 0.01,
     U48_0_min = 1.265,
     U48_0_max = 1.270,
@@ -723,7 +723,7 @@ output_hobbit_first_run <-
 output_hobbit <-
   osUTh(
     Hobbit_1_1T_for_iDAD,
-    nbit = 100,
+    nbit = 10000,
     fsum_target = 0.01,
     U48_0_min = 1.360,
     U48_0_max = 1.375,
@@ -743,7 +743,7 @@ age_plus <- round(output_hobbit$results$`Age +1SD (ka)`,1)
 age_minus <- round(output_hobbit$results$`Age -1SD (ka)`,1)
 ```
 
-For transect 1 of LB1/52, Sutikna et al. [-@Sutikna2016] reported an age of 79.0 $\pm$ 3.7 ka. With osUTh, using data in the file `Hobbit_1-1T_for_iDAD.csv` provided in the package, we first run the model with `nbit` = 1, `fsum_target` = 0.05, `l` = 3.5 cm, `U_0` = 35 ppm, `U48_0_min` = 1.3, `U48_0_max` = 1.4, `K_min` and `K_max` = 10^-13^ and 10^-11^ cm^2^/s, respectively, `T_min` and `T_max` = 10^3^ and 500x10^3^ yr, respectively. Results from this first run were used to adjust `U48_0_min`, `U48_0_max` = 1.4, `T_min` and `T_max`, and the model was run again with `nbit` = 100, `fsum_target` = 0.01, `U48_0_min` = 1.360, `U48_0_max` = 1.375, `T_min` and `T_max` = 50x10^3^ and 100x10^3^ yr, respectively. We obtained an age of `r age` +`r age_plus`/-`r age_minus` ka (Figure \@ref(fig:plot-panel-hobbit-fig)). Note that results and errors vary slightly for each run since populations of solution sets are randomly generated.
+For transect 1 of LB1/52, Sutikna et al. [-@Sutikna2016] reported an age of 79.0 $\pm$ 3.7 ka. With osUTh, using data in the file `Hobbit_1-1T_for_iDAD.csv` provided in the package, we first run the model with `nbit` = 1, `fsum_target` = 0.05, `l` = 3.5 cm, `U_0` = 35 ppm, `U48_0_min` = 1.3, `U48_0_max` = 1.4, `K_min` and `K_max` = 10^-13^ and 10^-11^ cm^2^/s, respectively, `T_min` and `T_max` = 10^3^ and 500x10^3^ yr, respectively. Results from this first run were used to adjust `U48_0_min`, `U48_0_max` = 1.4, `T_min` and `T_max`, and the model was run again with `nbit` = 10000, `fsum_target` = 0.01, `U48_0_min` = 1.360, `U48_0_max` = 1.375, `T_min` and `T_max` = 50x10^3^ and 100x10^3^ yr, respectively. We obtained an age of `r age` +`r age_plus`/-`r age_minus` ka (Figure \@ref(fig:plot-panel-hobbit-fig)). Note that results and errors vary slightly for each run since populations of solution sets are randomly generated.
 
 ```{r tsol-hobbit, eval=T, include=FALSE}
 library(ggplot2)
