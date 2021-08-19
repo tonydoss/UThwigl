@@ -176,32 +176,33 @@ or
 - `Th230_Th232`
 - `Th230_Th232_2SE`
 
- To help with preparing data for input into our function, we have included an example of an input file, taken from Pan et al. [-@RN5108]. Inspecting the included data sets will be helpful for understanding how to prepare new data for use with this package. After attaching the package, we can access the built-in datasets with the `data()` function, like this:
+ To help with preparing data for input into our function, we have included an example of an input file, taken from Pan et al. [-@RN5108]. Before reading in the data file, the user needs to set the working directory to the folder containing the data file. This can be done in RStudio using the menu item 'Session' > 'Set Working Directory' > 'To Source File Location'. Alternatively, the working directory can be defined interactively at the R prompt in the Console panel useing `setwd()`. However, we do not recommend including `setwd()` in script files because it is bad for reproducibility, since the path to one user's working directory will not exist on another user's computer.  
+ Inspecting the included data sets will be helpful for understanding how to prepare new data for use with this package. After attaching the package, we can access the built-in datasets with the `data()` function, like this:
 
 ```{r}
 # access the data included in the UThwigl package
 data("Pan2018")
 ```
 
-This will make the built-in data available in the R environment to inspect and explore how to use the `csUTh()` function. To use new data with this package, the user needs to import a CSV or Excel file with the U-Th data into the R environment. This can be done using a generic function such as `read.csv` or `read_excel` from the `readxl` package [@Wickham_readxl]. Before reading in the data file, the user needs to set the working directory to the folder containing the data file. This can be done in RStudio using the menu item 'Session' > 'Set Working Directory' > 'To Source File Location'. Alternatively, the working directory can be defined interactively at the R prompt in the Console panel useing `setwd()`. However, we do not recommend including `setwd()` in script files because it is bad for reproducibility, since the path to one user's working directory will not exist on another user's computer.  
-
-To download the built-in data to the user's computer so it can be inspected and modified in a spreadsheet program, use `write.csv()`
+This will make the built-in data available in the R environment to inspect and explore how to use the `csUTh()` function. 
+ To download the built-in data to the user's computer as a CSV file, so it can be inspected and modified in a spreadsheet program (e.g. as a template for the user's own data), use `write.csv()`:
 
 ```{r eval = FALSE}
 # download the data included in the package
 write.csv(Pan2018, "Pan2018.csv")
 ```
 
-The code chunk below shows how to read one of the CSV files included in the package into the R environment. We assume that the user's working directory contains a directory called `data` and the CSV file is in this `data` directory, and so the data can be imported as follows: 
-
+ The code chunk below shows how to read the CSV file created above into the R environment. We assume that the user’s working directory contains a directory called `data` and the CSV file is in this `data` directory, and so the data can be imported as follows:
+ 
 ```{r, eval = TRUE, echo=TRUE}
 # read in one of the example CSV files included in the package
-input_data_cs <-
-  read.csv('data/Pan2018.csv')
+input_data_cs <- read.csv('data/Pan2018.csv')
 ```
-
-Table \@ref(tab:pan) shows the data contained in the `Pan2018.csv` file included in the package.
-
+ 
+ To use new data with this package, the user needs to import a CSV or Excel file with the U-Th data into the R environment. This can be done using a generic function such as `read.csv` or `read_excel` from the `readxl` package [@Wickham_readxl]. 
+ 
+ Table \@ref(tab:pan) shows the data contained in the `Pan2018.csv` file included in the package.
+ 
 ```{r pan, results="asis", echo = FALSE, eval=TRUE}
 # inspect the data frame produced by importing the CSV file
 options(xtable.floating = TRUE,
@@ -221,11 +222,12 @@ print(Pan2018_tbl,
         rotate.colnames = TRUE)
 ```
 
-The columns `Sample_ID`, `U234_U238`, `U234_U238_2SE`, `Th230_U238`,  `Th230_U238_2SE` and either `Th232_U238` and `Th232_U238_2SE`, or  `Th230_Th232` and `Th230_Th232_2SE` must be present in the input data frame with these exact names for the model to function. The `csUTh()` function will check if the input data frame has these columns, and will stop with an error message if it does not find these columns. The `names()` function can be used to update column names of a data frame to ensure they match the names that the model function requires. Alternatively the user can edit the column names in a spreadsheet program such as Microsoft Excel. The order of the columns in the data frame is not important.
+ The columns `Sample_ID`, `U234_U238`, `U234_U238_2SE`, `Th230_U238`,  `Th230_U238_2SE` and either `Th232_U238` and `Th232_U238_2SE`, or  `Th230_Th232` and `Th230_Th232_2SE` must be present in the input data frame with these exact names for the model to function. The `csUTh()` function will check if the input data frame has these columns, and will stop with an error message if it does not find these columns. The `names()` function can be used to update column names of a data frame to ensure they match the names that the model function requires. Alternatively the user can edit the column names in a spreadsheet program such as Microsoft Excel. The order of the columns in the data frame is not important.
 
 Columns `U234_U238` and `U234_U238_2SE` are the $[\frac{^{234}U}{^{238}U}]$ activity ratios and their 2$\sigma$ errors. Columns `Th230_U238` and `Th230_U238_2SE` are the $[\frac{^{230}Th}{^{238}U}]$ activity ratios and their 2$\sigma$ errors. Columns `Th232_U238` and `Th232_U238_2SE` are the $[\frac{^{232}Th}{^{238}U}]$ activity ratios and their 2$\sigma$ errors. Columns `Th230_Th232` and `Th230_Th232_2SE` are the $[\frac{^{230}Th}{^{232}Th}]$ activity ratios and their 2$\sigma$ errors.
 
 If `Th230_Th232` and `Th230_Th232_2SE` are provided instead of `Th232_U238` and `Th232_U238_2SE`, columns `Th232_U238` and `Th232_U238_2SE` are calculated by `csUTh()`.
+
 
 ### Details of the input parameters of closed-system analysis 
 
@@ -238,7 +240,7 @@ If `Th230_Th232` and `Th230_Th232_2SE` are provided instead of `Th232_U238` and 
 
 ## How to run the model
 
-Assuming that the package is attached with `library(UThwigl)`, as shown above, and the data have been imported to the working environment as noted above, run `csUTh()`, specifying the input data frame and the input parameters as described above. The code block below shows a typical example that will execute in less than five seconds on a typical 2.3 GHz Intel Core i5 laptop:  
+Assuming that the package is attached with `library(UThwigl)`, and the data have been imported to the working environment as noted above into a data frame named `input_data_cs`, the user can then run `csUTh()`, specifying the input data frame and the input parameters as described above. The code block below shows a typical example that will execute in less than five seconds on a typical 2.3 GHz Intel Core i5 laptop:  
 
 ```{r cs-model-output, results='hide'}
 # Solve for sample YP003
@@ -324,7 +326,8 @@ For open-system U-Th dating we provide the function `osUTh()`, which requires a 
 - `y`
 - `Comments`
 
-We have included two examples of input files. After attaching the package, we can access the built-in datasets with the `data()` function, like this:
+ To help with preparing data for input into our function, we have included an example of an input file, taken from Sutikna et al. [-@Sutikna2016]. Before reading in the data file, the user needs to set the working directory to the folder containing the data file. This can be done in RStudio using the menu item 'Session' > 'Set Working Directory' > 'To Source File Location'. Alternatively, the working directory can be defined interactively at the R prompt in the Console panel useing `setwd()`. However, we do not recommend including `setwd()` in script files because it is bad for reproducibility, since the path to one user's working directory will not exist on another user's computer.  
+ Inspecting the included data sets will be helpful for understanding how to prepare new data for use with this package. After attaching the package, we can access the built-in datasets with the `data()` function, like this:
 
 ```{r}
 # access the data included in the UThwigl package
@@ -332,7 +335,8 @@ data("Hobbit_1_1T_for_iDAD")
 data("Hobbit_MH2T_for_iDAD")
 ```
 
-As above, these datasets can be downloaded from the package with `write.csv()`:
+This will make the built-in data available in the R environment to inspect and explore how to use the `csUTh()` function. 
+ To download the built-in data to the user's computer as a CSV file, so it can be inspected and modified in a spreadsheet program (e.g. as a template for the user's own data), use `write.csv()`:
 
 ```{r eval = FALSE}
 # download the data included in the package
@@ -347,6 +351,9 @@ The code chunk below shows how to read one of the CSV files included in the pack
 input_data_os <-
   read.csv('data/Hobbit_MH2T_for_iDAD.csv')
 ```
+
+To use new data with this package, the user needs to import a CSV or Excel file with the U-Th data into the R environment. This can be done using a generic function such as `read.csv` or `read_excel` from the `readxl` package [@Wickham_readxl]. 
+
 
 \newpage
 
@@ -396,7 +403,7 @@ Our key function, `osUTh()` has several arguments that need to be set before mea
 
 ## How to run the model
 
-Attach the package as shown above and then run `osUTh()`, specifying the input data frame and the input parameters as described above. The code block below shows a quick example that will execute in less than five seconds on a typical 2.3 GHz Intel Core i5 laptop:  
+Assuming that the package is attached with `library(UThwigl)`, and the data have been imported to the working environment as noted above into a data frame named `input_data_os`, the user can then run `osUTh()`, specifying the input data frame and the input parameters as described above. The code block below shows a quick example that will execute in less than five seconds on a typical 2.3 GHz Intel Core i5 laptop:  
 
 ```{r model-output, results='hide'}
 output_os <- osUTh(input_data_os,
