@@ -38,7 +38,7 @@ A BibTeX entry for LaTeX users can be obtained with
 As UThwigl is continually evolving, you may want to cite
 its version number. Find it with 'help(package=UThwigl)'.
                         ")
- 
+  
 }
 
 
@@ -86,20 +86,20 @@ its version number. Find it with 'help(package=UThwigl)'.
 #' 
 
 osUTh <- function(input_data,
-                     nbit = 1000,
-                     fsum_target = 0.01,
-                     U48_0_min = 1.265, # Hobbit_1-1T: 1.3; Hobbit_MH2T: 1.265
-                     U48_0_max = 1.275, # Hobbit_1-1T: 1.4; Hobbit_MH2T: 1.275
-                     U_0 = 25, # Hobbit_1-1T: 15 ppm; Hobbit_MH2T: 25 ppm
-                     K_min = 1e-13,
-                     K_max = 1e-11,
-                     T_min = 1e3, # Hobbit_1-1T: 50e3; Hobbit_MH2T: 1e3
-                     T_max = 20e3, # Hobbit_1-1T: 100e3; Hobbit_MH2T: 20e3
-                     print_age = TRUE,
-                     with_plots = TRUE,
-                     save_plots = FALSE,
-                     save_output = FALSE
-                  ){
+                  nbit = 1000,
+                  fsum_target = 0.01,
+                  U48_0_min = 1.265, # Hobbit_1-1T: 1.3; Hobbit_MH2T: 1.265
+                  U48_0_max = 1.275, # Hobbit_1-1T: 1.4; Hobbit_MH2T: 1.275
+                  U_0 = 25, # Hobbit_1-1T: 15 ppm; Hobbit_MH2T: 25 ppm
+                  K_min = 1e-13,
+                  K_max = 1e-11,
+                  T_min = 1e3, # Hobbit_1-1T: 50e3; Hobbit_MH2T: 1e3
+                  T_max = 20e3, # Hobbit_1-1T: 100e3; Hobbit_MH2T: 20e3
+                  print_age = TRUE,
+                  with_plots = TRUE,
+                  save_plots = FALSE,
+                  save_output = FALSE
+){
   
   
   # check that the input data frame has the columns with the right names
@@ -116,13 +116,13 @@ osUTh <- function(input_data,
          update the column names using the `names()` function, and try again.\n
          Your data has these column names: ", colnames(input_data), "\n
          This function requires data with these column names: ", col_names_we_need,
-         "\n"))
+                "\n"))
   }
   
-
-
-# calculate iDAD positions and sample thickness ---------------------------
-
+  
+  
+  # calculate iDAD positions and sample thickness ---------------------------
+  
   # Coordinates of outer and inner surfaces
   x_s1 <- input_data$x[grepl("outer surface", input_data$Comments)]
   y_s1 <- input_data$y[grepl("outer surface", input_data$Comments)]
@@ -143,9 +143,9 @@ osUTh <- function(input_data,
   # Remove column "Comments" (we don't need it anymore)
   input_data <-  input_data[ , ! names(input_data) %in% c("Comments")]
   
-# from iDAD Monte Carlo.R -------------------------------------------------
-
-
+  # from iDAD Monte Carlo.R -------------------------------------------------
+  
+  
   l <- l/10/2
   
   l238 <- 0.1551e-9/(365.25*24*3600)
@@ -278,7 +278,7 @@ osUTh <- function(input_data,
   T_sol_df = as.data.frame(T_sol)  
   
   
-# from iDAD_direct.R ------------------------------------------------------
+  # from iDAD_direct.R ------------------------------------------------------
   
   i <- 0
   
@@ -333,7 +333,7 @@ osUTh <- function(input_data,
   colnames(output_data)[  c( (ncol(output_data)-1), ncol(output_data) ) ] <- 
     c("U234_U238_CALC", "Th230_U238_CALC")
   
-# from graphs&save.R -------------------------------------------  
+  # from graphs&save.R -------------------------------------------  
   
   
   results <-
@@ -360,22 +360,22 @@ osUTh <- function(input_data,
   rownames(results) <- c("Results")
   
   
-if(print_age) { 
-  print(paste(
-    "Age: ",
-    round(T_final / 1000, digits = 1),
-    " +",
-    round((quantile(T_sol, .841) - T_final) / 1000, digits = 1),
-    "/-",
-    round((T_final - quantile(T_sol, .159)) / 1000, digits = 1),
-    " ka",
-    sep = ""
-  ))
-} else {
-  # don't print anything
-}
+  if(print_age) { 
+    print(paste(
+      "Age: ",
+      round(T_final / 1000, digits = 1),
+      " +",
+      round((quantile(T_sol, .841) - T_final) / 1000, digits = 1),
+      "/-",
+      round((T_final - quantile(T_sol, .159)) / 1000, digits = 1),
+      " ka",
+      sep = ""
+    ))
+  } else {
+    # don't print anything
+  }
   
-# collect the output into a list ------------------------------------
+  # collect the output into a list ------------------------------------
   output <- (list(results = results,
                   diff = diff,
                   T_final = T_final,
@@ -389,41 +389,41 @@ if(print_age) {
   # for unique file names
   st <- format(Sys.time(), "%Y-%m-%d_%H%M%S")
   
-# plot or not? ------------------------------------
-if(with_plots){
-  message("Drawing plots...")
-  # draw plots in a panel
-  T_sol_plot_output <- T_sol_plot(output)
-  u_conc_profile_plot_output <- u_conc_profile_plot(output)
-  u234_u238_ratio_plot_output <- u234_u238_ratio_plot(output)
-  th230_u238_ratio_plot_output <- th230_u238_ratio_plot(output)
-  
-  p1 <-
-    cowplot::plot_grid(T_sol_plot_output,
-              u_conc_profile_plot_output,
-              u234_u238_ratio_plot_output,
-              th230_u238_ratio_plot_output,
-              labels = "AUTO",
-              ncol = 2)
-  
-  output$plots <-  p1
-  message("Done.")
-  
-  if(save_plots){
+  # plot or not? ------------------------------------
+  if(with_plots){
+    message("Drawing plots...")
+    # draw plots in a panel
+    T_sol_plot_output <- T_sol_plot(output)
+    u_conc_profile_plot_output <- u_conc_profile_plot(output)
+    u234_u238_ratio_plot_output <- u234_u238_ratio_plot(output)
+    th230_u238_ratio_plot_output <- th230_u238_ratio_plot(output)
     
-    plot_file_name <- paste0("osUTh-plots-", st, ".png")
-    message(paste0("Saving plots to ", getwd(), ", look for '", plot_file_name, "'" ))
-    png(plot_file_name, width = 15, height = 15, units = "cm", res = 300 )
-    print(output$plots)
-    dev.off()
+    p1 <-
+      cowplot::plot_grid(T_sol_plot_output,
+                         u_conc_profile_plot_output,
+                         u234_u238_ratio_plot_output,
+                         th230_u238_ratio_plot_output,
+                         labels = "AUTO",
+                         ncol = 2)
     
-  } else {
-    # don't save plots
+    output$plots <-  p1
+    message("Done.")
+    
+    if(save_plots){
+      
+      plot_file_name <- paste0("osUTh-plots-", st, ".png")
+      message(paste0("Saving plots to ", getwd(), ", look for '", plot_file_name, "'" ))
+      png(plot_file_name, width = 15, height = 15, units = "cm", res = 300 )
+      print(output$plots)
+      dev.off()
+      
+    } else {
+      # don't save plots
+    }
+    
+  }else {
+    # don't plot anything
   }
-  
-}else {
-  # don't plot anything
-}
   
   if(save_output){
     
@@ -437,8 +437,8 @@ if(with_plots){
   }
   
   
-return(output)
-
+  return(output)
+  
 }
 
 
@@ -476,20 +476,20 @@ T_sol_plot <- function(output,
   
   ggplot(output$T_sol,
          aes(T_sol)) +
-  geom_histogram(binwidth = 500,
-                 fill = "white",
-                 color = "black") +
+    geom_histogram(binwidth = 500,
+                   fill = "white",
+                   color = "black") +
     ggtitle(paste(
-    "Age: ",
-    round(output$T_final / 1000, digits = digits),
-    " +",
-    round((quantile(output$T_sol$T_sol, .841) - output$T_final) / 1000, digits = digits),
-    "/-",
-    round((output$T_final - quantile(output$T_sol$T_sol, .159)) / 1000, digits = digits),
-    " ka",
-    sep = ""
-  )) +  theme_plots 
-
+      "Age: ",
+      round(output$T_final / 1000, digits = digits),
+      " +",
+      round((quantile(output$T_sol$T_sol, .841) - output$T_final) / 1000, digits = digits),
+      "/-",
+      round((output$T_final - quantile(output$T_sol$T_sol, .159)) / 1000, digits = digits),
+      " ka",
+      sep = ""
+    )) +  theme_plots 
+  
 }
 
 
@@ -505,34 +505,34 @@ T_sol_plot <- function(output,
 #' @export
 
 u_conc_profile_plot <- function(output,
-           big_size = 10,
-           less_big_size = 8,
-           point_size = 2,
-           digits = 1){
-    
-    theme_plots <-
-      theme(
-        plot.title = element_text(size = big_size, hjust = 0.5),
-        legend.title = element_blank(),
-        axis.title.y = element_text(size = big_size),
-        axis.title.x = element_text(size = big_size),
-        axis.text.x = element_text(size = less_big_size),
-        axis.text.y = element_text(size = less_big_size)
-      ) +
-      theme_bw() +
-      theme(panel.grid.major = element_blank(),
-            panel.grid.minor = element_blank())
-    
+                                big_size = 10,
+                                less_big_size = 8,
+                                point_size = 2,
+                                digits = 1){
+  
+  theme_plots <-
+    theme(
+      plot.title = element_text(size = big_size, hjust = 0.5),
+      legend.title = element_blank(),
+      axis.title.y = element_text(size = big_size),
+      axis.title.x = element_text(size = big_size),
+      axis.text.x = element_text(size = less_big_size),
+      axis.text.y = element_text(size = less_big_size)
+    ) +
+    theme_bw() +
+    theme(panel.grid.major = element_blank(),
+          panel.grid.minor = element_blank())
+  
   ggplot(output$output_data) +
-  geom_errorbar(aes(x = iDAD.position,
-                    ymax = U_ppm + U_ppm_2SE,
-                    ymin = U_ppm - U_ppm_2SE, width = 0.02)) + # plot error bars
-  geom_point(aes(iDAD.position, U_ppm),
-             color = "blue",
-             size = point_size) +
-  ylab("U (ppm)") +
-  xlab("Relative distance from center") +
-  theme_plots
+    geom_errorbar(aes(x = iDAD.position,
+                      ymax = U_ppm + U_ppm_2SE,
+                      ymin = U_ppm - U_ppm_2SE, width = 0.02)) + # plot error bars
+    geom_point(aes(iDAD.position, U_ppm),
+               color = "blue",
+               size = point_size) +
+    ylab("U (ppm)") +
+    xlab("Relative distance from center") +
+    theme_plots
 }
 
 #' Calculated (red) and observed (blue) (^234^U/^238^U) activity ratios for transect
@@ -566,21 +566,21 @@ u234_u238_ratio_plot <- function(output,
           panel.grid.minor = element_blank())
   
   ggplot(output$output_data) +
-  geom_errorbar(aes(x = iDAD.position,
-                    ymax = U234_U238 + U234_U238_2SE,
-                    ymin = U234_U238 - U234_U238_2SE,
-                    width = 0.02)) + # plot error bars
-  geom_point(aes(iDAD.position,
-                 U234_U238),
-             color = "blue",
-             size = point_size) +
-  geom_point(aes(iDAD.position,
-                 U234_U238_CALC),
-             color = "red",
-             size = point_size) +
-  ylab(expression("["^234 * "U/"^238 * "U]")) +
-  xlab("Relative distance from center") +
-  theme_plots
+    geom_errorbar(aes(x = iDAD.position,
+                      ymax = U234_U238 + U234_U238_2SE,
+                      ymin = U234_U238 - U234_U238_2SE,
+                      width = 0.02)) + # plot error bars
+    geom_point(aes(iDAD.position,
+                   U234_U238),
+               color = "blue",
+               size = point_size) +
+    geom_point(aes(iDAD.position,
+                   U234_U238_CALC),
+               color = "red",
+               size = point_size) +
+    ylab(expression("["^234 * "U/"^238 * "U]")) +
+    xlab("Relative distance from center") +
+    theme_plots
 }
 
 #' Calculated (red) and observed (blue) (^230^Th/^238^U) activity ratios for transect 
@@ -595,10 +595,10 @@ u234_u238_ratio_plot <- function(output,
 #' @export
 
 th230_u238_ratio_plot <-  function(output,
-         big_size = 10,
-         less_big_size = 8,
-         point_size = 2,
-         digits = 1){
+                                   big_size = 10,
+                                   less_big_size = 8,
+                                   point_size = 2,
+                                   digits = 1){
   
   theme_plots <-
     theme(
@@ -612,24 +612,24 @@ th230_u238_ratio_plot <-  function(output,
     theme_bw() +
     theme(panel.grid.major = element_blank(),
           panel.grid.minor = element_blank())
-
+  
   ggplot(output$output_data) +
-  geom_errorbar(
-    aes(
-      x = iDAD.position,
-      ymax = Th230_U238 + Th230_U238_2SE,
-      ymin = Th230_U238 - Th230_U238_2SE,
-      width = 0.02
-    )
-  ) + # plot error bars
-  geom_point(aes(iDAD.position, Th230_U238),
-             color = 'blue',
-             size = point_size) +
-  geom_point(aes(iDAD.position, Th230_U238_CALC),
-             color = 'red',
-             size = point_size) +
-  ylab(expression("[" ^ 230 * "Th/" ^ 238 * "U]")) + xlab("Relative distance from center") +
-  theme_plots
+    geom_errorbar(
+      aes(
+        x = iDAD.position,
+        ymax = Th230_U238 + Th230_U238_2SE,
+        ymin = Th230_U238 - Th230_U238_2SE,
+        width = 0.02
+      )
+    ) + # plot error bars
+    geom_point(aes(iDAD.position, Th230_U238),
+               color = 'blue',
+               size = point_size) +
+    geom_point(aes(iDAD.position, Th230_U238_CALC),
+               color = 'red',
+               size = point_size) +
+    ylab(expression("[" ^ 230 * "Th/" ^ 238 * "U]")) + xlab("Relative distance from center") +
+    theme_plots
 }
 
 
@@ -743,22 +743,22 @@ csUTh <- function(input_data,
   # detrital-corrected ratios
   data$U234_U238_DET <- data$U234_U238 - data$b*data$Th232_U238
   data$U234_U238_DET_ERR <- sqrt(data$b^2*(data$r2^2*data$Th232_U238_2SE^2 +
-                                                  data$r1^2*R28det_err^2) +
-                                        data$r2^2*data$U234_U238_2SE +
-                                        data$r1^2*R48det_err^2)
+                                             data$r1^2*R28det_err^2) +
+                                   data$r2^2*data$U234_U238_2SE +
+                                   data$r1^2*R48det_err^2)
   data$Th230_U238_DET <- data$Th230_U238 - data$B*data$Th232_U238
   data$Th230_U238_DET_ERR <- sqrt(data$B^2*(data$r2^2*data$Th232_U238_2SE^2 +
-                                                   data$r1^2*R28det_err^2) +
-                                         data$r2^2*data$Th230_U238_2SE +
-                                         data$r1^2*R08det_err^2)
+                                              data$r1^2*R28det_err^2) +
+                                    data$r2^2*data$Th230_U238_2SE +
+                                    data$r1^2*R08det_err^2)
   
   # create vectors
   time_results <- vector(mode="numeric", length=number_sampletosolve)
-  err_time_results <- vector(mode="numeric", length=number_sampletosolve)
   R48i_results <- vector(mode="numeric", length=number_sampletosolve)
-  err_R48i_results <- vector(mode="numeric", length=number_sampletosolve)
-  time2sd_results <- vector(mode="numeric", length=number_sampletosolve)
-  R48i2sd_results <- vector(mode="numeric", length=number_sampletosolve)
+  timep2sd_results <- vector(mode="numeric", length=number_sampletosolve)
+  timem2sd_results <- vector(mode="numeric", length=number_sampletosolve)
+  R48ip2sd_results <- vector(mode="numeric", length=number_sampletosolve)
+  R48im2sd_results <- vector(mode="numeric", length=number_sampletosolve)
   
   # repeat loop for each sample
   for (count in 1:number_sampletosolve){
@@ -780,8 +780,10 @@ csUTh <- function(input_data,
     Th0U8calc <- vector(mode="numeric", length=nbit)
     time <- vector(mode="numeric", length=nbit)
     R48i <- vector(mode="numeric", length=nbit)
-    time_2sd <- vector(mode="numeric", length=nbit)
-    R48i_2sd <- vector(mode="numeric", length=nbit)
+    time_p2sd <- vector(mode="numeric", length=nbit)
+    time_m2sd <- vector(mode="numeric", length=nbit)
+    R48i_p2sd <- vector(mode="numeric", length=nbit)
+    R48i_m2sd <- vector(mode="numeric", length=nbit)
     
     # repeat optimisation 'nbit' number of times for a given sample
     for (i in 1:nbit){
@@ -819,24 +821,29 @@ csUTh <- function(input_data,
     results <- as.data.frame(cbind(time, R48i, U48calc, Th0U8calc))
     # take the median of all ages and initial (234U/23U)
     time_median <- median(results$time)
-    time_2sd <- 2*sd(results$time)
+    time_p2sd <- quantile(results$time, .979) - time_median
+    time_m2sd <- time_median - quantile(results$time, .021)
     R48i_median <- median(results$R48i)
-    R48i_2sd <- 2*sd(results$R48i)
-
+    R48i_p2sd <- quantile(results$R48i, .979) - R48i_median
+    R48i_m2sd <- R48i_median - quantile(results$R48i, .021)
+    
     # store age, error on age and initial (234U/23U) for each sample
     time_results[count] <- time_median
-    time2sd_results[count] <- time_2sd
+    timep2sd_results[count] <- time_p2sd
+    timem2sd_results[count] <- time_m2sd
     R48i_results[count] <- R48i_median
-    R48i2sd_results[count] <- R48i_2sd
+    R48ip2sd_results[count] <- R48i_p2sd
+    R48im2sd_results[count] <- R48i_m2sd
   }
   
   final_results <- as.data.frame(cbind(
-                                       data,
-                                       round(time_results/1000,3), round(time2sd_results/1000,3),
-                                       round(R48i_results,3), round(R48i2sd_results,3)))
+    data,
+    round(time_results/1000,3), round(timep2sd_results/1000,3), round(timem2sd_results/1000,3),
+    round(R48i_results,3), round(R48ip2sd_results,3), round(R48im2sd_results,3)))
   final_results$Sample_ID <- data$Sample_ID
   colnames(final_results)[1] <- "Sample ID"
-  colnames(final_results)[(ncol(final_results)-3):ncol(final_results)] <- c("Age (ka)", "Age 2sd", "[234U/238U]i", "Ratio 2sd")
+  colnames(final_results)[(ncol(final_results)-5):ncol(final_results)] <- 
+    c("Age (ka)", "Age +2sd", "Age -2sd", "[234U/238U]i", "Ratio +2sd", "Ratio -2sd")
   
   remove_outliers <- function(x, na.rm = TRUE, ...) {
     qnt <- quantile(x, probs=c(.25, .75), na.rm = na.rm, ...)
@@ -860,8 +867,8 @@ csUTh <- function(input_data,
   # simplify output
   output <- list(results = NULL, plots = NULL)
   if("Th230_Th232" %in% colnames(input_data)){
-    output$results <- plotdata[,c(1, 18:21)]}else{
-      output$results <- plotdata[,c(1, 16:19)]
+    output$results <- plotdata[,c(1, 18:23)]}else{
+      output$results <- plotdata[,c(1, 16:21)]
     }
   
   # plot initial (234U/238U)
@@ -881,39 +888,39 @@ csUTh <- function(input_data,
       theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5))
     
     # draw plots in a panel
-  p3 <- cowplot::plot_grid(p1, p2, ncol = 2)
-  
-  output$plots <-  p3
-  
-  # for unique file names
-  
-  
-  if(save_plots){
+    p3 <- cowplot::plot_grid(p1, p2, ncol = 2)
     
-    plot_file_name <- paste0("csUTh-plots-", st, ".png")
-    message(paste0("Saving plots to ", getwd(), ", look for '", plot_file_name, "'"))
-    png(plot_file_name, width = 15, height = 10, units = "cm", res = 300 )
-    print(output$plots)
-    dev.off()
+    output$plots <-  p3
     
-  } else {
-    # don't save plots
-  }
-  
-  message("Done.")
-  
+    # for unique file names
+    
+    
+    if(save_plots){
+      
+      plot_file_name <- paste0("csUTh-plots-", st, ".png")
+      message(paste0("Saving plots to ", getwd(), ", look for '", plot_file_name, "'"))
+      png(plot_file_name, width = 15, height = 10, units = "cm", res = 300 )
+      print(output$plots)
+      dev.off()
+      
+    } else {
+      # don't save plots
+    }
+    
+    message("Done.")
+    
   } else {
     # don't draw plots
   }
   
   output$print_age <- paste('Mean age: ',round(mean(output$results$`Age (ka)`, na.rm = TRUE),1),
-                         '+/-', round(2*sd(output$results$`Age (ka)`, na.rm = TRUE)/
-                                        sqrt(length(output$results$`Age (ka)`)), 1), ' ka')
-
+                            '+/-', round(2*sd(output$results$`Age (ka)`, na.rm = TRUE),1),
+                            ' ka')
+  
   
   if(print_age){
     
-  print(output$print_age)
+    print(output$print_age)
     
   } else {
     # don't print anything
@@ -924,7 +931,7 @@ csUTh <- function(input_data,
     filename <-  paste0("csUTh-output-", st, ".csv")
     write.csv(output$results, filename)
     message(paste0("Saving output to ", getwd(), ", look for '", filename, "'"))
-              
+    
     
   } else {
     # don't save anything
@@ -946,9 +953,9 @@ csUTh <- function(input_data,
 #' @export
 
 initial_234U_238U_plot <- function(output,
-                                 big_size = 10,
-                                 less_big_size = 8,
-                                 point_size = 5){
+                                   big_size = 10,
+                                   less_big_size = 8,
+                                   point_size = 5){
   
   theme_plots <-
     theme(
@@ -964,12 +971,12 @@ initial_234U_238U_plot <- function(output,
           panel.grid.minor = element_blank())
   
   ggplot(output$results, aes(`Sample ID`, `[234U/238U]i`)) + # plot ages
-  geom_errorbar(aes(ymin = (`[234U/238U]i` - `Ratio 2sd`),
-                    ymax = (`[234U/238U]i` + `Ratio 2sd`)), 
-                width=0.1) + # plot error bars
-  geom_point(size=point_size) + # plot points
-  xlab("Sample ID") + # x axis label
-  ylab(expression("Initial ["^234*"U/"^238*"U]")) + # y axis label
+    geom_errorbar(aes(ymin = (`[234U/238U]i` - `Ratio -2sd`),
+                      ymax = (`[234U/238U]i` + `Ratio +2sd`)), 
+                  width=0.1) + # plot error bars
+    geom_point(size=point_size) + # plot points
+    xlab("Sample ID") + # x axis label
+    ylab(expression("Initial ["^234*"U/"^238*"U]")) + # y axis label
     theme_plots
 }
 
@@ -984,9 +991,9 @@ initial_234U_238U_plot <- function(output,
 #' @import ggplot2
 #' @export
 ages_plot <- function(output,
-                   big_size = 10,
-                   less_big_size = 8,
-                   point_size = 5){
+                      big_size = 10,
+                      less_big_size = 8,
+                      point_size = 5){
   
   theme_plots <-
     theme(
@@ -1002,13 +1009,13 @@ ages_plot <- function(output,
           panel.grid.minor = element_blank())
   
   ggplot(output$results, aes(`Sample ID`, `Age (ka)`)) + # plot ages
-  geom_errorbar(aes(ymin = (`Age (ka)` - `Age 2sd`),
-                    ymax = (`Age (ka)` + `Age 2sd`)), 
-                width=0.1) + # plot error bars
-  geom_point(size=point_size) + # plot points
-  xlab("Sample ID") + # x axis label
-  ylab("Age (ka)")  + # y axis label
-  theme_plots
+    geom_errorbar(aes(ymin = (`Age (ka)` - `Age -2sd`),
+                      ymax = (`Age (ka)` + `Age +2sd`)), 
+                  width=0.1) + # plot error bars
+    geom_point(size=point_size) + # plot points
+    xlab("Sample ID") + # x axis label
+    ylab("Age (ka)")  + # y axis label
+    theme_plots
 }
 
 
