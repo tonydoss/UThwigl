@@ -5,9 +5,16 @@ account: anthony-dosseto
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 4492578
+<<<<<<< HEAD
 bundleId: 4941078
 url: https://anthony-dosseto.shinyapps.io/csUTh/
 when: 1629376793.56646
 lastSyncTime: 1629376793.56646
+=======
+bundleId: 4941013
+url: https://anthony-dosseto.shinyapps.io/csUTh/
+when: 1629375231.34502
+lastSyncTime: 1629375231.34502
+>>>>>>> 7179a9e6f4268937dd684a4f8e5637ac3ea30103
 asMultiple: FALSE
 asStatic: FALSE
