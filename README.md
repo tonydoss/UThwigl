@@ -21,8 +21,7 @@ radioactive decay.
 The function, `csUTh()`, calculates closed-system ages and uses
 (<sup>230</sup>Th/<sup>238</sup>U) and (<sup>234</sup>U/<sup>238</sup>U)
 activity ratios on a single analysis to return an age in thousands of
-years ago. The (<sup>230</sup>Th/<sup>238</sup>U) activity ratio is also
-needed for detrital correction.
+years ago. The (<sup>230</sup>Th/<sup>238</sup>U) or (<sup>230</sup>Th/<sup>230</sup>Th) activity ratios are also needed for detrital correction.
 
 The function, `osUTh()`, calculates open-system ages and take the
 (<sup>230</sup>Th/<sup>238</sup>U) and (<sup>234</sup>U/<sup>238</sup>U)

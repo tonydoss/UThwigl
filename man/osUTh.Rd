@@ -10,15 +10,14 @@ osUTh(
   fsum_target = 0.01,
   U48_0_min = 1.265,
   U48_0_max = 1.275,
-  l = 5.35,
   U_0 = 25,
   K_min = 1e-13,
   K_max = 1e-11,
   T_min = 1000,
   T_max = 20000,
-  print_summary = TRUE,
+  print_age = TRUE,
   with_plots = TRUE,
-  save_plots = TRUE,
+  save_plots = FALSE,
   save_output = FALSE
 )
 }
@@ -33,8 +32,6 @@ osUTh(
 
 \item{U48_0_max}{The maximum value allowed for the (^234^U/^238^U) activity ratio at the surface of the sample}
 
-\item{l}{The thickness of the sample in centimeters}
-
 \item{U_0}{The uranium concentration at the surface in ppm}
 
 \item{K_min}{The minimum value allowed for the uranium diffusion coefficient (in cm^2^/s)}
@@ -45,7 +42,7 @@ osUTh(
 
 \item{T_max}{The maximum value for the age of the specimen (yr)}
 
-\item{print_summary}{Print a summary of the output to the console? Default is TRUE}
+\item{print_age}{Print a summary of the output to the console? Default is TRUE}
 
 \item{with_plots}{Display a panel of plots of the output? Default is TRUE}
 
@@ -66,13 +63,12 @@ nbit = 1,
 fsum_target = 0.01,
 U48_0_min = 1.265,
 U48_0_max = 1.275,
-l = 5.35,
 U_0 = 25,
 K_min = 1e-13,
 K_max = 1e-11,
 T_min = 1e3,
 T_max = 20e3,
-print_summary = TRUE,
+print_age = TRUE,
 with_plots = FALSE,
 save_plots = FALSE)
 

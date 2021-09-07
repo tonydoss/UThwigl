@@ -13,7 +13,7 @@ globalVariables(c("iDAD.position",
                   "ID",
                   "Age (ka)", 
                   "Age 2sd", 
-                  "(234U/238U)i", 
+                  "[234U/238U]i", 
                   "Ratio 2sd",
                   "Sample ID"
 ))
@@ -29,7 +29,7 @@ globalVariables(c("iDAD.position",
   packageStartupMessage("To cite the UThwigl package use:
 
   Dosseto, A. and B. Marwick, (2021) UThwigl: An R package
-  for closed- and open-system Uranium-Thorium dating Quaternary
+  for closed- and open-system uranium-thorium dating Quaternary
   Geochronology 0:000--000, http://doi.org/10.17605/OSF.IO/D5P7S
 
 A BibTeX entry for LaTeX users can be obtained with
@@ -38,7 +38,7 @@ A BibTeX entry for LaTeX users can be obtained with
 As UThwigl is continually evolving, you may want to cite
 its version number. Find it with 'help(package=UThwigl)'.
                         ")
- 
+  
 }
 
 
@@ -49,13 +49,12 @@ its version number. Find it with 'help(package=UThwigl)'.
 #' @param fsum_target The sum of the squared differences between the calculated and observed activity ratios.
 #' @param U48_0_min The minimum value allowed for the (^234^U/^238^U) activity ratio at the surface of the sample
 #' @param U48_0_max The maximum value allowed for the (^234^U/^238^U) activity ratio at the surface of the sample
-#' @param l The thickness of the sample in centimeters
 #' @param U_0 The uranium concentration at the surface in ppm
 #' @param K_min The minimum value allowed for the uranium diffusion coefficient (in cm^2^/s)
 #' @param K_max The maximum value allowed for the uranium diffusion coefficient (in cm^2^/s)
 #' @param T_min The minimum value for the age of the specimen (yr)
 #' @param T_max The maximum value for the age of the specimen (yr)
-#' @param print_summary Print a summary of the output to the console? Default is TRUE
+#' @param print_age Print a summary of the output to the console? Default is TRUE
 #' @param with_plots Display a panel of plots of the output? Default is TRUE
 #' @param save_plots Save plots as a png file to the current working directory? Default: TRUE
 #' @param save_output Save output data as a CSV file to the current working directory? Default: FALSE
@@ -76,40 +75,38 @@ its version number. Find it with 'help(package=UThwigl)'.
 #' fsum_target = 0.01,
 #' U48_0_min = 1.265,
 #' U48_0_max = 1.275,
-#' l = 5.35,
 #' U_0 = 25,
 #' K_min = 1e-13,
 #' K_max = 1e-11,
 #' T_min = 1e3,
 #' T_max = 20e3,
-#' print_summary = TRUE,
+#' print_age = TRUE,
 #' with_plots = FALSE,
 #' save_plots = FALSE)
 #' 
 
 osUTh <- function(input_data,
-                     nbit = 1000,
-                     fsum_target = 0.01,
-                     U48_0_min = 1.265, # Hobbit_1-1T: 1.3; Hobbit_MH2T: 1.265
-                     U48_0_max = 1.275, # Hobbit_1-1T: 1.4; Hobbit_MH2T: 1.275
-                     l = 5.35, # Hobbit_1-1T: 3.5 cm; Hobbit_MH2T: 5.35 cm
-                     U_0 = 25, # Hobbit_1-1T: 15 ppm; Hobbit_MH2T: 25 ppm
-                     K_min = 1e-13,
-                     K_max = 1e-11,
-                     T_min = 1e3, # Hobbit_1-1T: 50e3; Hobbit_MH2T: 1e3
-                     T_max = 20e3, # Hobbit_1-1T: 100e3; Hobbit_MH2T: 20e3
-                     print_summary = TRUE,
-                     with_plots = TRUE,
-                     save_plots = TRUE,
-                     save_output = FALSE
-                  ){
+                  nbit = 1000,
+                  fsum_target = 0.01,
+                  U48_0_min = 1.265, # Hobbit_1-1T: 1.3; Hobbit_MH2T: 1.265
+                  U48_0_max = 1.275, # Hobbit_1-1T: 1.4; Hobbit_MH2T: 1.275
+                  U_0 = 25, # Hobbit_1-1T: 15 ppm; Hobbit_MH2T: 25 ppm
+                  K_min = 1e-13,
+                  K_max = 1e-11,
+                  T_min = 1e3, # Hobbit_1-1T: 50e3; Hobbit_MH2T: 1e3
+                  T_max = 20e3, # Hobbit_1-1T: 100e3; Hobbit_MH2T: 20e3
+                  print_age = TRUE,
+                  with_plots = TRUE,
+                  save_plots = FALSE,
+                  save_output = FALSE
+){
   
   
   # check that the input data frame has the columns with the right names
   
-  col_names_we_need <-  c("iDAD.position", "U234_U238", "U234_U238_2SE", "Th230_U238", "Th230_U238_2SE")
+  col_names_we_need <-  c("x", "y", "Comments", "U234_U238", "U234_U238_2SE", "Th230_U238", "Th230_U238_2SE")
   
-  if(all(col_names_we_need %in% colnames(input_data)))
+  if (all(col_names_we_need %in% colnames(input_data)))
   {
     message("All required columns are present in the input data. \n");
   } else {
@@ -119,13 +116,36 @@ osUTh <- function(input_data,
          update the column names using the `names()` function, and try again.\n
          Your data has these column names: ", colnames(input_data), "\n
          This function requires data with these column names: ", col_names_we_need,
-         "\n"))
+                "\n"))
   }
   
-
-# from iDAD Monte Carlo.R -------------------------------------------------
-
-
+  
+  
+  # calculate iDAD positions and sample thickness ---------------------------
+  
+  # Coordinates of outer and inner surfaces
+  x_s1 <- input_data$x[grepl("outer surface", input_data$Comments)]
+  y_s1 <- input_data$y[grepl("outer surface", input_data$Comments)]
+  x_s2 <- input_data$x[grepl("inner surface", input_data$Comments)]
+  y_s2 <- input_data$y[grepl("inner surface", input_data$Comments)]
+  
+  if (abs(x_s2 - x_s1) > abs(y_s2 - y_s1)) {
+    input_data$iDAD.position <- (2/(x_s2 - x_s1)*(input_data$x - x_s2) + 1)
+  } else {
+    input_data$iDAD.position <- (2/(y_s2 - y_s1)*(input_data$y - y_s2) + 1)
+  }
+  
+  # Calculate sample thickness (in cm)
+  l <- sqrt((x_s2 - x_s1)^2 + (y_s2 - y_s1)^2)/10
+  
+  # Remove rows that don't have data (rows with coordinates of outer and inner surfaces)
+  input_data <- input_data[!is.na(input_data$U234_U238),]
+  # Remove column "Comments" (we don't need it anymore)
+  input_data <-  input_data[ , ! names(input_data) %in% c("Comments")]
+  
+  # from iDAD Monte Carlo.R -------------------------------------------------
+  
+  
   l <- l/10/2
   
   l238 <- 0.1551e-9/(365.25*24*3600)
@@ -258,7 +278,7 @@ osUTh <- function(input_data,
   T_sol_df = as.data.frame(T_sol)  
   
   
-# from iDAD_direct.R ------------------------------------------------------
+  # from iDAD_direct.R ------------------------------------------------------
   
   i <- 0
   
@@ -313,49 +333,49 @@ osUTh <- function(input_data,
   colnames(output_data)[  c( (ncol(output_data)-1), ncol(output_data) ) ] <- 
     c("U234_U238_CALC", "Th230_U238_CALC")
   
-# from graphs&save.R -------------------------------------------  
+  # from graphs&save.R -------------------------------------------  
   
   
   results <-
     as.data.frame(
       cbind(
         T_final / 1000,
-        (quantile(T_sol, .67) - T_final) / 1000,
-        (T_final - quantile(T_sol, .33)) / 1000,
+        (quantile(T_sol, .841) - T_final) / 1000,
+        (T_final - quantile(T_sol, .159)) / 1000,
         U48_0_final,
-        U48_0_max - U48_0_final,
-        U48_0_final - U48_0_min
+        quantile(U48_0_sol, .841) - U48_0_final,
+        U48_0_final - quantile(U48_0_sol, .159)
       )
     )
   
   colnames(results) <-
     c(
       "Age (ka)",
-      "Age 67% quantile (ka)" ,
-      "Age 33% quantile (ka)",
+      "Age +1SD (ka)" ,
+      "Age -1SD (ka)",
       "U234_U238_0",
-      "U234_U238_0 67% quantile" ,
-      "U234_U238_0 33% quantile"
+      "U234_U238_0 +1SD" ,
+      "U234_U238_0 -1SD"
     )
   rownames(results) <- c("Results")
   
   
-if(print_summary) { 
-  print(paste(
-    "Age: ",
-    round(T_final / 1000, digits = 1),
-    " +",
-    round((quantile(T_sol, .67) - T_final) / 1000, digits = 1),
-    "/-",
-    round((T_final - quantile(T_sol, .33)) / 1000, digits = 1),
-    " ka",
-    sep = ""
-  ))
-} else {
-  # don't print anything
-}
+  if(print_age) { 
+    print(paste(
+      "Age: ",
+      round(T_final / 1000, digits = 1),
+      " +",
+      round((quantile(T_sol, .841) - T_final) / 1000, digits = 1),
+      "/-",
+      round((T_final - quantile(T_sol, .159)) / 1000, digits = 1),
+      " ka",
+      sep = ""
+    ))
+  } else {
+    # don't print anything
+  }
   
-# collect the output into a list ------------------------------------
+  # collect the output into a list ------------------------------------
   output <- (list(results = results,
                   diff = diff,
                   T_final = T_final,
@@ -369,41 +389,41 @@ if(print_summary) {
   # for unique file names
   st <- format(Sys.time(), "%Y-%m-%d_%H%M%S")
   
-# plot or not? ------------------------------------
-if(with_plots){
-  message("Drawing plots...")
-  # draw plots in a panel
-  T_sol_plot_output <- T_sol_plot(output)
-  u_conc_profile_plot_output <- u_conc_profile_plot(output)
-  u234_u238_ratio_plot_output <- u234_u238_ratio_plot(output)
-  th230_u238_ratio_plot_output <- th230_u238_ratio_plot(output)
-  
-  p1 <-
-    cowplot::plot_grid(T_sol_plot_output,
-              u_conc_profile_plot_output,
-              u234_u238_ratio_plot_output,
-              th230_u238_ratio_plot_output,
-              labels = "AUTO",
-              ncol = 2)
-  
-  output$plots <-  p1
-  message("Done.")
-  
-  if(save_plots){
+  # plot or not? ------------------------------------
+  if(with_plots){
+    message("Drawing plots...")
+    # draw plots in a panel
+    T_sol_plot_output <- T_sol_plot(output)
+    u_conc_profile_plot_output <- u_conc_profile_plot(output)
+    u234_u238_ratio_plot_output <- u234_u238_ratio_plot(output)
+    th230_u238_ratio_plot_output <- th230_u238_ratio_plot(output)
     
-    plot_file_name <- paste0("osUTh-plots-", st, ".png")
-    message(paste0("Saving plots to ", getwd(), ", look for '", plot_file_name, "'" ))
-    png(plot_file_name, width = 15, height = 15, units = "cm", res = 300 )
-    print(output$plots)
-    dev.off()
+    p1 <-
+      cowplot::plot_grid(T_sol_plot_output,
+                         u_conc_profile_plot_output,
+                         u234_u238_ratio_plot_output,
+                         th230_u238_ratio_plot_output,
+                         labels = "AUTO",
+                         ncol = 2)
     
-  } else {
-    # don't save plots
+    output$plots <-  p1
+    message("Done.")
+    
+    if(save_plots){
+      
+      plot_file_name <- paste0("osUTh-plots-", st, ".png")
+      message(paste0("Saving plots to ", getwd(), ", look for '", plot_file_name, "'" ))
+      png(plot_file_name, width = 15, height = 15, units = "cm", res = 300 )
+      print(output$plots)
+      dev.off()
+      
+    } else {
+      # don't save plots
+    }
+    
+  }else {
+    # don't plot anything
   }
-  
-}else {
-  # don't plot anything
-}
   
   if(save_output){
     
@@ -417,8 +437,8 @@ if(with_plots){
   }
   
   
-return(output)
-
+  return(output)
+  
 }
 
 
@@ -456,20 +476,20 @@ T_sol_plot <- function(output,
   
   ggplot(output$T_sol,
          aes(T_sol)) +
-  geom_histogram(binwidth = 500,
-                 fill = "white",
-                 color = "black") +
+    geom_histogram(binwidth = 500,
+                   fill = "white",
+                   color = "black") +
     ggtitle(paste(
-    "Age: ",
-    round(output$T_final / 1000, digits = digits),
-    " +",
-    round((quantile(output$T_sol$T_sol, .67) - output$T_final) / 1000, digits = digits),
-    "/-",
-    round((output$T_final - quantile(output$T_sol$T_sol, .33)) / 1000, digits = digits),
-    " ka",
-    sep = ""
-  )) +  theme_plots 
-
+      "Age: ",
+      round(output$T_final / 1000, digits = digits),
+      " +",
+      round((quantile(output$T_sol$T_sol, .841) - output$T_final) / 1000, digits = digits),
+      "/-",
+      round((output$T_final - quantile(output$T_sol$T_sol, .159)) / 1000, digits = digits),
+      " ka",
+      sep = ""
+    )) +  theme_plots 
+  
 }
 
 
@@ -485,34 +505,34 @@ T_sol_plot <- function(output,
 #' @export
 
 u_conc_profile_plot <- function(output,
-           big_size = 10,
-           less_big_size = 8,
-           point_size = 2,
-           digits = 1){
-    
-    theme_plots <-
-      theme(
-        plot.title = element_text(size = big_size, hjust = 0.5),
-        legend.title = element_blank(),
-        axis.title.y = element_text(size = big_size),
-        axis.title.x = element_text(size = big_size),
-        axis.text.x = element_text(size = less_big_size),
-        axis.text.y = element_text(size = less_big_size)
-      ) +
-      theme_bw() +
-      theme(panel.grid.major = element_blank(),
-            panel.grid.minor = element_blank())
-    
+                                big_size = 10,
+                                less_big_size = 8,
+                                point_size = 2,
+                                digits = 1){
+  
+  theme_plots <-
+    theme(
+      plot.title = element_text(size = big_size, hjust = 0.5),
+      legend.title = element_blank(),
+      axis.title.y = element_text(size = big_size),
+      axis.title.x = element_text(size = big_size),
+      axis.text.x = element_text(size = less_big_size),
+      axis.text.y = element_text(size = less_big_size)
+    ) +
+    theme_bw() +
+    theme(panel.grid.major = element_blank(),
+          panel.grid.minor = element_blank())
+  
   ggplot(output$output_data) +
-  geom_errorbar(aes(x = iDAD.position,
-                    ymax = U_ppm + U_ppm_2SE,
-                    ymin = U_ppm - U_ppm_2SE, width = 0.02)) + # plot error bars
-  geom_point(aes(iDAD.position, U_ppm),
-             color = "blue",
-             size = point_size) +
-  ylab("U (ppm)") +
-  xlab("Relative distance from center") +
-  theme_plots
+    geom_errorbar(aes(x = iDAD.position,
+                      ymax = U_ppm + U_ppm_2SE,
+                      ymin = U_ppm - U_ppm_2SE, width = 0.02)) + # plot error bars
+    geom_point(aes(iDAD.position, U_ppm),
+               color = "blue",
+               size = point_size) +
+    ylab("U (ppm)") +
+    xlab("Relative distance from center") +
+    theme_plots
 }
 
 #' Calculated (red) and observed (blue) (^234^U/^238^U) activity ratios for transect
@@ -546,21 +566,21 @@ u234_u238_ratio_plot <- function(output,
           panel.grid.minor = element_blank())
   
   ggplot(output$output_data) +
-  geom_errorbar(aes(x = iDAD.position,
-                    ymax = U234_U238 + U234_U238_2SE,
-                    ymin = U234_U238 - U234_U238_2SE,
-                    width = 0.02)) + # plot error bars
-  geom_point(aes(iDAD.position,
-                 U234_U238),
-             color = "blue",
-             size = point_size) +
-  geom_point(aes(iDAD.position,
-                 U234_U238_CALC),
-             color = "red",
-             size = point_size) +
-  ylab(expression("("^234 * "U/"^238 * "U)")) +
-  xlab("Relative distance from center") +
-  theme_plots
+    geom_errorbar(aes(x = iDAD.position,
+                      ymax = U234_U238 + U234_U238_2SE,
+                      ymin = U234_U238 - U234_U238_2SE,
+                      width = 0.02)) + # plot error bars
+    geom_point(aes(iDAD.position,
+                   U234_U238),
+               color = "blue",
+               size = point_size) +
+    geom_point(aes(iDAD.position,
+                   U234_U238_CALC),
+               color = "red",
+               size = point_size) +
+    ylab(expression("["^234 * "U/"^238 * "U]")) +
+    xlab("Relative distance from center") +
+    theme_plots
 }
 
 #' Calculated (red) and observed (blue) (^230^Th/^238^U) activity ratios for transect 
@@ -575,10 +595,10 @@ u234_u238_ratio_plot <- function(output,
 #' @export
 
 th230_u238_ratio_plot <-  function(output,
-         big_size = 10,
-         less_big_size = 8,
-         point_size = 2,
-         digits = 1){
+                                   big_size = 10,
+                                   less_big_size = 8,
+                                   point_size = 2,
+                                   digits = 1){
   
   theme_plots <-
     theme(
@@ -592,24 +612,24 @@ th230_u238_ratio_plot <-  function(output,
     theme_bw() +
     theme(panel.grid.major = element_blank(),
           panel.grid.minor = element_blank())
-
+  
   ggplot(output$output_data) +
-  geom_errorbar(
-    aes(
-      x = iDAD.position,
-      ymax = Th230_U238 + Th230_U238_2SE,
-      ymin = Th230_U238 - Th230_U238_2SE,
-      width = 0.02
-    )
-  ) + # plot error bars
-  geom_point(aes(iDAD.position, Th230_U238),
-             color = 'blue',
-             size = point_size) +
-  geom_point(aes(iDAD.position, Th230_U238_CALC),
-             color = 'red',
-             size = point_size) +
-  ylab(expression("(" ^ 230 * "Th/" ^ 238 * "U)")) + xlab("Relative distance from center") +
-  theme_plots
+    geom_errorbar(
+      aes(
+        x = iDAD.position,
+        ymax = Th230_U238 + Th230_U238_2SE,
+        ymin = Th230_U238 - Th230_U238_2SE,
+        width = 0.02
+      )
+    ) + # plot error bars
+    geom_point(aes(iDAD.position, Th230_U238),
+               color = 'blue',
+               size = point_size) +
+    geom_point(aes(iDAD.position, Th230_U238_CALC),
+               color = 'red',
+               size = point_size) +
+    ylab(expression("[" ^ 230 * "Th/" ^ 238 * "U]")) + xlab("Relative distance from center") +
+    theme_plots
 }
 
 
@@ -632,7 +652,7 @@ th230_u238_ratio_plot <-  function(output,
 #' @param R48det (234U/238U) activity ratio of the detritus. Default: 1
 #' @param R48det_err Error on the (234U/238U) activity ratio of the detritus. Default: 0.02
 #' @param keepfiltereddata Save filtered data on which an outlier test was performed? Only recommended if all analyses of a same sample are supposed to give the same age. Enter TRUE for yes, or FALSE for no. Default: FALSE
-#' @param print_summary Print a summary of the output to the console? Default: TRUE
+#' @param print_age Print a summary of the output to the console? Default: TRUE
 #' @param with_plots Draw plots? Default: TRUE
 #' @param save_plots Save plots as a png file to the current working directory? Default: TRUE
 #' @param save_output Save output data as a CSV file to the current working directory? Default: FALSE
@@ -650,7 +670,7 @@ th230_u238_ratio_plot <-  function(output,
 #' nbitchoice = 100,
 #' detcorrectionchoice = TRUE,
 #' keepfiltereddata = FALSE,
-#' print_summary = TRUE,
+#' print_age = TRUE,
 #' with_plots = FALSE,
 #' save_plots = FALSE)
 #' 
@@ -667,7 +687,7 @@ csUTh <- function(input_data,
                   R48det = 1,
                   R48det_err = 0.02,
                   keepfiltereddata = FALSE,
-                  print_summary = TRUE,
+                  print_age = TRUE,
                   with_plots = TRUE,
                   save_plots = TRUE,
                   save_output = FALSE
@@ -675,9 +695,14 @@ csUTh <- function(input_data,
   
   # check that the input data frame has the columns with the right names
   
-  col_names_we_need <-  c("Sample_ID", "U234_U238", "U234_U238_2SE", "Th230_U238", "Th230_U238_2SE", "Th232_U238", "Th232_U238_2SE")
   
-  if(all(col_names_we_need %in% colnames(input_data)))
+  col_names_we_absolutely_need <-  c("Sample_ID", "U234_U238", "U234_U238_2SE", "Th230_U238", "Th230_U238_2SE")
+  col_names_we_need_either <- c("Th232_U238", "Th232_U238_2SE")
+  col_names_we_need_or <- c("Th230_Th232", "Th230_Th232_2SE")
+  
+  if(all(col_names_we_absolutely_need %in% colnames(input_data)) & 
+     (all(col_names_we_need_either %in% colnames(input_data)) | 
+      all(col_names_we_need_or %in% colnames(input_data))))
   {
     message("All required columns are present in the input data. \n");
   } else {
@@ -685,7 +710,12 @@ csUTh <- function(input_data,
     stop("\nThe input data frame does not contain the necessary columns, or the columns are not named correctly. Please check the documentation for details of the required column names, update the column names using the `names()` function, and try again.\n")
   }
   
-  
+  # calculate (232Th/238U) activity ratios and their error, if needed
+  if("Th230_Th232" %in% colnames(input_data)){
+    input_data$Th232_U238 <- input_data$Th230_U238/input_data$Th230_Th232
+    input_data$Th232_U238_2SE <- input_data$Th232_U238*
+      sqrt((input_data$Th230_U238_2SE/input_data$Th230_U238)^2)
+  } 
   
   l234 <- 2.8262e-6 # 234U decay constant (a-1)
   l230 <- 9.1577e-6 # 230Th decay constant (a-1)
@@ -713,22 +743,22 @@ csUTh <- function(input_data,
   # detrital-corrected ratios
   data$U234_U238_DET <- data$U234_U238 - data$b*data$Th232_U238
   data$U234_U238_DET_ERR <- sqrt(data$b^2*(data$r2^2*data$Th232_U238_2SE^2 +
-                                                  data$r1^2*R28det_err^2) +
-                                        data$r2^2*data$U234_U238_2SE +
-                                        data$r1^2*R48det_err^2)
+                                             data$r1^2*R28det_err^2) +
+                                   data$r2^2*data$U234_U238_2SE +
+                                   data$r1^2*R48det_err^2)
   data$Th230_U238_DET <- data$Th230_U238 - data$B*data$Th232_U238
   data$Th230_U238_DET_ERR <- sqrt(data$B^2*(data$r2^2*data$Th232_U238_2SE^2 +
-                                                   data$r1^2*R28det_err^2) +
-                                         data$r2^2*data$Th230_U238_2SE +
-                                         data$r1^2*R08det_err^2)
+                                              data$r1^2*R28det_err^2) +
+                                    data$r2^2*data$Th230_U238_2SE +
+                                    data$r1^2*R08det_err^2)
   
   # create vectors
   time_results <- vector(mode="numeric", length=number_sampletosolve)
-  err_time_results <- vector(mode="numeric", length=number_sampletosolve)
   R48i_results <- vector(mode="numeric", length=number_sampletosolve)
-  err_R48i_results <- vector(mode="numeric", length=number_sampletosolve)
-  time2sd_results <- vector(mode="numeric", length=number_sampletosolve)
-  R48i2sd_results <- vector(mode="numeric", length=number_sampletosolve)
+  timep2sd_results <- vector(mode="numeric", length=number_sampletosolve)
+  timem2sd_results <- vector(mode="numeric", length=number_sampletosolve)
+  R48ip2sd_results <- vector(mode="numeric", length=number_sampletosolve)
+  R48im2sd_results <- vector(mode="numeric", length=number_sampletosolve)
   
   # repeat loop for each sample
   for (count in 1:number_sampletosolve){
@@ -750,8 +780,10 @@ csUTh <- function(input_data,
     Th0U8calc <- vector(mode="numeric", length=nbit)
     time <- vector(mode="numeric", length=nbit)
     R48i <- vector(mode="numeric", length=nbit)
-    time_2sd <- vector(mode="numeric", length=nbit)
-    R48i_2sd <- vector(mode="numeric", length=nbit)
+    time_p2sd <- vector(mode="numeric", length=nbit)
+    time_m2sd <- vector(mode="numeric", length=nbit)
+    R48i_p2sd <- vector(mode="numeric", length=nbit)
+    R48i_m2sd <- vector(mode="numeric", length=nbit)
     
     # repeat optimisation 'nbit' number of times for a given sample
     for (i in 1:nbit){
@@ -789,24 +821,29 @@ csUTh <- function(input_data,
     results <- as.data.frame(cbind(time, R48i, U48calc, Th0U8calc))
     # take the median of all ages and initial (234U/23U)
     time_median <- median(results$time)
-    time_2sd <- 2*sd(results$time)
+    time_p2sd <- quantile(results$time, .979) - time_median
+    time_m2sd <- time_median - quantile(results$time, .021)
     R48i_median <- median(results$R48i)
-    R48i_2sd <- 2*sd(results$R48i)
-
+    R48i_p2sd <- quantile(results$R48i, .979) - R48i_median
+    R48i_m2sd <- R48i_median - quantile(results$R48i, .021)
+    
     # store age, error on age and initial (234U/23U) for each sample
     time_results[count] <- time_median
-    time2sd_results[count] <- time_2sd
+    timep2sd_results[count] <- time_p2sd
+    timem2sd_results[count] <- time_m2sd
     R48i_results[count] <- R48i_median
-    R48i2sd_results[count] <- R48i_2sd
+    R48ip2sd_results[count] <- R48i_p2sd
+    R48im2sd_results[count] <- R48i_m2sd
   }
   
   final_results <- as.data.frame(cbind(
-                                       data,
-                                       round(time_results/1000,3), round(time2sd_results/1000,3),
-                                       round(R48i_results,3), round(R48i2sd_results,3)))
+    data,
+    round(time_results/1000,3), round(timep2sd_results/1000,3), round(timem2sd_results/1000,3),
+    round(R48i_results,3), round(R48ip2sd_results,3), round(R48im2sd_results,3)))
   final_results$Sample_ID <- data$Sample_ID
   colnames(final_results)[1] <- "Sample ID"
-  colnames(final_results)[(ncol(final_results)-3):ncol(final_results)] <- c("Age (ka)", "Age 2sd", "(234U/238U)i", "Ratio 2sd")
+  colnames(final_results)[(ncol(final_results)-5):ncol(final_results)] <- 
+    c("Age (ka)", "Age +2sd", "Age -2sd", "[234U/238U]i", "Ratio +2sd", "Ratio -2sd")
   
   remove_outliers <- function(x, na.rm = TRUE, ...) {
     qnt <- quantile(x, probs=c(.25, .75), na.rm = na.rm, ...)
@@ -829,7 +866,10 @@ csUTh <- function(input_data,
   
   # simplify output
   output <- list(results = NULL, plots = NULL)
-  output$results <- plotdata[,c(1, 16:19)]
+  if("Th230_Th232" %in% colnames(input_data)){
+    output$results <- plotdata[,c(1, 18:23)]}else{
+      output$results <- plotdata[,c(1, 16:21)]
+    }
   
   # plot initial (234U/238U)
   
@@ -848,39 +888,39 @@ csUTh <- function(input_data,
       theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5))
     
     # draw plots in a panel
-  p3 <- cowplot::plot_grid(p1, p2, ncol = 2)
-  
-  output$plots <-  p3
-  
-  # for unique file names
-  
-  
-  if(save_plots){
+    p3 <- cowplot::plot_grid(p1, p2, ncol = 2)
     
-    plot_file_name <- paste0("csUTh-plots-", st, ".png")
-    message(paste0("Saving plots to ", getwd(), ", look for '", plot_file_name, "'"))
-    png(plot_file_name, width = 15, height = 10, units = "cm", res = 300 )
-    print(output$plots)
-    dev.off()
+    output$plots <-  p3
     
-  } else {
-    # don't save plots
-  }
-  
-  message("Done.")
-  
+    # for unique file names
+    
+    
+    if(save_plots){
+      
+      plot_file_name <- paste0("csUTh-plots-", st, ".png")
+      message(paste0("Saving plots to ", getwd(), ", look for '", plot_file_name, "'"))
+      png(plot_file_name, width = 15, height = 10, units = "cm", res = 300 )
+      print(output$plots)
+      dev.off()
+      
+    } else {
+      # don't save plots
+    }
+    
+    message("Done.")
+    
   } else {
     # don't draw plots
   }
   
-  output$print_summary <- paste('Mean age: ',round(mean(output$results$`Age (ka)`, na.rm = TRUE),1),
-                         '+/-', round(2*sd(output$results$`Age (ka)`, na.rm = TRUE)/
-                                        sqrt(length(output$results$`Age (ka)`)), 1), ' ka')
-
+  output$print_age <- paste('Mean age: ',round(mean(output$results$`Age (ka)`, na.rm = TRUE),1),
+                            '+/-', round(2*sd(output$results$`Age (ka)`, na.rm = TRUE),1),
+                            ' ka')
   
-  if(print_summary){
+  
+  if(print_age){
     
-  print(output$print_summary)
+    print(output$print_age)
     
   } else {
     # don't print anything
@@ -891,7 +931,7 @@ csUTh <- function(input_data,
     filename <-  paste0("csUTh-output-", st, ".csv")
     write.csv(output$results, filename)
     message(paste0("Saving output to ", getwd(), ", look for '", filename, "'"))
-              
+    
     
   } else {
     # don't save anything
@@ -913,9 +953,9 @@ csUTh <- function(input_data,
 #' @export
 
 initial_234U_238U_plot <- function(output,
-                                 big_size = 10,
-                                 less_big_size = 8,
-                                 point_size = 5){
+                                   big_size = 10,
+                                   less_big_size = 8,
+                                   point_size = 5){
   
   theme_plots <-
     theme(
@@ -930,13 +970,13 @@ initial_234U_238U_plot <- function(output,
     theme(panel.grid.major = element_blank(),
           panel.grid.minor = element_blank())
   
-  ggplot(output$results, aes(`Sample ID`, `(234U/238U)i`)) + # plot ages
-  geom_errorbar(aes(ymin = (`(234U/238U)i` - `Ratio 2sd`),
-                    ymax = (`(234U/238U)i` + `Ratio 2sd`)), 
-                width=0.1) + # plot error bars
-  geom_point(size=point_size) + # plot points
-  xlab("Sample ID") + # x axis label
-  ylab(expression("Initial ("^234*"U/"^238*"U)")) + # y axis label
+  ggplot(output$results, aes(`Sample ID`, `[234U/238U]i`)) + # plot ages
+    geom_errorbar(aes(ymin = (`[234U/238U]i` - `Ratio -2sd`),
+                      ymax = (`[234U/238U]i` + `Ratio +2sd`)), 
+                  width=0.1) + # plot error bars
+    geom_point(size=point_size) + # plot points
+    xlab("Sample ID") + # x axis label
+    ylab(expression("Initial ["^234*"U/"^238*"U]")) + # y axis label
     theme_plots
 }
 
@@ -951,9 +991,9 @@ initial_234U_238U_plot <- function(output,
 #' @import ggplot2
 #' @export
 ages_plot <- function(output,
-                   big_size = 10,
-                   less_big_size = 8,
-                   point_size = 5){
+                      big_size = 10,
+                      less_big_size = 8,
+                      point_size = 5){
   
   theme_plots <-
     theme(
@@ -969,13 +1009,13 @@ ages_plot <- function(output,
           panel.grid.minor = element_blank())
   
   ggplot(output$results, aes(`Sample ID`, `Age (ka)`)) + # plot ages
-  geom_errorbar(aes(ymin = (`Age (ka)` - `Age 2sd`),
-                    ymax = (`Age (ka)` + `Age 2sd`)), 
-                width=0.1) + # plot error bars
-  geom_point(size=point_size) + # plot points
-  xlab("Sample ID") + # x axis label
-  ylab("Age (ka)")  + # y axis label
-  theme_plots
+    geom_errorbar(aes(ymin = (`Age (ka)` - `Age -2sd`),
+                      ymax = (`Age (ka)` + `Age +2sd`)), 
+                  width=0.1) + # plot error bars
+    geom_point(size=point_size) + # plot points
+    xlab("Sample ID") + # x axis label
+    ylab("Age (ka)")  + # y axis label
+    theme_plots
 }
 
 

@@ -9,7 +9,7 @@ output_cs <-
     nbitchoice = 10,
     detcorrectionchoice = TRUE,
     keepfiltereddata = FALSE,
-    print_summary = FALSE,
+    print_age = FALSE,
     with_plots = TRUE,
     save_plots = TRUE
   ))
@@ -33,9 +33,9 @@ test_that("csUTh() returns sensible values for the age", {
   expect_equal(mean(output_cs$results$`Age (ka)`), 120, tolerance = 10)
 })
 
-test_that("csUTh() returns sensible values for (234U/238U)i", {
+test_that("csUTh() returns sensible values for [234U/238U]i", {
   
-  expect_equal(mean(output_cs$results$`(234U/238U)i`), 1.131, tolerance = 0.1)
+  expect_equal(mean(output_cs$results$`[234U/238U]i`), 1.131, tolerance = 0.1)
 })
 
 

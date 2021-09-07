@@ -16,7 +16,7 @@ csUTh(
   R48det = 1,
   R48det_err = 0.02,
   keepfiltereddata = FALSE,
-  print_summary = TRUE,
+  print_age = TRUE,
   with_plots = TRUE,
   save_plots = TRUE,
   save_output = FALSE
@@ -45,7 +45,7 @@ csUTh(
 
 \item{keepfiltereddata}{Save filtered data on which an outlier test was performed? Only recommended if all analyses of a same sample are supposed to give the same age. Enter TRUE for yes, or FALSE for no. Default: FALSE}
 
-\item{print_summary}{Print a summary of the output to the console? Default: TRUE}
+\item{print_age}{Print a summary of the output to the console? Default: TRUE}
 
 \item{with_plots}{Draw plots? Default: TRUE}
 
@@ -64,7 +64,7 @@ sample_name = 'YP003',
 nbitchoice = 100,
 detcorrectionchoice = TRUE,
 keepfiltereddata = FALSE,
-print_summary = TRUE,
+print_age = TRUE,
 with_plots = FALSE,
 save_plots = FALSE)
 
