@@ -80,7 +80,7 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -103,7 +103,7 @@
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/tonydoss/UThwigl/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -132,16 +132,16 @@
     <pre class="usage"><span class='fu'>csUTh</span><span class='op'>(</span>
   <span class='va'>input_data</span>,
   sample_name <span class='op'>=</span> <span class='st'>"YP003"</span>,
-  nbitchoice <span class='op'>=</span> <span class='fl'>100</span>,
+  nbitchoice <span class='op'>=</span> <span class='fl'>1000</span>,
   detcorrectionchoice <span class='op'>=</span> <span class='cn'>TRUE</span>,
   R28det <span class='op'>=</span> <span class='fl'>0.8</span>,
-  R28det_err <span class='op'>=</span> <span class='fl'>0.08</span>,
+  R28det_err <span class='op'>=</span> <span class='fl'>0.4</span>,
   R08det <span class='op'>=</span> <span class='fl'>1</span>,
   R08det_err <span class='op'>=</span> <span class='fl'>0.05</span>,
   R48det <span class='op'>=</span> <span class='fl'>1</span>,
   R48det_err <span class='op'>=</span> <span class='fl'>0.02</span>,
   keepfiltereddata <span class='op'>=</span> <span class='cn'>FALSE</span>,
-  print_summary <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  print_age <span class='op'>=</span> <span class='cn'>TRUE</span>,
   with_plots <span class='op'>=</span> <span class='cn'>TRUE</span>,
   save_plots <span class='op'>=</span> <span class='cn'>TRUE</span>,
   save_output <span class='op'>=</span> <span class='cn'>FALSE</span>
@@ -152,7 +152,7 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>input_data</th>
-      <td><p>Input data frame. The following columns need to be present in this data frame, with these exact names: Sample_ID, U234_U238_CORR, U234_U238_CORR_Int2SE, Th230_U238_CORR, Th230_U238_CORR_Int2SE, Th232_U238_CORR, Th232_U238_CORR_Int2SE.</p></td>
+      <td><p>Input data frame. The following columns need to be present in this data frame, with these exact names: Sample_ID, U234_U238, U234_U238_2SE, Th230_U238, Th230_U238_2SE, Th232_U238, Th232_U238_2SE.</p></td>
     </tr>
     <tr>
       <th>sample_name</th>
@@ -172,7 +172,7 @@
     </tr>
     <tr>
       <th>R28det_err</th>
-      <td><p>Error on the (232Th/238U) activity ratio of the detritus. Default: 0.08</p></td>
+      <td><p>Error on the (232Th/238U) activity ratio of the detritus. Default: 0.4</p></td>
     </tr>
     <tr>
       <th>R08det</th>
@@ -195,7 +195,7 @@
       <td><p>Save filtered data on which an outlier test was performed? Only recommended if all analyses of a same sample are supposed to give the same age. Enter TRUE for yes, or FALSE for no. Default: FALSE</p></td>
     </tr>
     <tr>
-      <th>print_summary</th>
+      <th>print_age</th>
       <td><p>Print a summary of the output to the console? Default: TRUE</p></td>
     </tr>
     <tr>
@@ -221,10 +221,10 @@ sample_name <span class='op'>=</span> <span class='st'>'YP003'</span>,
 nbitchoice <span class='op'>=</span> <span class='fl'>100</span>,
 detcorrectionchoice <span class='op'>=</span> <span class='cn'>TRUE</span>,
 keepfiltereddata <span class='op'>=</span> <span class='cn'>FALSE</span>,
-print_summary <span class='op'>=</span> <span class='cn'>TRUE</span>,
+print_age <span class='op'>=</span> <span class='cn'>TRUE</span>,
 with_plots <span class='op'>=</span> <span class='cn'>FALSE</span>,
 save_plots <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'>All required columns are present in the input data. </span></div><div class='output co'>#&gt; [1] "Mean age:  117.3 +/- 3.8  ka"</div><div class='input'>
+</div><div class='output co'>#&gt; <span class='message'>All required columns are present in the input data. </span></div><div class='output co'>#&gt; [1] "Mean age:  117.3 +/- 8.4  ka"</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
