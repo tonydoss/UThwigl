@@ -7,7 +7,7 @@
 status](https://travis-ci.org/benmarwick/UThwigl.svg?branch=master)](https://travis-ci.org/benmarwick/UThwigl)
 [![AppVeyor build
 status](https://ci.appveyor.com/api/projects/status/github/benmarwick/UThwigl?branch=master&svg=true)](https://ci.appveyor.com/project/benmarwick/UThwigl)
-[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/benmarwick/UThwigl/master?urlpath=rstudio)
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/tonydoss/UThwigl/master?urlpath=rstudio)
 
 The goal of UThwigl is to compute closed- and open-system
 uranium-thorium (U-Th) ages of geological and archaeological samples.
@@ -19,14 +19,19 @@ transport of uranium and thorium isotopes, while including synchronous
 radioactive decay.
 
 The function, `csUTh()`, calculates closed-system ages and uses
-(<sup>230</sup>Th/<sup>238</sup>U) and (<sup>234</sup>U/<sup>238</sup>U)
+<sup>230</sup>Th/<sup>238</sup>U and <sup>234</sup>U/<sup>238</sup>U
 activity ratios on a single analysis to return an age in thousands of
-years ago. The (<sup>230</sup>Th/<sup>238</sup>U) or (<sup>230</sup>Th/<sup>230</sup>Th) activity ratios are also needed for detrital correction.
+years ago. The <sup>232</sup>Th/<sup>238</sup>U or
+<sup>230</sup>Th/<sup>232</sup>Th activity ratios are also needed for
+detrital correction.
 
 The function, `osUTh()`, calculates open-system ages and take the
-(<sup>230</sup>Th/<sup>238</sup>U) and (<sup>234</sup>U/<sup>238</sup>U)
+<sup>230</sup>Th/<sup>238</sup>U and <sup>234</sup>U/<sup>238</sup>U
 activity ratios collected along a transect perpendicular to the surface
 of the tooth or bone and return an age in thousands of years ago.
+
+Please see the [vignette](docs/articles/uthwigl.pdf) for an example of
+how to use the functions in this package.
 
 ## Web application
 
@@ -41,7 +46,7 @@ with R. Here’s a screenshot of the web app:
 ## Run code without downloading anything
 
 You can run the package functions in your browser by [starting a binder
-instance](https://mybinder.org/v2/gh/benmarwick/UThwigl/master?urlpath=rstudio).
+instance](https://mybinder.org/v2/gh/tonydoss/UThwigl/master?urlpath=rstudio).
 This will open RStudio in your browser, together with the contents of
 this GitHub repository.
 
@@ -54,9 +59,6 @@ computer, run:
 if(!require("remotes")) install.packages("remotes")
 remotes::install_github("tonydoss/UThwigl")
 ```
-
-Please see the [vignette](docs/articles/uthwigl.pdf) for an example of
-how to use this package.
 
 <!--
 # get Tony's changes

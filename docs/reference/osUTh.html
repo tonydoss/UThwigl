@@ -80,7 +80,7 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -103,7 +103,7 @@
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/tonydoss/UThwigl/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -131,19 +131,18 @@
 
     <pre class="usage"><span class='fu'>osUTh</span><span class='op'>(</span>
   <span class='va'>input_data</span>,
-  nbit <span class='op'>=</span> <span class='fl'>1</span>,
+  nbit <span class='op'>=</span> <span class='fl'>1000</span>,
   fsum_target <span class='op'>=</span> <span class='fl'>0.01</span>,
   U48_0_min <span class='op'>=</span> <span class='fl'>1.265</span>,
   U48_0_max <span class='op'>=</span> <span class='fl'>1.275</span>,
-  l <span class='op'>=</span> <span class='fl'>5.35</span>,
   U_0 <span class='op'>=</span> <span class='fl'>25</span>,
   K_min <span class='op'>=</span> <span class='fl'>1e-13</span>,
   K_max <span class='op'>=</span> <span class='fl'>1e-11</span>,
   T_min <span class='op'>=</span> <span class='fl'>1000</span>,
   T_max <span class='op'>=</span> <span class='fl'>20000</span>,
-  print_summary <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  print_age <span class='op'>=</span> <span class='cn'>TRUE</span>,
   with_plots <span class='op'>=</span> <span class='cn'>TRUE</span>,
-  save_plots <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  save_plots <span class='op'>=</span> <span class='cn'>FALSE</span>,
   save_output <span class='op'>=</span> <span class='cn'>FALSE</span>
 <span class='op'>)</span></pre>
 
@@ -171,10 +170,6 @@
       <td><p>The maximum value allowed for the (^234^U/^238^U) activity ratio at the surface of the sample</p></td>
     </tr>
     <tr>
-      <th>l</th>
-      <td><p>The thickness of the sample in centimeters</p></td>
-    </tr>
-    <tr>
       <th>U_0</th>
       <td><p>The uranium concentration at the surface in ppm</p></td>
     </tr>
@@ -195,7 +190,7 @@
       <td><p>The maximum value for the age of the specimen (yr)</p></td>
     </tr>
     <tr>
-      <th>print_summary</th>
+      <th>print_age</th>
       <td><p>Print a summary of the output to the console? Default is TRUE</p></td>
     </tr>
     <tr>
@@ -223,13 +218,12 @@ nbit <span class='op'>=</span> <span class='fl'>1</span>,
 fsum_target <span class='op'>=</span> <span class='fl'>0.01</span>,
 U48_0_min <span class='op'>=</span> <span class='fl'>1.265</span>,
 U48_0_max <span class='op'>=</span> <span class='fl'>1.275</span>,
-l <span class='op'>=</span> <span class='fl'>5.35</span>,
 U_0 <span class='op'>=</span> <span class='fl'>25</span>,
 K_min <span class='op'>=</span> <span class='fl'>1e-13</span>,
 K_max <span class='op'>=</span> <span class='fl'>1e-11</span>,
 T_min <span class='op'>=</span> <span class='fl'>1e3</span>,
 T_max <span class='op'>=</span> <span class='fl'>20e3</span>,
-print_summary <span class='op'>=</span> <span class='cn'>TRUE</span>,
+print_age <span class='op'>=</span> <span class='cn'>TRUE</span>,
 with_plots <span class='op'>=</span> <span class='cn'>FALSE</span>,
 save_plots <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span class='message'>All required columns are present in the input data. </span></div><div class='output co'>#&gt; [1] "Age: 6.3 +0/-0 ka"</div><div class='input'>

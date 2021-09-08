@@ -39,7 +39,7 @@
       <ul class="nav navbar-nav">
 <li>
   <a href="index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -62,7 +62,7 @@
 <ul class="nav navbar-nav navbar-right">
 <li>
   <a href="https://github.com/tonydoss/UThwigl/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -83,8 +83,9 @@
 <a href="#uthwigl" class="anchor"></a>UThwigl</h1></div>
 
 <p>The goal of UThwigl is to compute closed- and open-system uranium-thorium (U-Th) ages of geological and archaeological samples. Closed-system U-Th dating follows the principles presented in Edwards et al. (2003), Richards and Dorale (2003) and Ludwig (2003). Open-system U-Th dating is based on the diffusion-adsorption-decay (DAD) model of Sambridge et al. (2012), which allows for advective and diffusive transport of uranium and thorium isotopes, while including synchronous radioactive decay.</p>
-<p>The function, <code><a href="reference/csUTh.html">csUTh()</a></code>, calculates closed-system ages and uses (<sup>230</sup>Th/<sup>238</sup>U) and (<sup>234</sup>U/<sup>238</sup>U) activity ratios on a single analysis to return an age in thousands of years ago. The (<sup>230</sup>Th/<sup>238</sup>U) activity ratio is also needed for detrital correction.</p>
-<p>The function, <code><a href="reference/osUTh.html">osUTh()</a></code>, calculates open-system ages and take the (<sup>230</sup>Th/<sup>238</sup>U) and (<sup>234</sup>U/<sup>238</sup>U) activity ratios collected along a transect perpendicular to the surface of the tooth or bone and return an age in thousands of years ago.</p>
+<p>The function, <code><a href="reference/csUTh.html">csUTh()</a></code>, calculates closed-system ages and uses <sup>230</sup>Th/<sup>238</sup>U and <sup>234</sup>U/<sup>238</sup>U activity ratios on a single analysis to return an age in thousands of years ago. The <sup>232</sup>Th/<sup>238</sup>U or <sup>230</sup>Th/<sup>232</sup>Th activity ratios are also needed for detrital correction.</p>
+<p>The function, <code><a href="reference/osUTh.html">osUTh()</a></code>, calculates open-system ages and take the <sup>230</sup>Th/<sup>238</sup>U and <sup>234</sup>U/<sup>238</sup>U activity ratios collected along a transect perpendicular to the surface of the tooth or bone and return an age in thousands of years ago.</p>
+<p>Please see the <a href="docs/articles/uthwigl.pdf">vignette</a> for an example of how to use the functions in this package.</p>
 <div id="web-application" class="section level2">
 <h2 class="hasAnchor">
 <a href="#web-application" class="anchor"></a>Web application</h2>
@@ -94,16 +95,15 @@
 <div id="run-code-without-downloading-anything" class="section level2">
 <h2 class="hasAnchor">
 <a href="#run-code-without-downloading-anything" class="anchor"></a>Run code without downloading anything</h2>
-<p>You can run the package functions in your browser by <a href="https://mybinder.org/v2/gh/benmarwick/UThwigl/master?urlpath=rstudio">starting a binder instance</a>. This will open RStudio in your browser, together with the contents of this GitHub repository.</p>
+<p>You can run the package functions in your browser by <a href="https://mybinder.org/v2/gh/tonydoss/UThwigl/master?urlpath=rstudio">starting a binder instance</a>. This will open RStudio in your browser, together with the contents of this GitHub repository.</p>
 </div>
 <div id="installing-the-uthwigl-package-on-your-computer" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installing-the-uthwigl-package-on-your-computer" class="anchor"></a>Installing the UThwigl package on your computer</h2>
 <p>To install the development version of UThwigl from GitHub on your computer, run:</p>
-<div class="sourceCode" id="cb1"><pre class="downlit">
-<span class="kw">if</span><span class="op">(</span><span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/library.html">require</a></span><span class="op">(</span><span class="st"><a href="https://remotes.r-lib.org">"remotes"</a></span><span class="op">)</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"remotes"</span><span class="op">)</span>
-<span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span><span class="op">(</span><span class="st">"tonydoss/UThwigl"</span><span class="op">)</span></pre></div>
-<p>Please see the <a href="docs/articles/uthwigl.pdf">vignette</a> for an example of how to use this package.</p>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw">if</span><span class="op">(</span><span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/library.html">require</a></span><span class="op">(</span><span class="st"><a href="https://remotes.r-lib.org">"remotes"</a></span><span class="op">)</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"remotes"</span><span class="op">)</span>
+<span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span><span class="op">(</span><span class="st">"tonydoss/UThwigl"</span><span class="op">)</span></code></pre></div>
 <!--
 # get Tony's changes
 git remote add upstream https://github.com/tonydoss/UThwigl.git
@@ -154,7 +154,7 @@ pkgdown::build_site()
 <ul class="list-unstyled">
 <li><a href="https://travis-ci.org/benmarwick/UThwigl"><img src="https://travis-ci.org/benmarwick/UThwigl.svg?branch=master" alt="Travis build status"></a></li>
 <li><a href="https://ci.appveyor.com/project/benmarwick/UThwigl"><img src="https://ci.appveyor.com/api/projects/status/github/benmarwick/UThwigl?branch=master&amp;svg=true" alt="AppVeyor build status"></a></li>
-<li><a href="https://mybinder.org/v2/gh/benmarwick/UThwigl/master?urlpath=rstudio"><img src="https://mybinder.org/badge_logo.svg" alt="Binder"></a></li>
+<li><a href="https://mybinder.org/v2/gh/tonydoss/UThwigl/master?urlpath=rstudio"><img src="https://mybinder.org/badge_logo.svg" alt="Binder"></a></li>
 </ul>
 </div>
 </div>
