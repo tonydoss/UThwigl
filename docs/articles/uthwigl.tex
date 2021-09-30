@@ -185,7 +185,7 @@ In corals, the second assumption can be tested using the mineralogy of the sampl
 The first assumption (\textsuperscript{230}Th measured in only produced by decay of \textsuperscript{238}U) is tested for any sample type using \textsuperscript{232}Th as an index of detrital Th. Any significant amount of \textsuperscript{232}Th in the sample implies a detrital contribution of Th to the sample, and thus that a fraction of the \textsuperscript{230}Th measured does not result from decay of \textsuperscript{238}U, but from detrital input of Th. The \([\frac{^{230}Th}{^{232}Th}]\) or \([\frac{^{232}Th}{^{238}U}]\) activity ratios are used as indices of the quantity of detrital Th present in the sample. Arbitrary values are set to define whether the presence of detrital Th significant; \([\frac{^{230}Th}{^{232}Th}]\) ratios greater than 20 or \([\frac{^{232}Th}{^{238}U}]\) ratios less than 0.01 are usually recommended. If significant detrital Th is present, correction is necessary (in fact, even if the contribution of detrital Th is minimal, correction should still be applied). Ideally, one would measure the \([\frac{^{230}Th}{^{238}U}]\), \([\frac{^{234}U}{^{238}U}]\) and \([\frac{^{230}Th}{^{232}Th}]\) activity ratios of the detrital component; however it is rarely possible to isolate this fraction, let alone measure its U-series isotope composition. Often, correction is undertaken assuming a \([\frac{^{230}Th}{^{232}Th}]\) of 0.8 ± 0.4 for the detrital component, which is the average value for the continental crust. Alternatively, detrital correction can be undertaken by measuring several samples assumed to have the same \textsuperscript{230}Th age, but variable amounts of detrital Th. In this case, it is possible to define an isochron or derive a single age for the same of isochronous samples.
 
 Open-system U-Th dating operates on the principles that little U (and Th) are incorporated at the time of the material formation (shell, tooth or bone), and it is only after death and burial of the material in soil or sediments, that U (and Th to a lesser extent) are taken up and diffuse into the material. When dating teeth, enamel is often preferred over dentine, as the former is denser and thus less prone to complex nuclide movement.
-For samples exhibiting open system behaviour, the analytical strategy generally involves measuring \textsuperscript{238}U, \textsuperscript{234}U, \textsuperscript{230}Th and \textsuperscript{232}Th in several aliquots along a transect perpendicular to the surface of the sample (Figure \ref{fig:femurpic}). Then, U concentrations and \([\frac{^{230}Th}{^{238}U}]\), \([\frac{^{234}U}{^{238}U}]\) activity ratios can be modelled to derive a single open-system age. Aliquots can be collected by micro-drilling or using laser ablation.
+For samples exhibiting open system behaviour, the analytical strategy generally involves measuring \textsuperscript{238}U, \textsuperscript{234}U, \textsuperscript{230}Th and \textsuperscript{232}Th in several aliquots along a transect perpendicular to the surface of the sample (Figure @ref(fig:femurpic)). Then, U concentrations and \([\frac{^{230}Th}{^{238}U}]\), \([\frac{^{234}U}{^{238}U}]\) activity ratios can be modelled to derive a single open-system age. Aliquots can be collected by micro-drilling or using laser ablation.
 
 Several open-system models have been developed (Pike and Pettitt, 2003). The Diffusion-Adsorption model (Pike and Pettitt, 2003) was later modified to a Diffusion-Adsorption-Decay model (Sambridge et al., 2012), and is the most commonly employed to U-Th date archaeological materials such as teeth and bones. Profiling of uranium concentrations across the sample is used to determine whether the sample has experienced loss of uranium (inverted ``U'' shaped profile) or shows an irregular pattern of uranium concentration variation. If the sample presents either of these profiles, it is rejected for dating. Ideally, the uranium concentration profile shows a ``U'' shape (illustrating uranium diffusion) or homogenous concentrations (indicating that equilibrium in uranium diffusion has been achieved). Once these tests have been performed, closed-system U-Th ages for each analysis can then be computed. If they show an inverted ``U'' shaped profile, this is diagnostic of recent uranium uptake, and the sample is rejected. Otherwise, the profile of U-series isotope data can then be used to derive a single open-system age.
 
@@ -206,12 +206,12 @@ The closed-system function \texttt{csUTh()} requires that for each analysis to y
 
 Data required for the DAD model are \([\frac{^{230}Th}{^{238}U}]\) and \([\frac{^{234}U}{^{238}U}]\) activity ratios collected along a transect perpendicular to the surface of the tooth or bone.
 
-The x-y coordinates of each analysis, and of the inner and outer surfaces of the sample are also needed as input data. \texttt{osUTh()} uses these coordinates to calculate normalised positions, where the outer surface of the sample is given a reference coordinate of 1, the inner surface -1, and analyses take values in between (Figure \ref{fig:femurpic}).
+The x-y coordinates of each analysis, and of the inner and outer surfaces of the sample are also needed as input data. \texttt{osUTh()} uses these coordinates to calculate normalised positions, where the outer surface of the sample is given a reference coordinate of 1, the inner surface -1, and analyses take values in between (Figure @ref(fig:femurpic)).
 
-
+(ref:femurpiccap) Modern human femur (132A/LB/27D/03) from Liang Bua, Flores, Indonesia. Two analysis transects can be seen. For a given transect, the x and y coordinates of the outer and inner surfaces, and of the analyses, are used by \texttt{osUTh()} to calculate normalised positions where the outer surface is given 1 as reference coordinate, the inner surface -1, and normalised positions of the analyses take values in between. Modified from Sutikna et al. (2016).
 
 \begin{figure}
-\includegraphics[width=0.95\linewidth]{figures/bone} \caption{Modern human femur (132A/LB/27D/03) from Liang Bua, Flores, Indonesia. Two analysis transects can be seen. For a given transect, the x and y coordinates of the outer and inner surfaces, and of the analyses, are used by \texttt{osUTh()} to calculate normalised positions where the outer surface is given 1 as reference coordinate, the inner surface -1, and normalised positions of the analyses take values in between. Modified from Sutikna et al. (2016).}\label{fig:femurpic}
+\includegraphics[width=0.95\linewidth]{figures/bone} \caption{(ref:femurpiccap)}(\#fig:femurpic)
 \end{figure}
 
 \FloatBarrier
@@ -219,20 +219,20 @@ The x-y coordinates of each analysis, and of the inner and outer surfaces of the
 \hypertarget{working-with-the-package}{%
 \section{Working with the package}\label{working-with-the-package}}
 
-We provide three methods for using this package to suit different levels of familiarity with the R programming language. The simplest way to use the package is our web applications, online at https://anthony-dosseto.shinyapps.io/csUTh/ and https://anthony-dosseto.shinyapps.io/osUTh/ (Figure \ref{fig:shinyfig}). Using the web application requires no familiarity with R. To use the web application we upload a CSV file, then click through a series of tabs to inspect the data, adjust the model parameters, run the model, and inspect the output. The interface is mouse-driven and requires no programming. In the web application we upload the data file on the \emph{Load the data} tab, set parameters from the \emph{Set model parameters} tab, run the model by clicking the button \emph{Run Simulation} on the same tab, and observe the results on the \emph{Visualise the model} and \emph{Inspect the model} tabs. We can change the parameters and re-run the model by click the button \emph{Run Simulation}. Once done, close the window.
+We provide three methods for using this package to suit different levels of familiarity with the R programming language. The simplest way to use the package is our web applications, online at https://anthony-dosseto.shinyapps.io/csUTh/ and https://anthony-dosseto.shinyapps.io/osUTh/ (Figure @ref(fig:shinyfig)). Using the web application requires no familiarity with R. To use the web application we upload a CSV file, then click through a series of tabs to inspect the data, adjust the model parameters, run the model, and inspect the output. The interface is mouse-driven and requires no programming. In the web application we upload the data file on the \emph{Load the data} tab, set parameters from the \emph{Set model parameters} tab, run the model by clicking the button \emph{Run Simulation} on the same tab, and observe the results on the \emph{Visualise the model} and \emph{Inspect the model} tabs. We can change the parameters and re-run the model by click the button \emph{Run Simulation}. Once done, close the window.
 
-
+(ref:shinyfigcap) Screenshots of the web application for open-system U-Th dating. A: Upload a CSV file of the data to model, B: Inspect a table of the uploaded data. C: Set the model parameters and run the model. D: Inspect visualisations of the model's output. E: Inspect and download the numeric output from the model.
 
 \begin{figure}
-\includegraphics[width=0.95\linewidth]{figures/shiny-app-screenshots} \caption{Screenshots of the web application for open-system U-Th dating. A: Upload a CSV file of the data to model, B: Inspect a table of the uploaded data. C: Set the model parameters and run the model. D: Inspect visualisations of the model's output. E: Inspect and download the numeric output from the model.}\label{fig:shinyfig}
+\includegraphics[width=0.95\linewidth]{figures/shiny-app-screenshots} \caption{(ref:shinyfigcap)}(\#fig:shinyfig)
 \end{figure}
 
-The second way to use the package is with Binder, a browser-based instance of R and RStudio that includes our package ready to work with (Figure \ref{fig:binderfig}). Binder is a server technology that turns computational material, such as an R package, into interactive computational environments in the cloud. Using Binder requires a novice level of familiarity with R, for example to use the code in this paper and adapt it to work with a different CSV file. Because Binder provides a complete R environment, custom R code can be written during a Binder instance to further explore the model's output in the browser. These two methods, the web application and Binder, do not require any software to be downloaded and installed on the user's computer, all computation occurs in the browser. The web application and Binder are suitable for getting a quick start on working with the package, but they require a connection to the internet, and they have limited memory and compute time available per instance.
+The second way to use the package is with Binder, a browser-based instance of R and RStudio that includes our package ready to work with (Figure @ref(fig:binderfig)). Binder is a server technology that turns computational material, such as an R package, into interactive computational environments in the cloud. Using Binder requires a novice level of familiarity with R, for example to use the code in this paper and adapt it to work with a different CSV file. Because Binder provides a complete R environment, custom R code can be written during a Binder instance to further explore the model's output in the browser. These two methods, the web application and Binder, do not require any software to be downloaded and installed on the user's computer, all computation occurs in the browser. The web application and Binder are suitable for getting a quick start on working with the package, but they require a connection to the internet, and they have limited memory and compute time available per instance.
 
-
+(ref:binderfigcap) Screenshot of Binder running R and RStudio in a web browser window.
 
 \begin{figure}
-\includegraphics[width=0.95\linewidth]{figures/binder} \caption{Screenshot of Binder running R and RStudio in a web browser window.}\label{fig:binderfig}
+\includegraphics[width=0.95\linewidth]{figures/binder} \caption{(ref:binderfigcap)}(\#fig:binderfig)
 \end{figure}
 
 The third method is to download and install the package locally to the user's computer, and work with it in the user's local installation of R and RStudio. This method requires some familiarity with R, but gives the most flexibility when working with the model because we are not limited by the memory and compute time of the cloud services. Our recommendation is to use Binder or a local installation of UThwigl because then the user can save an R script file that includes the name of the input file, the specific parameters used to generate the model output, and any downstream processing and visualisation. This script file and the CSV file can then be archived in a data repository to ensure long-term accessibility for other researchers. In the following sections we demonstrate the use of UThwigl with a local installation of R and RStudio.
@@ -333,7 +333,7 @@ The code chunk below shows how to read the CSV file created above into the R env
 
 To use new data with this package, the user needs to import a CSV or Excel file with the U-Th data into the R environment. This can be done using a generic function such as \texttt{read.csv} or \texttt{read\_excel} from the \texttt{readxl} package (Wickham and Bryan, 2018).
 
-Table \ref{tab:pan} shows the data contained in the \texttt{Pan2018.csv} file included in the package.
+Table @ref(tab:pan) shows the data contained in the \texttt{Pan2018.csv} file included in the package.
 
 \begin{table}[ht]
 \centering
@@ -367,7 +367,7 @@ If \texttt{Th230\_Th232} and \texttt{Th230\_Th232\_2SE} are provided instead of 
 \hypertarget{details-of-the-input-parameters-of-closed-system-analysis}{%
 \subsubsection{Details of the input parameters of closed-system analysis}\label{details-of-the-input-parameters-of-closed-system-analysis}}
 
-\texttt{sample\_name} is the name of the sample to calculate closed-system ages for. The function will partially match by sample prefix. For example in Table \ref{tab:pan} one sample is indicated by the Sample ID `YP003.' If the user inputs `YP003' for the \texttt{sample\_name}, then this will match rows where the Sample ID is `YP003-1,' `YP003-2,' `YP003-3,' and so on.
+\texttt{sample\_name} is the name of the sample to calculate closed-system ages for. The function will partially match by sample prefix. For example in Table @ref(tab:pan) one sample is indicated by the Sample ID `YP003.' If the user inputs `YP003' for the \texttt{sample\_name}, then this will match rows where the Sample ID is `YP003-1,' `YP003-2,' `YP003-3,' and so on.
 
 \texttt{nbitchoice} is the number of iterations in the model (it is recommended to have at least 10,000).
 \texttt{detcorrectionchoice} is a parameter for choosing whether or not to apply a detrital correction to the calculation.
@@ -403,7 +403,7 @@ Assuming that the package is attached with \texttt{library(UThwigl)}, and the da
 \end{Highlighting}
 \end{Shaded}
 
-For efficient interactive use of this package, the default setting of \texttt{csUTh()} is to produce a panel plot as seen in Figure \ref{fig:csuthvizfig}. The setting \texttt{with\_plots\ =\ FALSE} prevents plots from being generated which is more useful when the function is part of a longer sequence of code. The function runs faster when not producing plots, which is helpful when replicating many runs. The setting \texttt{save\_output\ =\ TRUE} will save a csv file to the current working directory so the output data can be used in other contexts. The csv file that is created when \texttt{save\_output\ =\ TRUE} will be given a name that includes a date and time stamp so that the output of each time the function is run can be saved to a unique file.
+For efficient interactive use of this package, the default setting of \texttt{csUTh()} is to produce a panel plot as seen in Figure @ref(fig:csuthvizfig). The setting \texttt{with\_plots\ =\ FALSE} prevents plots from being generated which is more useful when the function is part of a longer sequence of code. The function runs faster when not producing plots, which is helpful when replicating many runs. The setting \texttt{save\_output\ =\ TRUE} will save a csv file to the current working directory so the output data can be used in other contexts. The csv file that is created when \texttt{save\_output\ =\ TRUE} will be given a name that includes a date and time stamp so that the output of each time the function is run can be saved to a unique file.
 
 When run on the R console, the function will print a confirmation that the input data frame has the required columns. If \texttt{print\_age} is set to \texttt{TRUE}, it will also print the resulting mean age value of several analyses on a single sample, with an error reported as 2 Standard Deviation, for example:
 
@@ -417,7 +417,7 @@ All required columns are present in the input data
 \hypertarget{inspecting-and-visualizing-the-models-output}{%
 \subsection{Inspecting and visualizing the models' output}\label{inspecting-and-visualizing-the-models-output}}
 
-The function returns a data frame with the age, error and summary output for each measurement, as shown in Table \ref{tab:panoutput}. This includes calculated ages (with or without detrital correction, depending how \texttt{detcorrectionchoice} was set), initial \([\frac{^{234}U}{^{238}U}]\) activity ratios, along with their uncertainties, calculated as the 2.1 and 97.9 percentiles of the population of solutions determined with the Monte Carlo simulation.
+The function returns a data frame with the age, error and summary output for each measurement, as shown in Table @ref(tab:panoutput). This includes calculated ages (with or without detrital correction, depending how \texttt{detcorrectionchoice} was set), initial \([\frac{^{234}U}{^{238}U}]\) activity ratios, along with their uncertainties, calculated as the 2.1 and 97.9 percentiles of the population of solutions determined with the Monte Carlo simulation.
 
 \begin{table}[ht]
 \centering
@@ -425,11 +425,11 @@ The function returns a data frame with the age, error and summary output for eac
   \hline
 \begin{sideways} Sample ID \end{sideways} & \begin{sideways} Age (ka) \end{sideways} & \begin{sideways} Age +2sd \end{sideways} & \begin{sideways} Age -2sd \end{sideways} & \begin{sideways} [234U/238U]i \end{sideways} & \begin{sideways} Ratio +2sd \end{sideways} & \begin{sideways} Ratio -2sd \end{sideways} \\ 
   \hline
-YP003-1\_1 & 116.963 & 3.132 & 3.0300 & 1.1740 & 0.0060 & 0.0060 \\ 
-  YP003-1\_2 & 122.088 & 3.818 & 3.8120 & 1.1590 & 0.0090 & 0.0090 \\ 
-  YP003-1\_3 & 116.301 & 2.561 & 2.5000 & 1.1700 & 0.0060 & 0.0060 \\ 
-  YP003-1\_4 & 110.729 & 2.240 & 2.1510 & 1.1670 & 0.0060 & 0.0070 \\ 
-  YP003-1\_5 & 119.498 & 2.493 & 2.4210 & 1.1670 & 0.0080 & 0.0070 \\ 
+YP003-1\_1 & 117.016 & 3.068 & 3.0710 & 1.1730 & 0.0060 & 0.0060 \\ 
+  YP003-1\_2 & 121.949 & 3.970 & 3.6940 & 1.1600 & 0.0090 & 0.0090 \\ 
+  YP003-1\_3 & 116.294 & 2.548 & 2.4640 & 1.1700 & 0.0060 & 0.0060 \\ 
+  YP003-1\_4 & 110.770 & 2.221 & 2.1720 & 1.1670 & 0.0070 & 0.0070 \\ 
+  YP003-1\_5 & 119.475 & 2.504 & 2.4050 & 1.1670 & 0.0070 & 0.0080 \\ 
    \hline
 \end{tabular}
 \caption{\label{tab:panoutput}Output produced by the csUTh function used with data from Pan et al. 2018} 
@@ -437,7 +437,7 @@ YP003-1\_1 & 116.963 & 3.132 & 3.0300 & 1.1740 & 0.0060 & 0.0060 \\
 
 The plots produced by the \texttt{csUTh()} function are stored as list objects in the output of the function. We can show the plots by accessing the list like this:
 
-
+(ref:csuthvizfigcap) Example of the visualisations produced by the \texttt{csUTh()} function, using the demonstration run described above, and five in-situ analyses by laser ablation of coral sample YP003. A: closed-system ages and B: initial \([\frac{^{234}U}{^{238}U}]\) activity ratios for each sample analysis.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -446,7 +446,7 @@ The plots produced by the \texttt{csUTh()} function are stored as list objects i
 \end{Shaded}
 
 \begin{figure}
-\includegraphics[width=0.95\linewidth]{/Users/bmarwick/Desktop/UThwigl/docs/articles/uthwigl_files/figure-latex/csuthvizfig-1} \caption{Example of the visualisations produced by the \texttt{csUTh()} function, using the demonstration run described above, and five in-situ analyses by laser ablation of coral sample YP003. A: closed-system ages and B: initial \([\frac{^{234}U}{^{238}U}]\) activity ratios for each sample analysis.}\label{fig:csuthvizfig}
+\includegraphics[width=0.95\linewidth]{C:\Users\tonyd\ONEDRI~1\R\U-THWI~1\docs\articles\UTHWIG~1/figure-latex/csuthvizfig-1} \caption{(ref:csuthvizfigcap)}(\#fig:csuthvizfig)
 \end{figure}
 
 \FloatBarrier
@@ -505,7 +505,7 @@ To download the built-in data to the user's computer as a CSV file, so it can be
 \end{Highlighting}
 \end{Shaded}
 
-The code chunk below shows how to read one of the CSV files included in the package into the R environment. As above, we assume that the user's working directory contains a directory called \texttt{data} and the CSV file is in this \texttt{data} directory, and so the data can be imported as follows (Table \ref{tab:hobbitone}):
+The code chunk below shows how to read one of the CSV files included in the package into the R environment. As above, we assume that the user's working directory contains a directory called \texttt{data} and the CSV file is in this \texttt{data} directory, and so the data can be imported as follows (Table @ref(tab:hobbitone)):
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -554,7 +554,7 @@ To use new data with this package, the user needs to import a CSV or Excel file 
 
 The columns \texttt{U234\_U238}, \texttt{U234\_U238\_2SE}, \texttt{Th230\_U238}, \texttt{Th230\_U238\_2SE}, \texttt{x}, \texttt{y} and \texttt{Comments} must be present in the input data frame with these exact names for the model to function. The \texttt{osUTh()} function will check if the input data frame has these columns, and will stop with an error message if it does not find these columns.
 
-The \texttt{x} and \texttt{y} columns corresponds to the coordinates (in mm) of the inner, outer surfaces and the analyses (Figure \ref{fig:femurpic}). The \texttt{Comments} column must have the mentions \texttt{outer\ surface} and \texttt{inner\ surface} where the coordinates of each surface are reported.
+The \texttt{x} and \texttt{y} columns corresponds to the coordinates (in mm) of the inner, outer surfaces and the analyses (Figure @ref(fig:femurpic)). The \texttt{Comments} column must have the mentions \texttt{outer\ surface} and \texttt{inner\ surface} where the coordinates of each surface are reported.
 
 Columns \texttt{U234\_U238}, \texttt{U234\_U238\_2SE}, \texttt{Th230\_U238} and \texttt{Th230\_U238\_2SE}are the \([\frac{^{234}U}{^{238}U}]\) activity ratios and their 2\(\sigma\) errors, and the \([\frac{^{230}Th}{^{238}U}]\) activity ratios and their 2\(\sigma\) errors, respectively.
 Columns \texttt{U\_ppm} and \texttt{U\_ppm\_2SE} are the uranium concentrations (in ppm) and their 2\(\sigma\) errors. Uranium concentrations are not necessary for the model calculations but needed to display the U concentration profile in a figure.
@@ -600,7 +600,7 @@ Assuming that the package is attached with \texttt{library(UThwigl)}, and the da
 \end{Highlighting}
 \end{Shaded}
 
-The default setting of \texttt{osUTh()} is to produce a panel plot as seen in Figure \ref{fig:demopanelfig}. The setting \texttt{with\_plots\ =\ FALSE} prevents plots from being generated which is more useful when the function is part of a longer sequence of code. The function runs faster when not producing pots, which is helpful when replicating many runs.
+The default setting of \texttt{osUTh()} is to produce a panel plot as seen in Figure @ref(fig:demopanelfig). The setting \texttt{with\_plots\ =\ FALSE} prevents plots from being generated which is more useful when the function is part of a longer sequence of code. The function runs faster when not producing pots, which is helpful when replicating many runs.
 
 Similar to the \texttt{csUTh()} function, when \texttt{osUTh()} is run on the R console, it will print a confirmation that the input data frame has the required columns. If \texttt{print\_age} is set to \texttt{TRUE}, it will print the resulting age value with an error reported as 1 Standard Deviation, for example:
 
@@ -626,7 +626,7 @@ In a typical analysis, the user explores the model fit by first running the mode
   \hline
 \begin{sideways} Age (ka) \end{sideways} & \begin{sideways} Age +1SD (ka) \end{sideways} & \begin{sideways} Age -1SD (ka) \end{sideways} & \begin{sideways} U234\_U238\_0 \end{sideways} & \begin{sideways} U234\_U238\_0 +1SD \end{sideways} & \begin{sideways} U234\_U238\_0 -1SD \end{sideways} \\ 
   \hline
-6.99 & 1.24 & 1.27 & 1.2675 & 0.0017 & 0.0017 \\ 
+6.97 & 1.27 & 1.27 & 1.2665 & 0.0027 & 0.0006 \\ 
    \hline
 \end{tabular}
 \caption{\label{tab:outputresults}Summary table of the computed age and error values} 
@@ -640,26 +640,26 @@ The last item in the output is a copy of the input data with two additional colu
   \hline
 \begin{sideways} U234\_U238 \end{sideways} & \begin{sideways} U234\_U238\_2SE \end{sideways} & \begin{sideways} Th230\_U238 \end{sideways} & \begin{sideways} Th230\_U238\_2SE \end{sideways} & \begin{sideways} U\_ppm \end{sideways} & \begin{sideways} U\_ppm\_2SE \end{sideways} & \begin{sideways} x \end{sideways} & \begin{sideways} y \end{sideways} & \begin{sideways} iDAD.position \end{sideways} & \begin{sideways} U234\_U238\_CALC \end{sideways} & \begin{sideways} Th230\_U238\_CALC \end{sideways} \\ 
   \hline
-1.270 & 0.004 & 0.073 & 0.002 & 12.3 & 0.6 & 34.7 & 18.800 & -0.955 & 1.270 & 0.079 \\ 
-  1.273 & 0.004 & 0.073 & 0.002 & 12.7 & 0.6 & 34.7 & 21.400 & -0.858 & 1.270 & 0.079 \\ 
-  1.265 & 0.004 & 0.076 & 0.002 & 12.5 & 0.6 & 34.7 & 24.100 & -0.757 & 1.269 & 0.078 \\ 
-  1.267 & 0.005 & 0.077 & 0.002 & 14.2 & 0.7 & 34.7 & 26.700 & -0.660 & 1.269 & 0.078 \\ 
-  1.269 & 0.003 & 0.072 & 0.002 & 19.8 & 1.0 & 34.7 & 29.400 & -0.559 & 1.268 & 0.078 \\ 
-  1.266 & 0.003 & 0.077 & 0.002 & 18.0 & 0.9 & 34.7 & 32.000 & -0.462 & 1.268 & 0.078 \\ 
-  1.267 & 0.003 & 0.082 & 0.002 & 20.0 & 1.0 & 34.7 & 34.700 & -0.361 & 1.268 & 0.078 \\ 
-  1.276 & 0.002 & 0.079 & 0.001 & 27.2 & 1.4 & 34.7 & 37.300 & -0.264 & 1.268 & 0.078 \\ 
-  1.266 & 0.002 & 0.075 & 0.001 & 26.7 & 1.3 & 34.7 & 40.000 & -0.163 & 1.268 & 0.079 \\ 
-  1.277 & 0.002 & 0.073 & 0.001 & 0.3 & 0.0 & 34.7 & 42.600 & -0.065 & 1.268 & 0.079 \\ 
-  1.271 & 0.002 & 0.078 & 0.002 & 33.9 & 1.7 & 34.7 & 45.300 & 0.036 & 1.267 & 0.079 \\ 
-  1.264 & 0.002 & 0.067 & 0.001 & 37.7 & 1.9 & 34.7 & 47.900 & 0.133 & 1.268 & 0.079 \\ 
-  1.266 & 0.003 & 0.071 & 0.001 & 30.7 & 1.5 & 34.7 & 50.600 & 0.234 & 1.268 & 0.079 \\ 
-  1.265 & 0.002 & 0.077 & 0.002 & 25.2 & 1.3 & 34.7 & 53.200 & 0.331 & 1.268 & 0.078 \\ 
-  1.266 & 0.003 & 0.083 & 0.001 & 28.9 & 1.4 & 34.7 & 55.900 & 0.432 & 1.268 & 0.078 \\ 
-  1.268 & 0.003 & 0.086 & 0.002 & 29.0 & 1.4 & 34.7 & 58.500 & 0.529 & 1.268 & 0.078 \\ 
-  1.264 & 0.003 & 0.082 & 0.002 & 27.5 & 1.4 & 34.7 & 61.200 & 0.630 & 1.269 & 0.078 \\ 
-  1.263 & 0.002 & 0.070 & 0.001 & 30.1 & 1.5 & 34.7 & 63.800 & 0.727 & 1.269 & 0.078 \\ 
-  1.266 & 0.005 & 0.095 & 0.002 & 19.6 & 1.0 & 34.7 & 66.500 & 0.828 & 1.269 & 0.079 \\ 
-  1.263 & 0.003 & 0.096 & 0.002 & 14.8 & 0.7 & 34.7 & 69.100 & 0.925 & 1.270 & 0.079 \\ 
+1.270 & 0.004 & 0.073 & 0.002 & 12.3 & 0.6 & 34.7 & 18.800 & -0.955 & 1.268 & 0.079 \\ 
+  1.273 & 0.004 & 0.073 & 0.002 & 12.7 & 0.6 & 34.7 & 21.400 & -0.858 & 1.267 & 0.079 \\ 
+  1.265 & 0.004 & 0.076 & 0.002 & 12.5 & 0.6 & 34.7 & 24.100 & -0.757 & 1.267 & 0.078 \\ 
+  1.267 & 0.005 & 0.077 & 0.002 & 14.2 & 0.7 & 34.7 & 26.700 & -0.660 & 1.267 & 0.078 \\ 
+  1.269 & 0.003 & 0.072 & 0.002 & 19.8 & 1.0 & 34.7 & 29.400 & -0.559 & 1.267 & 0.078 \\ 
+  1.266 & 0.003 & 0.077 & 0.002 & 18.0 & 0.9 & 34.7 & 32.000 & -0.462 & 1.267 & 0.078 \\ 
+  1.267 & 0.003 & 0.082 & 0.002 & 20.0 & 1.0 & 34.7 & 34.700 & -0.361 & 1.267 & 0.078 \\ 
+  1.276 & 0.002 & 0.079 & 0.001 & 27.2 & 1.4 & 34.7 & 37.300 & -0.264 & 1.267 & 0.078 \\ 
+  1.266 & 0.002 & 0.075 & 0.001 & 26.7 & 1.3 & 34.7 & 40.000 & -0.163 & 1.266 & 0.079 \\ 
+  1.277 & 0.002 & 0.073 & 0.001 & 0.3 & 0.0 & 34.7 & 42.600 & -0.065 & 1.266 & 0.079 \\ 
+  1.271 & 0.002 & 0.078 & 0.002 & 33.9 & 1.7 & 34.7 & 45.300 & 0.036 & 1.266 & 0.079 \\ 
+  1.264 & 0.002 & 0.067 & 0.001 & 37.7 & 1.9 & 34.7 & 47.900 & 0.133 & 1.266 & 0.079 \\ 
+  1.266 & 0.003 & 0.071 & 0.001 & 30.7 & 1.5 & 34.7 & 50.600 & 0.234 & 1.267 & 0.078 \\ 
+  1.265 & 0.002 & 0.077 & 0.002 & 25.2 & 1.3 & 34.7 & 53.200 & 0.331 & 1.267 & 0.078 \\ 
+  1.266 & 0.003 & 0.083 & 0.001 & 28.9 & 1.4 & 34.7 & 55.900 & 0.432 & 1.267 & 0.078 \\ 
+  1.268 & 0.003 & 0.086 & 0.002 & 29.0 & 1.4 & 34.7 & 58.500 & 0.529 & 1.267 & 0.078 \\ 
+  1.264 & 0.003 & 0.082 & 0.002 & 27.5 & 1.4 & 34.7 & 61.200 & 0.630 & 1.267 & 0.078 \\ 
+  1.263 & 0.002 & 0.070 & 0.001 & 30.1 & 1.5 & 34.7 & 63.800 & 0.727 & 1.267 & 0.078 \\ 
+  1.266 & 0.005 & 0.095 & 0.002 & 19.6 & 1.0 & 34.7 & 66.500 & 0.828 & 1.267 & 0.079 \\ 
+  1.263 & 0.003 & 0.096 & 0.002 & 14.8 & 0.7 & 34.7 & 69.100 & 0.925 & 1.267 & 0.079 \\ 
    \hline
 \end{tabular}
 \caption{\label{tab:outputdata}Example of output table including the input data described above, and two new columns showing the modelled activity ratios} 
@@ -674,18 +674,18 @@ The last item in the output is a copy of the input data with two additional colu
 \def\labelenumi{\arabic{enumi}.}
 \tightlist
 \item
-  a histogram of the solution ages (Figure \ref{fig:demopanelfig} A)
+  a histogram of the solution ages (Figure @ref(fig:demopanelfig) A)
 \item
-  the measured U concentrations in the sample as a function of the relative distance from the center (Figure \ref{fig:demopanelfig} B)
+  the measured U concentrations in the sample as a function of the relative distance from the center (Figure @ref(fig:demopanelfig) B)
 \item
-  the measured and modelled \([\frac{^{234}U}{^{238}U}]\) activity ratios as a function of the relative distance from the center (Figure \ref{fig:demopanelfig} C), and
+  the measured and modelled \([\frac{^{234}U}{^{238}U}]\) activity ratios as a function of the relative distance from the center (Figure @ref(fig:demopanelfig) C), and
 \item
-  the measured and modelled \([\frac{^{230}Th}{^{238}U}]\) activity ratios as a function of the relative distance from the center (Figure \ref{fig:demopanelfig} D).
+  the measured and modelled \([\frac{^{230}Th}{^{238}U}]\) activity ratios as a function of the relative distance from the center (Figure @ref(fig:demopanelfig) D).
 \end{enumerate}
 
 We can show the plots produced by \texttt{osUTh()} by accessing the list as follows:
 
-
+(ref:demopanelfigcap) Example of the visualisations produced by the \texttt{osUTh()} function, using the demonstration run described above. A: Histogram of the solution ages, B: measured uranium concentration profile for transect 2 of modern human femur 132A/LB/27D/03. C: Measured (blue) and modelled (red) \([\frac{^{234}U}{^{238}U}]\) activity ratios for transect 2 of modern human femur 132A/LB/27D/03. D: Measured (blue) and modelled (red) \([\frac{^{230}Th}{^{238}U}]\) activity ratios for transect 2 of modern human femur 132A/LB/27D/03.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -694,7 +694,7 @@ We can show the plots produced by \texttt{osUTh()} by accessing the list as foll
 \end{Shaded}
 
 \begin{figure}
-\includegraphics[width=0.95\linewidth]{/Users/bmarwick/Desktop/UThwigl/docs/articles/uthwigl_files/figure-latex/demopanelfig-1} \caption{Example of the visualisations produced by the \texttt{osUTh()} function, using the demonstration run described above. A: Histogram of the solution ages, B: measured uranium concentration profile for transect 2 of modern human femur 132A/LB/27D/03. C: Measured (blue) and modelled (red) \([\frac{^{234}U}{^{238}U}]\) activity ratios for transect 2 of modern human femur 132A/LB/27D/03. D: Measured (blue) and modelled (red) \([\frac{^{230}Th}{^{238}U}]\) activity ratios for transect 2 of modern human femur 132A/LB/27D/03.}\label{fig:demopanelfig}
+\includegraphics[width=0.95\linewidth]{C:\Users\tonyd\ONEDRI~1\R\U-THWI~1\docs\articles\UTHWIG~1/figure-latex/demopanelfig-1} \caption{(ref:demopanelfigcap)}(\#fig:demopanelfig)
 \end{figure}
 
 \FloatBarrier
@@ -707,7 +707,7 @@ We can show the plots produced by \texttt{osUTh()} by accessing the list as foll
 \hypertarget{closed-system-dating---case-study-from-pan-et-al.-2018}{%
 \subsection{Closed-system dating - Case study from Pan et al.~2018}\label{closed-system-dating---case-study-from-pan-et-al.-2018}}
 
-The package includes sample data from Marine Isotope Stage 5 corals from Pan et al. (2018) (Table \ref{tab:pan}). Two \emph{Plesiastrea versipora} coral samples were analysed: YP002 and YP003. The first two rows in Table \ref{tab:pan} are bulk analyses while the rest are in-situ analyses produced by laser ablation (hence the lower precision compared to the first two rows).
+The package includes sample data from Marine Isotope Stage 5 corals from Pan et al. (2018) (Table @ref(tab:pan)). Two \emph{Plesiastrea versipora} coral samples were analysed: YP002 and YP003. The first two rows in Table @ref(tab:pan) are bulk analyses while the rest are in-situ analyses produced by laser ablation (hence the lower precision compared to the first two rows).
 In Pan et al. (2018), closed-system ages were calculated using IsoPlot 4.15 (Ludwig, 2003b). For bulk analyses, Pan et al. (2018) reported detrital-corrected ages of 121.4 \(\pm\) 2.4 ka and 127.3 \(\pm\) 2.1 ka for YP002 and YP003, respectively. For in-situ analyses, Pan et al. (2018) reported mean detrital-corrected ages of five analyses for each sample: 117.5 \(\pm\) 4.5 ka for YP002 and 115.0 \(\pm\) 5.4 ka for YP003.
 
 Here we solve the closed-system model for all samples by simply entering `YP' against \texttt{sample\ name} since all analyses in the table contain these two characters in their \texttt{Sample\_ID} column. \texttt{print\_age} is set to \texttt{FALSE} since we are solving for different samples and a mean age would have no significance.
@@ -729,7 +729,7 @@ Here we solve the closed-system model for all samples by simply entering `YP' ag
 \end{Highlighting}
 \end{Shaded}
 
-We obtain detrital-corrected ages of 123.1 +2.4/-2.3 ka and 128.3 +2.3/-2.2 ka for bulk analyses of YP002 and YP003, respectively. This is within error of values reported in Pan et al. (2018).
+We obtain detrital-corrected ages of 123.1 +2.4/-2.4 ka and 128.3 +2.3/-2.2 ka for bulk analyses of YP002 and YP003, respectively. This is within error of values reported in Pan et al. (2018).
 
 Solving in-situ analyses of YP002-1 is done by setting \texttt{sample\_name} to `YP002-1' and \texttt{print\_age} to \texttt{TRUE}:
 
@@ -756,7 +756,7 @@ Similarly, solving in-situ analyses for YP003-1 yields a mean detrital-corrected
 \hypertarget{open-system-dating---case-study-of-two-ages-from-sutikna-et-al.-2016}{%
 \subsection{Open-system dating - Case study of two ages from Sutikna et al.~2016}\label{open-system-dating---case-study-of-two-ages-from-sutikna-et-al.-2016}}
 
-The package includes two sample datasets derived from Sutikna et al. (2016): ``Hobbit\_MH2T\_for\_iDAD.csv'' is the dataset for transect 2 from modern human femur 132A/LB/27D/03 (shown above in Table \ref{tab:hobbitone}). ``Hobbit\_1-1T\_for\_iDAD.csv'' is the dataset for transect 1 from \emph{Homo floresiensis} ulna LB1/52 (Table \ref{tab:table-human}). For the latter, six analyses were removed from the set as in Sutikna et al. (2016).
+The package includes two sample datasets derived from Sutikna et al. (2016): ``Hobbit\_MH2T\_for\_iDAD.csv'' is the dataset for transect 2 from modern human femur 132A/LB/27D/03 (shown above in Table @ref(tab:hobbitone)). ``Hobbit\_1-1T\_for\_iDAD.csv'' is the dataset for transect 1 from \emph{Homo floresiensis} ulna LB1/52 (Table @ref(tab:table-human)). For the latter, six analyses were removed from the set as in Sutikna et al. (2016).
 
 \begin{table}[ht]
 \centering
@@ -782,23 +782,23 @@ The package includes two sample datasets derived from Sutikna et al. (2016): ``H
 
 For transect 2 of 132A/LB/27D/03, Sutikna et al. (2016) reported an age of 7.4 \(\pm\) 0.5 ka (thousand years before 2014). With osUTh, we first run the model with \texttt{nbit} = 1, \texttt{fsum\_target} = 0.05, \texttt{U48\_0\_min} and \texttt{U48\_0\_max} = 1.25 and 1.3, respectively, \texttt{U\_0} = 25 ppm, \texttt{K\_min} and \texttt{K\_max} = 10\textsuperscript{-13} and 10\textsuperscript{-11} cm\textsuperscript{2}/s, respectively, \texttt{T\_min} and \texttt{T\_max} = 10\textsuperscript{3} and 500x10\textsuperscript{3} yr, respectively. \texttt{U48\_0\_min} and \texttt{U48\_0\_max} are determined by considering the measured (\textsuperscript{234}U/\textsuperscript{238}U) values near the surfaces of the sample. \texttt{T\_min} and \texttt{T\_max} values were chosen such that no a priori knowledge of the age biases the results.
 
-With this first run, we obtain an age of 10.6 ka. There is no calculated error on the age since there is only one iteration. In this case, we can see that the calculated (\textsuperscript{234}U/\textsuperscript{238}U) and (\textsuperscript{230}Th/\textsuperscript{238}U) ratios are not fitting well observed ratios (Figure \ref{fig:plot-panel-first-run-modern-fig}). For the (\textsuperscript{234}U/\textsuperscript{238}U), since the age obtained is young, it is likely that the (\textsuperscript{234}U/\textsuperscript{238}U) at the surface is similar to observed values so \texttt{U48\_0\_min} and \texttt{U48\_0\_max} should be adjusted accordingly to the range of observed (\textsuperscript{234}U/\textsuperscript{238}U) values. If calculated (\textsuperscript{230}Th/\textsuperscript{238}U) ratios are too high compared to observed values, this suggests that the calculated age is too old (since this ratio increases with age); and conversely if calculated (\textsuperscript{230}Th/\textsuperscript{238}U) ratios are too low, the calculated age is too young.
+With this first run, we obtain an age of 4.1 ka. There is no calculated error on the age since there is only one iteration. In this case, we can see that the calculated (\textsuperscript{234}U/\textsuperscript{238}U) and (\textsuperscript{230}Th/\textsuperscript{238}U) ratios are not fitting well observed ratios (Figure @ref(fig:plot-panel-first-run-modern-fig)). For the (\textsuperscript{234}U/\textsuperscript{238}U), since the age obtained is young, it is likely that the (\textsuperscript{234}U/\textsuperscript{238}U) at the surface is similar to observed values so \texttt{U48\_0\_min} and \texttt{U48\_0\_max} should be adjusted accordingly to the range of observed (\textsuperscript{234}U/\textsuperscript{238}U) values. If calculated (\textsuperscript{230}Th/\textsuperscript{238}U) ratios are too high compared to observed values, this suggests that the calculated age is too old (since this ratio increases with age); and conversely if calculated (\textsuperscript{230}Th/\textsuperscript{238}U) ratios are too low, the calculated age is too young.
 
-
+(ref:plot-panel-first-run-modern-cap) Results from the model's first run for the modern human femur. A: Measured (blue) and modelled (red) (\textsuperscript{234}U/\textsuperscript{238}U) activity ratios for transect 2 of modern human femur 132A/LB/27D/03. B: Measured (blue) and modelled (red) (\textsuperscript{230}Th/\textsuperscript{238}U) activity ratios for transect 2 of modern human femur 132A/LB/27D/03.
 
 \begin{figure}
-\includegraphics[width=0.95\linewidth]{figures/plot-panel-first-run-modern} \caption{Results from the model's first run for the modern human femur. A: Measured (blue) and modelled (red) (\textsuperscript{234}U/\textsuperscript{238}U) activity ratios for transect 2 of modern human femur 132A/LB/27D/03. B: Measured (blue) and modelled (red) (\textsuperscript{230}Th/\textsuperscript{238}U) activity ratios for transect 2 of modern human femur 132A/LB/27D/03.}\label{fig:plot-panel-first-run-modern-fig}
+\includegraphics[width=0.95\linewidth]{figures/plot-panel-first-run-modern} \caption{(ref:plot-panel-first-run-modern-cap)}(\#fig:plot-panel-first-run-modern-fig)
 \end{figure}
 
 \FloatBarrier
 
 The model is then run a second time, adjusting \texttt{U48\_0\_min}, \texttt{U48\_0\_max}, \texttt{T\_min} and \texttt{T\_max} parameters. In this case, as explained above, \texttt{U48\_0\_min} and \texttt{U48\_0\_max} are changed to cover the range of observed values (1.265 and 1.270, respectively). \texttt{T\_min} is kept at 1 ka but \texttt{T\_max} set to cover a narrower range: since the calculated age in the first run was \textless10 ka, there is no point setting \texttt{T\_max} to 500 ka as in the first run, so it is set to 10 ka. \texttt{fsum\_target} can also be decreased to 0.01 in order to get a better fit and error, but it is at the expense of computing time. Here, in the second run, we have adjusted \texttt{fsum\_target} to 0.01.
-Adjusting parameters and re-running the model is repeated until a satisfying fit is obtained (by visual inspection of the figures). Once this is achieved, the model is run once more, increasing the number of iterations to 10,000 (or more). Results shown in Figure \ref{fig:plot-panel-second-run-modern-fig} were generated running the model only twice in total (with the parameters above and \texttt{nbit} set to 10,000, for the second run). We obtained an age of 7 +1.3/-1.3 ka, within error of the age reported by Sutikna et al. (2016).
+Adjusting parameters and re-running the model is repeated until a satisfying fit is obtained (by visual inspection of the figures). Once this is achieved, the model is run once more, increasing the number of iterations to 10,000 (or more). Results shown in Figure @ref(fig:plot-panel-second-run-modern-fig) were generated running the model only twice in total (with the parameters above and \texttt{nbit} set to 10,000, for the second run). We obtained an age of 7 +1.3/-1.2 ka, within error of the age reported by Sutikna et al. (2016).
 
-
+(ref:plot-panel-second-run-modern-cap) Results from the model's second run for the modern human femur. A: Measured (blue) and modelled (red) (\textsuperscript{234}U/\textsuperscript{238}U) activity ratios for transect 2 of modern human femur 132A/LB/27D/03. B: Measured (blue) and modelled (red) (\textsuperscript{230}Th/\textsuperscript{238}U) activity ratios for transect 2 of modern human femur 132A/LB/27D/03.
 
 \begin{figure}
-\includegraphics[width=1\linewidth]{figures/plot-panel-second-run-modern} \caption{Results from the model's second run for the modern human femur. A: Measured (blue) and modelled (red) (\textsuperscript{234}U/\textsuperscript{238}U) activity ratios for transect 2 of modern human femur 132A/LB/27D/03. B: Measured (blue) and modelled (red) (\textsuperscript{230}Th/\textsuperscript{238}U) activity ratios for transect 2 of modern human femur 132A/LB/27D/03.}\label{fig:plot-panel-second-run-modern-fig}
+\includegraphics[width=1\linewidth]{figures/plot-panel-second-run-modern} \caption{(ref:plot-panel-second-run-modern-cap)}(\#fig:plot-panel-second-run-modern-fig)
 \end{figure}
 
 \FloatBarrier
@@ -806,14 +806,14 @@ Adjusting parameters and re-running the model is repeated until a satisfying fit
 \hypertarget{age-of-the-homo-floresiensis-remains-from-sutikna-et-al.-2016}{%
 \subsubsection{\texorpdfstring{Age of the \emph{Homo floresiensis} remains from Sutikna et al.~2016}{Age of the Homo floresiensis remains from Sutikna et al.~2016}}\label{age-of-the-homo-floresiensis-remains-from-sutikna-et-al.-2016}}
 
-For transect 1 of LB1/52, Sutikna et al. (2016) reported an age of 79.0 \(\pm\) 3.7 ka. With osUTh, using data in the file \texttt{Hobbit\_1-1T\_for\_iDAD.csv} provided in the package, we first run the model with \texttt{nbit} = 1, \texttt{fsum\_target} = 0.05, \texttt{U\_0} = 35 ppm, \texttt{U48\_0\_min} = 1.3, \texttt{U48\_0\_max} = 1.4, \texttt{K\_min} and \texttt{K\_max} = 10\textsuperscript{-13} and 10\textsuperscript{-11} cm\textsuperscript{2}/s, respectively, \texttt{T\_min} and \texttt{T\_max} = 10\textsuperscript{3} and 500x10\textsuperscript{3} yr, respectively. Results from this first run were used to adjust \texttt{U48\_0\_min}, \texttt{U48\_0\_max}, \texttt{T\_min} and \texttt{T\_max}, and the model was run again with \texttt{nbit} = 10000, \texttt{fsum\_target} = 0.01, \texttt{U48\_0\_min} = 1.360, \texttt{U48\_0\_max} = 1.375, \texttt{T\_min} and \texttt{T\_max} = 50x10\textsuperscript{3} and 100x10\textsuperscript{3} yr, respectively. We obtained an age of 75.3 +2/-2 ka (Figure \ref{fig:plot-panel-hobbit-fig}). Note that results and errors vary slightly for each run since populations of solution sets are randomly generated.
+For transect 1 of LB1/52, Sutikna et al. (2016) reported an age of 79.0 \(\pm\) 3.7 ka. With osUTh, using data in the file \texttt{Hobbit\_1-1T\_for\_iDAD.csv} provided in the package, we first run the model with \texttt{nbit} = 1, \texttt{fsum\_target} = 0.05, \texttt{U\_0} = 35 ppm, \texttt{U48\_0\_min} = 1.3, \texttt{U48\_0\_max} = 1.4, \texttt{K\_min} and \texttt{K\_max} = 10\textsuperscript{-13} and 10\textsuperscript{-11} cm\textsuperscript{2}/s, respectively, \texttt{T\_min} and \texttt{T\_max} = 10\textsuperscript{3} and 500x10\textsuperscript{3} yr, respectively. Results from this first run were used to adjust \texttt{U48\_0\_min}, \texttt{U48\_0\_max}, \texttt{T\_min} and \texttt{T\_max}, and the model was run again with \texttt{nbit} = 10000, \texttt{fsum\_target} = 0.01, \texttt{U48\_0\_min} = 1.360, \texttt{U48\_0\_max} = 1.375, \texttt{T\_min} and \texttt{T\_max} = 50x10\textsuperscript{3} and 100x10\textsuperscript{3} yr, respectively. We obtained an age of 75.3 +2/-1.9 ka (Figure @ref(fig:plot-panel-hobbit-fig)). Note that results and errors vary slightly for each run since populations of solution sets are randomly generated.
 
 \newpage
 
-
+(ref:plot-panel-hobbit-cap) Results from running the model with \emph{Homo floresiensis} ulna LB1/52 data from Sutikna et al. (2016). A: Histogram of the solution ages, B: Uranium concentration profile for transect 1 of \emph{Homo floresiensis} ulna LB1/52. C: Measured (blue) and modelled (red) (\textsuperscript{234}U/\textsuperscript{238}U) activity ratios for transect 1 of \emph{Homo floresiensis} ulna LB1/52. D: Measured (blue) and modelled (red) (\textsuperscript{230}Th/\textsuperscript{238}U) activity ratios for transect 1 of \emph{Homo floresiensis} ulna LB1/52.
 
 \begin{figure}
-\includegraphics[width=0.95\linewidth]{figures/plot-panel-hobbit} \caption{Results from running the model with \emph{Homo floresiensis} ulna LB1/52 data from Sutikna et al. (2016). A: Histogram of the solution ages, B: Uranium concentration profile for transect 1 of \emph{Homo floresiensis} ulna LB1/52. C: Measured (blue) and modelled (red) (\textsuperscript{234}U/\textsuperscript{238}U) activity ratios for transect 1 of \emph{Homo floresiensis} ulna LB1/52. D: Measured (blue) and modelled (red) (\textsuperscript{230}Th/\textsuperscript{238}U) activity ratios for transect 1 of \emph{Homo floresiensis} ulna LB1/52.}\label{fig:plot-panel-hobbit-fig}
+\includegraphics[width=0.95\linewidth]{figures/plot-panel-hobbit} \caption{(ref:plot-panel-hobbit-cap)}(\#fig:plot-panel-hobbit-fig)
 \end{figure}
 
 \FloatBarrier
