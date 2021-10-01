@@ -6,7 +6,7 @@ citEntry(entry = "Article",
          title = "UThwigl: An R package for closed- and open-system uranium-thorium dating", 
          journal = "Quaternary Geochronology", year = 2021, 
          volume = 0, pages = "000--000", 
-         url = "http://doi.org/10.17605/OSF.IO/D5P7S", 
+         url = "https://doi.org/10.1016/j.quageo.2021.101235", 
          textVersion = paste("Dosseto, A. and B. Marwick, (2021)", 
                              "UThwigl: An R package for closed- and open-system uranium-thorium dating", 
                              "Quaternary Geochronology 0:000--000"))

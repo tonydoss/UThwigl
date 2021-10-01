@@ -30,7 +30,7 @@ globalVariables(c("iDAD.position",
 
   Dosseto, A. and B. Marwick, (2021) UThwigl: An R package
   for closed- and open-system uranium-thorium dating Quaternary
-  Geochronology 0:000--000, http://doi.org/10.17605/OSF.IO/D5P7S
+  Geochronology 0:000--000, https://doi.org/10.1016/j.quageo.2021.101235
 
 A BibTeX entry for LaTeX users can be obtained with
 'bibentry('UThwigl')'.
