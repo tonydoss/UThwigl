@@ -762,7 +762,7 @@ csUTh <- function(input_data,
   
   # repeat loop for each sample
   for (count in 1:number_sampletosolve){
-    if (detcorrection == 'Y'){
+    if (detcorrection == TRUE){
       U48meas <- data$U234_U238_DET[count]
       Th0U8meas <- data$Th230_U238_DET[count]
       err_R08 <- data$Th230_U238_DET_ERR[count]
